@@ -11,3 +11,7 @@ wheels/
 
 # IDE.
 .idea
+
+# Local dev.
+TODO.txt
+**/outputs/*
