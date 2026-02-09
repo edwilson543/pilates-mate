@@ -7,4 +7,3 @@ def test_render():
     rendered = c.render()
 
     print(rendered)
-

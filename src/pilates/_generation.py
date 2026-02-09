@@ -1,10 +1,8 @@
-import uuid
 import pathlib
-from idlelib.browser import file_open
+import uuid
 
 import jinja2
 import pydantic
-
 
 from . import _client, _prompts
 
@@ -17,7 +15,8 @@ class PilatesClass(pydantic.BaseModel):
     def render(self) -> str:
         current_dir = pathlib.Path(__file__).parent
         env = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(current_dir), autoescape=jinja2.select_autoescape()
+            loader=jinja2.FileSystemLoader(current_dir),
+            autoescape=jinja2.select_autoescape(),
         )
         template = env.get_template("outputs.jinja")
         return template.render(pilates_class=self)

@@ -12,4 +12,3 @@ async def async_main() -> None:
 def main() -> None:
     """Synchronous entry point for the CLI script."""
     asyncio.run(async_main())
-
