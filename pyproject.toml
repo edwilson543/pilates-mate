@@ -2,6 +2,12 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.packages.find]
+where = ["src"]
+
+[tool.hatch.dynamic]
+version = { attr = "pilates.version.__version__" }
+
 [project]
 name = "pilates"
 version = "0.1.0"
@@ -22,20 +28,15 @@ dev = [
     "ruff>=0.14.3",
 ]
 
+# ----------
+# Scripts.
+# ----------
 
-
-[tool.hatch.packages.find]
-where = ["src"]
-
-[tool.hatch.dynamic]
-version = { attr = "pilates.version.__version__" }
-
-
-
-
+[project.scripts]
+pilates = "pilates.main:main"
 
 # ----------
-# Tooling
+# Tooling.
 # ----------
 
 [tool.pytest.ini_options]
@@ -57,11 +58,12 @@ root_package = "pilates"
 name = "Top level layers"
 type = "layers"
 containers = "pilates"
-# TODO -> setup.
 layers = [
     "main",
+    "application",
+    "domain",
 ]
-exhaustive = false
+exhaustive = true
 
 [tool.ruff]
 

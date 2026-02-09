@@ -1,8 +1,10 @@
-from pilates import _generation
+from pilates.application import generate_plan
 
 
 def test_render():
-    c = _generation.PilatesClass(warm_up="Warm", main_session="Main", cool_down="Cool")
+    c = generate_plan.PilatesClass(
+        warm_up="Warm", main_session="Main", cool_down="Cool"
+    )
 
     rendered = c.render()
 
