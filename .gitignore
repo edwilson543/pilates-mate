@@ -15,3 +15,6 @@ wheels/
 # Local dev.
 TODO.txt
 **/output-plans/*
+
+# Claude
+.claude
