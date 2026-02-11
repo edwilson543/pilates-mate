@@ -10,6 +10,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // hey-api auto-generated client:
+    "src/lib/apiClient/**",
+    // Shadcn auto-generated components:
+    "src/components/ui/**",
   ]),
 ]);
 
