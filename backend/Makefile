@@ -5,6 +5,11 @@ install:
 	uv sync --locked
 	uv pip install -e .
 
+# Application.
+.PHONY:api
+api:
+	uv run uvicorn pilates.interfaces.api.app:app --port=8000
+
 # Static analysis.
 
 local_ci: test lint
