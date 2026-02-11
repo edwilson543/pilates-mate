@@ -1,28 +1,19 @@
-import typing
-
 import openai
-import pydantic
+
+from . import _base
 
 
-OutputT = typing.TypeVar("OutputT", bound=pydantic.BaseModel)
-
-
-class UnableToGetCompletion(Exception):
-    pass
-
-
-MODEL = "gpt-5-mini"
-# MODEL = "gpt-4o-mini"
-
-
-class OpenAICompletionClient:
-    def __init__(self, model: str = MODEL):
+class OpenAICompletionClient(_base.CompletionClient):
+    def __init__(self, model: str):
         self._client = openai.AsyncClient()
         self._model = model
 
     async def get_completion(
-        self, system_prompt: str, user_prompt: str, output_format: type[OutputT]
-    ) -> OutputT:
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        output_format: type[_base.OutputT],
+    ) -> _base.OutputT:
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
@@ -34,9 +25,9 @@ class OpenAICompletionClient:
                 text_format=output_format,
             )
         except openai.APIError as exc:
-            raise UnableToGetCompletion from exc
+            raise _base.UnableToGetCompletion from exc
 
         if not (outputs := response.output_parsed):
-            raise UnableToGetCompletion("API did not return any outputs.")
+            raise _base.UnableToGetCompletion("API did not return any outputs.")
 
         return outputs

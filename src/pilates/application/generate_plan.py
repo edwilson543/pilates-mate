@@ -20,9 +20,8 @@ class PilatesClass(pydantic.BaseModel):
 
 
 async def get_pilates_plan(
-    *, user_prompt: str, client: vendors.OpenAICompletionClient | None = None
+    *, user_prompt: str, client: vendors.CompletionClient
 ) -> str:
-    client = client or vendors.OpenAICompletionClient()
     system_prompt = templates.render_system_prompt()
 
     pilates_class = await client.get_completion(
