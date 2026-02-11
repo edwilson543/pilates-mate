@@ -1,7 +1,101 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.packages.find]
+where = ["src"]
+
+[tool.hatch.dynamic]
+version = { attr = "pilates.version.__version__" }
+
 [project]
 name = "pilates"
 version = "0.1.0"
-description = "Add your description here"
+description = "Project for generating pilates lesson plans."
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+
+dependencies = [
+    "fastapi[standard]>=0.128.6",
+    "jinja2>=3.1.6",
+    "openai>=2.17.0",
+]
+
+[dependency-groups]
+dev = [
+    "import-linter>=2.5.2",
+    "mypy>=1.18.2",
+    "pytest>=9.0.2",
+    "ruff>=0.14.3",
+]
+
+# ----------
+# Scripts.
+# ----------
+
+[project.scripts]
+pilates = "pilates.main:main"
+
+# ----------
+# Tooling.
+# ----------
+
+[tool.pytest.ini_options]
+pythonpath = "./src/pilates"
+
+[tool.mypy]
+ignore_missing_imports = true
+exclude = [".venv"]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+allow_untyped_defs = true
+
+
+[tool.importlinter]
+root_package = "pilates"
+
+[[tool.importlinter.contracts]]
+name = "Top level layers"
+type = "layers"
+containers = "pilates"
+layers = [
+    "main",
+    "config",
+    "application",
+    "data",
+    "domain",
+]
+exhaustive = true
+
+[tool.ruff]
+
+line-length = 88
+indent-width = 4
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint]
+
+select = [
+    "E", # pycodestyle
+    "F", # pyflakes
+    "I", # isort
+]
+
+ignore = [
+    "E501", # Line too long
+]
+
+[tool.ruff.lint.isort]
+# Sections
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+known-first-party = ["pilates", "tests"]
+lines-after-imports = 2
+
+[tool.ruff.lint.per-file-ignores]
+"*__init__.py" = ["F401"]  # Allow 'unused' imports in __init__.py files.
