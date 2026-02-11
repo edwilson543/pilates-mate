@@ -3,6 +3,8 @@ import typing
 import fastapi
 import pydantic
 
+from pilates import config
+from pilates.application import generate_plan as generate_plan_use_case
 from pilates.domain import lesson_planning
 
 
@@ -11,42 +13,79 @@ lesson_plan_router = fastapi.APIRouter()
 
 
 class CreateExerciseRequest(pydantic.BaseModel):
-    pass
+    name: str
+    description: str
+    difficulty: lesson_planning.Difficulty
+    primary_muscle_group: lesson_planning.MuscleGroup
+    starting_position: lesson_planning.StartingPosition
 
 
 class CreateExerciseResponse(pydantic.BaseModel):
-    pass
+    id: int
 
 
-@exercise_router.post("/")
+@exercise_router.post("/", status_code=201)
 def create_exercise(
-    request: typing.Annotated[
-        CreateExerciseRequest, fastapi.Body(CreateExerciseRequest)
-    ],
+    request: typing.Annotated[CreateExerciseRequest, fastapi.Body()],
 ) -> CreateExerciseResponse:
-    pass
+    repository = config.get_lesson_planning_repository()
+    exercise_id = repository.create_exercise(
+        name=request.name,
+        description=request.description,
+        difficulty=request.difficulty,
+        primary_muscle_group=request.primary_muscle_group,
+        starting_position=request.starting_position,
+    )
+    return CreateExerciseResponse(id=exercise_id)
 
 
 @exercise_router.get("/")
 def get_exercises() -> list[lesson_planning.Exercise]:
-    pass
+    repository = config.get_lesson_planning_repository()
+    return repository.get_exercises()
+
+
+@exercise_router.get("/{exercise_id}")
+def get_exercise(exercise_id: int) -> lesson_planning.Exercise:
+    repository = config.get_lesson_planning_repository()
+    try:
+        return repository.get_exercise(exercise_id)
+    except lesson_planning.ExerciseDoesNotExist:
+        raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
 
 
 class GenerateLessonPlanRequest(pydantic.BaseModel):
-    pass
+    user_prompt: str
 
 
 class GenerateLessonPlanResponse(pydantic.BaseModel):
-    pass
+    lesson_plan: lesson_planning.LessonPlan
 
 
-@lesson_plan_router.post("/")
-def generate_lesson_plan(
+@lesson_plan_router.post("/", status_code=201)
+async def generate_lesson_plan(
     request: typing.Annotated[GenerateLessonPlanRequest, fastapi.Body()],
 ) -> GenerateLessonPlanResponse:
-    pass
+    client = config.get_completion_client()
+    repository = config.get_lesson_planning_repository()
+    lesson_plan = await generate_plan_use_case.generate_lesson_plan(
+        user_prompt=request.user_prompt,
+        client=client,
+        repository=repository,
+    )
+    return GenerateLessonPlanResponse(lesson_plan=lesson_plan)
 
 
-@lesson_plan_router.post("/")
+@lesson_plan_router.get("/")
 def get_lesson_plans() -> list[lesson_planning.LessonPlan]:
-    pass
+    repository = config.get_lesson_planning_repository()
+    return repository.get_lesson_plans()
+
+
+@lesson_plan_router.get("/{lesson_plan_id}")
+def get_lesson_plan(lesson_plan_id: int) -> lesson_planning.LessonPlan:
+    repository = config.get_lesson_planning_repository()
+    try:
+        return repository.get_lesson_plan(lesson_plan_id)
+    except lesson_planning.LessonPlanDoesNotExist:
+        raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")

@@ -1,6 +1,18 @@
 import abc
 
+import attrs
+
 from . import _models
+
+
+@attrs.frozen
+class ExerciseDoesNotExist(Exception):
+    exercise_id: int
+
+
+@attrs.frozen
+class LessonPlanDoesNotExist(Exception):
+    lesson_plan_id: int
 
 
 class Repository(abc.ABC):
@@ -15,11 +27,15 @@ class Repository(abc.ABC):
         difficulty: _models.Difficulty,
         primary_muscle_group: _models.MuscleGroup,
         starting_position: _models.StartingPosition,
-    ) -> list[_models.Exercise]:
+    ) -> int:
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_exercises(self) -> list[_models.Exercise]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_exercise(self, exercise_id: int) -> _models.Exercise:
         raise NotImplementedError
 
     # Lesson plans.
@@ -33,9 +49,13 @@ class Repository(abc.ABC):
         warm_up: list[_models.ExerciseSequence],
         main_session: list[_models.ExerciseSequence],
         cool_down: list[_models.ExerciseSequence],
-    ) -> list[_models.LessonPlan]:
+    ) -> int:
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_lesson_plans(self) -> list[_models.LessonPlan]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_lesson_plan(self, lesson_plan_id: int) -> _models.LessonPlan:
         raise NotImplementedError

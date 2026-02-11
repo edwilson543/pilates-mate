@@ -12,3 +12,8 @@ The "Flows" section includes examples (not an exhaustive list) of how the class 
 
 # Flows
 {% include 'flows.jinja' %}
+
+# Previous lesson plans
+{% for example in example_lesson_plans %}
+{% include 'example.jinja' %}
+{% endfor %}

@@ -1,15 +1,28 @@
-# Previous lesson plans
+import attrs
 
-## 24/01
-### Warm up
-From sitting:
+from pilates.domain import lesson_planning
+
+
+@attrs.frozen()
+class TextLessonPlan:
+    name: str
+    description: str
+    warm_up: str
+    main_session: str
+    cool_down: str
+
+
+def get_text_example_lesson_plans() -> list[TextLessonPlan]:
+    return [
+        TextLessonPlan(
+            name="24/01 - Core & Glutes Focus",
+            description="Balanced session focusing on core stability and glute activation",
+            warm_up="""From sitting:
 - x3 deep breaths
 - x5 Pilates breaths
 - x2 each side neck rolls
-- x2 each side lateral bends
-
-### Main session
-#### Lying on back core (10 mins)
+- x2 each side lateral bends""",
+            main_session="""#### Lying on back core (10 mins)
 - x3 pelvic tilts
 - x3 super slow glute bridge
 - Core series, repeat x3 - hug knees to chest in between each:
@@ -75,31 +88,27 @@ From sitting:
 #### Lying on back core (2 mins)
 - x10 each side crunch and twist
 - x10 slow bicycle crunch
-- x10 quick bicycle crunch
-
-### Cool down
-Lying on back (2 mins)
+- x10 quick bicycle crunch""",
+            cool_down="""Lying on back (2 mins)
 - Lumbar twist
 - Figure of 4 stretch
 - Roll up to seated
 
 Sitting (1 min)
-- x3 inhale extend arms above, exhale draw arms down
-
-
-## 28/01
-### Warm up
-Standing prep (6 mins)
+- x3 inhale extend arms above, exhale draw arms down""",
+        ),
+        TextLessonPlan(
+            name="28/01 - Dynamic Flow",
+            description="Dynamic session alternating between lying, standing, and plank work",
+            warm_up="""Standing prep (6 mins)
 - x3 deep breaths
 - x4 Pilates breaths
 - x3 shoulder rolls
 - x2 each side neck rolls
 - x2 each side spine twists
 - Forward fold
-- x3 repeat: plank > sit back on heels > downward dog > back to plank
-
-### Main session
-#### Lying on back glutes & core (5 mins)
+- x3 repeat: plank > sit back on heels > downward dog > back to plank""",
+            main_session="""#### Lying on back glutes & core (5 mins)
 - x10 glute bridge walks
 - x10 crunches
 - x5 each side, hold single leg glute bridge and lift lower opposite leg
@@ -179,14 +188,77 @@ Standing prep (6 mins)
 #### Lying on back core (2 mins)
 - x10 each side crunch and twist
 - x10 slow bicycle crunch
-- x10 quick bicycle crunch
-
-### Cool down
-Lying on back close (2 mins)
+- x10 quick bicycle crunch""",
+            cool_down="""Lying on back (2 mins)
 - Frog legs x3 deep breaths
 - Lumbar twist
 - Figure of 4 stretch
 - Roll up to seated
 
-Sitting close (1 min)
-- x3 inhale extend arms above, exhale draw arms down
+Sitting (1 min)
+- x3 inhale extend arms above, exhale draw arms down""",
+        ),
+    ]
+
+
+def get_example_lesson_plans() -> list[lesson_planning.LessonPlan]:
+    hundred_exercise = lesson_planning.Exercise(
+        id=1,
+        name="Hundred",
+        description="Classic Pilates breathing exercise",
+        difficulty=lesson_planning.Difficulty.BEGINNER,
+        primary_muscle_group=lesson_planning.MuscleGroup.CORE,
+        starting_position=lesson_planning.StartingPosition.SUPINE,
+    )
+    glute_bridge_exercise = lesson_planning.Exercise(
+        id=2,
+        name="Glute Bridge",
+        description="Hip extension exercise",
+        difficulty=lesson_planning.Difficulty.BEGINNER,
+        primary_muscle_group=lesson_planning.MuscleGroup.GLUTES,
+        starting_position=lesson_planning.StartingPosition.SUPINE,
+    )
+
+    return [
+        lesson_planning.LessonPlan(
+            id=1,
+            name="Beginner Flow",
+            description="A gentle introduction to Pilates",
+            warm_up=[
+                lesson_planning.ExerciseSequence(
+                    sets=[
+                        lesson_planning.ExerciseSet(
+                            exercise=hundred_exercise,
+                            reps=10,
+                            duration_seconds=60,
+                        )
+                    ],
+                    notes="Focus on breathing and engaging the core",
+                )
+            ],
+            main_session=[
+                lesson_planning.ExerciseSequence(
+                    sets=[
+                        lesson_planning.ExerciseSet(
+                            exercise=glute_bridge_exercise,
+                            reps=15,
+                            duration_seconds=90,
+                        )
+                    ],
+                    notes="Keep shoulders relaxed and press through heels",
+                )
+            ],
+            cool_down=[
+                lesson_planning.ExerciseSequence(
+                    sets=[
+                        lesson_planning.ExerciseSet(
+                            exercise=hundred_exercise,
+                            reps=5,
+                            duration_seconds=30,
+                        )
+                    ],
+                    notes="Slow breathing to cool down",
+                )
+            ],
+        )
+    ]
