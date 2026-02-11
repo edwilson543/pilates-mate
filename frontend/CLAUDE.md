@@ -3,7 +3,8 @@
 The frontend is mainly implemented within `./src` and consists of the follow layers:
 
 - `./app`
-  - This is the entrypoint into the application
+  - Contains the entrypoint into the application, `page.tsx`
+  - Each page is implemented as a subdirectory, e.g. `./app/exercises`
 - `./pages`
   - This package contains the pages within the application
   - Each page should have its own component
@@ -11,13 +12,15 @@ The frontend is mainly implemented within `./src` and consists of the follow lay
 - `./components`
   - This package contains reusable components
   - There are two types of component
-    - Components from the shadcn design system, at `./components/ui`
+    - Components from the shadcn design system, at `./components/ui`. You are NOT allowed to edit these
     - Custom-built components, reused across pages (for example the sidebar), at `./components/custom`
   - In general, you should prefer using prebuilt shadcn components instead of custom components
 - `./hooks`
   - Contains hooks that can be re-used by components, for example queries for fetching data from the API
+  - Hooks and their files should be named using camelCase
 - `./lib`
   - This contains lower-level library code which can be composed by hooks
+  - You are NOT allowed to edit `./lib/apiClient`, which is auto-generated
 
 # Design
 
