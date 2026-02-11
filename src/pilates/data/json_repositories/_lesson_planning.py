@@ -1,11 +1,15 @@
 import json
 import pathlib
 
+import attrs
+
 from pilates.domain import lesson_planning
-from pilates.domain.lesson_planning import _models
 
 
+@attrs.frozen
 class JSONRepository(lesson_planning.Repository):
+    database_file: pathlib.Path = pathlib.Path(__file__).parent / "database.json"
+
     def create_exercise(
         self,
         *,
@@ -14,13 +18,29 @@ class JSONRepository(lesson_planning.Repository):
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
-    ) -> list[lesson_planning.Exercise]:
-        self._init_database()
-        # TODO
+    ) -> int:
+        data = self._read_database()
+
+        next_id = max((exercise["id"] for exercise in data["exercises"]), default=0) + 1
+        new_exercise = lesson_planning.Exercise(
+            id=next_id,
+            name=name,
+            description=description,
+            difficulty=difficulty,
+            primary_muscle_group=primary_muscle_group,
+            starting_position=starting_position,
+        )
+        data["exercises"].append(new_exercise.model_dump())
+
+        self._write_database(data)
+        return next_id
 
     def get_exercises(self) -> list[lesson_planning.Exercise]:
-        # TODO
-        pass
+        data = self._read_database()
+        return [
+            lesson_planning.Exercise.model_validate(exercise)
+            for exercise in data["exercises"]
+        ]
 
     def create_lesson_plan(
         self,
@@ -30,13 +50,31 @@ class JSONRepository(lesson_planning.Repository):
         warm_up: list[lesson_planning.ExerciseSequence],
         main_session: list[lesson_planning.ExerciseSequence],
         cool_down: list[lesson_planning.ExerciseSequence],
-    ) -> list[lesson_planning.LessonPlan]:
-        self._init_database()
-        # TODO
+    ) -> int:
+        data = self._read_database()
 
-    def get_lesson_plans(self) -> list[_models.LessonPlan]:
-        # TODO
-        pass
+        next_id = max((plan["id"] for plan in data["lesson_plans"]), default=0) + 1
+
+        new_lesson_plan = lesson_planning.LessonPlan(
+            id=next_id,
+            name=name,
+            description=description,
+            warm_up=warm_up,
+            main_session=main_session,
+            cool_down=cool_down,
+        )
+        data["lesson_plans"].append(new_lesson_plan.model_dump())
+
+        self._write_database(data)
+
+        return next_id
+
+    def get_lesson_plans(self) -> list[lesson_planning.LessonPlan]:
+        data = self._read_database()
+        return [
+            lesson_planning.LessonPlan.model_validate(plan)
+            for plan in data["lesson_plans"]
+        ]
 
     # Helpers.
 
@@ -44,14 +82,10 @@ class JSONRepository(lesson_planning.Repository):
         if self.database_file.is_file():
             return None
 
-        data = {
+        data: dict[str, list] = {
             "lesson_plans": [],
             "exercises": [],
         }
 
         with open(self.database_file, "x") as f:
             json.dump(data, f)
-
-    @property
-    def database_file(self) -> pathlib.Path:
-        return pathlib.Path(__file__).parent / "database.json"
