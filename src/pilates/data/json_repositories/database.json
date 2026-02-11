@@ -1,0 +1,13 @@
+{
+  "lesson_plans": [],
+  "exercises": [
+    {
+      "id": 1,
+      "name": "Squats",
+      "description": "Move up and down",
+      "difficulty": "INTERMEDIATE",
+      "primary_muscle_group": "GLUTES",
+      "starting_position": "STANDING"
+    }
+  ]
+}

@@ -7,4 +7,8 @@ from ._models import (
     MuscleGroup,
     StartingPosition,
 )
-from ._repository import Repository
+from ._repository import (
+    ExerciseDoesNotExist,
+    LessonPlanDoesNotExist,
+    Repository,
+)

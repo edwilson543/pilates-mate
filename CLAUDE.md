@@ -33,6 +33,11 @@ Tests are split into the following categories:
   - These should use the `api_client` to make requests to the test FastAPI app
   - These tests are not allowed to interact with application or domain code
 
+Test style:
+- To facilitate test setup, prefer using factories defined in `testing/helpers/*`, 
+rather than directly instantiating domain models. When instantiating factories, you
+should only specify the fields that are relevant to the test. 
+
 ## Linting
 After each commit, all linting checks should pass.
 Run the tests using `make lint`.
