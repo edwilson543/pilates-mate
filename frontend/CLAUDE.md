@@ -5,12 +5,9 @@ This is the TypeScript and Next.js frontend for the Pilates lesson planning appl
 The frontend is mainly implemented within `./src` and consists of the follow layers:
 
 - `./app`
-  - Contains the entrypoint into the application, `page.tsx`
-  - Each page is implemented as a subdirectory, e.g. `./app/exercises`
-- `./pages`
-  - This package contains the pages within the application
-  - Each page should have its own component
-  - Add new pages here
+  - Contains the App Router structure with routes and pages
+  - Each route is a subdirectory (e.g., `./app/exercises`)
+  - Routes become publicly accessible when they have a `page.tsx` file
 - `./components`
   - This package contains reusable components
   - There are two types of component
