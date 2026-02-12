@@ -2,8 +2,9 @@
   "lesson_plans": [
     {
       "id": 1,
-      "name": "24/01 - Balanced Glutes & Core Focus (45 min)",
+      "name": "Balanced Glutes & Core Focus (45 min)",
       "description": "45-minute class targeting glutes and core with side-lying work and plank variations. Flow: sitting prep → lying core → side lying glutes (both sides) → plank obliques → standing glutes → sitting core → lying core → cool down.",
+      "date": "2026-01-24",
       "warm_up": [
         {
           "sets": [
@@ -613,8 +614,9 @@
     },
     {
       "id": 2,
-      "name": "31/01 - Full Body Flow with Lunges (45 min)",
+      "name": "Full Body Flow with Lunges (45 min)",
       "description": "45-minute balanced flow alternating between standing lunges, all-fours glutes, side-lying and supine core. Flow: standing prep → lying glutes & core → side lying glutes (both sides) → all fours core & glutes (both sides) → standing lunges (both sides) → plank core → sitting core → lying core → cool down.",
+      "date": "2026-01-31",
       "warm_up": [
         {
           "sets": [
@@ -1464,8 +1466,9 @@
     },
     {
       "id": 3,
-      "name": "07/02 - All-Fours & Ball Work (45 min)",
+      "name": "All-Fours & Ball Work (45 min)",
       "description": "45-minute class emphasizing all-fours glute work with ball, kneeling obliques, and supine bridges. Flow: standing prep with table top → all fours core, glutes & arms with ball → kneeling core & glutes → lying glutes & core with ball → cool down.",
+      "date": "2026-02-07",
       "warm_up": [
         {
           "sets": [

@@ -1,4 +1,5 @@
 import abc
+import datetime as dt
 
 import attrs
 
@@ -46,6 +47,7 @@ class Repository(abc.ABC):
         *,
         name: str,
         description: str,
+        date: dt.date,
         warm_up: list[_models.ExerciseSequence],
         main_session: list[_models.ExerciseSequence],
         cool_down: list[_models.ExerciseSequence],

@@ -1,18 +1,16 @@
 from pilates.domain import templates
 
-from . import _repository
+from . import _models
 
 
 def render_system_prompt(
     *,
-    repository: _repository.Repository,
+    all_exercises: list[_models.Exercise],
+    example_lesson_plans: list[_models.LessonPlan],
 ) -> str:
-    exercises = repository.get_exercises()
-    lesson_plans = repository.get_lesson_plans()
-
     prompt_variables = {
-        "exercises": exercises,
-        "example_lesson_plans": lesson_plans,
+        "exercises": all_exercises,
+        "example_lesson_plans": example_lesson_plans,
     }
 
     return templates.render(

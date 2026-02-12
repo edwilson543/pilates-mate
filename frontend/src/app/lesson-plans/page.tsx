@@ -70,6 +70,13 @@ export default function LessonPlansPage() {
           >
             <CardHeader>
               <CardTitle>{plan.name}</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                {new Date(plan.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground line-clamp-3">

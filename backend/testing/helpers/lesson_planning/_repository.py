@@ -1,3 +1,5 @@
+import datetime as dt
+
 import attrs
 
 from pilates.domain import lesson_planning
@@ -45,6 +47,7 @@ class FakeRepository(lesson_planning.Repository):
         *,
         name: str,
         description: str,
+        date: dt.date,
         warm_up: list[lesson_planning.ExerciseSequence],
         main_session: list[lesson_planning.ExerciseSequence],
         cool_down: list[lesson_planning.ExerciseSequence],
@@ -55,6 +58,7 @@ class FakeRepository(lesson_planning.Repository):
             id=next_id,
             name=name,
             description=description,
+            date=date,
             warm_up=warm_up,
             main_session=main_session,
             cool_down=cool_down,

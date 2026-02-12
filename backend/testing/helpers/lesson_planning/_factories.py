@@ -1,3 +1,5 @@
+import datetime as dt
+
 import factory
 
 from pilates.domain import lesson_planning
@@ -41,6 +43,7 @@ class LessonPlan(factory.Factory):
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
     description = factory.Sequence(lambda n: f"description-{n}")
+    date = factory.Sequence(lambda n: dt.date(2026, 1, 1) + dt.timedelta(days=n))
     warm_up = factory.LazyFunction(lambda: [ExerciseSequence()])
     main_session = factory.LazyFunction(lambda: [ExerciseSequence()])
     cool_down = factory.LazyFunction(lambda: [ExerciseSequence()])

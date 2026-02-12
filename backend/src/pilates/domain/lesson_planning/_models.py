@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime as dt
 import enum
 
 import pydantic
@@ -56,6 +57,7 @@ class LessonPlan(pydantic.BaseModel):
     id: int
     name: str
     description: str
+    date: dt.date
     warm_up: list[ExerciseSequence]
     main_session: list[ExerciseSequence]
     cool_down: list[ExerciseSequence]

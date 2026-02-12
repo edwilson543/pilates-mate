@@ -1,3 +1,4 @@
+import datetime as dt
 import json
 import pathlib
 
@@ -53,6 +54,7 @@ class JSONRepository(lesson_planning.Repository):
         *,
         name: str,
         description: str,
+        date: dt.date,
         warm_up: list[lesson_planning.ExerciseSequence],
         main_session: list[lesson_planning.ExerciseSequence],
         cool_down: list[lesson_planning.ExerciseSequence],
@@ -65,11 +67,12 @@ class JSONRepository(lesson_planning.Repository):
             id=next_id,
             name=name,
             description=description,
+            date=date,
             warm_up=warm_up,
             main_session=main_session,
             cool_down=cool_down,
         )
-        data["lesson_plans"].append(new_lesson_plan.model_dump())
+        data["lesson_plans"].append(new_lesson_plan.model_dump(mode="json"))
 
         self._write_database(data)
 

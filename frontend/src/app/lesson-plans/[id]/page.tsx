@@ -61,10 +61,19 @@ export default function LessonPlanDetailPage({
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Lesson Plans
       </Button>
-      <PageHeader
-        title={lessonPlan.name}
-        description={lessonPlan.description}
-      />
+      <div>
+        <PageHeader
+          title={lessonPlan.name}
+          description={lessonPlan.description}
+        />
+        <p className="text-sm text-muted-foreground mb-6 -mt-2">
+          {new Date(lessonPlan.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
+      </div>
 
       <Accordion
         type="multiple"

@@ -1,3 +1,4 @@
+import datetime as dt
 import pathlib
 
 import pytest
@@ -92,6 +93,7 @@ class TestCreateLessonPlan:
         lesson_plan_id = repository.create_lesson_plan(
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
+            date=dt.date(2026, 1, 15),
             warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
             main_session=[],
             cool_down=[],
@@ -108,6 +110,7 @@ class TestGetLessonPlans:
         repository.create_lesson_plan(
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
+            date=dt.date(2026, 1, 15),
             warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
             main_session=[],
             cool_down=[],
@@ -115,6 +118,7 @@ class TestGetLessonPlans:
         repository.create_lesson_plan(
             name="Advanced Flow",
             description="An intense Pilates session",
+            date=dt.date(2026, 1, 16),
             warm_up=[],
             main_session=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
             cool_down=[],
@@ -136,6 +140,7 @@ class TestGetLessonPlan:
         lesson_plan_id = repository.create_lesson_plan(
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
+            date=dt.date(2026, 1, 15),
             warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
             main_session=[],
             cool_down=[],
@@ -159,3 +164,10 @@ class TestGetLessonPlan:
             repository.get_lesson_plan(999)
 
         assert exc_info.value.lesson_plan_id == 999
+
+
+def test_database_isnt_corrupted():
+    repository = _lesson_planning.JSONRepository()
+
+    assert repository.get_exercises() is not None
+    assert repository.get_lesson_plans() is not None

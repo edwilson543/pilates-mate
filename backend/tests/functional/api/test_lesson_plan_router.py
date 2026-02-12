@@ -1,3 +1,5 @@
+import datetime as dt
+
 from pilates import config
 from testing.helpers import lesson_planning as lesson_planning_helpers
 
@@ -12,6 +14,7 @@ def test_creates_then_gets_lesson_plan(api_client):
     lesson_plan_id = repository.create_lesson_plan(
         name="Morning Flow",
         description="A refreshing morning Pilates session",
+        date=dt.date(2026, 1, 15),
         warm_up=[lesson_planning_helpers.ExerciseSequence()],
         main_session=[lesson_planning_helpers.ExerciseSequence()],
         cool_down=[lesson_planning_helpers.ExerciseSequence()],

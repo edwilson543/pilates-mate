@@ -130,6 +130,10 @@ export type LessonPlan = {
    */
   description: string;
   /**
+   * Date
+   */
+  date: string;
+  /**
    * Warm Up
    */
   warm_up: Array<ExerciseSequence>;

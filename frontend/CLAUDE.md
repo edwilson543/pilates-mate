@@ -24,7 +24,9 @@ The frontend is mainly implemented within `./src` and consists of the follow lay
 # Key Patterns
 
 ## Page component structure
+
 All pages follow this pattern:
+
 1. Mark as `"use client"`
 2. Use `PageHeader` for consistent layout
 3. Call appropriate query/mutation hooks
@@ -34,7 +36,9 @@ All pages follow this pattern:
 See `app/exercises/page.tsx:1` for complete example.
 
 ## Form handling
+
 Forms use react-hook-form + zod validation:
+
 1. Define Zod schema in `lib/schemas/`
 2. Create mutation hook in `hooks/mutations/`
 3. Use `useForm` with `zodResolver` in component
@@ -45,7 +49,9 @@ See `app/exercises/new/page.tsx:1` for complete example.
 See `lib/schemas/exercise-schema.ts:1` for Zod schema example.
 
 ## Query hooks
+
 Query hooks abstract API calls for components:
+
 - Name pattern: `use[Entity]` or `use[Entity]s`
 - Use React Query's `useQuery` with simple string keys
 - Return `{ data, isLoading, error }`
@@ -54,7 +60,9 @@ Query hooks abstract API calls for components:
 See `hooks/queries/useExercises.ts:1` for example.
 
 ## Mutation hooks
+
 Mutation hooks handle creates/updates/deletes:
+
 - Name pattern: `use[Action][Entity]`
 - Use React Query's `useMutation`
 - Show toast on success/error
@@ -64,7 +72,9 @@ Mutation hooks handle creates/updates/deletes:
 See `hooks/mutations/useCreateExercise.ts:1` for example.
 
 ### Query invalidation
+
 Mutation hooks must invalidate related queries after success to trigger automatic refetch:
+
 - After creating exercise → invalidate `["exercises"]`
 - After generating lesson plan → invalidate `["lesson-plans"]`
 - Use `queryClient.invalidateQueries({ queryKey: [...] })`
@@ -72,7 +82,9 @@ Mutation hooks must invalidate related queries after success to trigger automati
 This keeps the UI in sync with backend state automatically.
 
 ## Loading, error, and empty states
+
 All list pages must handle three states:
+
 - Loading: Show shadcn `Skeleton` components
 - Error: Display error message with error text
 - Empty: Show message with CTA button to create first item
@@ -81,7 +93,9 @@ This provides consistent UX across the app.
 See `app/exercises/page.tsx:35` for all three states.
 
 ## Toast notifications
+
 Use `sonner` for user feedback in mutation hooks:
+
 - `toast.success("Exercise created successfully")`
 - `toast.error("Failed to create exercise")`
 - Toaster configured in root layout
