@@ -1,7 +1,6 @@
-# Backend
 This is the Python and FastAPI backend for the Pilates lesson planning application. 
 
-## Architecture
+# Architecture
 - The backend follows a layered architecture:
   - Interfaces
     - Entrypoints into the code, for now just a FastAPI server
@@ -15,7 +14,7 @@ This is the Python and FastAPI backend for the Pilates lesson planning applicati
     - Implements abstract repositories defined in the domain
     - Connects the application to data persistence technologies (currently just a JSON file)
 
-## Testing
+# Testing
 After each commit, all tests should pass.
 Run the tests using `make test`.
 
@@ -38,9 +37,7 @@ Test style:
 rather than directly instantiating domain models. When instantiating factories, you
 should only specify the fields that are relevant to the test. 
 
-## Linting
+# Linting
 After each commit, all linting checks should pass.
 Run the tests using `make lint`.
 
-## Git
-This project uses atomic commits.

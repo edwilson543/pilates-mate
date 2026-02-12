@@ -1,3 +1,5 @@
+This is the TypeScript and Next.js frontend for the Pilates lesson planning application.
+
 # Architecture
 
 The frontend is mainly implemented within `./src` and consists of the follow layers:
@@ -56,5 +58,5 @@ React components may not use the API client directly. Instead, components must u
 
 After each commit, make sure the code:
 
-- Is formatted with `pnpm format`
-- Passes linting checks with `pnpm lint`
+- Is formatted by running `make format`
+- Passes linting checks by running `make lint`

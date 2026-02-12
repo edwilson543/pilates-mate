@@ -4,3 +4,8 @@ The project is split into a Python/FastAPI backend and TypeScript/Next frontend.
 You can find more instructions at:
 - `./backend/CLAUDE.md`
 - `./frontend/CLAUDE.md`
+
+
+# Git
+This project uses atomic commits. 
+All linting checks must pass before committing.
