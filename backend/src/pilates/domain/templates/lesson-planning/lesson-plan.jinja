@@ -1,0 +1,16 @@
+## Example lesson plan
+Name: {{ lesson_plan.name }}
+Description: {{ lesson_plan.description }}
+
+### Warm up
+{%- for sequence in lesson_plan.warm_up %}
+{% include 'exercise-sequence.jinja' %}
+{%- endfor %}
+### Main session
+{%- for sequence in lesson_plan.main_session %}
+{% include 'exercise-sequence.jinja' %}
+{%- endfor %}
+### Cool down
+{%- for sequence in lesson_plan.cool_down %}
+{% include 'exercise-sequence.jinja' %}
+{%- endfor %}

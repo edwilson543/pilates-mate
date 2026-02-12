@@ -52,6 +52,10 @@ class ExerciseSequence(pydantic.BaseModel):
     sets: list[ExerciseSet]
     notes: str
 
+    @property
+    def duration_seconds(self) -> int:
+        return sum(set_.duration_seconds for set_ in self.sets)
+
 
 class LessonPlan(pydantic.BaseModel):
     id: int
