@@ -1,0 +1,24 @@
+# Task
+Generate a Pilates class. The class should last around 45 minutes.
+
+# Key requirements
+## Constraints
+- Only exercises listed in the "Exercise bank" section can feature in the lesson plan
+- You must follow the "Duration" requirements
+- You must follow the "Lesson plan structure" requirements
+
+# Exercises
+{% include 'exercises.jinja' %}
+
+# Flows
+{% include 'flows.jinja' %}
+
+# Previous lesson plans
+{% for example in example_lesson_plans %}
+{% include 'example.jinja' %}
+{% endfor %}
+
+# Exercise bank
+{% for exercise in exercises %}
+{% include 'exercise.jinja' %}
+{% endfor %}

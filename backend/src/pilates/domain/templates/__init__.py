@@ -1,1 +1,1 @@
-from ._render import render, render_system_prompt
+from ._render import render

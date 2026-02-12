@@ -1,8 +1,6 @@
 import pydantic
 
-from pilates.domain import lesson_planning, templates, vendors
-
-from . import _examples
+from pilates.domain import lesson_planning, vendors
 
 
 class _GeneratedLessonPlan(pydantic.BaseModel):
@@ -19,12 +17,7 @@ async def generate_lesson_plan(
     client: vendors.CompletionClient,
     repository: lesson_planning.Repository,
 ) -> lesson_planning.LessonPlan:
-    exercises = repository.get_exercises()
-    example_lesson_plans = _examples.get_text_example_lesson_plans()
-
-    system_prompt = templates.render_system_prompt(
-        exercises=exercises, example_lesson_plans=example_lesson_plans
-    )
+    system_prompt = lesson_planning.render_system_prompt(repository=repository)
 
     lesson_plan = await client.get_completion(
         system_prompt=system_prompt,
