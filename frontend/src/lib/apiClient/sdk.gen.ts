@@ -6,6 +6,9 @@ import type {
   CreateExerciseExercisesPostData,
   CreateExerciseExercisesPostErrors,
   CreateExerciseExercisesPostResponses,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteData,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses,
   GenerateLessonPlanLessonPlansPostData,
   GenerateLessonPlanLessonPlansPostErrors,
   GenerateLessonPlanLessonPlansPostResponses,
@@ -133,6 +136,23 @@ export const generateLessonPlanLessonPlansPost = <
       ...options.headers,
     },
   });
+
+/**
+ * Delete Lesson Plan
+ */
+export const deleteLessonPlanLessonPlansLessonPlanIdDelete = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    DeleteLessonPlanLessonPlansLessonPlanIdDeleteData,
+    ThrowOnError
+  >,
+) =>
+  (options.client ?? client).delete<
+    DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses,
+    DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors,
+    ThrowOnError
+  >({ url: "/lesson-plans/{lesson_plan_id}", ...options });
 
 /**
  * Get Lesson Plan

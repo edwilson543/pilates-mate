@@ -2,6 +2,7 @@
 
 export {
   createExerciseExercisesPost,
+  deleteLessonPlanLessonPlansLessonPlanIdDelete,
   generateLessonPlanLessonPlansPost,
   getExerciseExercisesExerciseIdGet,
   getExercisesExercisesGet,
@@ -18,6 +19,11 @@ export type {
   CreateExerciseExercisesPostResponses,
   CreateExerciseRequest,
   CreateExerciseResponse,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteData,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteError,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponse,
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses,
   Difficulty,
   Exercise,
   ExerciseSequence,

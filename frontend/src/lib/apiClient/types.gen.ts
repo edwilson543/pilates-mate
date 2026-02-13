@@ -324,6 +324,38 @@ export type GenerateLessonPlanLessonPlansPostResponses = {
 export type GenerateLessonPlanLessonPlansPostResponse =
   GenerateLessonPlanLessonPlansPostResponses[keyof GenerateLessonPlanLessonPlansPostResponses];
 
+export type DeleteLessonPlanLessonPlansLessonPlanIdDeleteData = {
+  body?: never;
+  path: {
+    /**
+     * Lesson Plan Id
+     */
+    lesson_plan_id: number;
+  };
+  query?: never;
+  url: "/lesson-plans/{lesson_plan_id}";
+};
+
+export type DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type DeleteLessonPlanLessonPlansLessonPlanIdDeleteError =
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors[keyof DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors];
+
+export type DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses = {
+  /**
+   * Successful Response
+   */
+  204: void;
+};
+
+export type DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponse =
+  DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses[keyof DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses];
+
 export type GetLessonPlanLessonPlansLessonPlanIdGetData = {
   body?: never;
   path: {
