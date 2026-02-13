@@ -45,3 +45,33 @@ def test_response_not_found_when_lesson_plan_does_not_exist(api_client):
 
     assert response.status_code == 404
     assert response.json() == {"detail": "Lesson plan not found."}
+
+
+def test_deletes_lesson_plan(api_client):
+    repository = config.get_lesson_planning_repository()
+    lesson_plan_id = repository.create_lesson_plan(
+        name="Morning Flow",
+        description="A refreshing morning Pilates session",
+        date=dt.date(2026, 1, 15),
+        warm_up=[lesson_planning_helpers.ExerciseSequence()],
+        main_session=[lesson_planning_helpers.ExerciseSequence()],
+        cool_down=[lesson_planning_helpers.ExerciseSequence()],
+    )
+
+    response = api_client.delete(f"/lesson-plans/{lesson_plan_id}")
+
+    assert response.status_code == 204
+    assert response.content == b""
+
+    lesson_plan_list = api_client.get("/lesson-plans")
+    assert lesson_plan_list.status_code == 200
+    assert lesson_plan_list.json() == []
+
+
+def test_delete_response_not_found_when_lesson_plan_does_not_exist(api_client):
+    lesson_plan_id = 123
+
+    response = api_client.delete(f"/lesson-plans/{lesson_plan_id}")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Lesson plan not found."}

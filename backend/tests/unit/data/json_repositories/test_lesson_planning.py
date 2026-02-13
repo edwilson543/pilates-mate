@@ -166,6 +166,48 @@ class TestGetLessonPlan:
         assert exc_info.value.lesson_plan_id == 999
 
 
+class TestDeleteLessonPlan:
+    def test_deletes_lesson_plan_with_matching_id(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        lesson_plan_id_1 = repository.create_lesson_plan(
+            name="Beginner Flow",
+            description="A gentle introduction to Pilates",
+            date=dt.date(2026, 1, 15),
+            warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
+            main_session=[],
+            cool_down=[],
+        )
+        lesson_plan_id_2 = repository.create_lesson_plan(
+            name="Advanced Flow",
+            description="An intense Pilates session",
+            date=dt.date(2026, 1, 16),
+            warm_up=[],
+            main_session=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
+            cool_down=[],
+        )
+
+        repository.delete_lesson_plan(lesson_plan_id_1)
+
+        remaining_plans = repository.get_lesson_plans()
+        assert len(remaining_plans) == 1
+        assert remaining_plans[0].id == lesson_plan_id_2
+        assert remaining_plans[0].name == "Advanced Flow"
+
+    def test_raises_exception_when_lesson_plan_does_not_exist(
+        self, tmp_path: pathlib.Path
+    ):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+
+        with pytest.raises(lesson_planning.LessonPlanDoesNotExist) as exc_info:
+            repository.delete_lesson_plan(999)
+
+        assert exc_info.value.lesson_plan_id == 999
+
+
 def test_database_isnt_corrupted():
     repository = _lesson_planning.JSONRepository()
 

@@ -75,3 +75,13 @@ class FakeRepository(lesson_planning.Repository):
             if plan.id == lesson_plan_id:
                 return plan
         raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+
+    def delete_lesson_plan(self, lesson_plan_id: int) -> None:
+        plan_exists = any(plan.id == lesson_plan_id for plan in self._lesson_plans)
+        if not plan_exists:
+            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+
+        filtered_plans = [
+            plan for plan in self._lesson_plans if plan.id != lesson_plan_id
+        ]
+        object.__setattr__(self, "_lesson_plans", filtered_plans)

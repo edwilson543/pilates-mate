@@ -89,3 +89,12 @@ def get_lesson_plan(lesson_plan_id: int) -> lesson_planning.LessonPlan:
         return repository.get_lesson_plan(lesson_plan_id)
     except lesson_planning.LessonPlanDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")
+
+
+@lesson_plan_router.delete("/{lesson_plan_id}", status_code=204)
+def delete_lesson_plan(lesson_plan_id: int) -> None:
+    repository = config.get_lesson_planning_repository()
+    try:
+        repository.delete_lesson_plan(lesson_plan_id)
+    except lesson_planning.LessonPlanDoesNotExist:
+        raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")

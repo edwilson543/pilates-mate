@@ -61,3 +61,7 @@ class Repository(abc.ABC):
     @abc.abstractmethod
     def get_lesson_plan(self, lesson_plan_id: int) -> _models.LessonPlan:
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def delete_lesson_plan(self, lesson_plan_id: int) -> None:
+        raise NotImplementedError

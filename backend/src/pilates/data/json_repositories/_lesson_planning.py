@@ -91,6 +91,21 @@ class JSONRepository(lesson_planning.Repository):
                 return plan
         raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
+    def delete_lesson_plan(self, lesson_plan_id: int) -> None:
+        data = self._read_database()
+
+        # Verify plan exists
+        plan_exists = any(plan["id"] == lesson_plan_id for plan in data["lesson_plans"])
+        if not plan_exists:
+            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+
+        # Filter out the plan
+        data["lesson_plans"] = [
+            plan for plan in data["lesson_plans"] if plan["id"] != lesson_plan_id
+        ]
+
+        self._write_database(data)
+
     # Helpers.
 
     def _read_database(self) -> dict:
