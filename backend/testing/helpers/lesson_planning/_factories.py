@@ -32,6 +32,7 @@ class ExerciseSequence(factory.Factory):
         exclude = ("n_sets",)
 
     sets = factory.LazyAttribute(lambda o: [ExerciseSet() for _ in range(o.n_sets)])
+    name = factory.Sequence(lambda n: f"name-{n}")
     notes = factory.Sequence(lambda n: f"notes-{n}")
     n_sets = 3
 

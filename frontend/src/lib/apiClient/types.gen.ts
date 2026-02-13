@@ -62,13 +62,17 @@ export type Exercise = {
  */
 export type ExerciseSequence = {
   /**
-   * Sets
+   * Name
    */
-  sets: Array<ExerciseSet>;
+  name: string;
   /**
    * Notes
    */
   notes: string;
+  /**
+   * Sets
+   */
+  sets: Array<ExerciseSet>;
 };
 
 /**
@@ -158,7 +162,9 @@ export type MuscleGroup =
   | "SHOULDERS"
   | "INNER_THIGHS"
   | "HAMSTRINGS"
-  | "OBLIQUES";
+  | "OBLIQUES"
+  | "TRICEPS"
+  | "CHEST";
 
 /**
  * StartingPosition
@@ -170,7 +176,9 @@ export type StartingPosition =
   | "SEATED"
   | "QUADRUPED"
   | "STANDING"
-  | "KNEELING";
+  | "KNEELING"
+  | "PLANK"
+  | "SIDE_KNEELING";
 
 /**
  * ValidationError

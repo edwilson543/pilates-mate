@@ -21,7 +21,7 @@ export function ExerciseSequenceCard({
   return (
     <Card className="transition-all duration-200 hover:shadow-lg hover:-translate-y-1 border-2">
       <CardHeader className="pb-3">
-        <CardTitle className="text-xl">Sequence {index + 1}</CardTitle>
+        <CardTitle className="text-xl">{sequence.name}</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
