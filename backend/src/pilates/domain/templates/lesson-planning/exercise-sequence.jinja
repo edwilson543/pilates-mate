@@ -1,0 +1,5 @@
+Sequence: {{ sequence.notes }} ({{ sequence.duration_seconds }} seconds)
+{%- for set in sequence.sets %}
+- {{ set.exercise.name }} ({{ set.reps }} reps)
+{%- endfor %}
+
