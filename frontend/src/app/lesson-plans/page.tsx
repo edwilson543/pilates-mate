@@ -40,7 +40,7 @@ export default function LessonPlansPage() {
   if (isLoading) {
     return (
       <div className="p-8">
-        <PageHeader title="Lesson Plans" />
+        <PageHeader title="Lesson plans" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[...Array(6)].map((_, i) => (
             <Skeleton key={i} className="h-48" />
@@ -53,7 +53,7 @@ export default function LessonPlansPage() {
   if (error) {
     return (
       <div className="p-8">
-        <PageHeader title="Lesson Plans" />
+        <PageHeader title="Lesson plans" />
         <div className="text-center py-12">
           <p className="text-destructive">Failed to load lesson plans</p>
         </div>
@@ -64,7 +64,7 @@ export default function LessonPlansPage() {
   if (!lessonPlans || lessonPlans.length === 0) {
     return (
       <div className="p-8">
-        <PageHeader title="Lesson Plans" />
+        <PageHeader title="Lesson plans" />
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <p className="text-muted-foreground mb-4">
             No lesson plans found. Generate your first lesson plan to get
@@ -81,7 +81,7 @@ export default function LessonPlansPage() {
   return (
     <div className="p-8">
       <PageHeader
-        title="Lesson Plans"
+        title="Lesson plans"
         actionButton={{
           label: "Generate Lesson Plan",
           onClick: () => router.push("/lesson-plans/generate"),

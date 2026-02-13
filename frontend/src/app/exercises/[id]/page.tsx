@@ -38,7 +38,7 @@ export default function ExerciseDetailPage({
           </p>
           <Button onClick={() => router.push("/exercises")}>
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Exercises
+            Back to exercises
           </Button>
         </div>
       </div>
@@ -53,7 +53,7 @@ export default function ExerciseDetailPage({
         className="mb-4"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Exercises
+        Back to exercises
       </Button>
       <PageHeader title={exercise.name} />
       <ExerciseCard exercise={exercise} />

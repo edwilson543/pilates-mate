@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import {formatEnumMember} from "@/lib/utils";
 
 export default function ExercisesPage() {
   const router = useRouter();
@@ -96,14 +97,14 @@ export default function ExercisesPage() {
                           : "destructive"
                     }
                   >
-                    {exercise.difficulty}
+                    {formatEnumMember(exercise.difficulty)}
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  {exercise.primary_muscle_group.replace(/_/g, " ")}
+                  {formatEnumMember(exercise.primary_muscle_group)}
                 </TableCell>
                 <TableCell>
-                  {exercise.starting_position.replace(/_/g, " ")}
+                  {formatEnumMember(exercise.starting_position)}
                 </TableCell>
               </TableRow>
             ))}

@@ -43,8 +43,8 @@ export default function GenerateLessonPlanPage() {
 
   return (
     <div className="p-8">
-      <PageHeader title="Generate Lesson Plan" />
-      <Card className="max-w-2xl">
+      <PageHeader title="Generate lesson plan" />
+      <Card className="w-full">
         <CardContent className="pt-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -53,18 +53,14 @@ export default function GenerateLessonPlanPage() {
                 name="user_prompt"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Lesson Plan Prompt</FormLabel>
+                    <FormLabel>Additional requirements</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Describe the focus, difficulty level, and any specific requirements for your lesson plan..."
-                        rows={8}
+                        placeholder="Build my booty to the maximum..."
+                        rows={5}
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      Describe the focus, difficulty level, and any specific
-                      requirements for your lesson plan (20-1000 characters)
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -82,7 +78,7 @@ export default function GenerateLessonPlanPage() {
                   {generateMutation.isPending && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  Generate Lesson Plan
+                  Generate
                 </Button>
               </div>
             </form>

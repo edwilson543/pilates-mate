@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Lesson Plans",
+  title: "Lesson plans",
   description: "Browse and manage pilates lesson plans",
 };
 

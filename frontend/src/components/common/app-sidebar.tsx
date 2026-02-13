@@ -19,7 +19,7 @@ const menuItems = [
     href: "/exercises",
   },
   {
-    title: "Lesson Plans",
+    title: "Lesson plans",
     icon: FileText,
     href: "/lesson-plans",
   },
@@ -32,7 +32,9 @@ export function AppSidebar() {
     <Sidebar className="border-r bg-gradient-to-b from-sidebar to-secondary/20">
       <SidebarContent className="pt-6">
         <SidebarGroup>
-          <h1>My pilates mate</h1>
+            <div className={"justify-items-center"}>
+                <h1 className={"text-xl font-light"}>My pilates mate</h1>
+            </div>
         </SidebarGroup>
         <SidebarGroup>
           <SidebarMenu className="space-y-2 px-2">

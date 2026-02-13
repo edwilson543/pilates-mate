@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -11,17 +17,14 @@ import type { ExerciseSequence } from "@/lib/apiClient/types.gen";
 
 interface ExerciseSequenceCardProps {
   sequence: ExerciseSequence;
-  index: number;
 }
 
-export function ExerciseSequenceCard({
-  sequence,
-  index,
-}: ExerciseSequenceCardProps) {
+export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
   return (
     <Card className="transition-all duration-200 hover:shadow-lg hover:-translate-y-1 border-2">
       <CardHeader className="pb-3">
         <CardTitle className="text-xl">{sequence.name}</CardTitle>
+        <CardDescription>{sequence.notes}</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
@@ -46,13 +49,6 @@ export function ExerciseSequenceCard({
             ))}
           </TableBody>
         </Table>
-        {sequence.notes && (
-          <div className="mt-4 p-4 bg-muted/50 rounded-lg border">
-            <p className="text-sm leading-relaxed">
-              <span className="font-semibold">Notes:</span> {sequence.notes}
-            </p>
-          </div>
-        )}
       </CardContent>
     </Card>
   );

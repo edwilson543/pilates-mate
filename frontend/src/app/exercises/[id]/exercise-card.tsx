@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Exercise } from "@/lib/apiClient/types.gen";
 
+import {formatEnumMember} from "@/lib/utils";
 interface ExerciseCardProps {
   exercise: Exercise;
 }
@@ -22,7 +23,7 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
             }
             className="px-3 py-1"
           >
-            {exercise.difficulty}
+            {formatEnumMember(exercise.difficulty)}
           </Badge>
         </div>
       </CardHeader>
@@ -37,7 +38,7 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
                 Muscle Group:
               </span>{" "}
               <span className="text-muted-foreground">
-                {exercise.primary_muscle_group.replace(/_/g, " ")}
+                {formatEnumMember(exercise.primary_muscle_group)}
               </span>
             </div>
             <div className="flex-1">
@@ -45,7 +46,7 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
                 Starting Position:
               </span>{" "}
               <span className="text-muted-foreground">
-                {exercise.starting_position.replace(/_/g, " ")}
+                {formatEnumMember(exercise.starting_position)}
               </span>
             </div>
           </div>

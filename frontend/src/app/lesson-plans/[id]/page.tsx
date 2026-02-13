@@ -66,7 +66,7 @@ export default function LessonPlanDetailPage({
           </p>
           <Button onClick={() => router.push("/lesson-plans")}>
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Lesson Plans
+            Back to lesson plans
           </Button>
         </div>
       </div>
@@ -78,7 +78,7 @@ export default function LessonPlanDetailPage({
       <div className="flex items-center justify-between mb-4">
         <Button variant="ghost" onClick={() => router.push("/lesson-plans")}>
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Lesson Plans
+          Back to lesson plans
         </Button>
         <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
           <AlertDialogTrigger asChild>
@@ -130,11 +130,7 @@ export default function LessonPlanDetailPage({
           <AccordionContent>
             <div className="space-y-4 pt-4">
               {lessonPlan.warm_up.map((sequence, index) => (
-                <ExerciseSequenceCard
-                  key={index}
-                  sequence={sequence}
-                  index={index}
-                />
+                <ExerciseSequenceCard key={index} sequence={sequence} />
               ))}
             </div>
           </AccordionContent>
@@ -147,11 +143,7 @@ export default function LessonPlanDetailPage({
           <AccordionContent>
             <div className="space-y-4 pt-4">
               {lessonPlan.main_session.map((sequence, index) => (
-                <ExerciseSequenceCard
-                  key={index}
-                  sequence={sequence}
-                  index={index}
-                />
+                <ExerciseSequenceCard key={index} sequence={sequence} />
               ))}
             </div>
           </AccordionContent>
@@ -164,11 +156,7 @@ export default function LessonPlanDetailPage({
           <AccordionContent>
             <div className="space-y-4 pt-4">
               {lessonPlan.cool_down.map((sequence, index) => (
-                <ExerciseSequenceCard
-                  key={index}
-                  sequence={sequence}
-                  index={index}
-                />
+                <ExerciseSequenceCard key={index} sequence={sequence} />
               ))}
             </div>
           </AccordionContent>
