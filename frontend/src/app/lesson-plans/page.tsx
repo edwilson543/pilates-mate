@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader } from "@/components/custom/page-header";
+import { PageHeader } from "@/components/common/page-header";
 import { useLessonPlans } from "@/hooks/queries/useLessonPlans";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";

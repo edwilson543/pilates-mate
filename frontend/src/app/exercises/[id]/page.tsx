@@ -1,8 +1,8 @@
 "use client";
 
-import { PageHeader } from "@/components/custom/page-header";
+import { PageHeader } from "@/components/common/page-header";
 import { useExercise } from "@/hooks/queries/useExercise";
-import { ExerciseCard } from "@/components/custom/exercise-card";
+import { ExerciseCard } from "@/app/exercises/[id]/exercise-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";

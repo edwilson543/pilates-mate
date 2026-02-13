@@ -1,9 +1,9 @@
 "use client";
 
-import { PageHeader } from "@/components/custom/page-header";
+import { PageHeader } from "@/components/common/page-header";
 import { use, useState } from "react";
 import { useLessonPlan } from "@/hooks/queries/useLessonPlan";
-import { ExerciseSequenceCard } from "@/components/custom/exercise-sequence-card";
+import { ExerciseSequenceCard } from "@/app/lesson-plans/[id]/exercise-sequence-card";
 import {
   Accordion,
   AccordionContent,

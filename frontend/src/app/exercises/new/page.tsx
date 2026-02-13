@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader } from "@/components/custom/page-header";
+import { PageHeader } from "@/components/common/page-header";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {

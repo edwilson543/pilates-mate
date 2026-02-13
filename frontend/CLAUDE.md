@@ -9,10 +9,14 @@ The frontend is mainly implemented within `./src` and consists of the follow lay
   - Each route is a subdirectory (e.g., `./app/exercises`)
   - Routes become publicly accessible when they have a `page.tsx` file
 - `./components`
-  - This package contains reusable components
-  - There are two types of component
-    - Components from the shadcn design system, at `./components/ui`. You are NOT allowed to edit these
-    - Custom-built components, reused across pages (for example the sidebar), at `./components/custom`
+  - This package contains components used across multiple pages
+  - There are two categories of component
+    - Components from the shadcn design system, at `./components/ui`
+      - You are NOT allowed to edit these
+      - You are NOT allowed to add components to this package
+    - Custom-built components reused across multiple pages, at `./components/common`
+      - For example, the sidebar
+      - You are allowed to contribute to these.
   - In general, you should prefer using prebuilt shadcn components instead of custom components
 - `./hooks`
   - Contains hooks that can be re-used by components, for example queries for fetching data from the API

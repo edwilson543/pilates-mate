@@ -6,7 +6,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/query-client";
 import { Toaster } from "@/components/ui/sonner";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/custom/app-sidebar";
+import { AppSidebar } from "@/components/common/app-sidebar";
 import "@/lib/api-config";
 
 const geistSans = Geist({

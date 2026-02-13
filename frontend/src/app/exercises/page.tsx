@@ -1,6 +1,6 @@
 "use client";
 
-import { PageHeader } from "@/components/custom/page-header";
+import { PageHeader } from "@/components/common/page-header";
 import { useExercises } from "@/hooks/queries/useExercises";
 import {
   Table,
