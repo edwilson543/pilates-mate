@@ -1,7 +1,7 @@
 "use client";
 
 import { PageHeader } from "@/components/custom/page-header";
-import { use } from "react";
+import { use, useState } from "react";
 import { useLessonPlan } from "@/hooks/queries/useLessonPlan";
 import { ExerciseSequenceCard } from "@/components/custom/exercise-sequence-card";
 import {
@@ -13,7 +13,19 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Trash2 } from "lucide-react";
+import { useDeleteLessonPlan } from "@/hooks/mutations/useDeleteLessonPlan";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function LessonPlanDetailPage({
   params,
@@ -21,9 +33,19 @@ export default function LessonPlanDetailPage({
   params: Promise<{ id: number }>;
 }) {
   const router = useRouter();
+  const deleteLessonPlan = useDeleteLessonPlan();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const { id: lessonPlanId } = use(params);
   const { data: lessonPlan, isLoading, error } = useLessonPlan(lessonPlanId);
+
+  const handleDelete = () => {
+    deleteLessonPlan.mutate(lessonPlanId, {
+      onSuccess: () => {
+        router.push("/lesson-plans");
+      },
+    });
+  };
 
   if (isLoading) {
     return (
@@ -53,14 +75,35 @@ export default function LessonPlanDetailPage({
 
   return (
     <div className="p-8">
-      <Button
-        variant="ghost"
-        onClick={() => router.push("/lesson-plans")}
-        className="mb-4"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Lesson Plans
-      </Button>
+      <div className="flex items-center justify-between mb-4">
+        <Button variant="ghost" onClick={() => router.push("/lesson-plans")}>
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Lesson Plans
+        </Button>
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive">
+              <Trash2 className="mr-2 h-4 w-4" />
+              Delete
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete lesson plan?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will permanently delete &quot;{lessonPlan.name}&quot;. This
+                action cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete}>
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
       <div>
         <PageHeader
           title={lessonPlan.name}
