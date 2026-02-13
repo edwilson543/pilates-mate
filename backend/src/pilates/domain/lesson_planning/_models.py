@@ -21,6 +21,8 @@ class MuscleGroup(enum.StrEnum):
     INNER_THIGHS = "INNER_THIGHS"
     HAMSTRINGS = "HAMSTRINGS"
     OBLIQUES = "OBLIQUES"
+    TRICEPS = "TRICEPS"
+    CHEST = "CHEST"
 
 
 class StartingPosition(enum.StrEnum):
@@ -31,6 +33,8 @@ class StartingPosition(enum.StrEnum):
     QUADRUPED = "QUADRUPED"
     STANDING = "STANDING"
     KNEELING = "KNEELING"
+    PLANK = "PLANK"
+    SIDE_KNEELING = "SIDE_KNEELING"
 
 
 class Exercise(pydantic.BaseModel):

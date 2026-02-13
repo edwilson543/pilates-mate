@@ -40,5 +40,5 @@ Backend exposes OpenAPI spec → Frontend generates API client → Hooks wrap cl
 - Frontend: No tests yet
 
 # Git
-This project uses atomic commits. 
-All linting checks must pass before committing.
+- This project uses atomic commits. All linting checks must pass before committing.
+- Do not add yourself as the co-author for commits.

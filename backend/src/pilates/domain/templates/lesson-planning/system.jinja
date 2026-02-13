@@ -7,22 +7,40 @@ Generate a Pilates class. The class should last around 45 minutes.
 - You must follow the "Duration" requirements
 - You must follow the "Lesson plan structure" requirements
 
-# Flows
-- Standing prep > all fours glutes > lying on back core > side lying glutes > lying on back glutes & core > lying on back close
-- Sitting prep > lying on back core & hips > lying on tummy back > all fours glutes & triceps > plank core > standing arms > standing close
-- Standing prep > standing left glute > plank left oblique > side lying left glute > standing right glute > plank right oblique > side lying right glute > lying on back core > lying on back close
-- Standing prep > standing glutes > all fours glutes > lying on back core > side lying glutes > plank core > all fours close
-- Standing prep > all fours glutes > lying on tummy back > side lying glutes > lying on back core & glutes > plank core > all fours close
-- Sitting prep > all fours glutes > kneeling arms > side kneeling core & glutes > standing glutes > sitting close
-- Standing prep > standing glutes > plank core > all fours right glute > side lying right glute > lying on back glutes & core > all fours left glute > side lying left glute > plank core > standing glutes > standing close
-- Standing prep > standing glutes > all fours core > kneeling core & glutes > lying on back core > lying on back close
-- Standing prep > lying on back core > all fours left glute > side lying left glute > all fours right glute > side lying right glute > lying on tummy back > plank arms > plank core > lying on back close
-- Sitting prep > lying on back core > side lying left glute > plank core & left glute > standing left glute > plank chest > (incomplete flow)
+## Duration
+- TODO!
 
-# Exercises
-{% for exercise in exercises %}
-{% include 'exercise.jinja' %}
-{% endfor %}
+## Lesson plan structure
+You should structure your lesson plan into exercise sequences before proceeding to add individual exercise sets. 
+
+The key requirements when structuring the lesson plan are:
+- The lesson should be split into a warm up, main session, and cool down (the three "segments" of the lesson plan)
+- Within each segment, there must be one or more "sequence" of exercises
+- Each sequence must consist of one or more "sets" of exercises
+- Each exercise sequence should contain sets of exercises:
+    - Focused primarily on one muscle group (although it's okay to mix in a few other muscles groups)
+    - Using the same starting position (or similar starting positions)
+- The order of exercise sequences is important:
+    - Sequences targeting the same muscles group should be spread throughout the class
+    - In general, the exercise sequences should get gradually, slightly harder during the class
+
+### Valid lesson plan structures
+Each item in the list below is a valid lesson plan structure.
+The lesson plans are denoted as:
+- Warm up: sequence -> sequence ... | Main session: sequence -> sequence ... | Cool down: sequence -> sequence ...
+Where each sequence is denoted as:
+- Starting position - primary muscle group
+
+- Warm up: STANDING | Main session: QUADRUPED - GLUTES -> SUPINE - CORE -> SIDE_LYING - GLUTES -> SUPINE - GLUTES & CORE -> SUPINE - close
+- Warm up: SEATED | Main session: SUPINE - CORE & HIP_FLEXORS -> PRONE - BACK_EXTENSORS -> QUADRUPED - GLUTES & SHOULDERS -> PLANK - CORE -> STANDING - SHOULDERS -> STANDING - close
+- Warm up: STANDING | Main session: STANDING - left GLUTES -> PLANK - left OBLIQUES -> SIDE_LYING - left GLUTES -> STANDING - right GLUTES -> PLANK - right OBLIQUES -> SIDE_LYING - right GLUTES -> SUPINE - CORE -> SUPINE - close
+- Warm up: STANDING | Main session: STANDING - GLUTES -> QUADRUPED - GLUTES -> SUPINE - CORE -> SIDE_LYING - GLUTES -> PLANK - CORE -> QUADRUPED - close
+- Warm up: STANDING | Main session: QUADRUPED - GLUTES -> PRONE - BACK_EXTENSORS -> SIDE_LYING - GLUTES -> SUPINE - CORE & GLUTES -> PLANK - CORE -> QUADRUPED - close
+- Warm up: SEATED | Main session: QUADRUPED - GLUTES -> KNEELING - SHOULDERS -> SIDE_KNEELING - CORE & GLUTES -> STANDING - GLUTES -> SEATED - close
+- Warm up: STANDING | Main session: STANDING - GLUTES -> PLANK - CORE -> QUADRUPED - right GLUTES -> SIDE_LYING - right GLUTES -> SUPINE - GLUTES & CORE -> QUADRUPED - left GLUTES -> SIDE_LYING - left GLUTES -> PLANK - CORE -> STANDING - GLUTES -> STANDING - close
+- Warm up: STANDING | Main session: STANDING - GLUTES -> QUADRUPED - CORE -> KNEELING - CORE & GLUTES -> SUPINE - CORE -> SUPINE - close
+- Warm up: STANDING | Main session: SUPINE - CORE -> QUADRUPED - left GLUTES -> SIDE_LYING - left GLUTES -> QUADRUPED - right GLUTES -> SIDE_LYING - right GLUTES -> PRONE - BACK_EXTENSORS -> PLANK - SHOULDERS -> PLANK - CORE -> SUPINE - close
+- Warm up: SEATED | Main session: SUPINE - CORE -> SIDE_LYING - left GLUTES -> PLANK - CORE & left GLUTES -> STANDING - left GLUTES -> PLANK - SHOULDERS -> (incomplete flow)
 
 # "Gold standard" lesson plans
 {% for lesson_plan in example_lesson_plans %}

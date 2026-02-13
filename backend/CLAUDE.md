@@ -30,6 +30,11 @@ All application code is async. Use `async def` and `await` throughout.
 - FastAPI routes that use these are async
 - Tests use `@pytest.mark.asyncio`
 
+## Abstract base classes (ABCs)
+Define abstractions in domain layer:
+- `domain/vendors/_base.py` → `CompletionClient` ABC with `OutputT` TypeVar
+- `domain/lesson_planning/_repository.py` → `Repository` ABC
+
 ## Dependency injection via config.py
 Get implementations from `config.py`, never instantiate directly.
 - `config.get_completion_client()` → returns OpenAI client
@@ -37,10 +42,11 @@ Get implementations from `config.py`, never instantiate directly.
 - Used in `interfaces/api/routers.py` and CLI
 - Tests override via `pytest.MonkeyPatch`
 
-## Abstract base classes (ABCs)
-Define abstractions in domain layer:
-- `domain/vendors/_base.py` → `CompletionClient` ABC with `OutputT` TypeVar
-- `domain/lesson_planning/_repository.py` → `Repository` ABC
+## Repository pattern to encapsulate persistence logic
+All application and domain code can only interact with the database via a `Repository`
+- Each method on the repository defines a database query or operation
+- The repository is defined as an ABC in the `domain/` layer, and implemented in the `fake/` layer
+- The repository is injected from the interfaces layer into application code
 
 ## Private module naming
 Implementation modules prefixed with underscore:
