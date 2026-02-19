@@ -8,7 +8,6 @@ from pilates.domain import lesson_planning, vendors
 class _GeneratedLessonPlan(pydantic.BaseModel):
     name: str
     description: str
-    date: dt.date
     warm_up: list[lesson_planning.ExerciseSequence]
     main_session: list[lesson_planning.ExerciseSequence]
     cool_down: list[lesson_planning.ExerciseSequence]
