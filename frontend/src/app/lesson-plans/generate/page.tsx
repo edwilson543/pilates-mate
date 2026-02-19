@@ -90,6 +90,7 @@ export default function GenerateLessonPlanPage() {
                             setDuration(newDuration);
                             field.onChange(newDuration);
                           }}
+                          disabled={generateMutation.isPending}
                         />
                         <div className="text-sm text-center font-medium">
                           {duration} minutes
@@ -119,6 +120,7 @@ export default function GenerateLessonPlanPage() {
                             setDifficultyIndex(index);
                             field.onChange(difficultyLevels[index]);
                           }}
+                          disabled={generateMutation.isPending}
                         />
                         <div className="text-sm text-center font-medium">
                           {difficultyLabels[difficultyIndex]}
@@ -162,6 +164,7 @@ export default function GenerateLessonPlanPage() {
                                       );
                                     }
                                   }}
+                                  disabled={generateMutation.isPending}
                                 />
                               </FormControl>
                               <FormLabel className="font-normal cursor-pointer">
@@ -188,6 +191,7 @@ export default function GenerateLessonPlanPage() {
                         placeholder="Build my booty to the maximum..."
                         rows={5}
                         {...field}
+                        disabled={generateMutation.isPending}
                       />
                     </FormControl>
                     <FormMessage />
@@ -200,6 +204,7 @@ export default function GenerateLessonPlanPage() {
                   type="button"
                   variant="outline"
                   onClick={() => router.push("/lesson-plans")}
+                  disabled={generateMutation.isPending}
                 >
                   Cancel
                 </Button>
