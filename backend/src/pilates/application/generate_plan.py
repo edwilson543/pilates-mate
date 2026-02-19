@@ -17,6 +17,7 @@ class LessonPlanRequirements(pydantic.BaseModel):
     duration_minutes: int
     target_difficulty: lesson_planning.Difficulty
     target_muscle_groups: list[lesson_planning.MuscleGroup]
+    example_lesson_plan_ids: list[int] = []
     user_prompt: str
 
 
@@ -53,10 +54,7 @@ def _get_system_prompt(
 ) -> str:
     # TODO -> filter exercises by the available equipment.
     all_exercises = repository.get_exercises()
-
-    all_lesson_plans = repository.get_lesson_plans()
-    # Use the three most recent lesson plans as examples.
-    example_lesson_plans = sorted(all_lesson_plans, key=lambda lp: lp.date)[-3:]
+    example_lesson_plans = _get_example_lesson_plans(requirements, repository)
 
     return lesson_planning.render_system_prompt(
         duration_minutes=requirements.duration_minutes,
@@ -65,3 +63,21 @@ def _get_system_prompt(
         all_exercises=all_exercises,
         example_lesson_plans=example_lesson_plans,
     )
+
+
+def _get_example_lesson_plans(
+    requirements: LessonPlanRequirements,
+    repository: lesson_planning.Repository,
+) -> list[lesson_planning.LessonPlan]:
+    all_lesson_plans = repository.get_lesson_plans()
+    if requirements.example_lesson_plan_ids:
+        example_lesson_plans = [
+            lesson_plan
+            for lesson_plan in all_lesson_plans
+            if lesson_plan in requirements.example_lesson_plan_ids
+        ]
+    else:
+        # Fallback to using the three most recent plans.
+        example_lesson_plans = sorted(all_lesson_plans, key=lambda lp: lp.date)[-3:]
+
+    return example_lesson_plans

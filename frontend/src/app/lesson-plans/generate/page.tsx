@@ -25,6 +25,18 @@ import { Loader2 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
+import { useLessonPlans } from "@/hooks/queries/useLessonPlans";
+import {
+  Combobox,
+  ComboboxChips,
+  ComboboxChip,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  useComboboxAnchor,
+} from "@/components/ui/combobox";
 
 const muscleGroups = [
   { value: "CORE", label: "Core" },
@@ -45,8 +57,11 @@ const difficultyLabels = ["Beginner", "Intermediate", "Advanced"];
 export default function GenerateLessonPlanPage() {
   const router = useRouter();
   const generateMutation = useGenerateLessonPlan();
+  const { data: lessonPlans, isLoading: isLoadingLessonPlans } =
+    useLessonPlans();
   const [duration, setDuration] = useState(45);
   const [difficultyIndex, setDifficultyIndex] = useState(1);
+  const comboboxAnchor = useComboboxAnchor();
 
   const form = useForm<LessonPlanFormData>({
     resolver: zodResolver(lessonPlanFormSchema),
@@ -54,6 +69,7 @@ export default function GenerateLessonPlanPage() {
       duration_minutes: 45,
       target_difficulty: "INTERMEDIATE",
       target_muscle_groups: [],
+      example_lesson_plan_ids: [],
       user_prompt: "",
     },
   });
@@ -180,9 +196,12 @@ export default function GenerateLessonPlanPage() {
                 )}
               />
 
+
+
               <FormField
                 control={form.control}
                 name="user_prompt"
+                defaultValue={""}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Additional requirements</FormLabel>
@@ -197,6 +216,102 @@ export default function GenerateLessonPlanPage() {
                     <FormMessage />
                   </FormItem>
                 )}
+              />
+
+                <FormField
+                control={form.control}
+                name="example_lesson_plan_ids"
+                render={({ field }) => {
+                  const availablePlans = lessonPlans || [];
+                  const selectedIds = field.value || [];
+
+                  const unselectedPlans = availablePlans.filter(
+                    (plan) => !selectedIds.includes(plan.id),
+                  );
+
+                  const selectedPlans = availablePlans.filter((plan) =>
+                    selectedIds.includes(plan.id),
+                  );
+
+                  return (
+                    <FormItem>
+                      <FormLabel>Example lesson plans</FormLabel>
+                      <FormDescription>
+                        Select lesson plans to use as examples. The three most recent plans will be used by default.
+                      </FormDescription>
+                      <FormControl>
+                        <Combobox
+                          value={selectedIds.map(String)}
+                          onValueChange={(values) => {
+                            field.onChange(values.map(Number));
+                          }}
+                          multiple
+                          disabled={
+                            generateMutation.isPending || isLoadingLessonPlans
+                          }
+                        >
+                          <ComboboxChips ref={comboboxAnchor}>
+                            {selectedPlans.map((plan) => (
+                              <ComboboxChip key={plan.id}>
+                                {plan.name}
+                              </ComboboxChip>
+                            ))}
+                            <ComboboxChipsInput
+                              placeholder={
+                                selectedIds.length === 0
+                                  ? "Search lesson plans..."
+                                  : undefined
+                              }
+                            />
+                          </ComboboxChips>
+                          <ComboboxContent anchor={comboboxAnchor.current}>
+                            <ComboboxList>
+                              {isLoadingLessonPlans ? (
+                                <div className="p-2 text-sm text-muted-foreground text-center">
+                                  Loading lesson plans...
+                                </div>
+                              ) : unselectedPlans.length === 0 &&
+                                selectedIds.length === 0 ? (
+                                <ComboboxEmpty>
+                                  No lesson plans available. Generate your first
+                                  plan to use as an example.
+                                </ComboboxEmpty>
+                              ) : unselectedPlans.length === 0 ? (
+                                <ComboboxEmpty>
+                                  All lesson plans selected
+                                </ComboboxEmpty>
+                              ) : (
+                                unselectedPlans.map((plan) => (
+                                  <ComboboxItem
+                                    key={plan.id}
+                                    value={String(plan.id)}
+                                  >
+                                    <div className="flex flex-col">
+                                      <span className="font-medium">
+                                        {plan.name}
+                                      </span>
+                                      <span className="text-xs text-muted-foreground">
+                                        {new Date(plan.date).toLocaleDateString(
+                                          "en-US",
+                                          {
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "numeric",
+                                          },
+                                        )}
+                                      </span>
+                                    </div>
+                                  </ComboboxItem>
+                                ))
+                              )}
+                            </ComboboxList>
+                          </ComboboxContent>
+                        </Combobox>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
 
               <div className="flex gap-4">

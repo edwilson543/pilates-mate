@@ -32,8 +32,5 @@
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    "src/lib/apiClient/**/*.ts"
-  ]
+  "exclude": ["node_modules", "**/*.gen.ts"]
 }

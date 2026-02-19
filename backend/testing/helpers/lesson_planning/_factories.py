@@ -60,4 +60,5 @@ class LessonPlanRequirements(factory.Factory):
     target_muscle_groups = factory.LazyFunction(
         lambda: [lesson_planning.MuscleGroup.CORE]
     )
+    example_lesson_lan_ids = factory.ListFactory()
     user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
