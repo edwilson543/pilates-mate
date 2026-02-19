@@ -164,7 +164,7 @@ export type LessonPlanRequirements = {
   /**
    * Example Lesson Plan Ids
    */
-  example_lesson_plan_ids: Array<number>;
+  example_lesson_plan_ids?: Array<number>;
   /**
    * User Prompt
    */
