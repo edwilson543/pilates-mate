@@ -18,8 +18,9 @@ The frontend is mainly implemented within `./src` and consists of the follow lay
       - For example, the sidebar
       - You are allowed to contribute to these.
   - In general, you should prefer using prebuilt shadcn components instead of custom components
+  - Components relevant to only a single route/page should just live alongside that page at `./src/app/${page}`
 - `./hooks`
-  - Contains hooks that can be re-used by components, for example queries for fetching data from the API
+  - Contains React hooks that can be re-used by components, for example queries for fetching data from the API
   - Hooks and their files should be named using camelCase
 - `./lib`
   - This contains lower-level library code which can be composed by hooks
