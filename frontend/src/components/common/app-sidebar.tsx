@@ -32,9 +32,9 @@ export function AppSidebar() {
     <Sidebar className="border-r bg-gradient-to-b from-sidebar to-secondary/20">
       <SidebarContent className="pt-6">
         <SidebarGroup>
-            <div className={"justify-items-center"}>
-                <h1 className={"text-xl font-light"}>My pilates mate</h1>
-            </div>
+          <div className={"justify-items-center"}>
+            <h1 className={"text-xl font-light"}>My pilates mate</h1>
+          </div>
         </SidebarGroup>
         <SidebarGroup>
           <SidebarMenu className="space-y-2 px-2">

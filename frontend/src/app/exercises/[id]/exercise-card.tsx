@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Exercise } from "@/lib/apiClient/types.gen";
 
-import {formatEnumMember} from "@/lib/utils";
+import { formatEnumMember } from "@/lib/utils";
 interface ExerciseCardProps {
   exercise: Exercise;
 }

@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import {formatEnumMember} from "@/lib/utils";
+import { formatEnumMember } from "@/lib/utils";
 
 export default function ExercisesPage() {
   const router = useRouter();
