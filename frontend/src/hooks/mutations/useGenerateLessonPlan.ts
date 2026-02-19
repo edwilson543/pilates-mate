@@ -9,7 +9,9 @@ export function useGenerateLessonPlan() {
   return useMutation({
     mutationFn: async (data: LessonPlanFormData) => {
       const response = await generateLessonPlanLessonPlansPost({
-        body: data,
+        body: {
+          requirements: data,
+        },
         throwOnError: true,
       });
       return response.data!;
