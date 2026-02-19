@@ -18,7 +18,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 70
             },
             {
               "exercise": {
@@ -30,7 +30,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 75
             },
             {
               "exercise": {
@@ -42,7 +42,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 2,
-              "duration_seconds": 0
+              "duration_seconds": 65
             },
             {
               "exercise": {
@@ -54,7 +54,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 2,
-              "duration_seconds": 0
+              "duration_seconds": 80
             }
           ],
           "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility.",
@@ -75,7 +75,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 52
             },
             {
               "exercise": {
@@ -87,7 +87,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 57
             },
             {
               "exercise": {
@@ -99,7 +99,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 47
             },
             {
               "exercise": {
@@ -111,7 +111,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 62
             },
             {
               "exercise": {
@@ -123,7 +123,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 42
             },
             {
               "exercise": {
@@ -135,7 +135,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 52
             }
           ],
           "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout.",
@@ -154,7 +154,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 57
             },
             {
               "exercise": {
@@ -166,7 +166,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 47
             },
             {
               "exercise": {
@@ -178,7 +178,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 62
             },
             {
               "exercise": {
@@ -190,7 +190,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 42
             },
             {
               "exercise": {
@@ -202,7 +202,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 52
             }
           ],
           "notes": "5 minutes left side glute work. Left leg on top.",
@@ -221,7 +221,7 @@
                 "starting_position": "PRONE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 57
             }
           ],
           "notes": "2 minutes plank oblique work. Right knee in to work left glute.",
@@ -240,7 +240,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 47
             },
             {
               "exercise": {
@@ -252,7 +252,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 62
             },
             {
               "exercise": {
@@ -264,7 +264,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 42
             }
           ],
           "notes": "2 minutes standing left glute. Right heel raised for squats.",
@@ -283,7 +283,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 52
             },
             {
               "exercise": {
@@ -295,7 +295,7 @@
                 "starting_position": "PRONE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 57
             },
             {
               "exercise": {
@@ -307,7 +307,7 @@
                 "starting_position": "PRONE"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 47
             },
             {
               "exercise": {
@@ -319,7 +319,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 62
             }
           ],
           "notes": "1 minute plank & back work.",
@@ -338,7 +338,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 42
             },
             {
               "exercise": {
@@ -350,7 +350,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 52
             },
             {
               "exercise": {
@@ -362,7 +362,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 57
             },
             {
               "exercise": {
@@ -374,7 +374,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 47
             },
             {
               "exercise": {
@@ -386,7 +386,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 62
             }
           ],
           "notes": "5 minutes right side glute work. Right leg on top.",
@@ -405,7 +405,7 @@
                 "starting_position": "PRONE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 42
             }
           ],
           "notes": "2 minutes plank oblique work. Left knee in to work right glute.",
@@ -424,7 +424,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 52
             },
             {
               "exercise": {
@@ -436,7 +436,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 57
             },
             {
               "exercise": {
@@ -448,7 +448,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 47
             },
             {
               "exercise": {
@@ -460,7 +460,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 62
             }
           ],
           "notes": "3 minutes standing right glute. Left heel raised for squats.",
@@ -479,7 +479,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 42
             },
             {
               "exercise": {
@@ -491,7 +491,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 52
             },
             {
               "exercise": {
@@ -503,7 +503,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 57
             },
             {
               "exercise": {
@@ -515,7 +515,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 47
             },
             {
               "exercise": {
@@ -527,7 +527,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 62
             }
           ],
           "notes": "3 minutes sitting core.",
@@ -546,7 +546,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 42
             },
             {
               "exercise": {
@@ -558,7 +558,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 52
             },
             {
               "exercise": {
@@ -570,7 +570,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 57
             }
           ],
           "notes": "2 minutes lying core finish.",
@@ -591,7 +591,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 65
             },
             {
               "exercise": {
@@ -603,7 +603,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 1,
-              "duration_seconds": 30
+              "duration_seconds": 70
             },
             {
               "exercise": {
@@ -615,7 +615,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 1,
-              "duration_seconds": 30
+              "duration_seconds": 60
             },
             {
               "exercise": {
@@ -627,7 +627,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 75
             }
           ],
           "notes": "3 minutes cool down. Focus on lengthening and releasing.",
@@ -654,7 +654,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 59
             },
             {
               "exercise": {
@@ -666,7 +666,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 4,
-              "duration_seconds": 0
+              "duration_seconds": 64
             },
             {
               "exercise": {
@@ -678,7 +678,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 54
             },
             {
               "exercise": {
@@ -690,7 +690,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 2,
-              "duration_seconds": 0
+              "duration_seconds": 69
             },
             {
               "exercise": {
@@ -702,7 +702,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 2,
-              "duration_seconds": 0
+              "duration_seconds": 49
             },
             {
               "exercise": {
@@ -714,7 +714,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 59
             },
             {
               "exercise": {
@@ -726,7 +726,7 @@
                 "starting_position": "PRONE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 64
             }
           ],
           "notes": "6 minutes full standing warm-up with dynamic plank transitions.",
@@ -747,7 +747,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -759,7 +759,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -771,7 +771,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -783,7 +783,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -795,7 +795,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -807,7 +807,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -819,7 +819,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -831,7 +831,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -843,7 +843,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -855,7 +855,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -867,7 +867,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -879,7 +879,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             }
           ],
           "notes": "8 minutes lying glutes & core.",
@@ -898,7 +898,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -910,7 +910,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -922,7 +922,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -934,7 +934,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -946,7 +946,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             }
           ],
           "notes": "5 minutes side lying right glute. Right leg on top.",
@@ -965,7 +965,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -977,7 +977,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -989,7 +989,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1001,7 +1001,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -1013,7 +1013,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             }
           ],
           "notes": "3 minutes all fours core & glutes, right side.",
@@ -1032,7 +1032,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1044,7 +1044,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 8,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -1056,7 +1056,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1068,7 +1068,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -1080,7 +1080,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -1092,7 +1092,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1104,7 +1104,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             }
           ],
           "notes": "2 minutes standing right glute.",
@@ -1123,7 +1123,7 @@
                 "starting_position": "PRONE"
               },
               "reps": 1,
-              "duration_seconds": 60
+              "duration_seconds": 30
             }
           ],
           "notes": "1 minute plank core.",
@@ -1142,7 +1142,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -1154,7 +1154,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -1166,7 +1166,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1178,7 +1178,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -1190,7 +1190,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             }
           ],
           "notes": "5 minutes side lying left glute. Left leg on top.",
@@ -1209,7 +1209,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -1221,7 +1221,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -1233,7 +1233,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1245,7 +1245,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -1257,7 +1257,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             }
           ],
           "notes": "3 minutes all fours core & glutes, left side.",
@@ -1276,7 +1276,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             },
             {
               "exercise": {
@@ -1288,7 +1288,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 8,
-              "duration_seconds": 0
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -1300,7 +1300,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1312,7 +1312,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -1324,7 +1324,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1336,7 +1336,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             }
           ],
           "notes": "2 minutes standing left glute.",
@@ -1355,7 +1355,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -1367,7 +1367,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1379,7 +1379,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             },
             {
               "exercise": {
@@ -1391,7 +1391,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1403,7 +1403,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 35
             }
           ],
           "notes": "3 minutes sitting core.",
@@ -1422,7 +1422,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 40
             },
             {
               "exercise": {
@@ -1434,7 +1434,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 30
             },
             {
               "exercise": {
@@ -1446,7 +1446,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 45
             }
           ],
           "notes": "2 minutes lying core.",
@@ -1467,7 +1467,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 65
             },
             {
               "exercise": {
@@ -1479,7 +1479,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 1,
-              "duration_seconds": 30
+              "duration_seconds": 70
             },
             {
               "exercise": {
@@ -1491,7 +1491,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 1,
-              "duration_seconds": 30
+              "duration_seconds": 60
             },
             {
               "exercise": {
@@ -1503,7 +1503,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 75
             }
           ],
           "notes": "2 minutes cool down.",
@@ -1530,7 +1530,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 41
             },
             {
               "exercise": {
@@ -1542,7 +1542,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 46
             },
             {
               "exercise": {
@@ -1554,7 +1554,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 2,
-              "duration_seconds": 0
+              "duration_seconds": 36
             },
             {
               "exercise": {
@@ -1566,7 +1566,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 2,
-              "duration_seconds": 0
+              "duration_seconds": 51
             },
             {
               "exercise": {
@@ -1578,7 +1578,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 4,
-              "duration_seconds": 0
+              "duration_seconds": 31
             },
             {
               "exercise": {
@@ -1590,7 +1590,7 @@
                 "starting_position": "STANDING"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 41
             },
             {
               "exercise": {
@@ -1602,7 +1602,7 @@
                 "starting_position": "PRONE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 46
             },
             {
               "exercise": {
@@ -1614,7 +1614,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 36
             },
             {
               "exercise": {
@@ -1626,7 +1626,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 51
             },
             {
               "exercise": {
@@ -1638,7 +1638,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 31
             }
           ],
           "notes": "6 minutes standing prep with shoulder stability work.",
@@ -1659,7 +1659,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 16,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -1671,7 +1671,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 8,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -1683,7 +1683,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -1695,7 +1695,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -1707,7 +1707,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 33
             },
             {
               "exercise": {
@@ -1719,7 +1719,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -1731,7 +1731,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -1743,7 +1743,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -1755,7 +1755,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -1767,7 +1767,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 33
             },
             {
               "exercise": {
@@ -1779,7 +1779,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -1791,7 +1791,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -1803,7 +1803,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -1815,7 +1815,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -1827,7 +1827,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 33
             },
             {
               "exercise": {
@@ -1839,7 +1839,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -1851,7 +1851,7 @@
                 "starting_position": "QUADRUPED"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 48
             }
           ],
           "notes": "10 minutes all fours core, glutes & arms with ball work.",
@@ -1870,7 +1870,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -1882,7 +1882,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -1894,7 +1894,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 33
             },
             {
               "exercise": {
@@ -1906,7 +1906,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -1918,7 +1918,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -1930,7 +1930,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -1942,7 +1942,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -1954,7 +1954,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 33
             },
             {
               "exercise": {
@@ -1966,7 +1966,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -1978,7 +1978,7 @@
                 "starting_position": "KNEELING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -1990,7 +1990,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -2002,7 +2002,7 @@
                 "starting_position": "SIDE_LYING"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -2014,7 +2014,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 1,
-              "duration_seconds": 20
+              "duration_seconds": 33
             }
           ],
           "notes": "10 minutes kneeling core & glutes.",
@@ -2033,7 +2033,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 4,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -2045,7 +2045,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 8,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -2057,7 +2057,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -2069,7 +2069,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -2081,7 +2081,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 33
             },
             {
               "exercise": {
@@ -2093,7 +2093,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 43
             }
           ],
           "notes": "4 minutes lying glutes & core with ball.",
@@ -2112,7 +2112,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -2124,7 +2124,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -2136,7 +2136,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             },
             {
               "exercise": {
@@ -2148,7 +2148,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 33
             },
             {
               "exercise": {
@@ -2160,7 +2160,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 5,
-              "duration_seconds": 0
+              "duration_seconds": 43
             },
             {
               "exercise": {
@@ -2172,7 +2172,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 48
             },
             {
               "exercise": {
@@ -2184,7 +2184,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 38
             },
             {
               "exercise": {
@@ -2196,7 +2196,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 10,
-              "duration_seconds": 0
+              "duration_seconds": 53
             }
           ],
           "name": "Supine Core",
@@ -2217,7 +2217,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 65
             },
             {
               "exercise": {
@@ -2229,7 +2229,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 1,
-              "duration_seconds": 30
+              "duration_seconds": 70
             },
             {
               "exercise": {
@@ -2241,7 +2241,7 @@
                 "starting_position": "SUPINE"
               },
               "reps": 1,
-              "duration_seconds": 30
+              "duration_seconds": 60
             },
             {
               "exercise": {
@@ -2253,7 +2253,7 @@
                 "starting_position": "SEATED"
               },
               "reps": 3,
-              "duration_seconds": 0
+              "duration_seconds": 75
             }
           ],
           "notes": "3 minutes cool down.",

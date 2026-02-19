@@ -25,8 +25,8 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
       <CardHeader className="pb-3">
         <CardTitle className="text-xl">{sequence.name}</CardTitle>
         <CardDescription>
+            <p>Total duration: {getSequenceDurationSeconds(sequence)}s, Reps: {sequence.reps}</p>
             <p>{sequence.notes}</p>
-            <p>Reps: {sequence.reps}</p>
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -55,4 +55,13 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
       </CardContent>
     </Card>
   );
+}
+
+function getSequenceDurationSeconds(sequence: ExerciseSequence): number {
+    let total_duration_seconds = 0;
+    for (let i = 0; i < sequence.sets.length; i++) {
+      total_duration_seconds += sequence.sets[i].duration_seconds;
+    }
+
+    return total_duration_seconds * sequence.reps
 }

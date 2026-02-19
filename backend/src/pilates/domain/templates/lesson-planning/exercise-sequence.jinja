@@ -1,5 +1,7 @@
-Sequence: {{ sequence.notes }} ({{ sequence.duration_seconds }} seconds)
+Sequence: {{ sequence.name }}
+Duration: {{ sequence.duration_seconds }} seconds
+Reps: {{ sequence.reps }}
+Notes: {{ sequence.notes }}
 {%- for set in sequence.sets %}
 - {{ set.exercise.name }} ({{ set.reps }} reps)
 {%- endfor %}
-

@@ -125,7 +125,7 @@ export default function LessonPlanDetailPage({
       >
         <AccordionItem value="warm-up">
           <AccordionTrigger className="text-lg font-semibold">
-            Warm Up
+            Warm up
           </AccordionTrigger>
           <AccordionContent>
             <div className="space-y-4 pt-4">
@@ -138,7 +138,7 @@ export default function LessonPlanDetailPage({
 
         <AccordionItem value="main">
           <AccordionTrigger className="text-lg font-semibold">
-            Main Session
+            Main session
           </AccordionTrigger>
           <AccordionContent>
             <div className="space-y-4 pt-4">
@@ -151,7 +151,7 @@ export default function LessonPlanDetailPage({
 
         <AccordionItem value="cool-down">
           <AccordionTrigger className="text-lg font-semibold">
-            Cool Down
+            Cool down
           </AccordionTrigger>
           <AccordionContent>
             <div className="space-y-4 pt-4">
