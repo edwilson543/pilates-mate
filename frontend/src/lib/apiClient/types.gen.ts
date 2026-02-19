@@ -66,13 +66,17 @@ export type ExerciseSequence = {
    */
   name: string;
   /**
-   * Notes
-   */
-  notes: string;
-  /**
    * Sets
    */
   sets: Array<ExerciseSet>;
+  /**
+   * Reps
+   */
+  reps: number;
+  /**
+   * Notes
+   */
+  notes: string;
 };
 
 /**

@@ -58,6 +58,7 @@
             }
           ],
           "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility.",
+          "reps": 1,
           "name": "Seated Core"
         }
       ],
@@ -137,7 +138,8 @@
               "duration_seconds": 0
             }
           ],
-          "notes": "Repeat this core series x3 with hugging knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout.",
+          "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout.",
+          "reps": 3,
           "name": "Supine Core"
         },
         {
@@ -204,6 +206,7 @@
             }
           ],
           "notes": "5 minutes left side glute work. Left leg on top.",
+          "reps": 1,
           "name": "Side-Lying Glutes"
         },
         {
@@ -222,6 +225,7 @@
             }
           ],
           "notes": "2 minutes plank oblique work. Right knee in to work left glute.",
+          "reps": 1,
           "name": "Prone Obliques"
         },
         {
@@ -264,6 +268,7 @@
             }
           ],
           "notes": "2 minutes standing left glute. Right heel raised for squats.",
+          "reps": 1,
           "name": "Standing Glutes"
         },
         {
@@ -318,6 +323,7 @@
             }
           ],
           "notes": "1 minute plank & back work.",
+          "reps": 1,
           "name": "Quadruped Back Extensors"
         },
         {
@@ -384,6 +390,7 @@
             }
           ],
           "notes": "5 minutes right side glute work. Right leg on top.",
+          "reps": 1,
           "name": "Side-Lying Glutes"
         },
         {
@@ -402,6 +409,7 @@
             }
           ],
           "notes": "2 minutes plank oblique work. Left knee in to work right glute.",
+          "reps": 1,
           "name": "Prone Obliques"
         },
         {
@@ -456,6 +464,7 @@
             }
           ],
           "notes": "3 minutes standing right glute. Left heel raised for squats.",
+          "reps": 1,
           "name": "Standing Glutes"
         },
         {
@@ -522,6 +531,7 @@
             }
           ],
           "notes": "3 minutes sitting core.",
+          "reps": 1,
           "name": "Seated Core"
         },
         {
@@ -564,6 +574,7 @@
             }
           ],
           "notes": "2 minutes lying core finish.",
+          "reps": 1,
           "name": "Supine Obliques"
         }
       ],
@@ -620,6 +631,7 @@
             }
           ],
           "notes": "3 minutes cool down. Focus on lengthening and releasing.",
+          "reps": 1,
           "name": "Supine Glutes"
         }
       ]
@@ -718,6 +730,7 @@
             }
           ],
           "notes": "6 minutes full standing warm-up with dynamic plank transitions.",
+          "reps": 1,
           "name": "Standing Core"
         }
       ],
@@ -870,6 +883,7 @@
             }
           ],
           "notes": "8 minutes lying glutes & core.",
+          "reps": 1,
           "name": "Supine Core"
         },
         {
@@ -936,6 +950,7 @@
             }
           ],
           "notes": "5 minutes side lying right glute. Right leg on top.",
+          "reps": 1,
           "name": "Side-Lying Glutes"
         },
         {
@@ -1002,6 +1017,7 @@
             }
           ],
           "notes": "3 minutes all fours core & glutes, right side.",
+          "reps": 1,
           "name": "Quadruped Glutes"
         },
         {
@@ -1092,6 +1108,7 @@
             }
           ],
           "notes": "2 minutes standing right glute.",
+          "reps": 1,
           "name": "Standing Glutes"
         },
         {
@@ -1110,6 +1127,7 @@
             }
           ],
           "notes": "1 minute plank core.",
+          "reps": 1,
           "name": "Prone Core"
         },
         {
@@ -1176,6 +1194,7 @@
             }
           ],
           "notes": "5 minutes side lying left glute. Left leg on top.",
+          "reps": 1,
           "name": "Side-Lying Glutes"
         },
         {
@@ -1242,6 +1261,7 @@
             }
           ],
           "notes": "3 minutes all fours core & glutes, left side.",
+          "reps": 1,
           "name": "Quadruped Glutes"
         },
         {
@@ -1320,6 +1340,7 @@
             }
           ],
           "notes": "2 minutes standing left glute.",
+          "reps": 1,
           "name": "Standing Glutes"
         },
         {
@@ -1386,6 +1407,7 @@
             }
           ],
           "notes": "3 minutes sitting core.",
+          "reps": 1,
           "name": "Seated Core"
         },
         {
@@ -1428,6 +1450,7 @@
             }
           ],
           "notes": "2 minutes lying core.",
+          "reps": 1,
           "name": "Supine Obliques"
         }
       ],
@@ -1484,6 +1507,7 @@
             }
           ],
           "notes": "2 minutes cool down.",
+          "reps": 1,
           "name": "Supine Glutes"
         }
       ]
@@ -1618,6 +1642,7 @@
             }
           ],
           "notes": "6 minutes standing prep with shoulder stability work.",
+          "reps": 1,
           "name": "Standing Back Extensors"
         }
       ],
@@ -1830,6 +1855,7 @@
             }
           ],
           "notes": "10 minutes all fours core, glutes & arms with ball work.",
+          "reps": 1,
           "name": "Quadruped Glutes"
         },
         {
@@ -1992,6 +2018,7 @@
             }
           ],
           "notes": "10 minutes kneeling core & glutes.",
+          "reps": 1,
           "name": "Kneeling Obliques"
         },
         {
@@ -2070,6 +2097,7 @@
             }
           ],
           "notes": "4 minutes lying glutes & core with ball.",
+          "reps": 1,
           "name": "Supine Glutes"
         },
         {
@@ -2171,8 +2199,9 @@
               "duration_seconds": 0
             }
           ],
-          "notes": "Repeat ball between shoulder blades series x3. 10 minutes lying glutes & core.",
-          "name": "Supine Core"
+          "name": "Supine Core",
+          "notes": "Change leg and repeat.",
+          "reps": 2
         }
       ],
       "cool_down": [
@@ -2228,6 +2257,7 @@
             }
           ],
           "notes": "3 minutes cool down.",
+          "reps": 1,
           "name": "Supine Glutes"
         }
       ]

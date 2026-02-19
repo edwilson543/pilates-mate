@@ -32,10 +32,12 @@ class ExerciseSequence(factory.Factory):
         model = lesson_planning.ExerciseSequence
         exclude = ("n_sets",)
 
+    n_sets = 3
     sets = factory.LazyAttribute(lambda o: [ExerciseSet() for _ in range(o.n_sets)])
+
     name = factory.Sequence(lambda n: f"name-{n}")
     notes = factory.Sequence(lambda n: f"notes-{n}")
-    n_sets = 3
+    reps = 1
 
 
 class LessonPlan(factory.Factory):

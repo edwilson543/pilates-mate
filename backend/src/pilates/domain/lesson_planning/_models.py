@@ -59,8 +59,9 @@ class ExerciseSet(pydantic.BaseModel):
 
 class ExerciseSequence(pydantic.BaseModel):
     name: str
-    notes: str
     sets: list[ExerciseSet]
+    reps: int
+    notes: str
 
     @property
     def duration_seconds(self) -> int:

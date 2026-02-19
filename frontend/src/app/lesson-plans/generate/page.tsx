@@ -196,8 +196,6 @@ export default function GenerateLessonPlanPage() {
                 )}
               />
 
-
-
               <FormField
                 control={form.control}
                 name="user_prompt"
@@ -218,7 +216,7 @@ export default function GenerateLessonPlanPage() {
                 )}
               />
 
-                <FormField
+              <FormField
                 control={form.control}
                 name="example_lesson_plan_ids"
                 render={({ field }) => {
@@ -237,7 +235,8 @@ export default function GenerateLessonPlanPage() {
                     <FormItem>
                       <FormLabel>Example lesson plans</FormLabel>
                       <FormDescription>
-                        Select lesson plans to use as examples. The three most recent plans will be used by default.
+                        Select lesson plans to use as examples. The three most
+                        recent plans will be used by default.
                       </FormDescription>
                       <FormControl>
                         <Combobox

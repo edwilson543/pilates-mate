@@ -24,7 +24,10 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
     <Card className="transition-all duration-200 hover:shadow-lg hover:-translate-y-1 border-2">
       <CardHeader className="pb-3">
         <CardTitle className="text-xl">{sequence.name}</CardTitle>
-        <CardDescription>{sequence.notes}</CardDescription>
+        <CardDescription>
+            <p>{sequence.notes}</p>
+            <p>Reps: {sequence.reps}</p>
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
