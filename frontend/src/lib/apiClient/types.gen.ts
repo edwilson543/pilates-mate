@@ -162,6 +162,10 @@ export type LessonPlanRequirements = {
    */
   target_muscle_groups: Array<MuscleGroup>;
   /**
+   * Example Lesson Plan Ids
+   */
+  example_lesson_plan_ids: Array<number>;
+  /**
    * User Prompt
    */
   user_prompt: string;
