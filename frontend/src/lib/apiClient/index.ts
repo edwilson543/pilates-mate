@@ -53,6 +53,7 @@ export type {
   GetLessonPlansLessonPlansGetResponses,
   HttpValidationError,
   LessonPlan,
+  LessonPlanRequirements,
   MuscleGroup,
   StartingPosition,
   ValidationError,

@@ -94,10 +94,7 @@ export type ExerciseSet = {
  * GenerateLessonPlanRequest
  */
 export type GenerateLessonPlanRequest = {
-  /**
-   * User Prompt
-   */
-  user_prompt: string;
+  requirements: LessonPlanRequirements;
 };
 
 /**
@@ -149,6 +146,25 @@ export type LessonPlan = {
    * Cool Down
    */
   cool_down: Array<ExerciseSequence>;
+};
+
+/**
+ * LessonPlanRequirements
+ */
+export type LessonPlanRequirements = {
+  /**
+   * Duration Minutes
+   */
+  duration_minutes: number;
+  target_difficulty: Difficulty;
+  /**
+   * Target Muscle Groups
+   */
+  target_muscle_groups: Array<MuscleGroup>;
+  /**
+   * User Prompt
+   */
+  user_prompt: string;
 };
 
 /**
