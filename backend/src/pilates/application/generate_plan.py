@@ -14,17 +14,24 @@ class _GeneratedLessonPlan(pydantic.BaseModel):
     cool_down: list[lesson_planning.ExerciseSequence]
 
 
+class LessonPlanRequirements(pydantic.BaseModel):
+    duration_minutes: int
+    target_difficulty: lesson_planning.Difficulty
+    target_muscle_groups: list[lesson_planning.MuscleGroup]
+    user_prompt: str
+
+
 async def generate_lesson_plan(
     *,
-    user_prompt: str,
+    requirements: LessonPlanRequirements,
     client: vendors.CompletionClient,
     repository: lesson_planning.Repository,
 ) -> lesson_planning.LessonPlan:
-    system_prompt = _get_system_prompt(repository)
+    system_prompt = _get_system_prompt(requirements, repository)
 
     lesson_plan = await client.get_completion(
         system_prompt=system_prompt,
-        user_prompt=user_prompt,
+        user_prompt=requirements.user_prompt,
         output_format=_GeneratedLessonPlan,
     )
 
@@ -41,7 +48,11 @@ async def generate_lesson_plan(
     return lesson_planning.LessonPlan.model_validate(data)
 
 
-def _get_system_prompt(repository: lesson_planning.Repository) -> str:
+def _get_system_prompt(
+    requirements: LessonPlanRequirements,
+    repository: lesson_planning.Repository,
+) -> str:
+    # TODO -> filter exercises by the available equipment.
     all_exercises = repository.get_exercises()
 
     all_lesson_plans = repository.get_lesson_plans()
@@ -49,5 +60,9 @@ def _get_system_prompt(repository: lesson_planning.Repository) -> str:
     example_lesson_plans = sorted(all_lesson_plans, key=lambda lp: lp.date)[-3:]
 
     return lesson_planning.render_system_prompt(
-        all_exercises=all_exercises, example_lesson_plans=example_lesson_plans
+        duration_minutes=requirements.duration_minutes,
+        target_difficulty=requirements.target_difficulty,
+        target_muscle_groups=requirements.target_muscle_groups,
+        all_exercises=all_exercises,
+        example_lesson_plans=example_lesson_plans,
     )

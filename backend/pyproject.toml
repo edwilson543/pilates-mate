@@ -33,13 +33,6 @@ dev = [
 ]
 
 # ----------
-# Scripts.
-# ----------
-
-[project.scripts]
-pilates = "pilates.main:main"
-
-# ----------
 # Tooling.
 # ----------
 

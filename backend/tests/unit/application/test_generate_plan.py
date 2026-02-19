@@ -21,8 +21,10 @@ class TestGenerateLessonPlan:
         )
         client = vendor_helpers.FakeCompletionClient(completion=fake_completion)
 
+        requirements = lesson_planning_helpers.LessonPlanRequirements()
+
         result = await generate_plan.generate_lesson_plan(
-            user_prompt="Create a morning Pilates class",
+            requirements=requirements,
             client=client,
             repository=repository,
         )

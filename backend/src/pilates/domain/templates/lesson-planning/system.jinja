@@ -8,7 +8,19 @@ Generate a Pilates class. The class should last around 45 minutes.
 - You must follow the "Lesson plan structure" requirements
 
 ## Duration
-- TODO!
+The class should take a total of around: {{ duration_minutes }} minutes.
+Bear in mind the duration of each exercise set, sequence and segment when generating the lesson plan.
+
+## Difficulty
+The class should be of difficulty: {{ target_difficulty }}
+- Not every exercise has to be {{ target_difficulty }} - they just need to average out like this
+- For example, for an INTERMEDIATE difficulty class, we can have 25% BEGINNER, 50% INTERMEDIATE, 25% ADVANCED
+
+## Target muscle groups
+The class should mainly target the following muscle groups:
+{%- for muscle_group in target_muscle_groups %}
+{% endfor -%}
+It is however okay to include exercises for other muscle groups (particularly if they are complementary).
 
 ## Lesson plan structure
 You should structure your lesson plan into exercise sequences before proceeding to add individual exercise sets. 

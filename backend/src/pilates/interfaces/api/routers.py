@@ -4,7 +4,7 @@ import fastapi
 import pydantic
 
 from pilates import config
-from pilates.application import generate_plan as generate_plan_use_case
+from pilates.application import generate_plan
 from pilates.domain import lesson_planning
 
 
@@ -55,7 +55,7 @@ def get_exercise(exercise_id: int) -> lesson_planning.Exercise:
 
 
 class GenerateLessonPlanRequest(pydantic.BaseModel):
-    user_prompt: str
+    requirements: generate_plan.LessonPlanRequirements
 
 
 class GenerateLessonPlanResponse(pydantic.BaseModel):
@@ -68,8 +68,8 @@ async def generate_lesson_plan(
 ) -> GenerateLessonPlanResponse:
     client = config.get_completion_client()
     repository = config.get_lesson_planning_repository()
-    lesson_plan = await generate_plan_use_case.generate_lesson_plan(
-        user_prompt=request.user_prompt,
+    lesson_plan = await generate_plan.generate_lesson_plan(
+        requirements=request.requirements,
         client=client,
         repository=repository,
     )

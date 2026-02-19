@@ -12,6 +12,11 @@ class Difficulty(enum.StrEnum):
     ADVANCED = "ADVANCED"
 
 
+class Equipment(enum.StrEnum):
+    BALL = "BALL"
+    ANKLE_WEIGHTS = "ANKLE_WEIGHTS"
+
+
 class MuscleGroup(enum.StrEnum):
     CORE = "CORE"
     GLUTES = "GLUTES"

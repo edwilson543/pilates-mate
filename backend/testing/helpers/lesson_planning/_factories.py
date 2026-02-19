@@ -2,6 +2,7 @@ import datetime as dt
 
 import factory
 
+from pilates.application import generate_plan
 from pilates.domain import lesson_planning
 
 
@@ -48,3 +49,15 @@ class LessonPlan(factory.Factory):
     warm_up = factory.LazyFunction(lambda: [ExerciseSequence()])
     main_session = factory.LazyFunction(lambda: [ExerciseSequence()])
     cool_down = factory.LazyFunction(lambda: [ExerciseSequence()])
+
+
+class LessonPlanRequirements(factory.Factory):
+    class Meta:
+        model = generate_plan.LessonPlanRequirements
+
+    duration_minutes = 30
+    target_difficulty = lesson_planning.Difficulty.INTERMEDIATE
+    target_muscle_groups = factory.LazyFunction(
+        lambda: [lesson_planning.MuscleGroup.CORE]
+    )
+    user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")

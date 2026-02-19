@@ -1,4 +1,4 @@
-from pilates.domain.lesson_planning import _generation
+from pilates.domain.lesson_planning import _generation, _models
 from testing.helpers import lesson_planning as lesson_planning_helpers
 
 
@@ -8,6 +8,9 @@ class TestRenderSystemPrompt:
         exercise = lesson_planning_helpers.Exercise()
 
         system_prompt = _generation.render_system_prompt(
+            duration_minutes=30,
+            target_difficulty=_models.Difficulty.INTERMEDIATE,
+            target_muscle_groups=[_models.MuscleGroup.GLUTES],
             all_exercises=[exercise],
             example_lesson_plans=[lesson_plan],
         )
