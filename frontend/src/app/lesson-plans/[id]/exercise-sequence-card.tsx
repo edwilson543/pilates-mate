@@ -13,7 +13,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import type { ExerciseSequence } from "@/lib/apiClient/types.gen";
+import { formatEnumMember } from "@/lib/utils";
 
 interface ExerciseSequenceCardProps {
   sequence: ExerciseSequence;
@@ -25,8 +27,11 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
       <CardHeader className="pb-3">
         <CardTitle className="text-xl">{sequence.name}</CardTitle>
         <CardDescription>
-            <p>Total duration: {getSequenceDurationSeconds(sequence)}s, Reps: {sequence.reps}</p>
-            <p>{sequence.notes}</p>
+          <p>
+            Total duration: {getSequenceDurationSeconds(sequence)}s, Reps:{" "}
+            {sequence.reps}
+          </p>
+          <p>{sequence.notes}</p>
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -34,6 +39,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
           <TableHeader>
             <TableRow>
               <TableHead className="font-semibold">Exercise</TableHead>
+              <TableHead className="font-semibold">Variant</TableHead>
               <TableHead className="font-semibold">Reps</TableHead>
               <TableHead className="font-semibold">Duration</TableHead>
             </TableRow>
@@ -43,6 +49,11 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
               <TableRow key={setIndex}>
                 <TableCell className="font-medium">
                   {set.exercise.name}
+                </TableCell>
+                <TableCell>
+                  <Badge variant="outline">
+                    {formatEnumMember(set.variant)}
+                  </Badge>
                 </TableCell>
                 <TableCell>{set.reps || "-"}</TableCell>
                 <TableCell>
@@ -58,10 +69,10 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
 }
 
 function getSequenceDurationSeconds(sequence: ExerciseSequence): number {
-    let total_duration_seconds = 0;
-    for (let i = 0; i < sequence.sets.length; i++) {
-      total_duration_seconds += sequence.sets[i].duration_seconds;
-    }
+  let total_duration_seconds = 0;
+  for (let i = 0; i < sequence.sets.length; i++) {
+    total_duration_seconds += sequence.sets[i].duration_seconds;
+  }
 
-    return total_duration_seconds * sequence.reps
+  return total_duration_seconds * sequence.reps;
 }
