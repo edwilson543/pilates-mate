@@ -56,7 +56,7 @@ export function ExerciseForm({
   });
 
   return (
-    <Card className="max-w-2xl">
+    <Card className="w-full">
       <CardContent className="pt-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -92,6 +92,7 @@ export function ExerciseForm({
               )}
             />
 
+            <div className={"flex flex-row justify-between"}>
             <FormField
               control={form.control}
               name="difficulty"
@@ -186,6 +187,7 @@ export function ExerciseForm({
                 </FormItem>
               )}
             />
+            </div>
 
             <FormField
               control={form.control}
