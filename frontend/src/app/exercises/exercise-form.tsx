@@ -93,100 +93,104 @@ export function ExerciseForm({
             />
 
             <div className={"flex flex-row justify-between"}>
-            <FormField
-              control={form.control}
-              name="difficulty"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Difficulty</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select difficulty" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="BEGINNER">Beginner</SelectItem>
-                      <SelectItem value="INTERMEDIATE">Intermediate</SelectItem>
-                      <SelectItem value="ADVANCED">Advanced</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="difficulty"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Difficulty</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select difficulty" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="BEGINNER">Beginner</SelectItem>
+                        <SelectItem value="INTERMEDIATE">
+                          Intermediate
+                        </SelectItem>
+                        <SelectItem value="ADVANCED">Advanced</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="primary_muscle_group"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Primary Muscle Group</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select muscle group" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="CORE">Core</SelectItem>
-                      <SelectItem value="GLUTES">Glutes</SelectItem>
-                      <SelectItem value="HIP_FLEXORS">Hip Flexors</SelectItem>
-                      <SelectItem value="BACK_EXTENSORS">
-                        Back Extensors
-                      </SelectItem>
-                      <SelectItem value="SHOULDERS">Shoulders</SelectItem>
-                      <SelectItem value="INNER_THIGHS">Inner Thighs</SelectItem>
-                      <SelectItem value="HAMSTRINGS">Hamstrings</SelectItem>
-                      <SelectItem value="OBLIQUES">Obliques</SelectItem>
-                      <SelectItem value="TRICEPS">Triceps</SelectItem>
-                      <SelectItem value="CHEST">Chest</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="primary_muscle_group"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Primary Muscle Group</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select muscle group" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="CORE">Core</SelectItem>
+                        <SelectItem value="GLUTES">Glutes</SelectItem>
+                        <SelectItem value="HIP_FLEXORS">Hip Flexors</SelectItem>
+                        <SelectItem value="BACK_EXTENSORS">
+                          Back Extensors
+                        </SelectItem>
+                        <SelectItem value="SHOULDERS">Shoulders</SelectItem>
+                        <SelectItem value="INNER_THIGHS">
+                          Inner Thighs
+                        </SelectItem>
+                        <SelectItem value="HAMSTRINGS">Hamstrings</SelectItem>
+                        <SelectItem value="OBLIQUES">Obliques</SelectItem>
+                        <SelectItem value="TRICEPS">Triceps</SelectItem>
+                        <SelectItem value="CHEST">Chest</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="starting_position"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Starting Position</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select starting position" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="SUPINE">Supine</SelectItem>
-                      <SelectItem value="PRONE">Prone</SelectItem>
-                      <SelectItem value="SIDE_LYING">Side Lying</SelectItem>
-                      <SelectItem value="SEATED">Seated</SelectItem>
-                      <SelectItem value="QUADRUPED">Quadruped</SelectItem>
-                      <SelectItem value="STANDING">Standing</SelectItem>
-                      <SelectItem value="KNEELING">Kneeling</SelectItem>
-                      <SelectItem value="PLANK">Plank</SelectItem>
-                      <SelectItem value="SIDE_KNEELING">
-                        Side Kneeling
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="starting_position"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Starting Position</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select starting position" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="SUPINE">Supine</SelectItem>
+                        <SelectItem value="PRONE">Prone</SelectItem>
+                        <SelectItem value="SIDE_LYING">Side Lying</SelectItem>
+                        <SelectItem value="SEATED">Seated</SelectItem>
+                        <SelectItem value="QUADRUPED">Quadruped</SelectItem>
+                        <SelectItem value="STANDING">Standing</SelectItem>
+                        <SelectItem value="KNEELING">Kneeling</SelectItem>
+                        <SelectItem value="PLANK">Plank</SelectItem>
+                        <SelectItem value="SIDE_KNEELING">
+                          Side Kneeling
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             <FormField
