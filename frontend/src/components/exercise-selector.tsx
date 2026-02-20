@@ -19,12 +19,19 @@ interface ExerciseSelectorProps {
 
 export function ExerciseSelector({ value, onChange }: ExerciseSelectorProps) {
   const { data: exercises = [], isLoading } = useExercises();
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [inputValue, setInputValue] = React.useState("");
 
   const selectedExercise = exercises.find((ex) => ex.id === value);
 
+  // Update input value when a new exercise is selected from outside
+  React.useEffect(() => {
+    if (selectedExercise && inputValue !== selectedExercise.name) {
+      setInputValue(selectedExercise.name);
+    }
+  }, [selectedExercise, inputValue]);
+
   const filteredExercises = exercises.filter((exercise) =>
-    exercise.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    exercise.name.toLowerCase().includes(inputValue.toLowerCase()),
   );
 
   return (
@@ -35,6 +42,7 @@ export function ExerciseSelector({ value, onChange }: ExerciseSelectorProps) {
         if (exerciseId) {
           const exercise = exercises.find((ex) => ex.id === exerciseId);
           if (exercise) {
+            setInputValue(exercise.name);
             onChange(exerciseId, exercise);
           }
         }
@@ -42,8 +50,8 @@ export function ExerciseSelector({ value, onChange }: ExerciseSelectorProps) {
     >
       <ComboboxInput
         placeholder={isLoading ? "Loading..." : "Select exercise..."}
-        value={searchQuery}
-        onInput={(e) => setSearchQuery(e.currentTarget.value)}
+        value={inputValue}
+        onInput={(e) => setInputValue(e.currentTarget.value)}
         showClear
         disabled={isLoading}
       />
