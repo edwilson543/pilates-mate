@@ -52,7 +52,7 @@ import { formatEnumMember } from "@/lib/utils";
 import { useUpdateExerciseSet } from "@/hooks/mutations/useUpdateExerciseSet";
 import { useDeleteExerciseSet } from "@/hooks/mutations/useDeleteExerciseSet";
 import { useAddExerciseSet } from "@/hooks/mutations/useAddExerciseSet";
-import { ExerciseSelector } from "@/components/exercise-selector";
+import { ExerciseSelector } from "@/app/lesson-plans/[id]/exercise-selector";
 
 interface ExerciseSequenceCardProps {
   sequence: ExerciseSequence;
@@ -226,11 +226,11 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="font-semibold">Exercise</TableHead>
-                <TableHead className="font-semibold">Variant</TableHead>
-                <TableHead className="font-semibold">Reps</TableHead>
-                <TableHead className="font-semibold">Duration</TableHead>
-                <TableHead className="font-semibold">Actions</TableHead>
+                <TableHead className="font-semibold w-48">Exercise</TableHead>
+                <TableHead className="font-semibold w-32">Variant</TableHead>
+                <TableHead className="font-semibold w-20">Reps</TableHead>
+                <TableHead className="font-semibold w-24">Duration</TableHead>
+                <TableHead className="font-semibold w-28">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
