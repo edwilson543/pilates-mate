@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2 } from "lucide-react";
 
 export default function NewExercisePage() {
@@ -42,6 +43,7 @@ export default function NewExercisePage() {
       difficulty: "BEGINNER",
       primary_muscle_group: "CORE",
       starting_position: "SUPINE",
+      variants: ["STANDARD"],
     },
   });
 
@@ -177,6 +179,61 @@ export default function NewExercisePage() {
                         <SelectItem value="KNEELING">Kneeling</SelectItem>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="variants"
+                render={() => (
+                  <FormItem>
+                    <div className="mb-4">
+                      <FormLabel>Variants</FormLabel>
+                    </div>
+                    {(
+                      [
+                        { id: "STANDARD", label: "Standard" },
+                        { id: "PULSE", label: "Pulse" },
+                        { id: "HOLD", label: "Hold" },
+                      ] as const
+                    ).map((variant) => (
+                      <FormField
+                        key={variant.id}
+                        control={form.control}
+                        name="variants"
+                        render={({ field }) => {
+                          return (
+                            <FormItem
+                              key={variant.id}
+                              className="flex flex-row items-start space-x-3 space-y-0"
+                            >
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value?.includes(variant.id)}
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([
+                                          ...field.value,
+                                          variant.id,
+                                        ])
+                                      : field.onChange(
+                                          field.value?.filter(
+                                            (value) => value !== variant.id,
+                                          ),
+                                        );
+                                  }}
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {variant.label}
+                              </FormLabel>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    ))}
                     <FormMessage />
                   </FormItem>
                 )}
