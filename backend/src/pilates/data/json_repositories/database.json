@@ -7,6 +7,7 @@
       "date": "2026-01-24",
       "warm_up": [
         {
+          "name": "Seated Core",
           "sets": [
             {
               "exercise": {
@@ -15,10 +16,14 @@
                 "description": "Deep breathing to center and prepare for practice.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 70
+              "duration_seconds": 70,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -27,10 +32,14 @@
                 "description": "Pilates breathing with focus on lateral rib expansion.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 75
+              "duration_seconds": 75,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -39,10 +48,14 @@
                 "description": "Gentle neck circles to release tension.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 2,
-              "duration_seconds": 65
+              "duration_seconds": 65,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -51,19 +64,23 @@
                 "description": "Lateral spinal stretch to mobilize the spine and open the side body.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 2,
-              "duration_seconds": 80
+              "duration_seconds": 80,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility.",
           "reps": 1,
-          "name": "Seated Core"
+          "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility."
         }
       ],
       "main_session": [
         {
+          "name": "Supine Core",
           "sets": [
             {
               "exercise": {
@@ -72,10 +89,14 @@
                 "description": "From supine, tilt pelvis to imprint and release.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -84,10 +105,14 @@
                 "description": "Very slow controlled glute bridge with reset to floor each time.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -96,10 +121,14 @@
                 "description": "From supine with legs in table top, alternate tapping toes to floor.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 47
+              "duration_seconds": 47,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -108,10 +137,14 @@
                 "description": "Send both knees to right, pull back to centre, both knees to left, pull back to centre.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 62
+              "duration_seconds": 62,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -120,29 +153,38 @@
                 "description": "Basic abdominal crunch from supine.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 42
+              "duration_seconds": 42,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 10,
-                "name": "Crunch pulses",
-                "description": "Small pulse movements at the top of crunch position.",
-                "difficulty": "INTERMEDIATE",
+                "id": 9,
+                "name": "Crunches",
+                "description": "Basic abdominal crunch from supine.",
+                "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "PULSE"
             }
           ],
-          "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout.",
           "reps": 3,
-          "name": "Supine Core"
+          "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout."
         },
         {
+          "name": "Side-Lying Glutes",
           "sets": [
             {
               "exercise": {
@@ -151,10 +193,14 @@
                 "description": "Side-lying with knees bent, lift and lower top leg keeping knee bent.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -163,22 +209,31 @@
                 "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 47
+              "duration_seconds": 47,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 13,
-                "name": "Side-lying leg flex pulses",
-                "description": "With leg extended, flex toe and pulse.",
+                "id": 12,
+                "name": "Side-lying leg extension with point",
+                "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 62
+              "duration_seconds": 62,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -187,10 +242,14 @@
                 "description": "With leg extended and pointed foot, perform circles changing direction midway.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 42
+              "duration_seconds": 42,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -199,17 +258,21 @@
                 "description": "Oblique crunch bringing knee in and extending.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "5 minutes left side glute work. Left leg on top.",
           "reps": 1,
-          "name": "Side-Lying Glutes"
+          "notes": "5 minutes left side glute work. Left leg on top."
         },
         {
+          "name": "Prone Obliques",
           "sets": [
             {
               "exercise": {
@@ -218,17 +281,21 @@
                 "description": "From plank, bring one knee in and perform bent knee crunches, drawing nose to knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "PRONE"
+                "starting_position": "PRONE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "2 minutes plank oblique work. Right knee in to work left glute.",
           "reps": 1,
-          "name": "Prone Obliques"
+          "notes": "2 minutes plank oblique work. Right knee in to work left glute."
         },
         {
+          "name": "Standing Glutes",
           "sets": [
             {
               "exercise": {
@@ -237,10 +304,14 @@
                 "description": "Squats with one heel raised to target opposite glute.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 47
+              "duration_seconds": 47,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -249,10 +320,14 @@
                 "description": "Hold wide squat position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 62
+              "duration_seconds": 62,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -261,17 +336,21 @@
                 "description": "From squat position, perform side bends.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 42
+              "duration_seconds": 42,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "2 minutes standing left glute. Right heel raised for squats.",
           "reps": 1,
-          "name": "Standing Glutes"
+          "notes": "2 minutes standing left glute. Right heel raised for squats."
         },
         {
+          "name": "Quadruped Back Extensors",
           "sets": [
             {
               "exercise": {
@@ -280,10 +359,14 @@
                 "description": "Downward dog yoga pose for hamstring and calf stretch.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "HAMSTRINGS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -292,10 +375,14 @@
                 "description": "From prone, lift chest while keeping hips on ground.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "PRONE"
+                "starting_position": "PRONE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -304,10 +391,14 @@
                 "description": "Standard push-ups from plank position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "PRONE"
+                "starting_position": "PRONE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 47
+              "duration_seconds": 47,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -316,17 +407,21 @@
                 "description": "Rest pose with hips back on heels, arms extended forward.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 62
+              "duration_seconds": 62,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "1 minute plank & back work.",
           "reps": 1,
-          "name": "Quadruped Back Extensors"
+          "notes": "1 minute plank & back work."
         },
         {
+          "name": "Side-Lying Glutes",
           "sets": [
             {
               "exercise": {
@@ -335,10 +430,14 @@
                 "description": "Side-lying with knees bent, lift and lower top leg keeping knee bent.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 42
+              "duration_seconds": 42,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -347,22 +446,31 @@
                 "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 13,
-                "name": "Side-lying leg flex pulses",
-                "description": "With leg extended, flex toe and pulse.",
+                "id": 12,
+                "name": "Side-lying leg extension with point",
+                "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -371,10 +479,14 @@
                 "description": "With leg extended and pointed foot, perform circles changing direction midway.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 47
+              "duration_seconds": 47,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -383,17 +495,21 @@
                 "description": "Oblique crunch bringing knee in and extending.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 62
+              "duration_seconds": 62,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "5 minutes right side glute work. Right leg on top.",
           "reps": 1,
-          "name": "Side-Lying Glutes"
+          "notes": "5 minutes right side glute work. Right leg on top."
         },
         {
+          "name": "Prone Obliques",
           "sets": [
             {
               "exercise": {
@@ -402,17 +518,21 @@
                 "description": "From plank, bring one knee in and perform bent knee crunches, drawing nose to knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "PRONE"
+                "starting_position": "PRONE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 42
+              "duration_seconds": 42,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "2 minutes plank oblique work. Left knee in to work right glute.",
           "reps": 1,
-          "name": "Prone Obliques"
+          "notes": "2 minutes plank oblique work. Left knee in to work right glute."
         },
         {
+          "name": "Standing Glutes",
           "sets": [
             {
               "exercise": {
@@ -421,10 +541,14 @@
                 "description": "Squats with one heel raised to target opposite glute.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -433,10 +557,14 @@
                 "description": "Hold wide squat position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -445,10 +573,14 @@
                 "description": "From squat position, alternate heel raises.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HAMSTRINGS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 47
+              "duration_seconds": 47,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -457,17 +589,21 @@
                 "description": "Small pulse movements in squat position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 62
+              "duration_seconds": 62,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "3 minutes standing right glute. Left heel raised for squats.",
           "reps": 1,
-          "name": "Standing Glutes"
+          "notes": "3 minutes standing right glute. Left heel raised for squats."
         },
         {
+          "name": "Seated Core",
           "sets": [
             {
               "exercise": {
@@ -476,10 +612,14 @@
                 "description": "From seated, roll back halfway maintaining C-curve with arms forward.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 42
+              "duration_seconds": 42,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -488,22 +628,31 @@
                 "description": "C-curve roll back halfway with fingertips to temples.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 28,
-                "name": "C-curve half roll back with pulses",
-                "description": "Hold C-curve roll back position with fingertips to temples and pulse.",
-                "difficulty": "ADVANCED",
+                "id": 27,
+                "name": "C-curve half roll back fingertips to temples",
+                "description": "C-curve roll back halfway with fingertips to temples.",
+                "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -512,10 +661,14 @@
                 "description": "From seated leaning back on forearms, alternate single leg toe taps.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 47
+              "duration_seconds": 47,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -524,17 +677,21 @@
                 "description": "From seated leaning back on forearms, double leg toe taps.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 62
+              "duration_seconds": 62,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "3 minutes sitting core.",
           "reps": 1,
-          "name": "Seated Core"
+          "notes": "3 minutes sitting core."
         },
         {
+          "name": "Supine Obliques",
           "sets": [
             {
               "exercise": {
@@ -543,10 +700,14 @@
                 "description": "From supine, crunch up with twist bringing opposite elbow toward knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 42
+              "duration_seconds": 42,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -555,10 +716,14 @@
                 "description": "Slow bicycle crunches alternating opposite elbow to knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 52
+              "duration_seconds": 52,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -567,19 +732,23 @@
                 "description": "Quick tempo bicycle crunches.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 57
+              "duration_seconds": 57,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "2 minutes lying core finish.",
           "reps": 1,
-          "name": "Supine Obliques"
+          "notes": "2 minutes lying core finish."
         }
       ],
       "cool_down": [
         {
+          "name": "Supine Glutes",
           "sets": [
             {
               "exercise": {
@@ -588,10 +757,14 @@
                 "description": "From supine, soles of feet together with knees falling out to sides. Focus on deep breathing.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 65
+              "duration_seconds": 65,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -600,10 +773,14 @@
                 "description": "From supine with knees bent, let knees fall side to side for spinal rotation.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 70
+              "duration_seconds": 70,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -612,10 +789,14 @@
                 "description": "From supine, ankle to opposite knee for hip and glute stretch.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 60
+              "duration_seconds": 60,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -624,15 +805,18 @@
                 "description": "From seated, inhale extend arms above, exhale draw arms down.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 75
+              "duration_seconds": 75,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "3 minutes cool down. Focus on lengthening and releasing.",
           "reps": 1,
-          "name": "Supine Glutes"
+          "notes": "3 minutes cool down. Focus on lengthening and releasing."
         }
       ]
     },
@@ -643,6 +827,7 @@
       "date": "2026-01-31",
       "warm_up": [
         {
+          "name": "Standing Core",
           "sets": [
             {
               "exercise": {
@@ -651,10 +836,14 @@
                 "description": "Deep breathing to center and prepare for practice.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 59
+              "duration_seconds": 59,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -663,10 +852,14 @@
                 "description": "Pilates breathing with focus on lateral rib expansion.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 4,
-              "duration_seconds": 64
+              "duration_seconds": 64,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -675,10 +868,14 @@
                 "description": "Shoulder rolls to mobilize the shoulder girdle.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 54
+              "duration_seconds": 54,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -687,10 +884,14 @@
                 "description": "Gentle neck circles to release tension.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 2,
-              "duration_seconds": 69
+              "duration_seconds": 69,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -699,10 +900,14 @@
                 "description": "Standing spinal rotation to warm up the spine.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 2,
-              "duration_seconds": 49
+              "duration_seconds": 49,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -711,10 +916,14 @@
                 "description": "Standing forward fold to lengthen hamstrings and back.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "HAMSTRINGS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 59
+              "duration_seconds": 59,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -723,19 +932,23 @@
                 "description": "Flow from plank, sit back on heels, downward dog, back to plank.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "PRONE"
+                "starting_position": "PRONE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 64
+              "duration_seconds": 64,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "6 minutes full standing warm-up with dynamic plank transitions.",
           "reps": 1,
-          "name": "Standing Core"
+          "notes": "6 minutes full standing warm-up with dynamic plank transitions."
         }
       ],
       "main_session": [
         {
+          "name": "Supine Core",
           "sets": [
             {
               "exercise": {
@@ -744,10 +957,14 @@
                 "description": "From bridge position, walk feet alternating side to side.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -756,10 +973,14 @@
                 "description": "Basic abdominal crunch from supine.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -768,34 +989,48 @@
                 "description": "Hold single leg glute bridge and lift lower opposite leg.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 10,
-                "name": "Crunch pulses",
-                "description": "Small pulse movements at the top of crunch position.",
-                "difficulty": "INTERMEDIATE",
+                "id": 9,
+                "name": "Crunches",
+                "description": "Basic abdominal crunch from supine.",
+                "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "PULSE"
             },
             {
               "exercise": {
-                "id": 44,
-                "name": "Single leg glute bridge halfway pulses",
-                "description": "Single leg glute bridge with small halfway lift and lower movements.",
+                "id": 43,
+                "name": "Single leg glute bridge with opposite leg lift",
+                "description": "Hold single leg glute bridge and lift lower opposite leg.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -804,10 +1039,14 @@
                 "description": "Crunches performed with legs held in tabletop position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -816,10 +1055,14 @@
                 "description": "From supine with knees bent, let knees fall side to side for spinal rotation.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -828,10 +1071,14 @@
                 "description": "Crunches with both knees dropped to left side in lumbar twist position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -840,10 +1087,14 @@
                 "description": "Crunches with both knees dropped to right side in lumbar twist position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -852,10 +1103,14 @@
                 "description": "From supine with legs in table top, alternate tapping toes to floor.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -864,10 +1119,14 @@
                 "description": "From table top, alternate pulling one knee in while extending the other.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -876,17 +1135,21 @@
                 "description": "From table top, alternate extending opposite arm and leg.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "8 minutes lying glutes & core.",
           "reps": 1,
-          "name": "Supine Core"
+          "notes": "8 minutes lying glutes & core."
         },
         {
+          "name": "Side-Lying Glutes",
           "sets": [
             {
               "exercise": {
@@ -895,10 +1158,14 @@
                 "description": "Side-lying with knees bent, lift and lower top leg keeping knee bent.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -907,22 +1174,31 @@
                 "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 13,
-                "name": "Side-lying leg flex pulses",
-                "description": "With leg extended, flex toe and pulse.",
+                "id": 12,
+                "name": "Side-lying leg extension with point",
+                "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -931,10 +1207,14 @@
                 "description": "With leg extended and pointed foot, perform circles changing direction midway.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -943,17 +1223,21 @@
                 "description": "Oblique crunch bringing knee in and extending.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "5 minutes side lying right glute. Right leg on top.",
           "reps": 1,
-          "name": "Side-Lying Glutes"
+          "notes": "5 minutes side lying right glute. Right leg on top."
         },
         {
+          "name": "Quadruped Glutes",
           "sets": [
             {
               "exercise": {
@@ -962,10 +1246,14 @@
                 "description": "From table top with knees hovering, alternate tapping knees to floor.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -974,10 +1262,14 @@
                 "description": "Flex foot, bend knee and perform donkey kicks.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -986,10 +1278,14 @@
                 "description": "From all fours, circle leg back then round to opposite elbow.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -998,10 +1294,14 @@
                 "description": "From all fours position, bend elbows to lower body then press up.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1010,17 +1310,21 @@
                 "description": "From all fours, fingertips to temples, open chest and twist, close elbow to opposite wrist.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "3 minutes all fours core & glutes, right side.",
           "reps": 1,
-          "name": "Quadruped Glutes"
+          "notes": "3 minutes all fours core & glutes, right side."
         },
         {
+          "name": "Standing Glutes",
           "sets": [
             {
               "exercise": {
@@ -1029,10 +1333,14 @@
                 "description": "Hold lunge position with knee over front toes.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1041,10 +1349,14 @@
                 "description": "Hold lunge and perform chest openers touching thumbs in front and behind body.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 8,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1053,10 +1365,14 @@
                 "description": "From lunge, tap back toes in and out.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1065,10 +1381,14 @@
                 "description": "Hold wide squat position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1077,10 +1397,14 @@
                 "description": "From squat position, perform side bends.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1089,29 +1413,38 @@
                 "description": "In squat position with shoulders in cactus, small lift and lowers.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 59,
-                "name": "Squat cactus arm pulses back",
-                "description": "In squat with cactus arms, pulse arms backwards.",
+                "id": 58,
+                "name": "Squat with cactus arms lift and lower",
+                "description": "In squat position with shoulders in cactus, small lift and lowers.",
                 "difficulty": "INTERMEDIATE",
-                "primary_muscle_group": "SHOULDERS",
-                "starting_position": "STANDING"
+                "primary_muscle_group": "GLUTES",
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "PULSE"
             }
           ],
-          "notes": "2 minutes standing right glute.",
           "reps": 1,
-          "name": "Standing Glutes"
+          "notes": "2 minutes standing right glute."
         },
         {
+          "name": "Prone Core",
           "sets": [
             {
               "exercise": {
@@ -1120,17 +1453,21 @@
                 "description": "Hold high plank position with neutral spine.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "PRONE"
+                "starting_position": "PRONE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "1 minute plank core.",
           "reps": 1,
-          "name": "Prone Core"
+          "notes": "1 minute plank core."
         },
         {
+          "name": "Side-Lying Glutes",
           "sets": [
             {
               "exercise": {
@@ -1139,10 +1476,14 @@
                 "description": "Side-lying with knees bent, lift and lower top leg keeping knee bent.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1151,22 +1492,31 @@
                 "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 13,
-                "name": "Side-lying leg flex pulses",
-                "description": "With leg extended, flex toe and pulse.",
+                "id": 12,
+                "name": "Side-lying leg extension with point",
+                "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -1175,10 +1525,14 @@
                 "description": "With leg extended and pointed foot, perform circles changing direction midway.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1187,17 +1541,21 @@
                 "description": "Oblique crunch bringing knee in and extending.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "5 minutes side lying left glute. Left leg on top.",
           "reps": 1,
-          "name": "Side-Lying Glutes"
+          "notes": "5 minutes side lying left glute. Left leg on top."
         },
         {
+          "name": "Quadruped Glutes",
           "sets": [
             {
               "exercise": {
@@ -1206,10 +1564,14 @@
                 "description": "From table top with knees hovering, alternate tapping knees to floor.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1218,10 +1580,14 @@
                 "description": "Flex foot, bend knee and perform donkey kicks.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1230,10 +1596,14 @@
                 "description": "From all fours, circle leg back then round to opposite elbow.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1242,10 +1612,14 @@
                 "description": "From all fours position, bend elbows to lower body then press up.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1254,17 +1628,21 @@
                 "description": "From all fours, fingertips to temples, open chest and twist, close elbow to opposite wrist.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "3 minutes all fours core & glutes, left side.",
           "reps": 1,
-          "name": "Quadruped Glutes"
+          "notes": "3 minutes all fours core & glutes, left side."
         },
         {
+          "name": "Standing Glutes",
           "sets": [
             {
               "exercise": {
@@ -1273,10 +1651,14 @@
                 "description": "Hold lunge position with knee over front toes.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1285,10 +1667,14 @@
                 "description": "Hold lunge and perform chest openers touching thumbs in front and behind body.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 8,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1297,10 +1683,14 @@
                 "description": "From lunge, tap back toes in and out.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1309,10 +1699,14 @@
                 "description": "Hold wide squat position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1321,10 +1715,14 @@
                 "description": "From squat position, alternate heel raises.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HAMSTRINGS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1333,17 +1731,21 @@
                 "description": "Small pulse movements in squat position.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "2 minutes standing left glute.",
           "reps": 1,
-          "name": "Standing Glutes"
+          "notes": "2 minutes standing left glute."
         },
         {
+          "name": "Seated Core",
           "sets": [
             {
               "exercise": {
@@ -1352,10 +1754,14 @@
                 "description": "From seated, roll back halfway maintaining C-curve with arms forward.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1364,22 +1770,31 @@
                 "description": "C-curve roll back halfway with fingertips to temples.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 28,
-                "name": "C-curve half roll back with pulses",
-                "description": "Hold C-curve roll back position with fingertips to temples and pulse.",
-                "difficulty": "ADVANCED",
+                "id": 27,
+                "name": "C-curve half roll back fingertips to temples",
+                "description": "C-curve roll back halfway with fingertips to temples.",
+                "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -1388,10 +1803,14 @@
                 "description": "From seated leaning back on forearms, alternate single leg toe taps.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1400,17 +1819,21 @@
                 "description": "From seated leaning back on forearms, double leg toe taps.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 35
+              "duration_seconds": 35,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "3 minutes sitting core.",
           "reps": 1,
-          "name": "Seated Core"
+          "notes": "3 minutes sitting core."
         },
         {
+          "name": "Supine Obliques",
           "sets": [
             {
               "exercise": {
@@ -1419,10 +1842,14 @@
                 "description": "From supine, crunch up with twist bringing opposite elbow toward knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 40
+              "duration_seconds": 40,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1431,10 +1858,14 @@
                 "description": "Slow bicycle crunches alternating opposite elbow to knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 30
+              "duration_seconds": 30,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1443,19 +1874,23 @@
                 "description": "Quick tempo bicycle crunches.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 45
+              "duration_seconds": 45,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "2 minutes lying core.",
           "reps": 1,
-          "name": "Supine Obliques"
+          "notes": "2 minutes lying core."
         }
       ],
       "cool_down": [
         {
+          "name": "Supine Glutes",
           "sets": [
             {
               "exercise": {
@@ -1464,10 +1899,14 @@
                 "description": "From supine, soles of feet together with knees falling out to sides. Focus on deep breathing.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 65
+              "duration_seconds": 65,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1476,10 +1915,14 @@
                 "description": "From supine with knees bent, let knees fall side to side for spinal rotation.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 70
+              "duration_seconds": 70,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1488,10 +1931,14 @@
                 "description": "From supine, ankle to opposite knee for hip and glute stretch.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 60
+              "duration_seconds": 60,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1500,15 +1947,18 @@
                 "description": "From seated, inhale extend arms above, exhale draw arms down.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 75
+              "duration_seconds": 75,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "2 minutes cool down.",
           "reps": 1,
-          "name": "Supine Glutes"
+          "notes": "2 minutes cool down."
         }
       ]
     },
@@ -1519,6 +1969,7 @@
       "date": "2026-02-07",
       "warm_up": [
         {
+          "name": "Standing Back Extensors",
           "sets": [
             {
               "exercise": {
@@ -1527,10 +1978,14 @@
                 "description": "Deep breathing to center and prepare for practice.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 41
+              "duration_seconds": 41,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1539,10 +1994,14 @@
                 "description": "Shoulder rolls to mobilize the shoulder girdle.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 46
+              "duration_seconds": 46,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1551,10 +2010,14 @@
                 "description": "Gentle neck circles to release tension.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 2,
-              "duration_seconds": 36
+              "duration_seconds": 36,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1563,10 +2026,14 @@
                 "description": "Lateral spinal stretch to mobilize the spine and open the side body.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 2,
-              "duration_seconds": 51
+              "duration_seconds": 51,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1575,10 +2042,14 @@
                 "description": "Pilates breathing with focus on lateral rib expansion.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 4,
-              "duration_seconds": 31
+              "duration_seconds": 31,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1587,10 +2058,14 @@
                 "description": "Standing forward fold to lengthen hamstrings and back.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "HAMSTRINGS",
-                "starting_position": "STANDING"
+                "starting_position": "STANDING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 41
+              "duration_seconds": 41,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1599,10 +2074,14 @@
                 "description": "Flow from plank, sit back on heels, downward dog, upward dog, back to plank.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "PRONE"
+                "starting_position": "PRONE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 46
+              "duration_seconds": 46,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1611,10 +2090,14 @@
                 "description": "Spinal flexion and extension to mobilize thoracic and lumbar spine.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 36
+              "duration_seconds": 36,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1623,10 +2106,14 @@
                 "description": "Twist side to side in table top or move freely to warm up.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 51
+              "duration_seconds": 51,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1635,19 +2122,23 @@
                 "description": "Sink into shoulders, press away - learning shoulder engagement.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 31
+              "duration_seconds": 31,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "6 minutes standing prep with shoulder stability work.",
           "reps": 1,
-          "name": "Standing Back Extensors"
+          "notes": "6 minutes standing prep with shoulder stability work."
         }
       ],
       "main_session": [
         {
+          "name": "Quadruped Glutes",
           "sets": [
             {
               "exercise": {
@@ -1656,10 +2147,14 @@
                 "description": "Superman starting arms only, then adding legs, then adding raise of arms and legs together.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 16,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1668,10 +2163,14 @@
                 "description": "From superman position, add a crunch movement.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 8,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1680,10 +2179,14 @@
                 "description": "Ball between knees, hover and tap knees to floor.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1692,10 +2195,14 @@
                 "description": "Squeeze ball between knees from quadruped position.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "INNER_THIGHS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1704,10 +2211,14 @@
                 "description": "With ball between knees, rock back toward heels and forward.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1716,10 +2227,14 @@
                 "description": "Ball behind left knee, perform donkey kicks.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1728,10 +2243,14 @@
                 "description": "Ball behind left knee, lift bent knee out to side.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1740,22 +2259,31 @@
                 "description": "Ball behind left knee, lift leg up and bring round to elbow.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 73,
-                "name": "Ball behind left knee donkey kick pulses",
-                "description": "Ball behind left knee, small pulse movements in top of donkey kick.",
+                "id": 70,
+                "name": "Ball behind left knee donkey kicks",
+                "description": "Ball behind left knee, perform donkey kicks.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -1764,10 +2292,14 @@
                 "description": "Ball under left hand, right leg extended, tricep push ups.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1776,10 +2308,14 @@
                 "description": "Left knee bent, right leg extended, bent knee crunches drawing nose to knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1788,10 +2324,14 @@
                 "description": "Ball behind right knee, perform donkey kicks.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1800,10 +2340,14 @@
                 "description": "Ball behind right knee, lift bent knee out to side.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1812,22 +2356,31 @@
                 "description": "Ball behind right knee, lift leg up and bring round to elbow.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 79,
-                "name": "Ball behind right knee donkey kick pulses",
-                "description": "Ball behind right knee, small pulse movements in top of donkey kick.",
+                "id": 76,
+                "name": "Ball behind right knee donkey kicks",
+                "description": "Ball behind right knee, perform donkey kicks.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -1836,10 +2389,14 @@
                 "description": "Ball under right hand, left leg extended, tricep push ups.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "SHOULDERS",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1848,17 +2405,21 @@
                 "description": "Right knee bent, left leg extended, bent knee crunches drawing nose to knee.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "QUADRUPED"
+                "starting_position": "QUADRUPED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "10 minutes all fours core, glutes & arms with ball work.",
           "reps": 1,
-          "name": "Quadruped Glutes"
+          "notes": "10 minutes all fours core, glutes & arms with ball work."
         },
         {
+          "name": "Kneeling Obliques",
           "sets": [
             {
               "exercise": {
@@ -1867,10 +2428,14 @@
                 "description": "From kneeling, perform side bends to the left.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1879,22 +2444,31 @@
                 "description": "Half kneel side plank with left hand down, right leg extended, lift and lower.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 84,
-                "name": "Kneeling side plank right leg pulses",
-                "description": "Half kneel side plank position, pulse right leg up and down.",
+                "id": 83,
+                "name": "Kneeling side plank right leg lifts",
+                "description": "Half kneel side plank with left hand down, right leg extended, lift and lower.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -1903,10 +2477,14 @@
                 "description": "Half kneel side plank position, perform oblique crunches.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1915,10 +2493,14 @@
                 "description": "From kneeling with right leg extended, move leg forward and back.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HIP_FLEXORS",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1927,10 +2509,14 @@
                 "description": "From kneeling, perform side bends to the right.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1939,22 +2525,31 @@
                 "description": "Half kneel side plank with right hand down, left leg extended, lift and lower.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 89,
-                "name": "Kneeling side plank left leg pulses",
-                "description": "Half kneel side plank position, pulse left leg up and down.",
+                "id": 88,
+                "name": "Kneeling side plank left leg lifts",
+                "description": "Half kneel side plank with right hand down, left leg extended, lift and lower.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -1963,10 +2558,14 @@
                 "description": "Half kneel side plank position, perform oblique crunches.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1975,10 +2574,14 @@
                 "description": "From kneeling with left leg extended, move leg forward and back.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HIP_FLEXORS",
-                "starting_position": "KNEELING"
+                "starting_position": "KNEELING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1987,10 +2590,14 @@
                 "description": "From side plank, lower and lift hips.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -1999,10 +2606,14 @@
                 "description": "From side plank, thread top arm under body.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SIDE_LYING"
+                "starting_position": "SIDE_LYING",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2011,17 +2622,21 @@
                 "description": "Seated side stretch reaching one arm overhead.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "10 minutes kneeling core & glutes.",
           "reps": 1,
-          "name": "Kneeling Obliques"
+          "notes": "10 minutes kneeling core & glutes."
         },
         {
+          "name": "Supine Glutes",
           "sets": [
             {
               "exercise": {
@@ -2030,10 +2645,14 @@
                 "description": "Ball between knees, super slow glute bridge.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 4,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2042,10 +2661,14 @@
                 "description": "Normal glute bridge, squeeze ball at the top.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 8,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2054,22 +2677,31 @@
                 "description": "From bridge or neutral, squeeze ball between knees.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "INNER_THIGHS",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 98,
-                "name": "Ball between knees bridge pulses",
-                "description": "Small pulse movements at top of bridge with ball between knees.",
+                "id": 96,
+                "name": "Ball between knees bridge with squeeze",
+                "description": "Normal glute bridge, squeeze ball at the top.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -2078,10 +2710,14 @@
                 "description": "Legs in tabletop, squeeze ball between knees.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "INNER_THIGHS",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2090,17 +2726,21 @@
                 "description": "With ball between knees in tabletop, lower both legs to tap toes.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "4 minutes lying glutes & core with ball.",
           "reps": 1,
-          "name": "Supine Glutes"
+          "notes": "4 minutes lying glutes & core with ball."
         },
         {
+          "name": "Supine Core",
           "sets": [
             {
               "exercise": {
@@ -2109,10 +2749,14 @@
                 "description": "Ball between shoulder blades, perform crunches.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2121,10 +2765,14 @@
                 "description": "Ball between shoulder blades, crunches with twist each side.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2133,10 +2781,14 @@
                 "description": "From bridge, walk feet alternating and touch opposite hand to knee.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2145,22 +2797,31 @@
                 "description": "Hold single leg glute bridge and lift lower opposite leg.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 33
+              "duration_seconds": 33,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
-                "id": 44,
-                "name": "Single leg glute bridge halfway pulses",
-                "description": "Single leg glute bridge with small halfway lift and lower movements.",
+                "id": 43,
+                "name": "Single leg glute bridge with opposite leg lift",
+                "description": "Hold single leg glute bridge and lift lower opposite leg.",
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD",
+                  "PULSE"
+                ]
               },
               "reps": 5,
-              "duration_seconds": 43
+              "duration_seconds": 43,
+              "variant": "PULSE"
             },
             {
               "exercise": {
@@ -2169,10 +2830,14 @@
                 "description": "From supine with legs in table top, alternate tapping toes to floor.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 48
+              "duration_seconds": 48,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2181,10 +2846,14 @@
                 "description": "Send both knees to right, pull back to centre, both knees to left, pull back to centre.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 38
+              "duration_seconds": 38,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2193,19 +2862,23 @@
                 "description": "From table top, extend both arms and legs away then circle back.",
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 10,
-              "duration_seconds": 53
+              "duration_seconds": 53,
+              "variant": "STANDARD"
             }
           ],
-          "name": "Supine Core",
-          "notes": "Change leg and repeat.",
-          "reps": 2
+          "reps": 2,
+          "notes": "Change leg and repeat."
         }
       ],
       "cool_down": [
         {
+          "name": "Supine Glutes",
           "sets": [
             {
               "exercise": {
@@ -2214,10 +2887,14 @@
                 "description": "From supine, soles of feet together with knees falling out to sides. Focus on deep breathing.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 65
+              "duration_seconds": 65,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2226,10 +2903,14 @@
                 "description": "From supine with knees bent, let knees fall side to side for spinal rotation.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 70
+              "duration_seconds": 70,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2238,10 +2919,14 @@
                 "description": "From supine, ankle to opposite knee for hip and glute stretch.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
-                "starting_position": "SUPINE"
+                "starting_position": "SUPINE",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 1,
-              "duration_seconds": 60
+              "duration_seconds": 60,
+              "variant": "STANDARD"
             },
             {
               "exercise": {
@@ -2250,15 +2935,18 @@
                 "description": "From seated, inhale extend arms above, exhale draw arms down.",
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
-                "starting_position": "SEATED"
+                "starting_position": "SEATED",
+                "variants": [
+                  "STANDARD"
+                ]
               },
               "reps": 3,
-              "duration_seconds": 75
+              "duration_seconds": 75,
+              "variant": "STANDARD"
             }
           ],
-          "notes": "3 minutes cool down.",
           "reps": 1,
-          "name": "Supine Glutes"
+          "notes": "3 minutes cool down."
         }
       ]
     }
@@ -2270,7 +2958,10 @@
       "description": "Deep breathing to center and prepare for practice.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 2,
@@ -2278,7 +2969,10 @@
       "description": "Pilates breathing with focus on lateral rib expansion.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 3,
@@ -2286,7 +2980,10 @@
       "description": "Gentle neck circles to release tension.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 4,
@@ -2294,7 +2991,10 @@
       "description": "Lateral spinal stretch to mobilize the spine and open the side body.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 5,
@@ -2302,7 +3002,10 @@
       "description": "From supine, tilt pelvis to imprint and release.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 6,
@@ -2310,7 +3013,10 @@
       "description": "Very slow controlled glute bridge with reset to floor each time.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 7,
@@ -2318,7 +3024,10 @@
       "description": "From supine with legs in table top, alternate tapping toes to floor.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 8,
@@ -2326,7 +3035,10 @@
       "description": "Send both knees to right, pull back to centre, both knees to left, pull back to centre.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 9,
@@ -2334,15 +3046,11 @@
       "description": "Basic abdominal crunch from supine.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
-    },
-    {
-      "id": 10,
-      "name": "Crunch pulses",
-      "description": "Small pulse movements at the top of crunch position.",
-      "difficulty": "INTERMEDIATE",
-      "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 11,
@@ -2350,7 +3058,10 @@
       "description": "Side-lying with knees bent, lift and lower top leg keeping knee bent.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SIDE_LYING"
+      "starting_position": "SIDE_LYING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 12,
@@ -2358,15 +3069,11 @@
       "description": "Lift top leg, straighten knee bringing in line with spine, pointed toe lower and lift.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SIDE_LYING"
-    },
-    {
-      "id": 13,
-      "name": "Side-lying leg flex pulses",
-      "description": "With leg extended, flex toe and pulse.",
-      "difficulty": "INTERMEDIATE",
-      "primary_muscle_group": "GLUTES",
-      "starting_position": "SIDE_LYING"
+      "starting_position": "SIDE_LYING",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 14,
@@ -2374,7 +3081,10 @@
       "description": "With leg extended and pointed foot, perform circles changing direction midway.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SIDE_LYING"
+      "starting_position": "SIDE_LYING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 15,
@@ -2382,7 +3092,10 @@
       "description": "Oblique crunch bringing knee in and extending.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SIDE_LYING"
+      "starting_position": "SIDE_LYING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 16,
@@ -2390,7 +3103,10 @@
       "description": "From plank, bring one knee in and perform bent knee crunches, drawing nose to knee.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "PRONE"
+      "starting_position": "PRONE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 17,
@@ -2398,7 +3114,10 @@
       "description": "Squats with one heel raised to target opposite glute.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 18,
@@ -2406,7 +3125,11 @@
       "description": "Hold wide squat position.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD",
+        "HOLD"
+      ]
     },
     {
       "id": 19,
@@ -2414,7 +3137,10 @@
       "description": "From squat position, perform side bends.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 20,
@@ -2422,7 +3148,10 @@
       "description": "Downward dog yoga pose for hamstring and calf stretch.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "HAMSTRINGS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 21,
@@ -2430,7 +3159,10 @@
       "description": "From prone, lift chest while keeping hips on ground.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "PRONE"
+      "starting_position": "PRONE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 22,
@@ -2438,7 +3170,10 @@
       "description": "Standard push-ups from plank position.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "SHOULDERS",
-      "starting_position": "PRONE"
+      "starting_position": "PRONE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 23,
@@ -2446,7 +3181,10 @@
       "description": "Rest pose with hips back on heels, arms extended forward.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 24,
@@ -2454,7 +3192,10 @@
       "description": "From squat position, alternate heel raises.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "HAMSTRINGS",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 25,
@@ -2462,7 +3203,11 @@
       "description": "Small pulse movements in squat position.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 26,
@@ -2470,7 +3215,10 @@
       "description": "From seated, roll back halfway maintaining C-curve with arms forward.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 27,
@@ -2478,15 +3226,11 @@
       "description": "C-curve roll back halfway with fingertips to temples.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
-    },
-    {
-      "id": 28,
-      "name": "C-curve half roll back with pulses",
-      "description": "Hold C-curve roll back position with fingertips to temples and pulse.",
-      "difficulty": "ADVANCED",
-      "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 29,
@@ -2494,7 +3238,10 @@
       "description": "From seated leaning back on forearms, alternate single leg toe taps.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 30,
@@ -2502,7 +3249,10 @@
       "description": "From seated leaning back on forearms, double leg toe taps.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 31,
@@ -2510,7 +3260,10 @@
       "description": "From supine, crunch up with twist bringing opposite elbow toward knee.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 32,
@@ -2518,7 +3271,10 @@
       "description": "Slow bicycle crunches alternating opposite elbow to knee.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 33,
@@ -2526,7 +3282,10 @@
       "description": "Quick tempo bicycle crunches.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 34,
@@ -2534,7 +3293,10 @@
       "description": "From supine, soles of feet together with knees falling out to sides. Focus on deep breathing.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 35,
@@ -2542,7 +3304,10 @@
       "description": "From supine with knees bent, let knees fall side to side for spinal rotation.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 36,
@@ -2550,7 +3315,10 @@
       "description": "From supine, ankle to opposite knee for hip and glute stretch.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 37,
@@ -2558,7 +3326,10 @@
       "description": "From seated, inhale extend arms above, exhale draw arms down.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "CORE",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 38,
@@ -2566,7 +3337,10 @@
       "description": "Shoulder rolls to mobilize the shoulder girdle.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "SHOULDERS",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 39,
@@ -2574,7 +3348,10 @@
       "description": "Standing spinal rotation to warm up the spine.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 40,
@@ -2582,7 +3359,10 @@
       "description": "Standing forward fold to lengthen hamstrings and back.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "HAMSTRINGS",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 41,
@@ -2590,7 +3370,10 @@
       "description": "Flow from plank, sit back on heels, downward dog, back to plank.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "PRONE"
+      "starting_position": "PRONE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 42,
@@ -2598,7 +3381,10 @@
       "description": "From bridge position, walk feet alternating side to side.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 43,
@@ -2606,15 +3392,11 @@
       "description": "Hold single leg glute bridge and lift lower opposite leg.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
-    },
-    {
-      "id": 44,
-      "name": "Single leg glute bridge halfway pulses",
-      "description": "Single leg glute bridge with small halfway lift and lower movements.",
-      "difficulty": "ADVANCED",
-      "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 45,
@@ -2622,7 +3404,10 @@
       "description": "Crunches performed with legs held in tabletop position.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 46,
@@ -2630,7 +3415,10 @@
       "description": "Crunches with both knees dropped to left side in lumbar twist position.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 47,
@@ -2638,7 +3426,10 @@
       "description": "Crunches with both knees dropped to right side in lumbar twist position.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 48,
@@ -2646,7 +3437,10 @@
       "description": "From table top, alternate pulling one knee in while extending the other.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 49,
@@ -2654,7 +3448,10 @@
       "description": "From table top, alternate extending opposite arm and leg.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 50,
@@ -2662,7 +3459,10 @@
       "description": "From table top with knees hovering, alternate tapping knees to floor.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 51,
@@ -2670,7 +3470,10 @@
       "description": "Flex foot, bend knee and perform donkey kicks.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 52,
@@ -2678,7 +3481,10 @@
       "description": "From all fours, circle leg back then round to opposite elbow.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 53,
@@ -2686,7 +3492,10 @@
       "description": "From all fours position, bend elbows to lower body then press up.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "SHOULDERS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 54,
@@ -2694,7 +3503,10 @@
       "description": "From all fours, fingertips to temples, open chest and twist, close elbow to opposite wrist.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 55,
@@ -2702,7 +3514,10 @@
       "description": "Hold lunge position with knee over front toes.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 56,
@@ -2710,7 +3525,10 @@
       "description": "Hold lunge and perform chest openers touching thumbs in front and behind body.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 57,
@@ -2718,7 +3536,10 @@
       "description": "From lunge, tap back toes in and out.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 58,
@@ -2726,15 +3547,11 @@
       "description": "In squat position with shoulders in cactus, small lift and lowers.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "STANDING"
-    },
-    {
-      "id": 59,
-      "name": "Squat cactus arm pulses back",
-      "description": "In squat with cactus arms, pulse arms backwards.",
-      "difficulty": "INTERMEDIATE",
-      "primary_muscle_group": "SHOULDERS",
-      "starting_position": "STANDING"
+      "starting_position": "STANDING",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 60,
@@ -2742,7 +3559,11 @@
       "description": "Hold high plank position with neutral spine.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "PRONE"
+      "starting_position": "PRONE",
+      "variants": [
+        "STANDARD",
+        "HOLD"
+      ]
     },
     {
       "id": 61,
@@ -2750,7 +3571,10 @@
       "description": "Flow from plank, sit back on heels, downward dog, upward dog, back to plank.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "PRONE"
+      "starting_position": "PRONE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 62,
@@ -2758,7 +3582,10 @@
       "description": "Spinal flexion and extension to mobilize thoracic and lumbar spine.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 63,
@@ -2766,7 +3593,10 @@
       "description": "Twist side to side in table top or move freely to warm up.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 64,
@@ -2774,7 +3604,10 @@
       "description": "Sink into shoulders, press away - learning shoulder engagement.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "SHOULDERS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 65,
@@ -2782,7 +3615,10 @@
       "description": "Superman starting arms only, then adding legs, then adding raise of arms and legs together.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 66,
@@ -2790,7 +3626,10 @@
       "description": "From superman position, add a crunch movement.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "BACK_EXTENSORS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 67,
@@ -2798,7 +3637,10 @@
       "description": "Ball between knees, hover and tap knees to floor.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 68,
@@ -2806,7 +3648,10 @@
       "description": "Squeeze ball between knees from quadruped position.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "INNER_THIGHS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 69,
@@ -2814,7 +3659,10 @@
       "description": "With ball between knees, rock back toward heels and forward.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 70,
@@ -2822,7 +3670,11 @@
       "description": "Ball behind left knee, perform donkey kicks.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 71,
@@ -2830,7 +3682,10 @@
       "description": "Ball behind left knee, lift bent knee out to side.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 72,
@@ -2838,15 +3693,10 @@
       "description": "Ball behind left knee, lift leg up and bring round to elbow.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
-    },
-    {
-      "id": 73,
-      "name": "Ball behind left knee donkey kick pulses",
-      "description": "Ball behind left knee, small pulse movements in top of donkey kick.",
-      "difficulty": "INTERMEDIATE",
-      "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 74,
@@ -2854,7 +3704,10 @@
       "description": "Ball under left hand, right leg extended, tricep push ups.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "SHOULDERS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 75,
@@ -2862,7 +3715,10 @@
       "description": "Left knee bent, right leg extended, bent knee crunches drawing nose to knee.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 76,
@@ -2870,7 +3726,11 @@
       "description": "Ball behind right knee, perform donkey kicks.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 77,
@@ -2878,7 +3738,10 @@
       "description": "Ball behind right knee, lift bent knee out to side.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 78,
@@ -2886,15 +3749,10 @@
       "description": "Ball behind right knee, lift leg up and bring round to elbow.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
-    },
-    {
-      "id": 79,
-      "name": "Ball behind right knee donkey kick pulses",
-      "description": "Ball behind right knee, small pulse movements in top of donkey kick.",
-      "difficulty": "INTERMEDIATE",
-      "primary_muscle_group": "GLUTES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 80,
@@ -2902,7 +3760,10 @@
       "description": "Ball under right hand, left leg extended, tricep push ups.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "SHOULDERS",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 81,
@@ -2910,7 +3771,10 @@
       "description": "Right knee bent, left leg extended, bent knee crunches drawing nose to knee.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "QUADRUPED"
+      "starting_position": "QUADRUPED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 82,
@@ -2918,7 +3782,10 @@
       "description": "From kneeling, perform side bends to the left.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 83,
@@ -2926,15 +3793,11 @@
       "description": "Half kneel side plank with left hand down, right leg extended, lift and lower.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "KNEELING"
-    },
-    {
-      "id": 84,
-      "name": "Kneeling side plank right leg pulses",
-      "description": "Half kneel side plank position, pulse right leg up and down.",
-      "difficulty": "ADVANCED",
-      "primary_muscle_group": "GLUTES",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 85,
@@ -2942,7 +3805,10 @@
       "description": "Half kneel side plank position, perform oblique crunches.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 86,
@@ -2950,7 +3816,10 @@
       "description": "From kneeling with right leg extended, move leg forward and back.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "HIP_FLEXORS",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 87,
@@ -2958,7 +3827,10 @@
       "description": "From kneeling, perform side bends to the right.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 88,
@@ -2966,15 +3838,11 @@
       "description": "Half kneel side plank with right hand down, left leg extended, lift and lower.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "KNEELING"
-    },
-    {
-      "id": 89,
-      "name": "Kneeling side plank left leg pulses",
-      "description": "Half kneel side plank position, pulse left leg up and down.",
-      "difficulty": "ADVANCED",
-      "primary_muscle_group": "GLUTES",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 90,
@@ -2982,7 +3850,10 @@
       "description": "Half kneel side plank position, perform oblique crunches.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 91,
@@ -2990,7 +3861,10 @@
       "description": "From kneeling with left leg extended, move leg forward and back.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "HIP_FLEXORS",
-      "starting_position": "KNEELING"
+      "starting_position": "KNEELING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 92,
@@ -2998,7 +3872,10 @@
       "description": "From side plank, lower and lift hips.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SIDE_LYING"
+      "starting_position": "SIDE_LYING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 93,
@@ -3006,7 +3883,10 @@
       "description": "From side plank, thread top arm under body.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SIDE_LYING"
+      "starting_position": "SIDE_LYING",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 94,
@@ -3014,7 +3894,10 @@
       "description": "Seated side stretch reaching one arm overhead.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SEATED"
+      "starting_position": "SEATED",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 95,
@@ -3022,7 +3905,10 @@
       "description": "Ball between knees, super slow glute bridge.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 96,
@@ -3030,7 +3916,11 @@
       "description": "Normal glute bridge, squeeze ball at the top.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD",
+        "PULSE"
+      ]
     },
     {
       "id": 97,
@@ -3038,15 +3928,10 @@
       "description": "From bridge or neutral, squeeze ball between knees.",
       "difficulty": "BEGINNER",
       "primary_muscle_group": "INNER_THIGHS",
-      "starting_position": "SUPINE"
-    },
-    {
-      "id": 98,
-      "name": "Ball between knees bridge pulses",
-      "description": "Small pulse movements at top of bridge with ball between knees.",
-      "difficulty": "INTERMEDIATE",
-      "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 99,
@@ -3054,7 +3939,10 @@
       "description": "Legs in tabletop, squeeze ball between knees.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "INNER_THIGHS",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 100,
@@ -3062,7 +3950,10 @@
       "description": "With ball between knees in tabletop, lower both legs to tap toes.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 101,
@@ -3070,7 +3961,10 @@
       "description": "Ball between shoulder blades, perform crunches.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 102,
@@ -3078,7 +3972,10 @@
       "description": "Ball between shoulder blades, crunches with twist each side.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "OBLIQUES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 103,
@@ -3086,7 +3983,10 @@
       "description": "From bridge, walk feet alternating and touch opposite hand to knee.",
       "difficulty": "ADVANCED",
       "primary_muscle_group": "GLUTES",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     },
     {
       "id": 104,
@@ -3094,7 +3994,10 @@
       "description": "From table top, extend both arms and legs away then circle back.",
       "difficulty": "INTERMEDIATE",
       "primary_muscle_group": "CORE",
-      "starting_position": "SUPINE"
+      "starting_position": "SUPINE",
+      "variants": [
+        "STANDARD"
+      ]
     }
   ]
 }

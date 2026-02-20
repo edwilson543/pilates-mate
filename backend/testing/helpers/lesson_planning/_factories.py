@@ -16,6 +16,7 @@ class Exercise(factory.Factory):
     difficulty = lesson_planning.Difficulty.INTERMEDIATE
     primary_muscle_group = lesson_planning.MuscleGroup.CORE
     starting_position = lesson_planning.StartingPosition.STANDING
+    variants = factory.LazyFunction(lambda: [lesson_planning.ExerciseVariant.STANDARD])
 
 
 class ExerciseSet(factory.Factory):
@@ -25,6 +26,7 @@ class ExerciseSet(factory.Factory):
     exercise = factory.SubFactory(Exercise)
     reps = 10
     duration_seconds = 30
+    variant = lesson_planning.ExerciseVariant.STANDARD
 
 
 class ExerciseSequence(factory.Factory):

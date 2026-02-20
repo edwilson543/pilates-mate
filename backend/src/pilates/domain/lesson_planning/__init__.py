@@ -5,6 +5,7 @@ from ._models import (
     Exercise,
     ExerciseSequence,
     ExerciseSet,
+    ExerciseVariant,
     LessonPlan,
     MuscleGroup,
     StartingPosition,

@@ -44,7 +44,11 @@ async def generate_lesson_plan(
         cool_down=lesson_plan.cool_down,
     )
 
-    data = {"id": lesson_plan_id, **lesson_plan.model_dump()}
+    data = {
+        "id": lesson_plan_id,
+        "date": dt.datetime.now().date(),
+        **lesson_plan.model_dump(),
+    }
     return lesson_planning.LessonPlan.model_validate(data)
 
 

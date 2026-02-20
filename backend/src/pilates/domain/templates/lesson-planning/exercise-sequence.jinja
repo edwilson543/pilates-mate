@@ -1,5 +1,5 @@
 Sequence: {{ sequence.name }}
-Duration: {{ sequence.duration_seconds }} seconds
+Duration: {{ sequence.sets | map(attribute='duration_seconds') | sum }} seconds
 Reps: {{ sequence.reps }}
 Notes: {{ sequence.notes }}
 {%- for set in sequence.sets %}
