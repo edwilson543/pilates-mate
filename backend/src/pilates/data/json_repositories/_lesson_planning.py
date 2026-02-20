@@ -276,6 +276,75 @@ class JSONRepository(lesson_planning.Repository):
 
         return next_id
 
+    def get_exercise_set(self, set_id: int) -> lesson_planning.ExerciseSet:
+        data = self._read_database()
+        for plan in data["lesson_plans"]:
+            for section_name in ["warm_up", "main_session", "cool_down"]:
+                for sequence in plan[section_name]:
+                    for set_item in sequence["sets"]:
+                        if set_item["id"] == set_id:
+                            return lesson_planning.ExerciseSet.model_validate(set_item)
+        raise lesson_planning.SetDoesNotExist(set_id=set_id)
+
+    def update_exercise_set(
+        self,
+        *,
+        id: int,
+        reps: int,
+        duration_seconds: int,
+        variant: lesson_planning.ExerciseVariant,
+    ) -> None:
+        data = self._read_database()
+
+        # Find and update set dict in place
+        set_found = False
+        for plan in data["lesson_plans"]:
+            for section_name in ["warm_up", "main_session", "cool_down"]:
+                for sequence in plan[section_name]:
+                    for set_item in sequence["sets"]:
+                        if set_item["id"] == id:
+                            set_item["reps"] = reps
+                            set_item["duration_seconds"] = duration_seconds
+                            set_item["variant"] = variant.value
+                            set_found = True
+                            break
+                    if set_found:
+                        break
+                if set_found:
+                    break
+            if set_found:
+                break
+
+        if not set_found:
+            raise lesson_planning.SetDoesNotExist(set_id=id)
+
+        self._write_database(data)
+
+    def delete_exercise_set(self, set_id: int) -> None:
+        data = self._read_database()
+
+        # Find sequence containing set and filter it out
+        set_found = False
+        for plan in data["lesson_plans"]:
+            for section_name in ["warm_up", "main_session", "cool_down"]:
+                for sequence in plan[section_name]:
+                    original_length = len(sequence["sets"])
+                    sequence["sets"] = [
+                        s for s in sequence["sets"] if s["id"] != set_id
+                    ]
+                    if len(sequence["sets"]) < original_length:
+                        set_found = True
+                        break
+                if set_found:
+                    break
+            if set_found:
+                break
+
+        if not set_found:
+            raise lesson_planning.SetDoesNotExist(set_id=set_id)
+
+        self._write_database(data)
+
     # Helpers.
 
     def _read_database(self) -> dict:

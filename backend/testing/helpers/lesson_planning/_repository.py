@@ -310,6 +310,142 @@ class FakeRepository(lesson_planning.Repository):
 
         return set_id
 
+    def get_exercise_set(self, set_id: int) -> lesson_planning.ExerciseSet:
+        """Find set across all lesson plans."""
+        for plan in self._lesson_plans:
+            for section in [plan.warm_up, plan.main_session, plan.cool_down]:
+                for sequence in section:
+                    for exercise_set in sequence.sets:
+                        if exercise_set.id == set_id:
+                            return exercise_set
+        raise lesson_planning.SetDoesNotExist(set_id=set_id)
+
+    def update_exercise_set(
+        self,
+        *,
+        id: int,
+        reps: int,
+        duration_seconds: int,
+        variant: lesson_planning.ExerciseVariant,
+    ) -> None:
+        # Find set location (plan_index, section_name, sequence_index, set_index)
+        plan_index = None
+        section_name = None
+        sequence_index = None
+        set_index = None
+
+        for p_idx, plan in enumerate(self._lesson_plans):
+            for s_name in ["warm_up", "main_session", "cool_down"]:
+                section = getattr(plan, s_name)
+                for seq_idx, sequence in enumerate(section):
+                    for set_idx, exercise_set in enumerate(sequence.sets):
+                        if exercise_set.id == id:
+                            plan_index = p_idx
+                            section_name = s_name
+                            sequence_index = seq_idx
+                            set_index = set_idx
+                            break
+                    if set_index is not None:
+                        break
+                if set_index is not None:
+                    break
+            if set_index is not None:
+                break
+
+        if set_index is None:
+            raise lesson_planning.SetDoesNotExist(set_id=id)
+
+        # Type narrowing
+        assert plan_index is not None
+        assert section_name is not None
+        assert sequence_index is not None
+
+        # Get current objects
+        current_plan = self._lesson_plans[plan_index]
+        current_section = getattr(current_plan, section_name)
+        current_sequence = current_section[sequence_index]
+        current_set = current_sequence.sets[set_index]
+
+        # Create updated set using model_copy
+        updated_set = current_set.model_copy(
+            update={
+                "reps": reps,
+                "duration_seconds": duration_seconds,
+                "variant": variant,
+            }
+        )
+
+        # Update sequence with new sets list
+        updated_sets = current_sequence.sets.copy()
+        updated_sets[set_index] = updated_set
+        updated_sequence = current_sequence.model_copy(update={"sets": updated_sets})
+
+        # Update section with new sequence
+        updated_section = current_section.copy()
+        updated_section[sequence_index] = updated_sequence
+
+        # Update plan with new section
+        updated_plan = current_plan.model_copy(update={section_name: updated_section})
+
+        # Update repository with new plan list
+        updated_plans = self._lesson_plans.copy()
+        updated_plans[plan_index] = updated_plan
+        object.__setattr__(self, "_lesson_plans", updated_plans)
+
+    def delete_exercise_set(self, set_id: int) -> None:
+        # Find set location
+        plan_index = None
+        section_name = None
+        sequence_index = None
+        set_index = None
+
+        for p_idx, plan in enumerate(self._lesson_plans):
+            for s_name in ["warm_up", "main_session", "cool_down"]:
+                section = getattr(plan, s_name)
+                for seq_idx, sequence in enumerate(section):
+                    for set_idx, exercise_set in enumerate(sequence.sets):
+                        if exercise_set.id == set_id:
+                            plan_index = p_idx
+                            section_name = s_name
+                            sequence_index = seq_idx
+                            set_index = set_idx
+                            break
+                    if set_index is not None:
+                        break
+                if set_index is not None:
+                    break
+            if set_index is not None:
+                break
+
+        if set_index is None:
+            raise lesson_planning.SetDoesNotExist(set_id=set_id)
+
+        # Type narrowing
+        assert plan_index is not None
+        assert section_name is not None
+        assert sequence_index is not None
+
+        # Get current objects
+        current_plan = self._lesson_plans[plan_index]
+        current_section = getattr(current_plan, section_name)
+        current_sequence = current_section[sequence_index]
+
+        # Filter out the set
+        updated_sets = [s for s in current_sequence.sets if s.id != set_id]
+        updated_sequence = current_sequence.model_copy(update={"sets": updated_sets})
+
+        # Update section with new sequence
+        updated_section = current_section.copy()
+        updated_section[sequence_index] = updated_sequence
+
+        # Update plan with new section
+        updated_plan = current_plan.model_copy(update={section_name: updated_section})
+
+        # Update repository with new plan list
+        updated_plans = self._lesson_plans.copy()
+        updated_plans[plan_index] = updated_plan
+        object.__setattr__(self, "_lesson_plans", updated_plans)
+
 
 def _section_to_field_name(section: lesson_planning.LessonPlanSection) -> str:
     """Convert LessonPlanSection enum to field name."""

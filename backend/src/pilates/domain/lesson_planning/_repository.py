@@ -21,6 +21,11 @@ class SequenceDoesNotExist(Exception):
     sequence_id: int
 
 
+@attrs.frozen
+class SetDoesNotExist(Exception):
+    set_id: int
+
+
 class Repository(abc.ABC):
     # Exercises.
 
@@ -107,4 +112,26 @@ class Repository(abc.ABC):
         variant: _models.ExerciseVariant,
     ) -> int:
         """Add set to sequence. Returns set_id."""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_exercise_set(self, set_id: int) -> _models.ExerciseSet:
+        """Get a single exercise set by ID across all lesson plans."""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def update_exercise_set(
+        self,
+        *,
+        id: int,
+        reps: int,
+        duration_seconds: int,
+        variant: _models.ExerciseVariant,
+    ) -> None:
+        """Update set properties. Does not change exercise reference."""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def delete_exercise_set(self, set_id: int) -> None:
+        """Delete set from its sequence."""
         raise NotImplementedError

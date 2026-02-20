@@ -16,4 +16,5 @@ from ._repository import (
     LessonPlanDoesNotExist,
     Repository,
     SequenceDoesNotExist,
+    SetDoesNotExist,
 )
