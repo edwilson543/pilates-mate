@@ -19,6 +19,7 @@ class JSONRepository(lesson_planning.Repository):
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
+        variants: list[lesson_planning.ExerciseVariant],
     ) -> int:
         data = self._read_database()
 
@@ -30,6 +31,7 @@ class JSONRepository(lesson_planning.Repository):
             difficulty=difficulty,
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
+            variants=variants,
         )
         data["exercises"].append(new_exercise.model_dump())
 

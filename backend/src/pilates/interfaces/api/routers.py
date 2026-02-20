@@ -18,6 +18,7 @@ class CreateExerciseRequest(pydantic.BaseModel):
     difficulty: lesson_planning.Difficulty
     primary_muscle_group: lesson_planning.MuscleGroup
     starting_position: lesson_planning.StartingPosition
+    variants: list[lesson_planning.ExerciseVariant]
 
 
 class CreateExerciseResponse(pydantic.BaseModel):
@@ -35,6 +36,7 @@ def create_exercise(
         difficulty=request.difficulty,
         primary_muscle_group=request.primary_muscle_group,
         starting_position=request.starting_position,
+        variants=request.variants,
     )
     return CreateExerciseResponse(id=exercise_id)
 

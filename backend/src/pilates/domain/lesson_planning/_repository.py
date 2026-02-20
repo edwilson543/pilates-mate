@@ -28,6 +28,7 @@ class Repository(abc.ABC):
         difficulty: _models.Difficulty,
         primary_muscle_group: _models.MuscleGroup,
         starting_position: _models.StartingPosition,
+        variants: list[_models.ExerciseVariant],
     ) -> int:
         raise NotImplementedError
 

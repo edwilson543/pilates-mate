@@ -18,6 +18,7 @@ class FakeRepository(lesson_planning.Repository):
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
+        variants: list[lesson_planning.ExerciseVariant],
     ) -> int:
         next_id = len(self._exercises) + 1
 
@@ -28,6 +29,7 @@ class FakeRepository(lesson_planning.Repository):
             difficulty=difficulty,
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
+            variants=variants,
         )
         self._exercises.append(new_exercise)
 

@@ -20,6 +20,7 @@ class TestCreateExercise:
             difficulty=lesson_planning.Difficulty.BEGINNER,
             primary_muscle_group=lesson_planning.MuscleGroup.CORE,
             starting_position=lesson_planning.StartingPosition.SUPINE,
+            variants=[lesson_planning.ExerciseVariant.STANDARD],
         )
 
         assert lesson_plan_id == 1
@@ -36,6 +37,7 @@ class TestGetExercises:
             difficulty=lesson_planning.Difficulty.BEGINNER,
             primary_muscle_group=lesson_planning.MuscleGroup.CORE,
             starting_position=lesson_planning.StartingPosition.SUPINE,
+            variants=[lesson_planning.ExerciseVariant.STANDARD],
         )
         repository.create_exercise(
             name="Roll Up",
@@ -43,6 +45,7 @@ class TestGetExercises:
             difficulty=lesson_planning.Difficulty.INTERMEDIATE,
             primary_muscle_group=lesson_planning.MuscleGroup.CORE,
             starting_position=lesson_planning.StartingPosition.SUPINE,
+            variants=[lesson_planning.ExerciseVariant.STANDARD],
         )
 
         exercises = repository.get_exercises()
@@ -63,6 +66,7 @@ class TestGetExercise:
             difficulty=lesson_planning.Difficulty.INTERMEDIATE,
             primary_muscle_group=lesson_planning.MuscleGroup.CORE,
             starting_position=lesson_planning.StartingPosition.PRONE,
+            variants=[lesson_planning.ExerciseVariant.STANDARD],
         )
 
         exercise = repository.get_exercise(exercise_id)
