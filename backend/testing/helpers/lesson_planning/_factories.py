@@ -6,6 +6,39 @@ from pilates.application import generate_plan
 from pilates.domain import lesson_planning
 
 
+class GeneratedExercise(factory.Factory):
+    class Meta:
+        model = generate_plan._GeneratedExercise
+
+    id = factory.Sequence(lambda n: n)
+    name = factory.Sequence(lambda n: f"name-{n}")
+
+
+class GeneratedExerciseSet(factory.Factory):
+    class Meta:
+        model = generate_plan._GeneratedExerciseSet
+
+    exercise = factory.SubFactory(GeneratedExercise)
+    reps = 10
+    duration_seconds = 30
+    variant = lesson_planning.ExerciseVariant.STANDARD
+
+
+class GeneratedExerciseSequence(factory.Factory):
+    class Meta:
+        model = generate_plan._GeneratedExerciseSequence
+        exclude = ("n_sets",)
+
+    n_sets = 3
+    sets = factory.LazyAttribute(
+        lambda o: [GeneratedExerciseSet() for _ in range(o.n_sets)]
+    )
+
+    name = factory.Sequence(lambda n: f"name-{n}")
+    notes = factory.Sequence(lambda n: f"notes-{n}")
+    reps = 1
+
+
 class Exercise(factory.Factory):
     class Meta:
         model = lesson_planning.Exercise
@@ -23,6 +56,7 @@ class ExerciseSet(factory.Factory):
     class Meta:
         model = lesson_planning.ExerciseSet
 
+    id = factory.Sequence(lambda n: n)
     exercise = factory.SubFactory(Exercise)
     reps = 10
     duration_seconds = 30
@@ -34,6 +68,7 @@ class ExerciseSequence(factory.Factory):
         model = lesson_planning.ExerciseSequence
         exclude = ("n_sets",)
 
+    id = factory.Sequence(lambda n: n)
     n_sets = 3
     sets = factory.LazyAttribute(lambda o: [ExerciseSet() for _ in range(o.n_sets)])
 

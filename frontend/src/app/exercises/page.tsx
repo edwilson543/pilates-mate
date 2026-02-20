@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { formatEnumMember } from "@/lib/utils";
+import { Pencil } from "lucide-react";
 
 export default function ExercisesPage() {
   const router = useRouter();
@@ -77,6 +78,7 @@ export default function ExercisesPage() {
               <TableHead>Difficulty</TableHead>
               <TableHead>Muscle Group</TableHead>
               <TableHead>Starting Position</TableHead>
+              <TableHead className="w-[80px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -105,6 +107,18 @@ export default function ExercisesPage() {
                 </TableCell>
                 <TableCell>
                   {formatEnumMember(exercise.starting_position)}
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/exercises/${exercise.id}/edit`);
+                    }}
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

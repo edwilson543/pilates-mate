@@ -40,6 +40,20 @@ class Repository(abc.ABC):
     def get_exercise(self, exercise_id: int) -> _models.Exercise:
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def update_exercise(
+        self,
+        *,
+        id: int,
+        name: str,
+        description: str,
+        difficulty: _models.Difficulty,
+        primary_muscle_group: _models.MuscleGroup,
+        starting_position: _models.StartingPosition,
+        variants: list[_models.ExerciseVariant],
+    ) -> None:
+        raise NotImplementedError
+
     # Lesson plans.
 
     @abc.abstractmethod

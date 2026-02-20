@@ -44,6 +44,89 @@ class FakeRepository(lesson_planning.Repository):
                 return exercise
         raise lesson_planning.ExerciseDoesNotExist(exercise_id=exercise_id)
 
+    def update_exercise(
+        self,
+        *,
+        id: int,
+        name: str,
+        description: str,
+        difficulty: lesson_planning.Difficulty,
+        primary_muscle_group: lesson_planning.MuscleGroup,
+        starting_position: lesson_planning.StartingPosition,
+        variants: list[lesson_planning.ExerciseVariant],
+    ) -> None:
+        # Find exercise index
+        exercise_index = None
+        for idx, exercise in enumerate(self._exercises):
+            if exercise.id == id:
+                exercise_index = idx
+                break
+
+        if exercise_index is None:
+            raise lesson_planning.ExerciseDoesNotExist(exercise_id=id)
+
+        # Create updated exercise
+        updated_exercise = lesson_planning.Exercise(
+            id=id,
+            name=name,
+            description=description,
+            difficulty=difficulty,
+            primary_muscle_group=primary_muscle_group,
+            starting_position=starting_position,
+            variants=variants,
+        )
+
+        # Update in exercises list
+        updated_exercises = self._exercises.copy()
+        updated_exercises[exercise_index] = updated_exercise
+        object.__setattr__(self, "_exercises", updated_exercises)
+
+        # Update all references in lesson plans (denormalization handling)
+        updated_lesson_plans = []
+        for plan in self._lesson_plans:
+            updated_warm_up = self._update_sequences(plan.warm_up, id, updated_exercise)
+            updated_main_session = self._update_sequences(
+                plan.main_session, id, updated_exercise
+            )
+            updated_cool_down = self._update_sequences(
+                plan.cool_down, id, updated_exercise
+            )
+
+            updated_plan = plan.model_copy(
+                update={
+                    "warm_up": updated_warm_up,
+                    "main_session": updated_main_session,
+                    "cool_down": updated_cool_down,
+                }
+            )
+            updated_lesson_plans.append(updated_plan)
+
+        object.__setattr__(self, "_lesson_plans", updated_lesson_plans)
+
+    def _update_sequences(
+        self,
+        sequences: list[lesson_planning.ExerciseSequence],
+        exercise_id: int,
+        updated_exercise: lesson_planning.Exercise,
+    ) -> list[lesson_planning.ExerciseSequence]:
+        """Update exercise references in a list of sequences."""
+        updated_sequences = []
+        for sequence in sequences:
+            updated_sets = []
+            for exercise_set in sequence.sets:
+                if exercise_set.exercise.id == exercise_id:
+                    updated_set = exercise_set.model_copy(
+                        update={"exercise": updated_exercise}
+                    )
+                    updated_sets.append(updated_set)
+                else:
+                    updated_sets.append(exercise_set)
+
+            updated_sequence = sequence.model_copy(update={"sets": updated_sets})
+            updated_sequences.append(updated_sequence)
+
+        return updated_sequences
+
     def create_lesson_plan(
         self,
         *,

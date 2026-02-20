@@ -2,6 +2,9 @@ from ._factories import (
     Exercise,
     ExerciseSequence,
     ExerciseSet,
+    GeneratedExercise,
+    GeneratedExerciseSequence,
+    GeneratedExerciseSet,
     LessonPlan,
     LessonPlanRequirements,
 )

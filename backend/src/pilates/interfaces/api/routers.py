@@ -25,6 +25,15 @@ class CreateExerciseResponse(pydantic.BaseModel):
     id: int
 
 
+class UpdateExerciseRequest(pydantic.BaseModel):
+    name: str
+    description: str
+    difficulty: lesson_planning.Difficulty
+    primary_muscle_group: lesson_planning.MuscleGroup
+    starting_position: lesson_planning.StartingPosition
+    variants: list[lesson_planning.ExerciseVariant]
+
+
 @exercise_router.post("/", status_code=201)
 def create_exercise(
     request: typing.Annotated[CreateExerciseRequest, fastapi.Body()],
@@ -52,6 +61,26 @@ def get_exercise(exercise_id: int) -> lesson_planning.Exercise:
     repository = config.get_lesson_planning_repository()
     try:
         return repository.get_exercise(exercise_id)
+    except lesson_planning.ExerciseDoesNotExist:
+        raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
+
+
+@exercise_router.put("/{exercise_id}", status_code=204)
+def update_exercise(
+    exercise_id: int,
+    request: typing.Annotated[UpdateExerciseRequest, fastapi.Body()],
+) -> None:
+    repository = config.get_lesson_planning_repository()
+    try:
+        repository.update_exercise(
+            id=exercise_id,
+            name=request.name,
+            description=request.description,
+            difficulty=request.difficulty,
+            primary_muscle_group=request.primary_muscle_group,
+            starting_position=request.starting_position,
+            variants=request.variants,
+        )
     except lesson_planning.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
 

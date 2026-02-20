@@ -55,7 +55,13 @@ export default function ExerciseDetailPage({
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to exercises
       </Button>
-      <PageHeader title={exercise.name} />
+      <PageHeader
+        title={exercise.name}
+        actionButton={{
+          label: "Edit Exercise",
+          onClick: () => router.push(`/exercises/${exerciseId}/edit`),
+        }}
+      />
       <ExerciseCard exercise={exercise} />
     </div>
   );

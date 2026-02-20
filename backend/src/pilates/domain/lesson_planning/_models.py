@@ -59,6 +59,7 @@ class Exercise(pydantic.BaseModel):
 
 
 class ExerciseSet(pydantic.BaseModel):
+    id: int
     exercise: Exercise
     reps: int
     duration_seconds: int
@@ -66,6 +67,7 @@ class ExerciseSet(pydantic.BaseModel):
 
 
 class ExerciseSequence(pydantic.BaseModel):
+    id: int
     name: str
     sets: list[ExerciseSet]
     reps: int

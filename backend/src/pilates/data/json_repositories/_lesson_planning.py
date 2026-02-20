@@ -51,6 +51,53 @@ class JSONRepository(lesson_planning.Repository):
                 return exercise
         raise lesson_planning.ExerciseDoesNotExist(exercise_id=exercise_id)
 
+    def update_exercise(
+        self,
+        *,
+        id: int,
+        name: str,
+        description: str,
+        difficulty: lesson_planning.Difficulty,
+        primary_muscle_group: lesson_planning.MuscleGroup,
+        starting_position: lesson_planning.StartingPosition,
+        variants: list[lesson_planning.ExerciseVariant],
+    ) -> None:
+        data = self._read_database()
+
+        # Find exercise index
+        exercise_index = None
+        for idx, exercise in enumerate(data["exercises"]):
+            if exercise["id"] == id:
+                exercise_index = idx
+                break
+
+        if exercise_index is None:
+            raise lesson_planning.ExerciseDoesNotExist(exercise_id=id)
+
+        # Create updated exercise
+        updated_exercise = lesson_planning.Exercise(
+            id=id,
+            name=name,
+            description=description,
+            difficulty=difficulty,
+            primary_muscle_group=primary_muscle_group,
+            starting_position=starting_position,
+            variants=variants,
+        )
+
+        # Update in exercises array
+        data["exercises"][exercise_index] = updated_exercise.model_dump()
+
+        # Update all references in lesson plans (denormalization handling)
+        for plan in data["lesson_plans"]:
+            for section in ["warm_up", "main_session", "cool_down"]:
+                for sequence in plan[section]:
+                    for set_item in sequence["sets"]:
+                        if set_item["exercise"]["id"] == id:
+                            set_item["exercise"] = updated_exercise.model_dump()
+
+        self._write_database(data)
+
     def create_lesson_plan(
         self,
         *,

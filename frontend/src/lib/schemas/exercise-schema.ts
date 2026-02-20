@@ -13,6 +13,8 @@ export const exerciseFormSchema = z.object({
     "INNER_THIGHS",
     "HAMSTRINGS",
     "OBLIQUES",
+    "TRICEPS",
+    "CHEST",
   ]),
   starting_position: z.enum([
     "SUPINE",
@@ -22,6 +24,8 @@ export const exerciseFormSchema = z.object({
     "QUADRUPED",
     "STANDING",
     "KNEELING",
+    "PLANK",
+    "SIDE_KNEELING",
   ]),
   variants: z
     .array(z.enum(["STANDARD", "PULSE", "HOLD"]))

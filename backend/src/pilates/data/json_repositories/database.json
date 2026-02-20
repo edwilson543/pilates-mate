@@ -23,7 +23,8 @@
               },
               "reps": 3,
               "duration_seconds": 70,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 1
             },
             {
               "exercise": {
@@ -39,7 +40,8 @@
               },
               "reps": 5,
               "duration_seconds": 75,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 2
             },
             {
               "exercise": {
@@ -55,7 +57,8 @@
               },
               "reps": 2,
               "duration_seconds": 65,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 3
             },
             {
               "exercise": {
@@ -71,11 +74,13 @@
               },
               "reps": 2,
               "duration_seconds": 80,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 4
             }
           ],
           "reps": 1,
-          "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility."
+          "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility.",
+          "id": 1
         }
       ],
       "main_session": [
@@ -96,7 +101,8 @@
               },
               "reps": 3,
               "duration_seconds": 52,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 5
             },
             {
               "exercise": {
@@ -112,7 +118,8 @@
               },
               "reps": 3,
               "duration_seconds": 57,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 6
             },
             {
               "exercise": {
@@ -128,7 +135,8 @@
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 7
             },
             {
               "exercise": {
@@ -144,7 +152,8 @@
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 8
             },
             {
               "exercise": {
@@ -160,7 +169,8 @@
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 9
             },
             {
               "exercise": {
@@ -177,11 +187,13 @@
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 10
             }
           ],
           "reps": 3,
-          "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout."
+          "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout.",
+          "id": 2
         },
         {
           "name": "Side-Lying Glutes",
@@ -200,7 +212,8 @@
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 11
             },
             {
               "exercise": {
@@ -216,7 +229,8 @@
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 12
             },
             {
               "exercise": {
@@ -233,7 +247,8 @@
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 13
             },
             {
               "exercise": {
@@ -249,7 +264,8 @@
               },
               "reps": 5,
               "duration_seconds": 42,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 14
             },
             {
               "exercise": {
@@ -265,11 +281,13 @@
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 15
             }
           ],
           "reps": 1,
-          "notes": "5 minutes left side glute work. Left leg on top."
+          "notes": "5 minutes left side glute work. Left leg on top.",
+          "id": 3
         },
         {
           "name": "Prone Obliques",
@@ -288,11 +306,13 @@
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 16
             }
           ],
           "reps": 1,
-          "notes": "2 minutes plank oblique work. Right knee in to work left glute."
+          "notes": "2 minutes plank oblique work. Right knee in to work left glute.",
+          "id": 4
         },
         {
           "name": "Standing Glutes",
@@ -311,7 +331,8 @@
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 17
             },
             {
               "exercise": {
@@ -327,7 +348,8 @@
               },
               "reps": 1,
               "duration_seconds": 62,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 18
             },
             {
               "exercise": {
@@ -343,11 +365,13 @@
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 19
             }
           ],
           "reps": 1,
-          "notes": "2 minutes standing left glute. Right heel raised for squats."
+          "notes": "2 minutes standing left glute. Right heel raised for squats.",
+          "id": 5
         },
         {
           "name": "Quadruped Back Extensors",
@@ -366,7 +390,8 @@
               },
               "reps": 1,
               "duration_seconds": 52,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 20
             },
             {
               "exercise": {
@@ -382,7 +407,8 @@
               },
               "reps": 3,
               "duration_seconds": 57,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 21
             },
             {
               "exercise": {
@@ -398,7 +424,8 @@
               },
               "reps": 5,
               "duration_seconds": 47,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 22
             },
             {
               "exercise": {
@@ -414,11 +441,13 @@
               },
               "reps": 1,
               "duration_seconds": 62,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 23
             }
           ],
           "reps": 1,
-          "notes": "1 minute plank & back work."
+          "notes": "1 minute plank & back work.",
+          "id": 6
         },
         {
           "name": "Side-Lying Glutes",
@@ -437,7 +466,8 @@
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 24
             },
             {
               "exercise": {
@@ -453,7 +483,8 @@
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 25
             },
             {
               "exercise": {
@@ -470,7 +501,8 @@
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 26
             },
             {
               "exercise": {
@@ -486,7 +518,8 @@
               },
               "reps": 5,
               "duration_seconds": 47,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 27
             },
             {
               "exercise": {
@@ -502,11 +535,13 @@
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 28
             }
           ],
           "reps": 1,
-          "notes": "5 minutes right side glute work. Right leg on top."
+          "notes": "5 minutes right side glute work. Right leg on top.",
+          "id": 7
         },
         {
           "name": "Prone Obliques",
@@ -525,11 +560,13 @@
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 29
             }
           ],
           "reps": 1,
-          "notes": "2 minutes plank oblique work. Left knee in to work right glute."
+          "notes": "2 minutes plank oblique work. Left knee in to work right glute.",
+          "id": 8
         },
         {
           "name": "Standing Glutes",
@@ -548,7 +585,8 @@
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 30
             },
             {
               "exercise": {
@@ -564,7 +602,8 @@
               },
               "reps": 1,
               "duration_seconds": 57,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 31
             },
             {
               "exercise": {
@@ -580,7 +619,8 @@
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 32
             },
             {
               "exercise": {
@@ -596,11 +636,13 @@
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 33
             }
           ],
           "reps": 1,
-          "notes": "3 minutes standing right glute. Left heel raised for squats."
+          "notes": "3 minutes standing right glute. Left heel raised for squats.",
+          "id": 9
         },
         {
           "name": "Seated Core",
@@ -619,7 +661,8 @@
               },
               "reps": 5,
               "duration_seconds": 42,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 34
             },
             {
               "exercise": {
@@ -635,7 +678,8 @@
               },
               "reps": 5,
               "duration_seconds": 52,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 35
             },
             {
               "exercise": {
@@ -652,7 +696,8 @@
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 36
             },
             {
               "exercise": {
@@ -668,7 +713,8 @@
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 37
             },
             {
               "exercise": {
@@ -684,11 +730,13 @@
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 38
             }
           ],
           "reps": 1,
-          "notes": "3 minutes sitting core."
+          "notes": "3 minutes sitting core.",
+          "id": 10
         },
         {
           "name": "Supine Obliques",
@@ -707,7 +755,8 @@
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 39
             },
             {
               "exercise": {
@@ -723,7 +772,8 @@
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 40
             },
             {
               "exercise": {
@@ -739,11 +789,13 @@
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 41
             }
           ],
           "reps": 1,
-          "notes": "2 minutes lying core finish."
+          "notes": "2 minutes lying core finish.",
+          "id": 11
         }
       ],
       "cool_down": [
@@ -764,7 +816,8 @@
               },
               "reps": 3,
               "duration_seconds": 65,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 42
             },
             {
               "exercise": {
@@ -780,7 +833,8 @@
               },
               "reps": 1,
               "duration_seconds": 70,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 43
             },
             {
               "exercise": {
@@ -796,7 +850,8 @@
               },
               "reps": 1,
               "duration_seconds": 60,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 44
             },
             {
               "exercise": {
@@ -812,11 +867,13 @@
               },
               "reps": 3,
               "duration_seconds": 75,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 45
             }
           ],
           "reps": 1,
-          "notes": "3 minutes cool down. Focus on lengthening and releasing."
+          "notes": "3 minutes cool down. Focus on lengthening and releasing.",
+          "id": 12
         }
       ]
     },
@@ -843,7 +900,8 @@
               },
               "reps": 3,
               "duration_seconds": 59,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 46
             },
             {
               "exercise": {
@@ -859,7 +917,8 @@
               },
               "reps": 4,
               "duration_seconds": 64,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 47
             },
             {
               "exercise": {
@@ -875,7 +934,8 @@
               },
               "reps": 3,
               "duration_seconds": 54,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 48
             },
             {
               "exercise": {
@@ -891,7 +951,8 @@
               },
               "reps": 2,
               "duration_seconds": 69,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 49
             },
             {
               "exercise": {
@@ -907,7 +968,8 @@
               },
               "reps": 2,
               "duration_seconds": 49,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 50
             },
             {
               "exercise": {
@@ -923,7 +985,8 @@
               },
               "reps": 1,
               "duration_seconds": 59,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 51
             },
             {
               "exercise": {
@@ -939,11 +1002,13 @@
               },
               "reps": 3,
               "duration_seconds": 64,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 52
             }
           ],
           "reps": 1,
-          "notes": "6 minutes full standing warm-up with dynamic plank transitions."
+          "notes": "6 minutes full standing warm-up with dynamic plank transitions.",
+          "id": 13
         }
       ],
       "main_session": [
@@ -964,7 +1029,8 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 53
             },
             {
               "exercise": {
@@ -980,7 +1046,8 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 54
             },
             {
               "exercise": {
@@ -996,7 +1063,8 @@
               },
               "reps": 5,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 55
             },
             {
               "exercise": {
@@ -1013,7 +1081,8 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 56
             },
             {
               "exercise": {
@@ -1030,7 +1099,8 @@
               },
               "reps": 5,
               "duration_seconds": 30,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 57
             },
             {
               "exercise": {
@@ -1046,7 +1116,8 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 58
             },
             {
               "exercise": {
@@ -1062,7 +1133,8 @@
               },
               "reps": 1,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 59
             },
             {
               "exercise": {
@@ -1078,7 +1150,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 60
             },
             {
               "exercise": {
@@ -1094,7 +1167,8 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 61
             },
             {
               "exercise": {
@@ -1110,7 +1184,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 62
             },
             {
               "exercise": {
@@ -1126,7 +1201,8 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 63
             },
             {
               "exercise": {
@@ -1142,11 +1218,13 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 64
             }
           ],
           "reps": 1,
-          "notes": "8 minutes lying glutes & core."
+          "notes": "8 minutes lying glutes & core.",
+          "id": 14
         },
         {
           "name": "Side-Lying Glutes",
@@ -1165,7 +1243,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 65
             },
             {
               "exercise": {
@@ -1181,7 +1260,8 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 66
             },
             {
               "exercise": {
@@ -1198,7 +1278,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 67
             },
             {
               "exercise": {
@@ -1214,7 +1295,8 @@
               },
               "reps": 5,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 68
             },
             {
               "exercise": {
@@ -1230,11 +1312,13 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 69
             }
           ],
           "reps": 1,
-          "notes": "5 minutes side lying right glute. Right leg on top."
+          "notes": "5 minutes side lying right glute. Right leg on top.",
+          "id": 15
         },
         {
           "name": "Quadruped Glutes",
@@ -1253,7 +1337,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 70
             },
             {
               "exercise": {
@@ -1269,7 +1354,8 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 71
             },
             {
               "exercise": {
@@ -1285,7 +1371,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 72
             },
             {
               "exercise": {
@@ -1301,7 +1388,8 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 73
             },
             {
               "exercise": {
@@ -1317,11 +1405,13 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 74
             }
           ],
           "reps": 1,
-          "notes": "3 minutes all fours core & glutes, right side."
+          "notes": "3 minutes all fours core & glutes, right side.",
+          "id": 16
         },
         {
           "name": "Standing Glutes",
@@ -1340,7 +1430,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 75
             },
             {
               "exercise": {
@@ -1356,7 +1447,8 @@
               },
               "reps": 8,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 76
             },
             {
               "exercise": {
@@ -1372,7 +1464,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 77
             },
             {
               "exercise": {
@@ -1388,7 +1481,8 @@
               },
               "reps": 1,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 78
             },
             {
               "exercise": {
@@ -1404,7 +1498,8 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 79
             },
             {
               "exercise": {
@@ -1420,7 +1515,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 80
             },
             {
               "exercise": {
@@ -1437,11 +1533,13 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 81
             }
           ],
           "reps": 1,
-          "notes": "2 minutes standing right glute."
+          "notes": "2 minutes standing right glute.",
+          "id": 17
         },
         {
           "name": "Prone Core",
@@ -1460,11 +1558,13 @@
               },
               "reps": 1,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 82
             }
           ],
           "reps": 1,
-          "notes": "1 minute plank core."
+          "notes": "1 minute plank core.",
+          "id": 18
         },
         {
           "name": "Side-Lying Glutes",
@@ -1483,7 +1583,8 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 83
             },
             {
               "exercise": {
@@ -1499,7 +1600,8 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 84
             },
             {
               "exercise": {
@@ -1516,7 +1618,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 85
             },
             {
               "exercise": {
@@ -1532,7 +1635,8 @@
               },
               "reps": 5,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 86
             },
             {
               "exercise": {
@@ -1548,11 +1652,13 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 87
             }
           ],
           "reps": 1,
-          "notes": "5 minutes side lying left glute. Left leg on top."
+          "notes": "5 minutes side lying left glute. Left leg on top.",
+          "id": 19
         },
         {
           "name": "Quadruped Glutes",
@@ -1571,7 +1677,8 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 88
             },
             {
               "exercise": {
@@ -1587,7 +1694,8 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 89
             },
             {
               "exercise": {
@@ -1603,7 +1711,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 90
             },
             {
               "exercise": {
@@ -1619,7 +1728,8 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 91
             },
             {
               "exercise": {
@@ -1635,11 +1745,13 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 92
             }
           ],
           "reps": 1,
-          "notes": "3 minutes all fours core & glutes, left side."
+          "notes": "3 minutes all fours core & glutes, left side.",
+          "id": 20
         },
         {
           "name": "Standing Glutes",
@@ -1658,7 +1770,8 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 93
             },
             {
               "exercise": {
@@ -1674,7 +1787,8 @@
               },
               "reps": 8,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 94
             },
             {
               "exercise": {
@@ -1690,7 +1804,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 95
             },
             {
               "exercise": {
@@ -1706,7 +1821,8 @@
               },
               "reps": 1,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 96
             },
             {
               "exercise": {
@@ -1722,7 +1838,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 97
             },
             {
               "exercise": {
@@ -1738,11 +1855,13 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 98
             }
           ],
           "reps": 1,
-          "notes": "2 minutes standing left glute."
+          "notes": "2 minutes standing left glute.",
+          "id": 21
         },
         {
           "name": "Seated Core",
@@ -1761,7 +1880,8 @@
               },
               "reps": 5,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 99
             },
             {
               "exercise": {
@@ -1777,7 +1897,8 @@
               },
               "reps": 5,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 100
             },
             {
               "exercise": {
@@ -1794,7 +1915,8 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 101
             },
             {
               "exercise": {
@@ -1810,7 +1932,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 102
             },
             {
               "exercise": {
@@ -1826,11 +1949,13 @@
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 103
             }
           ],
           "reps": 1,
-          "notes": "3 minutes sitting core."
+          "notes": "3 minutes sitting core.",
+          "id": 22
         },
         {
           "name": "Supine Obliques",
@@ -1849,7 +1974,8 @@
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 104
             },
             {
               "exercise": {
@@ -1865,7 +1991,8 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 105
             },
             {
               "exercise": {
@@ -1881,11 +2008,13 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 106
             }
           ],
           "reps": 1,
-          "notes": "2 minutes lying core."
+          "notes": "2 minutes lying core.",
+          "id": 23
         }
       ],
       "cool_down": [
@@ -1906,7 +2035,8 @@
               },
               "reps": 3,
               "duration_seconds": 65,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 107
             },
             {
               "exercise": {
@@ -1922,7 +2052,8 @@
               },
               "reps": 1,
               "duration_seconds": 70,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 108
             },
             {
               "exercise": {
@@ -1938,7 +2069,8 @@
               },
               "reps": 1,
               "duration_seconds": 60,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 109
             },
             {
               "exercise": {
@@ -1954,11 +2086,13 @@
               },
               "reps": 3,
               "duration_seconds": 75,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 110
             }
           ],
           "reps": 1,
-          "notes": "2 minutes cool down."
+          "notes": "2 minutes cool down.",
+          "id": 24
         }
       ]
     },
@@ -1985,7 +2119,8 @@
               },
               "reps": 3,
               "duration_seconds": 41,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 111
             },
             {
               "exercise": {
@@ -2001,7 +2136,8 @@
               },
               "reps": 3,
               "duration_seconds": 46,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 112
             },
             {
               "exercise": {
@@ -2017,7 +2153,8 @@
               },
               "reps": 2,
               "duration_seconds": 36,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 113
             },
             {
               "exercise": {
@@ -2033,7 +2170,8 @@
               },
               "reps": 2,
               "duration_seconds": 51,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 114
             },
             {
               "exercise": {
@@ -2049,7 +2187,8 @@
               },
               "reps": 4,
               "duration_seconds": 31,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 115
             },
             {
               "exercise": {
@@ -2065,7 +2204,8 @@
               },
               "reps": 1,
               "duration_seconds": 41,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 116
             },
             {
               "exercise": {
@@ -2081,7 +2221,8 @@
               },
               "reps": 3,
               "duration_seconds": 46,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 117
             },
             {
               "exercise": {
@@ -2097,7 +2238,8 @@
               },
               "reps": 3,
               "duration_seconds": 36,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 118
             },
             {
               "exercise": {
@@ -2113,7 +2255,8 @@
               },
               "reps": 3,
               "duration_seconds": 51,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 119
             },
             {
               "exercise": {
@@ -2129,11 +2272,13 @@
               },
               "reps": 3,
               "duration_seconds": 31,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 120
             }
           ],
           "reps": 1,
-          "notes": "6 minutes standing prep with shoulder stability work."
+          "notes": "6 minutes standing prep with shoulder stability work.",
+          "id": 25
         }
       ],
       "main_session": [
@@ -2154,7 +2299,8 @@
               },
               "reps": 16,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 121
             },
             {
               "exercise": {
@@ -2170,7 +2316,8 @@
               },
               "reps": 8,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 122
             },
             {
               "exercise": {
@@ -2186,7 +2333,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 123
             },
             {
               "exercise": {
@@ -2202,7 +2350,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 124
             },
             {
               "exercise": {
@@ -2218,7 +2367,8 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 125
             },
             {
               "exercise": {
@@ -2234,7 +2384,8 @@
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 126
             },
             {
               "exercise": {
@@ -2250,7 +2401,8 @@
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 127
             },
             {
               "exercise": {
@@ -2266,7 +2418,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 128
             },
             {
               "exercise": {
@@ -2283,7 +2436,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 129
             },
             {
               "exercise": {
@@ -2299,7 +2453,8 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 130
             },
             {
               "exercise": {
@@ -2315,7 +2470,8 @@
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 131
             },
             {
               "exercise": {
@@ -2331,7 +2487,8 @@
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 132
             },
             {
               "exercise": {
@@ -2347,7 +2504,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 133
             },
             {
               "exercise": {
@@ -2363,7 +2521,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 134
             },
             {
               "exercise": {
@@ -2380,7 +2539,8 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 135
             },
             {
               "exercise": {
@@ -2396,7 +2556,8 @@
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 136
             },
             {
               "exercise": {
@@ -2412,11 +2573,13 @@
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 137
             }
           ],
           "reps": 1,
-          "notes": "10 minutes all fours core, glutes & arms with ball work."
+          "notes": "10 minutes all fours core, glutes & arms with ball work.",
+          "id": 26
         },
         {
           "name": "Kneeling Obliques",
@@ -2435,7 +2598,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 138
             },
             {
               "exercise": {
@@ -2451,7 +2615,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 139
             },
             {
               "exercise": {
@@ -2468,7 +2633,8 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 140
             },
             {
               "exercise": {
@@ -2484,7 +2650,8 @@
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 141
             },
             {
               "exercise": {
@@ -2500,7 +2667,8 @@
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 142
             },
             {
               "exercise": {
@@ -2516,7 +2684,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 143
             },
             {
               "exercise": {
@@ -2532,7 +2701,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 144
             },
             {
               "exercise": {
@@ -2549,7 +2719,8 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 145
             },
             {
               "exercise": {
@@ -2565,7 +2736,8 @@
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 146
             },
             {
               "exercise": {
@@ -2581,7 +2753,8 @@
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 147
             },
             {
               "exercise": {
@@ -2597,7 +2770,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 148
             },
             {
               "exercise": {
@@ -2613,7 +2787,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 149
             },
             {
               "exercise": {
@@ -2629,11 +2804,13 @@
               },
               "reps": 1,
               "duration_seconds": 33,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 150
             }
           ],
           "reps": 1,
-          "notes": "10 minutes kneeling core & glutes."
+          "notes": "10 minutes kneeling core & glutes.",
+          "id": 27
         },
         {
           "name": "Supine Glutes",
@@ -2652,7 +2829,8 @@
               },
               "reps": 4,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 151
             },
             {
               "exercise": {
@@ -2668,7 +2846,8 @@
               },
               "reps": 8,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 152
             },
             {
               "exercise": {
@@ -2684,7 +2863,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 153
             },
             {
               "exercise": {
@@ -2701,7 +2881,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 154
             },
             {
               "exercise": {
@@ -2717,7 +2898,8 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 155
             },
             {
               "exercise": {
@@ -2733,11 +2915,13 @@
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 156
             }
           ],
           "reps": 1,
-          "notes": "4 minutes lying glutes & core with ball."
+          "notes": "4 minutes lying glutes & core with ball.",
+          "id": 28
         },
         {
           "name": "Supine Core",
@@ -2756,7 +2940,8 @@
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 157
             },
             {
               "exercise": {
@@ -2772,7 +2957,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 158
             },
             {
               "exercise": {
@@ -2788,7 +2974,8 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 159
             },
             {
               "exercise": {
@@ -2804,7 +2991,8 @@
               },
               "reps": 5,
               "duration_seconds": 33,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 160
             },
             {
               "exercise": {
@@ -2821,7 +3009,8 @@
               },
               "reps": 5,
               "duration_seconds": 43,
-              "variant": "PULSE"
+              "variant": "PULSE",
+              "id": 161
             },
             {
               "exercise": {
@@ -2837,7 +3026,8 @@
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 162
             },
             {
               "exercise": {
@@ -2853,7 +3043,8 @@
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 163
             },
             {
               "exercise": {
@@ -2869,11 +3060,13 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 164
             }
           ],
           "reps": 2,
-          "notes": "Change leg and repeat."
+          "notes": "Change leg and repeat.",
+          "id": 29
         }
       ],
       "cool_down": [
@@ -2894,7 +3087,8 @@
               },
               "reps": 3,
               "duration_seconds": 65,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 165
             },
             {
               "exercise": {
@@ -2910,7 +3104,8 @@
               },
               "reps": 1,
               "duration_seconds": 70,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 166
             },
             {
               "exercise": {
@@ -2926,7 +3121,8 @@
               },
               "reps": 1,
               "duration_seconds": 60,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 167
             },
             {
               "exercise": {
@@ -2942,11 +3138,13 @@
               },
               "reps": 3,
               "duration_seconds": 75,
-              "variant": "STANDARD"
+              "variant": "STANDARD",
+              "id": 168
             }
           ],
           "reps": 1,
-          "notes": "3 minutes cool down."
+          "notes": "3 minutes cool down.",
+          "id": 30
         }
       ]
     }
