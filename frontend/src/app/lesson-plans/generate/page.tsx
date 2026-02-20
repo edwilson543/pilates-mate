@@ -263,7 +263,7 @@ export default function GenerateLessonPlanPage() {
                               }
                             />
                           </ComboboxChips>
-                          <ComboboxContent anchor={comboboxAnchor.current}>
+                          <ComboboxContent anchor={comboboxAnchor}>
                             <ComboboxList>
                               {isLoadingLessonPlans ? (
                                 <div className="p-2 text-sm text-muted-foreground text-center">
