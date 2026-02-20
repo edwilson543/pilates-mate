@@ -9,6 +9,7 @@ export {
   getLessonPlanLessonPlansLessonPlanIdGet,
   getLessonPlansLessonPlansGet,
   type Options,
+  updateExerciseExercisesExerciseIdPut,
 } from "./sdk.gen";
 export type {
   ClientOptions,
@@ -57,5 +58,11 @@ export type {
   LessonPlanRequirements,
   MuscleGroup,
   StartingPosition,
+  UpdateExerciseExercisesExerciseIdPutData,
+  UpdateExerciseExercisesExerciseIdPutError,
+  UpdateExerciseExercisesExerciseIdPutErrors,
+  UpdateExerciseExercisesExerciseIdPutResponse,
+  UpdateExerciseExercisesExerciseIdPutResponses,
+  UpdateExerciseRequest,
   ValidationError,
 } from "./types.gen";

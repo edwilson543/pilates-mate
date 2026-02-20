@@ -19,6 +19,10 @@ export type CreateExerciseRequest = {
   difficulty: Difficulty;
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;
+  /**
+   * Variants
+   */
+  variants: Array<ExerciseVariant>;
 };
 
 /**
@@ -66,6 +70,10 @@ export type Exercise = {
  */
 export type ExerciseSequence = {
   /**
+   * Id
+   */
+  id: number;
+  /**
    * Name
    */
   name: string;
@@ -87,6 +95,10 @@ export type ExerciseSequence = {
  * ExerciseSet
  */
 export type ExerciseSet = {
+  /**
+   * Id
+   */
+  id: number;
   exercise: Exercise;
   /**
    * Reps
@@ -215,6 +227,27 @@ export type StartingPosition =
   | "SIDE_KNEELING";
 
 /**
+ * UpdateExerciseRequest
+ */
+export type UpdateExerciseRequest = {
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Description
+   */
+  description: string;
+  difficulty: Difficulty;
+  primary_muscle_group: MuscleGroup;
+  starting_position: StartingPosition;
+  /**
+   * Variants
+   */
+  variants: Array<ExerciseVariant>;
+};
+
+/**
  * ValidationError
  */
 export type ValidationError = {
@@ -319,6 +352,38 @@ export type GetExerciseExercisesExerciseIdGetResponses = {
 
 export type GetExerciseExercisesExerciseIdGetResponse =
   GetExerciseExercisesExerciseIdGetResponses[keyof GetExerciseExercisesExerciseIdGetResponses];
+
+export type UpdateExerciseExercisesExerciseIdPutData = {
+  body: UpdateExerciseRequest;
+  path: {
+    /**
+     * Exercise Id
+     */
+    exercise_id: number;
+  };
+  query?: never;
+  url: "/exercises/{exercise_id}";
+};
+
+export type UpdateExerciseExercisesExerciseIdPutErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UpdateExerciseExercisesExerciseIdPutError =
+  UpdateExerciseExercisesExerciseIdPutErrors[keyof UpdateExerciseExercisesExerciseIdPutErrors];
+
+export type UpdateExerciseExercisesExerciseIdPutResponses = {
+  /**
+   * Successful Response
+   */
+  204: void;
+};
+
+export type UpdateExerciseExercisesExerciseIdPutResponse =
+  UpdateExerciseExercisesExerciseIdPutResponses[keyof UpdateExerciseExercisesExerciseIdPutResponses];
 
 export type GetLessonPlansLessonPlansGetData = {
   body?: never;

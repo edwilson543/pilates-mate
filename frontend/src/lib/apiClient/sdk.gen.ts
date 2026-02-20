@@ -22,6 +22,9 @@ import type {
   GetLessonPlanLessonPlansLessonPlanIdGetResponses,
   GetLessonPlansLessonPlansGetData,
   GetLessonPlansLessonPlansGetResponses,
+  UpdateExerciseExercisesExerciseIdPutData,
+  UpdateExerciseExercisesExerciseIdPutErrors,
+  UpdateExerciseExercisesExerciseIdPutResponses,
 } from "./types.gen";
 
 export type Options<
@@ -95,6 +98,27 @@ export const getExerciseExercisesExerciseIdGet = <
     responseType: "json",
     url: "/exercises/{exercise_id}",
     ...options,
+  });
+
+/**
+ * Update Exercise
+ */
+export const updateExerciseExercisesExerciseIdPut = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<UpdateExerciseExercisesExerciseIdPutData, ThrowOnError>,
+) =>
+  (options.client ?? client).put<
+    UpdateExerciseExercisesExerciseIdPutResponses,
+    UpdateExerciseExercisesExerciseIdPutErrors,
+    ThrowOnError
+  >({
+    url: "/exercises/{exercise_id}",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
   });
 
 /**
