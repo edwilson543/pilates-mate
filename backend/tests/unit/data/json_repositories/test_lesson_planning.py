@@ -5,7 +5,6 @@ import pytest
 
 from pilates.data.json_repositories import _lesson_planning
 from pilates.domain import lesson_planning
-from testing.helpers import lesson_planning as lesson_planning_helpers
 
 
 class TestCreateExercise:
@@ -98,12 +97,25 @@ class TestCreateLessonPlan:
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
-            main_session=[],
-            cool_down=[],
         )
 
         assert lesson_plan_id == 1
+
+    def test_creates_lesson_plan_with_empty_sections(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+
+        lesson_plan_id = repository.create_lesson_plan(
+            name="Beginner Flow",
+            description="A gentle introduction to Pilates",
+            date=dt.date(2026, 1, 15),
+        )
+
+        lesson_plan = repository.get_lesson_plan(lesson_plan_id)
+        assert lesson_plan.warm_up == []
+        assert lesson_plan.main_session == []
+        assert lesson_plan.cool_down == []
 
 
 class TestGetLessonPlans:
@@ -115,17 +127,11 @@ class TestGetLessonPlans:
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
-            main_session=[],
-            cool_down=[],
         )
         repository.create_lesson_plan(
             name="Advanced Flow",
             description="An intense Pilates session",
             date=dt.date(2026, 1, 16),
-            warm_up=[],
-            main_session=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
-            cool_down=[],
         )
 
         lesson_plans = repository.get_lesson_plans()
@@ -145,9 +151,6 @@ class TestGetLessonPlan:
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
-            main_session=[],
-            cool_down=[],
         )
 
         lesson_plan = repository.get_lesson_plan(lesson_plan_id)
@@ -155,7 +158,6 @@ class TestGetLessonPlan:
         assert lesson_plan.id == lesson_plan_id
         assert lesson_plan.name == "Beginner Flow"
         assert lesson_plan.description == "A gentle introduction to Pilates"
-        assert len(lesson_plan.warm_up) == 1
 
     def test_raises_exception_when_lesson_plan_does_not_exist(
         self, tmp_path: pathlib.Path
@@ -179,17 +181,11 @@ class TestDeleteLessonPlan:
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
-            main_session=[],
-            cool_down=[],
         )
         lesson_plan_id_2 = repository.create_lesson_plan(
             name="Advanced Flow",
             description="An intense Pilates session",
             date=dt.date(2026, 1, 16),
-            warm_up=[],
-            main_session=[lesson_planning_helpers.ExerciseSequence()],  # type: ignore[list-item]
-            cool_down=[],
         )
 
         repository.delete_lesson_plan(lesson_plan_id_1)
@@ -210,6 +206,254 @@ class TestDeleteLessonPlan:
             repository.delete_lesson_plan(999)
 
         assert exc_info.value.lesson_plan_id == 999
+
+
+class TestAddSequenceToSection:
+    def test_adds_sequence_to_warm_up_section(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        lesson_plan_id = repository.create_lesson_plan(
+            name="Test Plan",
+            description="Test Description",
+            date=dt.date(2026, 1, 1),
+        )
+
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.WARM_UP,
+            name="Breathing Sequence",
+            reps=1,
+            notes="Focus on deep breaths",
+        )
+
+        assert sequence_id == 1
+        plan = repository.get_lesson_plan(lesson_plan_id)
+        assert len(plan.warm_up) == 1
+        assert plan.warm_up[0].id == sequence_id
+        assert plan.warm_up[0].name == "Breathing Sequence"
+        assert plan.warm_up[0].reps == 1
+        assert plan.warm_up[0].notes == "Focus on deep breaths"
+        assert plan.warm_up[0].sets == []
+
+    def test_adds_sequence_to_main_session_section(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        lesson_plan_id = repository.create_lesson_plan(
+            name="Test Plan",
+            description="Test Description",
+            date=dt.date(2026, 1, 1),
+        )
+
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.MAIN_SESSION,
+            name="Core Work",
+            reps=3,
+            notes="Maintain form",
+        )
+
+        plan = repository.get_lesson_plan(lesson_plan_id)
+        assert len(plan.main_session) == 1
+        assert plan.main_session[0].id == sequence_id
+
+    def test_adds_multiple_sequences_to_same_section(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        lesson_plan_id = repository.create_lesson_plan(
+            name="Test Plan",
+            description="Test Description",
+            date=dt.date(2026, 1, 1),
+        )
+
+        sequence_id_1 = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.WARM_UP,
+            name="First Sequence",
+            reps=1,
+            notes="Notes 1",
+        )
+        sequence_id_2 = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.WARM_UP,
+            name="Second Sequence",
+            reps=2,
+            notes="Notes 2",
+        )
+
+        assert sequence_id_2 == sequence_id_1 + 1
+        plan = repository.get_lesson_plan(lesson_plan_id)
+        assert len(plan.warm_up) == 2
+        assert plan.warm_up[0].name == "First Sequence"
+        assert plan.warm_up[1].name == "Second Sequence"
+
+    def test_raises_exception_when_lesson_plan_does_not_exist(
+        self, tmp_path: pathlib.Path
+    ):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+
+        with pytest.raises(lesson_planning.LessonPlanDoesNotExist) as exc_info:
+            repository.add_sequence_to_section(
+                lesson_plan_id=999,
+                section=lesson_planning.LessonPlanSection.WARM_UP,
+                name="Test Sequence",
+                reps=1,
+                notes="Test notes",
+            )
+
+        assert exc_info.value.lesson_plan_id == 999
+
+
+class TestAddSetToSequence:
+    def test_adds_set_to_sequence(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        exercise_id = repository.create_exercise(
+            name="Hundred",
+            description="Classic Pilates breathing exercise",
+            difficulty=lesson_planning.Difficulty.BEGINNER,
+            primary_muscle_group=lesson_planning.MuscleGroup.CORE,
+            starting_position=lesson_planning.StartingPosition.SUPINE,
+            variants=[lesson_planning.ExerciseVariant.STANDARD],
+        )
+        lesson_plan_id = repository.create_lesson_plan(
+            name="Test Plan",
+            description="Test Description",
+            date=dt.date(2026, 1, 1),
+        )
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.WARM_UP,
+            name="Breathing Sequence",
+            reps=1,
+            notes="Focus on deep breaths",
+        )
+
+        set_id = repository.add_set_to_sequence(
+            sequence_id=sequence_id,
+            exercise_id=exercise_id,
+            reps=5,
+            duration_seconds=30,
+            variant=lesson_planning.ExerciseVariant.STANDARD,
+        )
+
+        assert set_id == 1
+        plan = repository.get_lesson_plan(lesson_plan_id)
+        assert len(plan.warm_up[0].sets) == 1
+        assert plan.warm_up[0].sets[0].id == set_id
+        assert plan.warm_up[0].sets[0].exercise.id == exercise_id
+        assert plan.warm_up[0].sets[0].reps == 5
+        assert plan.warm_up[0].sets[0].duration_seconds == 30
+        assert (
+            plan.warm_up[0].sets[0].variant == lesson_planning.ExerciseVariant.STANDARD
+        )
+
+    def test_adds_multiple_sets_to_same_sequence(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        exercise_id = repository.create_exercise(
+            name="Hundred",
+            description="Classic Pilates breathing exercise",
+            difficulty=lesson_planning.Difficulty.BEGINNER,
+            primary_muscle_group=lesson_planning.MuscleGroup.CORE,
+            starting_position=lesson_planning.StartingPosition.SUPINE,
+            variants=[lesson_planning.ExerciseVariant.STANDARD],
+        )
+        lesson_plan_id = repository.create_lesson_plan(
+            name="Test Plan",
+            description="Test Description",
+            date=dt.date(2026, 1, 1),
+        )
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.WARM_UP,
+            name="Breathing Sequence",
+            reps=1,
+            notes="Focus on deep breaths",
+        )
+
+        set_id_1 = repository.add_set_to_sequence(
+            sequence_id=sequence_id,
+            exercise_id=exercise_id,
+            reps=5,
+            duration_seconds=30,
+            variant=lesson_planning.ExerciseVariant.STANDARD,
+        )
+        set_id_2 = repository.add_set_to_sequence(
+            sequence_id=sequence_id,
+            exercise_id=exercise_id,
+            reps=10,
+            duration_seconds=60,
+            variant=lesson_planning.ExerciseVariant.PULSE,
+        )
+
+        assert set_id_2 == set_id_1 + 1
+        plan = repository.get_lesson_plan(lesson_plan_id)
+        assert len(plan.warm_up[0].sets) == 2
+        assert plan.warm_up[0].sets[0].reps == 5
+        assert plan.warm_up[0].sets[1].reps == 10
+
+    def test_raises_exception_when_sequence_does_not_exist(
+        self, tmp_path: pathlib.Path
+    ):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        exercise_id = repository.create_exercise(
+            name="Hundred",
+            description="Classic Pilates breathing exercise",
+            difficulty=lesson_planning.Difficulty.BEGINNER,
+            primary_muscle_group=lesson_planning.MuscleGroup.CORE,
+            starting_position=lesson_planning.StartingPosition.SUPINE,
+            variants=[lesson_planning.ExerciseVariant.STANDARD],
+        )
+
+        with pytest.raises(lesson_planning.SequenceDoesNotExist) as exc_info:
+            repository.add_set_to_sequence(
+                sequence_id=999,
+                exercise_id=exercise_id,
+                reps=5,
+                duration_seconds=30,
+                variant=lesson_planning.ExerciseVariant.STANDARD,
+            )
+
+        assert exc_info.value.sequence_id == 999
+
+    def test_raises_exception_when_exercise_does_not_exist(
+        self, tmp_path: pathlib.Path
+    ):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        lesson_plan_id = repository.create_lesson_plan(
+            name="Test Plan",
+            description="Test Description",
+            date=dt.date(2026, 1, 1),
+        )
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.WARM_UP,
+            name="Breathing Sequence",
+            reps=1,
+            notes="Focus on deep breaths",
+        )
+
+        with pytest.raises(lesson_planning.ExerciseDoesNotExist) as exc_info:
+            repository.add_set_to_sequence(
+                sequence_id=sequence_id,
+                exercise_id=999,
+                reps=5,
+                duration_seconds=30,
+                variant=lesson_planning.ExerciseVariant.STANDARD,
+            )
+
+        assert exc_info.value.exercise_id == 999
 
 
 def test_database_isnt_corrupted():

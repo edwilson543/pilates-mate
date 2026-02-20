@@ -104,9 +104,6 @@ class JSONRepository(lesson_planning.Repository):
         name: str,
         description: str,
         date: dt.date,
-        warm_up: list[lesson_planning.ExerciseSequence],
-        main_session: list[lesson_planning.ExerciseSequence],
-        cool_down: list[lesson_planning.ExerciseSequence],
     ) -> int:
         data = self._read_database()
 
@@ -117,9 +114,9 @@ class JSONRepository(lesson_planning.Repository):
             name=name,
             description=description,
             date=date,
-            warm_up=warm_up,
-            main_session=main_session,
-            cool_down=cool_down,
+            warm_up=[],
+            main_session=[],
+            cool_down=[],
         )
         data["lesson_plans"].append(new_lesson_plan.model_dump(mode="json"))
 
@@ -155,6 +152,130 @@ class JSONRepository(lesson_planning.Repository):
 
         self._write_database(data)
 
+    def add_sequence_to_section(
+        self,
+        *,
+        lesson_plan_id: int,
+        section: lesson_planning.LessonPlanSection,
+        name: str,
+        reps: int,
+        notes: str,
+    ) -> int:
+        data = self._read_database()
+
+        # Verify lesson plan exists
+        plan_index = None
+        for idx, plan in enumerate(data["lesson_plans"]):
+            if plan["id"] == lesson_plan_id:
+                plan_index = idx
+                break
+
+        if plan_index is None:
+            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+
+        # Generate sequence ID
+        next_id = (
+            max(
+                (
+                    seq["id"]
+                    for plan in data["lesson_plans"]
+                    for section_name in ["warm_up", "main_session", "cool_down"]
+                    for seq in plan[section_name]
+                ),
+                default=0,
+            )
+            + 1
+        )
+
+        # Create new sequence with empty sets
+        new_sequence = lesson_planning.ExerciseSequence(
+            id=next_id,
+            name=name,
+            sets=[],
+            reps=reps,
+            notes=notes,
+        )
+
+        # Get field name for section
+        field_name = _section_to_field_name(section)
+
+        # Append to appropriate section
+        data["lesson_plans"][plan_index][field_name].append(
+            new_sequence.model_dump(mode="json")
+        )
+
+        self._write_database(data)
+
+        return next_id
+
+    def add_set_to_sequence(
+        self,
+        *,
+        sequence_id: int,
+        exercise_id: int,
+        reps: int,
+        duration_seconds: int,
+        variant: lesson_planning.ExerciseVariant,
+    ) -> int:
+        data = self._read_database()
+
+        # Look up exercise
+        exercise = self.get_exercise(exercise_id)
+
+        # Find sequence across all lesson plans
+        plan_index = None
+        section_name = None
+        sequence_index = None
+
+        for p_idx, plan in enumerate(data["lesson_plans"]):
+            for s_name in ["warm_up", "main_session", "cool_down"]:
+                for seq_idx, sequence in enumerate(plan[s_name]):
+                    if sequence["id"] == sequence_id:
+                        plan_index = p_idx
+                        section_name = s_name
+                        sequence_index = seq_idx
+                        break
+                if sequence_index is not None:
+                    break
+            if sequence_index is not None:
+                break
+
+        if sequence_index is None:
+            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+
+        # Generate set ID
+        next_id = (
+            max(
+                (
+                    set_item["id"]
+                    for plan in data["lesson_plans"]
+                    for section_name in ["warm_up", "main_session", "cool_down"]
+                    for seq in plan[section_name]
+                    for set_item in seq["sets"]
+                ),
+                default=0,
+            )
+            + 1
+        )
+
+        # Create new set with denormalized exercise data
+        new_set = lesson_planning.ExerciseSet(
+            id=next_id,
+            exercise=exercise,
+            reps=reps,
+            duration_seconds=duration_seconds,
+            variant=variant,
+        )
+
+        # Append set to sequence
+        data["lesson_plans"][plan_index][section_name][sequence_index]["sets"].append(
+            new_set.model_dump(mode="json")
+        )
+
+        self._write_database(data)
+
+        return next_id
+
     # Helpers.
 
     def _read_database(self) -> dict:
@@ -177,3 +298,13 @@ class JSONRepository(lesson_planning.Repository):
 
         with open(self.database_file, "x") as f:
             json.dump(data, f)
+
+
+def _section_to_field_name(section: lesson_planning.LessonPlanSection) -> str:
+    """Convert LessonPlanSection enum to field name."""
+    mapping = {
+        lesson_planning.LessonPlanSection.WARM_UP: "warm_up",
+        lesson_planning.LessonPlanSection.MAIN_SESSION: "main_session",
+        lesson_planning.LessonPlanSection.COOL_DOWN: "cool_down",
+    }
+    return mapping[section]

@@ -16,6 +16,11 @@ class LessonPlanDoesNotExist(Exception):
     lesson_plan_id: int
 
 
+@attrs.frozen
+class SequenceDoesNotExist(Exception):
+    sequence_id: int
+
+
 class Repository(abc.ABC):
     # Exercises.
 
@@ -63,9 +68,6 @@ class Repository(abc.ABC):
         name: str,
         description: str,
         date: dt.date,
-        warm_up: list[_models.ExerciseSequence],
-        main_session: list[_models.ExerciseSequence],
-        cool_down: list[_models.ExerciseSequence],
     ) -> int:
         raise NotImplementedError
 
@@ -79,4 +81,30 @@ class Repository(abc.ABC):
 
     @abc.abstractmethod
     def delete_lesson_plan(self, lesson_plan_id: int) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_sequence_to_section(
+        self,
+        *,
+        lesson_plan_id: int,
+        section: _models.LessonPlanSection,
+        name: str,
+        reps: int,
+        notes: str,
+    ) -> int:
+        """Add sequence to section. Returns sequence_id."""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_set_to_sequence(
+        self,
+        *,
+        sequence_id: int,
+        exercise_id: int,
+        reps: int,
+        duration_seconds: int,
+        variant: _models.ExerciseVariant,
+    ) -> int:
+        """Add set to sequence. Returns set_id."""
         raise NotImplementedError

@@ -1,7 +1,7 @@
 import datetime as dt
 
 from pilates import config
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from pilates.domain import lesson_planning
 
 
 def test_creates_then_gets_lesson_plan(api_client):
@@ -11,13 +11,60 @@ def test_creates_then_gets_lesson_plan(api_client):
     assert lesson_plan_list.json() == []
 
     repository = config.get_lesson_planning_repository()
+    exercise_id = repository.create_exercise(
+        name="Hundred",
+        description="Classic Pilates breathing exercise",
+        difficulty=lesson_planning.Difficulty.BEGINNER,
+        primary_muscle_group=lesson_planning.MuscleGroup.CORE,
+        starting_position=lesson_planning.StartingPosition.SUPINE,
+        variants=[lesson_planning.ExerciseVariant.STANDARD],
+    )
     lesson_plan_id = repository.create_lesson_plan(
         name="Morning Flow",
         description="A refreshing morning Pilates session",
         date=dt.date(2026, 1, 15),
-        warm_up=[lesson_planning_helpers.ExerciseSequence()],
-        main_session=[lesson_planning_helpers.ExerciseSequence()],
-        cool_down=[lesson_planning_helpers.ExerciseSequence()],
+    )
+    warm_up_seq = repository.add_sequence_to_section(
+        lesson_plan_id=lesson_plan_id,
+        section=lesson_planning.LessonPlanSection.WARM_UP,
+        name="Breathing",
+        reps=1,
+        notes="Warm up notes",
+    )
+    repository.add_set_to_sequence(
+        sequence_id=warm_up_seq,
+        exercise_id=exercise_id,
+        reps=10,
+        duration_seconds=60,
+        variant=lesson_planning.ExerciseVariant.STANDARD,
+    )
+    main_seq = repository.add_sequence_to_section(
+        lesson_plan_id=lesson_plan_id,
+        section=lesson_planning.LessonPlanSection.MAIN_SESSION,
+        name="Core Work",
+        reps=3,
+        notes="Main session notes",
+    )
+    repository.add_set_to_sequence(
+        sequence_id=main_seq,
+        exercise_id=exercise_id,
+        reps=10,
+        duration_seconds=60,
+        variant=lesson_planning.ExerciseVariant.STANDARD,
+    )
+    cool_down_seq = repository.add_sequence_to_section(
+        lesson_plan_id=lesson_plan_id,
+        section=lesson_planning.LessonPlanSection.COOL_DOWN,
+        name="Stretching",
+        reps=1,
+        notes="Cool down notes",
+    )
+    repository.add_set_to_sequence(
+        sequence_id=cool_down_seq,
+        exercise_id=exercise_id,
+        reps=5,
+        duration_seconds=30,
+        variant=lesson_planning.ExerciseVariant.STANDARD,
     )
 
     lesson_plan = api_client.get(f"/lesson-plans/{lesson_plan_id}")
@@ -53,9 +100,6 @@ def test_deletes_lesson_plan(api_client):
         name="Morning Flow",
         description="A refreshing morning Pilates session",
         date=dt.date(2026, 1, 15),
-        warm_up=[lesson_planning_helpers.ExerciseSequence()],
-        main_session=[lesson_planning_helpers.ExerciseSequence()],
-        cool_down=[lesson_planning_helpers.ExerciseSequence()],
     )
 
     response = api_client.delete(f"/lesson-plans/{lesson_plan_id}")

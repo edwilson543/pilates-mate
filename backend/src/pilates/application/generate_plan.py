@@ -55,59 +55,68 @@ async def generate_lesson_plan(
         output_format=_GeneratedLessonPlan,
     )
 
-    # Transform AI-generated sequences (without IDs) to domain models (with IDs)
-    warm_up = _transform_sequences(lesson_plan.warm_up, repository)
-    main_session = _transform_sequences(lesson_plan.main_session, repository)
-    cool_down = _transform_sequences(lesson_plan.cool_down, repository)
-
+    # Create empty lesson plan
     lesson_plan_id = repository.create_lesson_plan(
         name=lesson_plan.name,
         description=lesson_plan.description,
         date=dt.datetime.now().date(),
-        warm_up=warm_up,
-        main_session=main_session,
-        cool_down=cool_down,
     )
 
-    return repository.get_lesson_plan(lesson_plan_id)
-
-
-def _transform_sequences(
-    generated_sequences: list[_GeneratedExerciseSequence],
-    repository: lesson_planning.Repository,
-) -> list[lesson_planning.ExerciseSequence]:
-    """Transform AI-generated sequences (without IDs) to domain models (with IDs)."""
-    sequences = []
-    sequence_id = 1
-    set_id = 1
-
-    for generated_seq in generated_sequences:
-        sets = []
-        for generated_set in generated_seq.sets:
-            # Fetch the full exercise object from repository
-            exercise = repository.get_exercise(generated_set.exercise.id)
-
-            exercise_set = lesson_planning.ExerciseSet(
-                id=set_id,
-                exercise=exercise,
-                reps=generated_set.reps,
-                duration_seconds=generated_set.duration_seconds,
-                variant=generated_set.variant,
-            )
-            sets.append(exercise_set)
-            set_id += 1
-
-        sequence = lesson_planning.ExerciseSequence(
-            id=sequence_id,
-            name=generated_seq.name,
-            sets=sets,
-            reps=generated_seq.reps,
-            notes=generated_seq.notes,
+    # Add warm up sequences and sets
+    for sequence in lesson_plan.warm_up:
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.WARM_UP,
+            name=sequence.name,
+            reps=sequence.reps,
+            notes=sequence.notes,
         )
-        sequences.append(sequence)
-        sequence_id += 1
+        for set_item in sequence.sets:
+            repository.add_set_to_sequence(
+                sequence_id=sequence_id,
+                exercise_id=set_item.exercise.id,
+                reps=set_item.reps,
+                duration_seconds=set_item.duration_seconds,
+                variant=set_item.variant,
+            )
 
-    return sequences
+    # Add main session sequences and sets
+    for sequence in lesson_plan.main_session:
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.MAIN_SESSION,
+            name=sequence.name,
+            reps=sequence.reps,
+            notes=sequence.notes,
+        )
+        for set_item in sequence.sets:
+            repository.add_set_to_sequence(
+                sequence_id=sequence_id,
+                exercise_id=set_item.exercise.id,
+                reps=set_item.reps,
+                duration_seconds=set_item.duration_seconds,
+                variant=set_item.variant,
+            )
+
+    # Add cool down sequences and sets
+    for sequence in lesson_plan.cool_down:
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=lesson_planning.LessonPlanSection.COOL_DOWN,
+            name=sequence.name,
+            reps=sequence.reps,
+            notes=sequence.notes,
+        )
+        for set_item in sequence.sets:
+            repository.add_set_to_sequence(
+                sequence_id=sequence_id,
+                exercise_id=set_item.exercise.id,
+                reps=set_item.reps,
+                duration_seconds=set_item.duration_seconds,
+                variant=set_item.variant,
+            )
+
+    return repository.get_lesson_plan(lesson_plan_id)
 
 
 def _get_system_prompt(

@@ -48,6 +48,12 @@ class ExerciseVariant(enum.StrEnum):
     HOLD = "HOLD"
 
 
+class LessonPlanSection(enum.StrEnum):
+    WARM_UP = "WARM_UP"
+    MAIN_SESSION = "MAIN_SESSION"
+    COOL_DOWN = "COOL_DOWN"
+
+
 class Exercise(pydantic.BaseModel):
     id: int
     name: str

@@ -102,7 +102,6 @@ def test_updating_exercise_updates_lesson_plan_references(api_client):
 
     from pilates import config
     from pilates.domain import lesson_planning
-    from testing.helpers import lesson_planning as lesson_planning_helpers
 
     # Create an exercise
     new_exercise = {
@@ -118,30 +117,25 @@ def test_updating_exercise_updates_lesson_plan_references(api_client):
 
     # Create a lesson plan that uses this exercise
     repository = config.get_lesson_planning_repository()
-    exercise = repository.get_exercise(exercise_id)
-
-    exercise_set = lesson_planning.ExerciseSet(
-        id=1,
-        exercise=exercise,
-        reps=10,
-        duration_seconds=30,
-        variant=lesson_planning.ExerciseVariant.STANDARD,
-    )
-    exercise_sequence = lesson_planning.ExerciseSequence(
-        id=1,
-        name="Squat Sequence",
-        sets=[exercise_set],
-        reps=1,
-        notes="Focus on form",
-    )
 
     lesson_plan_id = repository.create_lesson_plan(
         name="Morning Flow",
         description="A refreshing morning Pilates session",
         date=dt.date(2026, 1, 15),
-        warm_up=[exercise_sequence],
-        main_session=[lesson_planning_helpers.ExerciseSequence()],
-        cool_down=[lesson_planning_helpers.ExerciseSequence()],
+    )
+    sequence_id = repository.add_sequence_to_section(
+        lesson_plan_id=lesson_plan_id,
+        section=lesson_planning.LessonPlanSection.WARM_UP,
+        name="Squat Sequence",
+        reps=1,
+        notes="Focus on form",
+    )
+    repository.add_set_to_sequence(
+        sequence_id=sequence_id,
+        exercise_id=exercise_id,
+        reps=10,
+        duration_seconds=30,
+        variant=lesson_planning.ExerciseVariant.STANDARD,
     )
 
     # Update the exercise

@@ -9,6 +9,28 @@ from pilates.domain import lesson_planning
 class FakeRepository(lesson_planning.Repository):
     _exercises: list[lesson_planning.Exercise] = attrs.field(factory=list)
     _lesson_plans: list[lesson_planning.LessonPlan] = attrs.field(factory=list)
+    _next_sequence_id: int = attrs.field(init=False)
+    _next_set_id: int = attrs.field(init=False)
+
+    def __attrs_post_init__(self) -> None:
+        # Initialize sequence ID counter by scanning existing lesson plans
+        max_sequence_id = 0
+        for plan in self._lesson_plans:
+            for section in [plan.warm_up, plan.main_session, plan.cool_down]:
+                for sequence in section:
+                    if sequence.id > max_sequence_id:
+                        max_sequence_id = sequence.id
+        object.__setattr__(self, "_next_sequence_id", max_sequence_id + 1)
+
+        # Initialize set ID counter by scanning existing lesson plans
+        max_set_id = 0
+        for plan in self._lesson_plans:
+            for section in [plan.warm_up, plan.main_session, plan.cool_down]:
+                for sequence in section:
+                    for exercise_set in sequence.sets:
+                        if exercise_set.id > max_set_id:
+                            max_set_id = exercise_set.id
+        object.__setattr__(self, "_next_set_id", max_set_id + 1)
 
     def create_exercise(
         self,
@@ -133,9 +155,6 @@ class FakeRepository(lesson_planning.Repository):
         name: str,
         description: str,
         date: dt.date,
-        warm_up: list[lesson_planning.ExerciseSequence],
-        main_session: list[lesson_planning.ExerciseSequence],
-        cool_down: list[lesson_planning.ExerciseSequence],
     ) -> int:
         next_id = len(self._lesson_plans) + 1
 
@@ -144,9 +163,9 @@ class FakeRepository(lesson_planning.Repository):
             name=name,
             description=description,
             date=date,
-            warm_up=warm_up,
-            main_session=main_session,
-            cool_down=cool_down,
+            warm_up=[],
+            main_session=[],
+            cool_down=[],
         )
         self._lesson_plans.append(new_lesson_plan)
 
@@ -170,3 +189,133 @@ class FakeRepository(lesson_planning.Repository):
             plan for plan in self._lesson_plans if plan.id != lesson_plan_id
         ]
         object.__setattr__(self, "_lesson_plans", filtered_plans)
+
+    def add_sequence_to_section(
+        self,
+        *,
+        lesson_plan_id: int,
+        section: lesson_planning.LessonPlanSection,
+        name: str,
+        reps: int,
+        notes: str,
+    ) -> int:
+        # Find the lesson plan
+        plan_index = None
+        for idx, plan in enumerate(self._lesson_plans):
+            if plan.id == lesson_plan_id:
+                plan_index = idx
+                break
+
+        if plan_index is None:
+            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+
+        # Generate sequence ID
+        sequence_id = self._next_sequence_id
+        object.__setattr__(self, "_next_sequence_id", self._next_sequence_id + 1)
+
+        # Create new sequence with empty sets
+        new_sequence = lesson_planning.ExerciseSequence(
+            id=sequence_id,
+            name=name,
+            sets=[],
+            reps=reps,
+            notes=notes,
+        )
+
+        # Get field name for section
+        field_name = _section_to_field_name(section)
+
+        # Get current plan and append to appropriate section
+        current_plan = self._lesson_plans[plan_index]
+        current_section = getattr(current_plan, field_name)
+        updated_section = current_section + [new_sequence]
+
+        # Update plan
+        updated_plan = current_plan.model_copy(update={field_name: updated_section})
+        updated_plans = self._lesson_plans.copy()
+        updated_plans[plan_index] = updated_plan
+        object.__setattr__(self, "_lesson_plans", updated_plans)
+
+        return sequence_id
+
+    def add_set_to_sequence(
+        self,
+        *,
+        sequence_id: int,
+        exercise_id: int,
+        reps: int,
+        duration_seconds: int,
+        variant: lesson_planning.ExerciseVariant,
+    ) -> int:
+        # Look up exercise
+        exercise = self.get_exercise(exercise_id)
+
+        # Find sequence across all lesson plans
+        plan_index = None
+        section_name = None
+        sequence_index = None
+
+        for p_idx, plan in enumerate(self._lesson_plans):
+            for s_name in ["warm_up", "main_session", "cool_down"]:
+                section = getattr(plan, s_name)
+                for seq_idx, sequence in enumerate(section):
+                    if sequence.id == sequence_id:
+                        plan_index = p_idx
+                        section_name = s_name
+                        sequence_index = seq_idx
+                        break
+                if sequence_index is not None:
+                    break
+            if sequence_index is not None:
+                break
+
+        if sequence_index is None:
+            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+
+        # Type narrowing: if sequence_index is not None, then plan_index and section_name are also not None
+        assert plan_index is not None
+        assert section_name is not None
+
+        # Generate set ID
+        set_id = self._next_set_id
+        object.__setattr__(self, "_next_set_id", self._next_set_id + 1)
+
+        # Create new set with denormalized exercise data
+        new_set = lesson_planning.ExerciseSet(
+            id=set_id,
+            exercise=exercise,
+            reps=reps,
+            duration_seconds=duration_seconds,
+            variant=variant,
+        )
+
+        # Get current plan and section
+        current_plan = self._lesson_plans[plan_index]
+        current_section = getattr(current_plan, section_name)
+        current_sequence = current_section[sequence_index]
+
+        # Append set to sequence
+        updated_sets = current_sequence.sets + [new_set]
+        updated_sequence = current_sequence.model_copy(update={"sets": updated_sets})
+
+        # Update section with updated sequence
+        updated_section = current_section.copy()
+        updated_section[sequence_index] = updated_sequence
+
+        # Update plan
+        updated_plan = current_plan.model_copy(update={section_name: updated_section})
+        updated_plans = self._lesson_plans.copy()
+        updated_plans[plan_index] = updated_plan
+        object.__setattr__(self, "_lesson_plans", updated_plans)
+
+        return set_id
+
+
+def _section_to_field_name(section: lesson_planning.LessonPlanSection) -> str:
+    """Convert LessonPlanSection enum to field name."""
+    mapping = {
+        lesson_planning.LessonPlanSection.WARM_UP: "warm_up",
+        lesson_planning.LessonPlanSection.MAIN_SESSION: "main_session",
+        lesson_planning.LessonPlanSection.COOL_DOWN: "cool_down",
+    }
+    return mapping[section]

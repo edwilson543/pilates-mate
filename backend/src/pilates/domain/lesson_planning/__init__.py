@@ -7,6 +7,7 @@ from ._models import (
     ExerciseSet,
     ExerciseVariant,
     LessonPlan,
+    LessonPlanSection,
     MuscleGroup,
     StartingPosition,
 )
@@ -14,4 +15,5 @@ from ._repository import (
     ExerciseDoesNotExist,
     LessonPlanDoesNotExist,
     Repository,
+    SequenceDoesNotExist,
 )
