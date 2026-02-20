@@ -362,7 +362,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           ...formData,
                           exerciseId,
                           exercise,
-                          variant: exercise.variants[0] || "",
+                          variant: exercise?.variants[0] || "",
                         })
                       }
                     />

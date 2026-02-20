@@ -14,7 +14,7 @@ import {
 
 interface ExerciseSelectorProps {
   value: number | null;
-  onChange: (exerciseId: number, exercise: Exercise) => void;
+  onChange: (exerciseId: number | null, exercise: Exercise | null) => void;
 }
 
 export function ExerciseSelector({ value, onChange }: ExerciseSelectorProps) {
@@ -27,6 +27,8 @@ export function ExerciseSelector({ value, onChange }: ExerciseSelectorProps) {
   React.useEffect(() => {
     if (selectedExercise && inputValue !== selectedExercise.name) {
       setInputValue(selectedExercise.name);
+    } else if (!selectedExercise && inputValue !== "") {
+      setInputValue("");
     }
   }, [selectedExercise, inputValue]);
 
@@ -38,8 +40,13 @@ export function ExerciseSelector({ value, onChange }: ExerciseSelectorProps) {
     <Combobox
       value={value !== null ? String(value) : ""}
       onValueChange={(newValue: string) => {
-        const exerciseId = newValue ? Number(newValue) : null;
-        if (exerciseId) {
+        if (!newValue) {
+          // Handle clear
+          setInputValue("");
+          onChange(null, null);
+        } else {
+          // Handle selection
+          const exerciseId = Number(newValue);
           const exercise = exercises.find((ex) => ex.id === exerciseId);
           if (exercise) {
             setInputValue(exercise.name);
