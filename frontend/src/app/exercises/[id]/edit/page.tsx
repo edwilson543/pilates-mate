@@ -7,14 +7,16 @@ import { useRouter } from "next/navigation";
 import { ExerciseForm } from "../../exercise-form";
 import { useExercise } from "@/hooks/queries/useExercise";
 import { Skeleton } from "@/components/ui/skeleton";
+import { use } from "react";
 
 export default function EditExercisePage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const router = useRouter();
-  const exerciseId = parseInt(params.id);
+  const { id } = use(params);
+  const exerciseId = parseInt(id);
   const { data: exercise, isLoading, error } = useExercise(exerciseId);
   const updateExerciseMutation = useUpdateExercise();
 
