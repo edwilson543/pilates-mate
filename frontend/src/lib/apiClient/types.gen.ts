@@ -55,6 +55,10 @@ export type Exercise = {
   difficulty: Difficulty;
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;
+  /**
+   * Variants
+   */
+  variants: Array<ExerciseVariant>;
 };
 
 /**
@@ -92,7 +96,13 @@ export type ExerciseSet = {
    * Duration Seconds
    */
   duration_seconds: number;
+  variant: ExerciseVariant;
 };
+
+/**
+ * ExerciseVariant
+ */
+export type ExerciseVariant = "STANDARD" | "PULSE" | "HOLD";
 
 /**
  * GenerateLessonPlanRequest

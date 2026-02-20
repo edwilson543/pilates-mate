@@ -28,6 +28,7 @@ export type {
   Exercise,
   ExerciseSequence,
   ExerciseSet,
+  ExerciseVariant,
   GenerateLessonPlanLessonPlansPostData,
   GenerateLessonPlanLessonPlansPostError,
   GenerateLessonPlanLessonPlansPostErrors,
