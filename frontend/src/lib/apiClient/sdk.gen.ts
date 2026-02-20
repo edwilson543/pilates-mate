@@ -3,9 +3,15 @@
 import type { Client, Options as Options2, TDataShape } from "./client";
 import { client } from "./client.gen";
 import type {
+  AddSetToSequenceLessonPlansSequencesSequenceIdSetsPostData,
+  AddSetToSequenceLessonPlansSequencesSequenceIdSetsPostErrors,
+  AddSetToSequenceLessonPlansSequencesSequenceIdSetsPostResponses,
   CreateExerciseExercisesPostData,
   CreateExerciseExercisesPostErrors,
   CreateExerciseExercisesPostResponses,
+  DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteData,
+  DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteErrors,
+  DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteResponses,
   DeleteLessonPlanLessonPlansLessonPlanIdDeleteData,
   DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors,
   DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses,
@@ -25,6 +31,9 @@ import type {
   UpdateExerciseExercisesExerciseIdPutData,
   UpdateExerciseExercisesExerciseIdPutErrors,
   UpdateExerciseExercisesExerciseIdPutResponses,
+  UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutData,
+  UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutErrors,
+  UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutResponses,
 } from "./types.gen";
 
 export type Options<
@@ -194,4 +203,70 @@ export const getLessonPlanLessonPlansLessonPlanIdGet = <
     responseType: "json",
     url: "/lesson-plans/{lesson_plan_id}",
     ...options,
+  });
+
+/**
+ * Add Set To Sequence
+ */
+export const addSetToSequenceLessonPlansSequencesSequenceIdSetsPost = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    AddSetToSequenceLessonPlansSequencesSequenceIdSetsPostData,
+    ThrowOnError
+  >,
+) =>
+  (options.client ?? client).post<
+    AddSetToSequenceLessonPlansSequencesSequenceIdSetsPostResponses,
+    AddSetToSequenceLessonPlansSequencesSequenceIdSetsPostErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/lesson-plans/sequences/{sequence_id}/sets",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+
+/**
+ * Delete Exercise Set
+ */
+export const deleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDelete = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteData,
+    ThrowOnError
+  >,
+) =>
+  (options.client ?? client).delete<
+    DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteResponses,
+    DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteErrors,
+    ThrowOnError
+  >({ url: "/lesson-plans/sequences/{sequence_id}/sets/{set_id}", ...options });
+
+/**
+ * Update Exercise Set
+ */
+export const updateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPut = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutData,
+    ThrowOnError
+  >,
+) =>
+  (options.client ?? client).put<
+    UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutResponses,
+    UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutErrors,
+    ThrowOnError
+  >({
+    url: "/lesson-plans/sequences/{sequence_id}/sets/{set_id}",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
   });
