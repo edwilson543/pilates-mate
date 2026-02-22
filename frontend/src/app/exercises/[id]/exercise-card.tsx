@@ -70,6 +70,20 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
               </div>
             </div>
           </div>
+          {exercise.equipment_variants.length > 0 && (
+            <div className="pt-3 border-t">
+              <div className="text-sm">
+                <span className="font-semibold text-foreground">Equipment</span>
+                <div className="flex gap-2 mt-2">
+                  {exercise.equipment_variants.map((equipment) => (
+                    <Badge key={equipment} variant="outline">
+                      {formatEnumMember(equipment)}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
