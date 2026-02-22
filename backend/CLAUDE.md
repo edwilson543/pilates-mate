@@ -80,8 +80,14 @@ Use fake implementations to avoid interacting with external services.
 
 
 # Linting
-After each commit, all linting checks should pass.
-Run the tests using `make lint`.
+After each commit, all linting checks should pass. 
+- Ensure code is formatted correctly by running `make format`
+- Run the linting checks by running `make lint`
+
+The following checks are installed:
+- `make check`: Ensures code is formatted correctly and all `ruff` rules are satisfied
+- `make mypy`: Ensures code is typed correctly, using `mypy`
+- `make lint_imports`: Ensures all imports obey the project dependency graph, using `import-linter`
 
 
 # Other patterns
