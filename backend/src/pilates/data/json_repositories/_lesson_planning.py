@@ -21,6 +21,7 @@ class JSONRepository(lesson_planning.Repository):
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
         movement_variants: list[lesson_planning.MovementVariant],
+        equipment_variants: list[lesson_planning.Equipment],
     ) -> int:
         data = self._read_database()
 
@@ -34,6 +35,7 @@ class JSONRepository(lesson_planning.Repository):
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
             movement_variants=movement_variants,
+            equipment_variants=equipment_variants,
         )
         data["exercises"].append(new_exercise.model_dump())
 
@@ -64,6 +66,7 @@ class JSONRepository(lesson_planning.Repository):
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
         movement_variants: list[lesson_planning.MovementVariant],
+        equipment_variants: list[lesson_planning.Equipment],
     ) -> None:
         data = self._read_database()
 
@@ -87,6 +90,7 @@ class JSONRepository(lesson_planning.Repository):
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
             movement_variants=movement_variants,
+            equipment_variants=equipment_variants,
         )
 
         # Update in exercises array
@@ -223,6 +227,7 @@ class JSONRepository(lesson_planning.Repository):
         reps: int,
         duration_seconds: int,
         movement_variant: lesson_planning.MovementVariant,
+        equipment_variant: list[lesson_planning.Equipment],
     ) -> int:
         data = self._read_database()
 
@@ -272,6 +277,7 @@ class JSONRepository(lesson_planning.Repository):
             reps=reps,
             duration_seconds=duration_seconds,
             movement_variant=movement_variant,
+            equipment_variant=equipment_variant,
         )
 
         # Append set to sequence
@@ -300,6 +306,7 @@ class JSONRepository(lesson_planning.Repository):
         reps: int,
         duration_seconds: int,
         movement_variant: lesson_planning.MovementVariant,
+        equipment_variant: list[lesson_planning.Equipment],
     ) -> None:
         data = self._read_database()
 
@@ -313,6 +320,7 @@ class JSONRepository(lesson_planning.Repository):
                             set_item["reps"] = reps
                             set_item["duration_seconds"] = duration_seconds
                             set_item["movement_variant"] = movement_variant.value
+                            set_item["equipment_variant"] = [eq.value for eq in equipment_variant]
                             set_found = True
                             break
                     if set_found:
