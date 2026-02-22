@@ -22,6 +22,7 @@ class GeneratedExerciseSet(factory.Factory):
     reps = 10
     duration_seconds = 30
     movement_variant = lesson_planning.MovementVariant.STANDARD
+    equipment_variant = factory.ListFactory()
 
 
 class GeneratedExerciseSequence(factory.Factory):
@@ -53,6 +54,7 @@ class Exercise(factory.Factory):
     movement_variants = factory.LazyFunction(
         lambda: [lesson_planning.MovementVariant.STANDARD]
     )
+    equipment_variants = factory.ListFactory()
 
     @classmethod
     def create_in_repo(
@@ -67,6 +69,7 @@ class Exercise(factory.Factory):
             primary_muscle_group=exercise.primary_muscle_group,
             starting_position=exercise.starting_position,
             movement_variants=exercise.movement_variants,
+            equipment_variants=exercise.equipment_variants,
         )
         exercise.id = exercise_id
         return exercise
@@ -81,6 +84,7 @@ class ExerciseSet(factory.Factory):
     reps = 10
     duration_seconds = 30
     movement_variant = lesson_planning.MovementVariant.STANDARD
+    equipment_variant = factory.ListFactory()
 
 
 class ExerciseSequence(factory.Factory):
