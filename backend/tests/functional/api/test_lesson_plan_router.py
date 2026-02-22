@@ -1,82 +1,23 @@
-import datetime as dt
-
-from pilates import config
 from pilates.domain import lesson_planning
+from testing.helpers import lesson_planning as lesson_planning_helpers
 
 
-def test_creates_then_gets_lesson_plan(api_client):
-    lesson_plan_list = api_client.get("/lesson-plans")
+def test_creates_then_gets_lesson_plan(api_client, repository):
+    list_lesson_plans = api_client.get("/lesson-plans")
 
-    assert lesson_plan_list.status_code == 200
-    assert lesson_plan_list.json() == []
+    assert list_lesson_plans.status_code == 200
+    assert list_lesson_plans.json() == []
 
-    repository = config.get_lesson_planning_repository()
-    exercise_id = repository.create_exercise(
-        name="Hundred",
-        description="Classic Pilates breathing exercise",
-        difficulty=lesson_planning.Difficulty.BEGINNER,
-        primary_muscle_group=lesson_planning.MuscleGroup.CORE,
-        starting_position=lesson_planning.StartingPosition.SUPINE,
-        variants=[lesson_planning.ExerciseVariant.STANDARD],
-    )
-    lesson_plan_id = repository.create_lesson_plan(
-        name="Morning Flow",
-        description="A refreshing morning Pilates session",
-        date=dt.date(2026, 1, 15),
-    )
-    warm_up_seq = repository.add_sequence_to_section(
-        lesson_plan_id=lesson_plan_id,
-        section=lesson_planning.LessonPlanSection.WARM_UP,
-        name="Breathing",
-        reps=1,
-        notes="Warm up notes",
-    )
-    repository.add_set_to_sequence(
-        sequence_id=warm_up_seq,
-        exercise_id=exercise_id,
-        reps=10,
-        duration_seconds=60,
-        variant=lesson_planning.ExerciseVariant.STANDARD,
-    )
-    main_seq = repository.add_sequence_to_section(
-        lesson_plan_id=lesson_plan_id,
-        section=lesson_planning.LessonPlanSection.MAIN_SESSION,
-        name="Core Work",
-        reps=3,
-        notes="Main session notes",
-    )
-    repository.add_set_to_sequence(
-        sequence_id=main_seq,
-        exercise_id=exercise_id,
-        reps=10,
-        duration_seconds=60,
-        variant=lesson_planning.ExerciseVariant.STANDARD,
-    )
-    cool_down_seq = repository.add_sequence_to_section(
-        lesson_plan_id=lesson_plan_id,
-        section=lesson_planning.LessonPlanSection.COOL_DOWN,
-        name="Stretching",
-        reps=1,
-        notes="Cool down notes",
-    )
-    repository.add_set_to_sequence(
-        sequence_id=cool_down_seq,
-        exercise_id=exercise_id,
-        reps=5,
-        duration_seconds=30,
-        variant=lesson_planning.ExerciseVariant.STANDARD,
-    )
+    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(repository)
 
-    lesson_plan = api_client.get(f"/lesson-plans/{lesson_plan_id}")
+    get_lesson_plans = api_client.get(f"/lesson-plans/{lesson_plan.id}")
 
-    assert lesson_plan.status_code == 200
-    lesson_plan_json = lesson_plan.json()
-    assert lesson_plan_json["id"] == lesson_plan_id
-    assert lesson_plan_json["name"] == "Morning Flow"
-    assert lesson_plan_json["description"] == "A refreshing morning Pilates session"
-    assert len(lesson_plan_json["warm_up"]) == 1
-    assert len(lesson_plan_json["main_session"]) == 1
-    assert len(lesson_plan_json["cool_down"]) == 1
+    assert get_lesson_plans.status_code == 200
+    lesson_plan_json = get_lesson_plans.json()
+    assert lesson_plan_json["id"] == lesson_plan.id
+    assert lesson_plan_json["name"] == lesson_plan.name
+    assert lesson_plan_json["description"] == lesson_plan.description
+    assert lesson_plan_json["warm_up"] == lesson_plan.model_dump(mode="json")["warm_up"]
 
     updated_lesson_plan_list = api_client.get("/lesson-plans")
 
@@ -94,20 +35,15 @@ def test_response_not_found_when_lesson_plan_does_not_exist(api_client):
     assert response.json() == {"detail": "Lesson plan not found."}
 
 
-def test_deletes_lesson_plan(api_client):
-    repository = config.get_lesson_planning_repository()
-    lesson_plan_id = repository.create_lesson_plan(
-        name="Morning Flow",
-        description="A refreshing morning Pilates session",
-        date=dt.date(2026, 1, 15),
-    )
+def test_deletes_lesson_plan(api_client, repository):
+    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(repository)
 
-    response = api_client.delete(f"/lesson-plans/{lesson_plan_id}")
+    response = api_client.delete(f"/lesson-plans/{lesson_plan.id}")
 
     assert response.status_code == 204
-    assert response.content == b""
 
     lesson_plan_list = api_client.get("/lesson-plans")
+
     assert lesson_plan_list.status_code == 200
     assert lesson_plan_list.json() == []
 
@@ -121,33 +57,17 @@ def test_delete_response_not_found_when_lesson_plan_does_not_exist(api_client):
     assert response.json() == {"detail": "Lesson plan not found."}
 
 
-def test_add_set_to_sequence(api_client):
-    repository = config.get_lesson_planning_repository()
-    exercise_id = repository.create_exercise(
-        name="Hundred",
-        description="Classic Pilates breathing exercise",
-        difficulty=lesson_planning.Difficulty.BEGINNER,
-        primary_muscle_group=lesson_planning.MuscleGroup.CORE,
-        starting_position=lesson_planning.StartingPosition.SUPINE,
-        variants=[lesson_planning.ExerciseVariant.STANDARD],
+def test_adds_exercise_set_to_existing_sequence(api_client, repository):
+    sequence = lesson_planning_helpers.ExerciseSequence(sets=[])
+    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository, warm_up=[sequence]
     )
-    lesson_plan_id = repository.create_lesson_plan(
-        name="Morning Flow",
-        description="A refreshing morning Pilates session",
-        date=dt.date(2026, 1, 15),
-    )
-    sequence_id = repository.add_sequence_to_section(
-        lesson_plan_id=lesson_plan_id,
-        section=lesson_planning.LessonPlanSection.WARM_UP,
-        name="Breathing",
-        reps=1,
-        notes="Warm up notes",
-    )
+    exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
 
     response = api_client.post(
-        f"/lesson-plans/sequences/{sequence_id}/sets",
+        f"/lesson-plans/sequences/{sequence.id}/sets",
         json={
-            "exercise_id": exercise_id,
+            "exercise_id": exercise.id,
             "reps": 10,
             "duration_seconds": 60,
             "variant": "STANDARD",
@@ -155,50 +75,27 @@ def test_add_set_to_sequence(api_client):
     )
 
     assert response.status_code == 201
-    set_id = response.json()["id"]
-    assert set_id == 1
+    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    new_set = lesson_plan.warm_up[0].sets[0]
+    assert response.json()["id"] == new_set.id
 
-    lesson_plan = repository.get_lesson_plan(lesson_plan_id)
-    assert len(lesson_plan.warm_up[0].sets) == 1
-    assert lesson_plan.warm_up[0].sets[0].id == set_id
-    assert lesson_plan.warm_up[0].sets[0].reps == 10
+    assert new_set.exercise.id == exercise.id
+    assert new_set.reps == 10
+    assert new_set.duration_seconds == 60
+    assert new_set.variant == "STANDARD"
 
 
-def test_update_exercise_set(api_client):
-    repository = config.get_lesson_planning_repository()
-    exercise_id = repository.create_exercise(
-        name="Hundred",
-        description="Classic Pilates breathing exercise",
-        difficulty=lesson_planning.Difficulty.BEGINNER,
-        primary_muscle_group=lesson_planning.MuscleGroup.CORE,
-        starting_position=lesson_planning.StartingPosition.SUPINE,
-        variants=[
-            lesson_planning.ExerciseVariant.STANDARD,
-            lesson_planning.ExerciseVariant.PULSE,
-        ],
+def test_update_exercise_set_to_new_values(api_client, repository):
+    exercise_set = lesson_planning_helpers.ExerciseSet(
+        reps=31, duration_seconds=30, variant="HOLD"
     )
-    lesson_plan_id = repository.create_lesson_plan(
-        name="Morning Flow",
-        description="A refreshing morning Pilates session",
-        date=dt.date(2026, 1, 15),
-    )
-    sequence_id = repository.add_sequence_to_section(
-        lesson_plan_id=lesson_plan_id,
-        section=lesson_planning.LessonPlanSection.WARM_UP,
-        name="Breathing",
-        reps=1,
-        notes="Warm up notes",
-    )
-    set_id = repository.add_set_to_sequence(
-        sequence_id=sequence_id,
-        exercise_id=exercise_id,
-        reps=5,
-        duration_seconds=30,
-        variant=lesson_planning.ExerciseVariant.STANDARD,
+    sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
+    lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository, main_session=[sequence]
     )
 
     response = api_client.put(
-        f"/lesson-plans/sequences/{sequence_id}/sets/{set_id}",
+        f"/lesson-plans/sequences/{sequence.id}/sets/{exercise_set.id}",
         json={
             "reps": 10,
             "duration_seconds": 60,
@@ -207,64 +104,14 @@ def test_update_exercise_set(api_client):
     )
 
     assert response.status_code == 204
-    assert response.content == b""
 
-    updated_set = repository.get_exercise_set(set_id)
+    updated_set = repository.get_exercise_set(exercise_set.id)
     assert updated_set.reps == 10
     assert updated_set.duration_seconds == 60
     assert updated_set.variant == lesson_planning.ExerciseVariant.PULSE
 
 
-def test_delete_exercise_set(api_client):
-    repository = config.get_lesson_planning_repository()
-    exercise_id = repository.create_exercise(
-        name="Hundred",
-        description="Classic Pilates breathing exercise",
-        difficulty=lesson_planning.Difficulty.BEGINNER,
-        primary_muscle_group=lesson_planning.MuscleGroup.CORE,
-        starting_position=lesson_planning.StartingPosition.SUPINE,
-        variants=[lesson_planning.ExerciseVariant.STANDARD],
-    )
-    lesson_plan_id = repository.create_lesson_plan(
-        name="Morning Flow",
-        description="A refreshing morning Pilates session",
-        date=dt.date(2026, 1, 15),
-    )
-    sequence_id = repository.add_sequence_to_section(
-        lesson_plan_id=lesson_plan_id,
-        section=lesson_planning.LessonPlanSection.WARM_UP,
-        name="Breathing",
-        reps=1,
-        notes="Warm up notes",
-    )
-    set_id_1 = repository.add_set_to_sequence(
-        sequence_id=sequence_id,
-        exercise_id=exercise_id,
-        reps=5,
-        duration_seconds=30,
-        variant=lesson_planning.ExerciseVariant.STANDARD,
-    )
-    set_id_2 = repository.add_set_to_sequence(
-        sequence_id=sequence_id,
-        exercise_id=exercise_id,
-        reps=10,
-        duration_seconds=60,
-        variant=lesson_planning.ExerciseVariant.PULSE,
-    )
-
-    response = api_client.delete(
-        f"/lesson-plans/sequences/{sequence_id}/sets/{set_id_1}"
-    )
-
-    assert response.status_code == 204
-    assert response.content == b""
-
-    lesson_plan = repository.get_lesson_plan(lesson_plan_id)
-    assert len(lesson_plan.warm_up[0].sets) == 1
-    assert lesson_plan.warm_up[0].sets[0].id == set_id_2
-
-
-def test_update_nonexistent_set_returns_404(api_client):
+def test_response_not_found_when_updating_nonexistent_set(api_client):
     response = api_client.put(
         "/lesson-plans/sequences/999/sets/999",
         json={
@@ -278,7 +125,32 @@ def test_update_nonexistent_set_returns_404(api_client):
     assert response.json() == {"detail": "Set not found."}
 
 
-def test_delete_nonexistent_set_returns_404(api_client):
+def test_deletes_existing_exercise_sets(repository, api_client):
+    first_set = lesson_planning_helpers.ExerciseSet()
+    second_set = lesson_planning_helpers.ExerciseSet()
+    sequence = lesson_planning_helpers.ExerciseSequence(sets=[first_set, second_set])
+    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository, cool_down=[sequence]
+    )
+
+    response = api_client.delete(
+        f"/lesson-plans/sequences/{sequence.id}/sets/{first_set.id}"
+    )
+
+    assert response.status_code == 204
+    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    assert lesson_plan.cool_down[0].sets == [second_set]
+
+    response = api_client.delete(
+        f"/lesson-plans/sequences/{sequence.id}/sets/{second_set.id}"
+    )
+
+    assert response.status_code == 204
+    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    assert lesson_plan.cool_down[0].sets == []
+
+
+def test_response_not_found_when_deleting_nonexistent_set(api_client):
     response = api_client.delete("/lesson-plans/sequences/999/sets/999")
 
     assert response.status_code == 404

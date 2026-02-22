@@ -15,6 +15,7 @@ lesson_plan_router = fastapi.APIRouter()
 class CreateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
+    category: lesson_planning.ExerciseCategory
     difficulty: lesson_planning.Difficulty
     primary_muscle_group: lesson_planning.MuscleGroup
     starting_position: lesson_planning.StartingPosition
@@ -28,6 +29,7 @@ class CreateExerciseResponse(pydantic.BaseModel):
 class UpdateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
+    category: lesson_planning.ExerciseCategory
     difficulty: lesson_planning.Difficulty
     primary_muscle_group: lesson_planning.MuscleGroup
     starting_position: lesson_planning.StartingPosition
@@ -42,6 +44,7 @@ def create_exercise(
     exercise_id = repository.create_exercise(
         name=request.name,
         description=request.description,
+        category=request.category,
         difficulty=request.difficulty,
         primary_muscle_group=request.primary_muscle_group,
         starting_position=request.starting_position,
@@ -76,6 +79,7 @@ def update_exercise(
             id=exercise_id,
             name=request.name,
             description=request.description,
+            category=request.category,
             difficulty=request.difficulty,
             primary_muscle_group=request.primary_muscle_group,
             starting_position=request.starting_position,

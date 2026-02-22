@@ -3,6 +3,7 @@ from ._models import (
     Difficulty,
     Equipment,
     Exercise,
+    ExerciseCategory,
     ExerciseSequence,
     ExerciseSet,
     ExerciseVariant,

@@ -1,3 +1,4 @@
+from ._config import inject_repository
 from ._factories import (
     Exercise,
     ExerciseSequence,

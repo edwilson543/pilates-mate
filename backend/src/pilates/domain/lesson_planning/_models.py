@@ -42,6 +42,13 @@ class StartingPosition(enum.StrEnum):
     SIDE_KNEELING = "SIDE_KNEELING"
 
 
+class ExerciseCategory(enum.StrEnum):
+    BREATH_WORK = "BREATH_WORK"
+    STRETCH = "STRETCH"
+    MOBILITY = "MOBILITY"
+    EFFORT = "EFFORT"
+
+
 class ExerciseVariant(enum.StrEnum):
     STANDARD = "STANDARD"
     PULSE = "PULSE"
@@ -58,6 +65,7 @@ class Exercise(pydantic.BaseModel):
     id: int
     name: str
     description: str
+    category: ExerciseCategory
     difficulty: Difficulty
     primary_muscle_group: MuscleGroup
     starting_position: StartingPosition
@@ -88,3 +96,15 @@ class LessonPlan(pydantic.BaseModel):
     warm_up: list[ExerciseSequence]
     main_session: list[ExerciseSequence]
     cool_down: list[ExerciseSequence]
+
+    @property
+    def exercise_sequences(self) -> list[ExerciseSequence]:
+        return self.warm_up + self.main_session + self.cool_down
+
+    @property
+    def exercises(self) -> list[Exercise]:
+        return [
+            exercise_set.exercise
+            for exercise_sequence in self.exercise_sequences
+            for exercise_set in exercise_sequence.sets
+        ]

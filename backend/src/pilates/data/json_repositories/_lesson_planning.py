@@ -16,6 +16,7 @@ class JSONRepository(lesson_planning.Repository):
         *,
         name: str,
         description: str,
+        category: lesson_planning.ExerciseCategory,
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
@@ -28,6 +29,7 @@ class JSONRepository(lesson_planning.Repository):
             id=next_id,
             name=name,
             description=description,
+            category=category,
             difficulty=difficulty,
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
@@ -57,6 +59,7 @@ class JSONRepository(lesson_planning.Repository):
         id: int,
         name: str,
         description: str,
+        category: lesson_planning.ExerciseCategory,
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
@@ -78,6 +81,7 @@ class JSONRepository(lesson_planning.Repository):
         updated_exercise = lesson_planning.Exercise(
             id=id,
             name=name,
+            category=category,
             description=description,
             difficulty=difficulty,
             primary_muscle_group=primary_muscle_group,
@@ -104,6 +108,9 @@ class JSONRepository(lesson_planning.Repository):
         name: str,
         description: str,
         date: dt.date,
+        warm_up: list[lesson_planning.ExerciseSequence],
+        main_session: list[lesson_planning.ExerciseSequence],
+        cool_down: list[lesson_planning.ExerciseSequence],
     ) -> int:
         data = self._read_database()
 
@@ -114,9 +121,9 @@ class JSONRepository(lesson_planning.Repository):
             name=name,
             description=description,
             date=date,
-            warm_up=[],
-            main_session=[],
-            cool_down=[],
+            warm_up=warm_up,
+            main_session=main_session,
+            cool_down=cool_down,
         )
         data["lesson_plans"].append(new_lesson_plan.model_dump(mode="json"))
 

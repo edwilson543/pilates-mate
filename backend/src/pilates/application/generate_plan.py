@@ -55,11 +55,14 @@ async def generate_lesson_plan(
         output_format=_GeneratedLessonPlan,
     )
 
-    # Create empty lesson plan
+    # Initially, create an empty lesson plan.
     lesson_plan_id = repository.create_lesson_plan(
         name=lesson_plan.name,
         description=lesson_plan.description,
         date=dt.datetime.now().date(),
+        warm_up=[],
+        main_session=[],
+        cool_down=[],
     )
 
     # Add warm up sequences and sets

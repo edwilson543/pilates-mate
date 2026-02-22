@@ -9,6 +9,7 @@ from pilates.domain import lesson_planning
 class FakeRepository(lesson_planning.Repository):
     _exercises: list[lesson_planning.Exercise] = attrs.field(factory=list)
     _lesson_plans: list[lesson_planning.LessonPlan] = attrs.field(factory=list)
+
     _next_sequence_id: int = attrs.field(init=False)
     _next_set_id: int = attrs.field(init=False)
 
@@ -37,6 +38,7 @@ class FakeRepository(lesson_planning.Repository):
         *,
         name: str,
         description: str,
+        category: lesson_planning.ExerciseCategory,
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
@@ -48,6 +50,7 @@ class FakeRepository(lesson_planning.Repository):
             id=next_id,
             name=name,
             description=description,
+            category=category,
             difficulty=difficulty,
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
@@ -71,59 +74,34 @@ class FakeRepository(lesson_planning.Repository):
         *,
         id: int,
         name: str,
+        category: lesson_planning.ExerciseCategory,
         description: str,
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
         variants: list[lesson_planning.ExerciseVariant],
     ) -> None:
-        # Find exercise index
-        exercise_index = None
-        for idx, exercise in enumerate(self._exercises):
+        def _update(exercise_: lesson_planning.Exercise) -> None:
+            exercise_.name = name
+            exercise_.description = description
+            exercise_.category = category
+            exercise_.difficulty = difficulty
+            exercise_.primary_muscle_group = primary_muscle_group
+            exercise_.starting_position = starting_position
+            exercise_.variants = variants
+
+        for exercise in self._exercises:
             if exercise.id == id:
-                exercise_index = idx
-                break
+                _update(exercise)
+                # Since exercises are denormalized on lesson plans, we need to propagate changes.
+                for lesson_plan in self._lesson_plans:
+                    for lp_exercise in lesson_plan.exercises:
+                        if lp_exercise.id == id:
+                            _update(lp_exercise)
 
-        if exercise_index is None:
-            raise lesson_planning.ExerciseDoesNotExist(exercise_id=id)
+                return None
 
-        # Create updated exercise
-        updated_exercise = lesson_planning.Exercise(
-            id=id,
-            name=name,
-            description=description,
-            difficulty=difficulty,
-            primary_muscle_group=primary_muscle_group,
-            starting_position=starting_position,
-            variants=variants,
-        )
-
-        # Update in exercises list
-        updated_exercises = self._exercises.copy()
-        updated_exercises[exercise_index] = updated_exercise
-        object.__setattr__(self, "_exercises", updated_exercises)
-
-        # Update all references in lesson plans (denormalization handling)
-        updated_lesson_plans = []
-        for plan in self._lesson_plans:
-            updated_warm_up = self._update_sequences(plan.warm_up, id, updated_exercise)
-            updated_main_session = self._update_sequences(
-                plan.main_session, id, updated_exercise
-            )
-            updated_cool_down = self._update_sequences(
-                plan.cool_down, id, updated_exercise
-            )
-
-            updated_plan = plan.model_copy(
-                update={
-                    "warm_up": updated_warm_up,
-                    "main_session": updated_main_session,
-                    "cool_down": updated_cool_down,
-                }
-            )
-            updated_lesson_plans.append(updated_plan)
-
-        object.__setattr__(self, "_lesson_plans", updated_lesson_plans)
+        raise lesson_planning.ExerciseDoesNotExist(exercise_id=id)
 
     def _update_sequences(
         self,
@@ -155,6 +133,9 @@ class FakeRepository(lesson_planning.Repository):
         name: str,
         description: str,
         date: dt.date,
+        warm_up: list[lesson_planning.ExerciseSequence],
+        main_session: list[lesson_planning.ExerciseSequence],
+        cool_down: list[lesson_planning.ExerciseSequence],
     ) -> int:
         next_id = len(self._lesson_plans) + 1
 
@@ -163,9 +144,9 @@ class FakeRepository(lesson_planning.Repository):
             name=name,
             description=description,
             date=date,
-            warm_up=[],
-            main_session=[],
-            cool_down=[],
+            warm_up=warm_up,
+            main_session=main_session,
+            cool_down=cool_down,
         )
         self._lesson_plans.append(new_lesson_plan)
 

@@ -7,9 +7,11 @@
       "date": "2026-01-24",
       "warm_up": [
         {
+          "id": 1,
           "name": "Seated Core",
           "sets": [
             {
+              "id": 1,
               "exercise": {
                 "id": 1,
                 "name": "Deep breaths",
@@ -17,16 +19,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 70,
-              "variant": "STANDARD",
-              "id": 1
+              "variant": "STANDARD"
             },
             {
+              "id": 2,
               "exercise": {
                 "id": 2,
                 "name": "Pilates breaths",
@@ -34,16 +37,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 75,
-              "variant": "STANDARD",
-              "id": 2
+              "variant": "STANDARD"
             },
             {
+              "id": 3,
               "exercise": {
                 "id": 3,
                 "name": "Neck rolls",
@@ -51,16 +55,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 2,
               "duration_seconds": 65,
-              "variant": "STANDARD",
-              "id": 3
+              "variant": "STANDARD"
             },
             {
+              "id": 4,
               "exercise": {
                 "id": 4,
                 "name": "Lateral spinal stretch",
@@ -68,26 +73,27 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 2,
               "duration_seconds": 80,
-              "variant": "STANDARD",
-              "id": 4
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility.",
-          "id": 1
+          "notes": "5 minutes warm-up. Focus on establishing breath connection and spinal mobility."
         }
       ],
       "main_session": [
         {
+          "id": 2,
           "name": "Supine Core",
           "sets": [
             {
+              "id": 5,
               "exercise": {
                 "id": 5,
                 "name": "Pelvic tilts",
@@ -95,16 +101,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 52,
-              "variant": "STANDARD",
-              "id": 5
+              "variant": "STANDARD"
             },
             {
+              "id": 6,
               "exercise": {
                 "id": 6,
                 "name": "Super slow glute bridge",
@@ -112,16 +119,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 57,
-              "variant": "STANDARD",
-              "id": 6
+              "variant": "STANDARD"
             },
             {
+              "id": 7,
               "exercise": {
                 "id": 7,
                 "name": "Toe taps from table top",
@@ -129,16 +137,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD",
-              "id": 7
+              "variant": "STANDARD"
             },
             {
+              "id": 8,
               "exercise": {
                 "id": 8,
                 "name": "Knees side to side from table top",
@@ -146,16 +155,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD",
-              "id": 8
+              "variant": "STANDARD"
             },
             {
+              "id": 9,
               "exercise": {
                 "id": 9,
                 "name": "Crunches",
@@ -163,16 +173,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD",
-              "id": 9
+              "variant": "STANDARD"
             },
             {
+              "id": 10,
               "exercise": {
                 "id": 9,
                 "name": "Crunches",
@@ -180,6 +191,7 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -187,18 +199,18 @@
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "PULSE",
-              "id": 10
+              "variant": "PULSE"
             }
           ],
           "reps": 3,
-          "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout.",
-          "id": 2
+          "notes": "Hug knees between each round. 10 minutes lying core work. Keep lower back connected to mat throughout."
         },
         {
+          "id": 3,
           "name": "Side-Lying Glutes",
           "sets": [
             {
+              "id": 11,
               "exercise": {
                 "id": 11,
                 "name": "Side-lying knee bent lift and lower",
@@ -206,16 +218,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "STANDARD",
-              "id": 11
+              "variant": "STANDARD"
             },
             {
+              "id": 12,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -223,16 +236,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD",
-              "id": 12
+              "variant": "STANDARD"
             },
             {
+              "id": 13,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -240,6 +254,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -247,10 +262,10 @@
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "PULSE",
-              "id": 13
+              "variant": "PULSE"
             },
             {
+              "id": 14,
               "exercise": {
                 "id": 14,
                 "name": "Side-lying leg circles pointed",
@@ -258,16 +273,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 42,
-              "variant": "STANDARD",
-              "id": 14
+              "variant": "STANDARD"
             },
             {
+              "id": 15,
               "exercise": {
                 "id": 15,
                 "name": "Side-lying oblique crunch",
@@ -275,24 +291,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD",
-              "id": 15
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "5 minutes left side glute work. Left leg on top.",
-          "id": 3
+          "notes": "5 minutes left side glute work. Left leg on top."
         },
         {
+          "id": 4,
           "name": "Prone Obliques",
           "sets": [
             {
+              "id": 16,
               "exercise": {
                 "id": 16,
                 "name": "Plank knee crunch",
@@ -300,24 +317,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "PRONE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "STANDARD",
-              "id": 16
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes plank oblique work. Right knee in to work left glute.",
-          "id": 4
+          "notes": "2 minutes plank oblique work. Right knee in to work left glute."
         },
         {
+          "id": 5,
           "name": "Standing Glutes",
           "sets": [
             {
+              "id": 17,
               "exercise": {
                 "id": 17,
                 "name": "Squats with heel raised",
@@ -325,16 +343,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD",
-              "id": 17
+              "variant": "STANDARD"
             },
             {
+              "id": 18,
               "exercise": {
                 "id": 18,
                 "name": "Wide squat hold",
@@ -342,16 +361,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 62,
-              "variant": "STANDARD",
-              "id": 18
+              "variant": "STANDARD"
             },
             {
+              "id": 19,
               "exercise": {
                 "id": 19,
                 "name": "Side bends in squat",
@@ -359,24 +379,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD",
-              "id": 19
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes standing left glute. Right heel raised for squats.",
-          "id": 5
+          "notes": "2 minutes standing left glute. Right heel raised for squats."
         },
         {
+          "id": 6,
           "name": "Quadruped Back Extensors",
           "sets": [
             {
+              "id": 20,
               "exercise": {
                 "id": 20,
                 "name": "Downward dog",
@@ -384,16 +405,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "HAMSTRINGS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 52,
-              "variant": "STANDARD",
-              "id": 20
+              "variant": "STANDARD"
             },
             {
+              "id": 21,
               "exercise": {
                 "id": 21,
                 "name": "Cobra",
@@ -401,16 +423,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "PRONE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 57,
-              "variant": "STANDARD",
-              "id": 21
+              "variant": "STANDARD"
             },
             {
+              "id": 22,
               "exercise": {
                 "id": 22,
                 "name": "Push-ups",
@@ -418,16 +441,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "PRONE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 47,
-              "variant": "STANDARD",
-              "id": 22
+              "variant": "STANDARD"
             },
             {
+              "id": 23,
               "exercise": {
                 "id": 23,
                 "name": "Child's pose",
@@ -435,24 +459,25 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 62,
-              "variant": "STANDARD",
-              "id": 23
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "1 minute plank & back work.",
-          "id": 6
+          "notes": "1 minute plank & back work."
         },
         {
+          "id": 7,
           "name": "Side-Lying Glutes",
           "sets": [
             {
+              "id": 24,
               "exercise": {
                 "id": 11,
                 "name": "Side-lying knee bent lift and lower",
@@ -460,16 +485,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD",
-              "id": 24
+              "variant": "STANDARD"
             },
             {
+              "id": 25,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -477,16 +503,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD",
-              "id": 25
+              "variant": "STANDARD"
             },
             {
+              "id": 26,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -494,6 +521,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -501,10 +529,10 @@
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "PULSE",
-              "id": 26
+              "variant": "PULSE"
             },
             {
+              "id": 27,
               "exercise": {
                 "id": 14,
                 "name": "Side-lying leg circles pointed",
@@ -512,16 +540,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 47,
-              "variant": "STANDARD",
-              "id": 27
+              "variant": "STANDARD"
             },
             {
+              "id": 28,
               "exercise": {
                 "id": 15,
                 "name": "Side-lying oblique crunch",
@@ -529,24 +558,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD",
-              "id": 28
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "5 minutes right side glute work. Right leg on top.",
-          "id": 7
+          "notes": "5 minutes right side glute work. Right leg on top."
         },
         {
+          "id": 8,
           "name": "Prone Obliques",
           "sets": [
             {
+              "id": 29,
               "exercise": {
                 "id": 16,
                 "name": "Plank knee crunch",
@@ -554,24 +584,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "PRONE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD",
-              "id": 29
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes plank oblique work. Left knee in to work right glute.",
-          "id": 8
+          "notes": "2 minutes plank oblique work. Left knee in to work right glute."
         },
         {
+          "id": 9,
           "name": "Standing Glutes",
           "sets": [
             {
+              "id": 30,
               "exercise": {
                 "id": 17,
                 "name": "Squats with heel raised",
@@ -579,16 +610,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD",
-              "id": 30
+              "variant": "STANDARD"
             },
             {
+              "id": 31,
               "exercise": {
                 "id": 18,
                 "name": "Wide squat hold",
@@ -596,16 +628,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 57,
-              "variant": "STANDARD",
-              "id": 31
+              "variant": "STANDARD"
             },
             {
+              "id": 32,
               "exercise": {
                 "id": 24,
                 "name": "Heel raises in squat",
@@ -613,16 +646,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HAMSTRINGS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD",
-              "id": 32
+              "variant": "STANDARD"
             },
             {
+              "id": 33,
               "exercise": {
                 "id": 25,
                 "name": "Squat pulses",
@@ -630,24 +664,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD",
-              "id": 33
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "3 minutes standing right glute. Left heel raised for squats.",
-          "id": 9
+          "notes": "3 minutes standing right glute. Left heel raised for squats."
         },
         {
+          "id": 10,
           "name": "Seated Core",
           "sets": [
             {
+              "id": 34,
               "exercise": {
                 "id": 26,
                 "name": "C-curve half roll back arms forward",
@@ -655,16 +690,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 42,
-              "variant": "STANDARD",
-              "id": 34
+              "variant": "STANDARD"
             },
             {
+              "id": 35,
               "exercise": {
                 "id": 27,
                 "name": "C-curve half roll back fingertips to temples",
@@ -672,16 +708,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 52,
-              "variant": "STANDARD",
-              "id": 35
+              "variant": "STANDARD"
             },
             {
+              "id": 36,
               "exercise": {
                 "id": 27,
                 "name": "C-curve half roll back fingertips to temples",
@@ -689,6 +726,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -696,10 +734,10 @@
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "PULSE",
-              "id": 36
+              "variant": "PULSE"
             },
             {
+              "id": 37,
               "exercise": {
                 "id": 29,
                 "name": "Seated single leg toe taps",
@@ -707,16 +745,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 47,
-              "variant": "STANDARD",
-              "id": 37
+              "variant": "STANDARD"
             },
             {
+              "id": 38,
               "exercise": {
                 "id": 30,
                 "name": "Seated double leg toe taps",
@@ -724,24 +763,25 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 62,
-              "variant": "STANDARD",
-              "id": 38
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "3 minutes sitting core.",
-          "id": 10
+          "notes": "3 minutes sitting core."
         },
         {
+          "id": 11,
           "name": "Supine Obliques",
           "sets": [
             {
+              "id": 39,
               "exercise": {
                 "id": 31,
                 "name": "Oblique crunch with twist",
@@ -749,16 +789,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 42,
-              "variant": "STANDARD",
-              "id": 39
+              "variant": "STANDARD"
             },
             {
+              "id": 40,
               "exercise": {
                 "id": 32,
                 "name": "Slow bicycles",
@@ -766,16 +807,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 52,
-              "variant": "STANDARD",
-              "id": 40
+              "variant": "STANDARD"
             },
             {
+              "id": 41,
               "exercise": {
                 "id": 33,
                 "name": "Quick bicycles",
@@ -783,26 +825,27 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 57,
-              "variant": "STANDARD",
-              "id": 41
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes lying core finish.",
-          "id": 11
+          "notes": "2 minutes lying core finish."
         }
       ],
       "cool_down": [
         {
+          "id": 12,
           "name": "Supine Glutes",
           "sets": [
             {
+              "id": 42,
               "exercise": {
                 "id": 34,
                 "name": "Frog legs with breath",
@@ -810,16 +853,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 65,
-              "variant": "STANDARD",
-              "id": 42
+              "variant": "STANDARD"
             },
             {
+              "id": 43,
               "exercise": {
                 "id": 35,
                 "name": "Lumbar twist",
@@ -827,16 +871,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 70,
-              "variant": "STANDARD",
-              "id": 43
+              "variant": "STANDARD"
             },
             {
+              "id": 44,
               "exercise": {
                 "id": 36,
                 "name": "Figure of 4 stretch",
@@ -844,16 +889,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 60,
-              "variant": "STANDARD",
-              "id": 44
+              "variant": "STANDARD"
             },
             {
+              "id": 45,
               "exercise": {
                 "id": 37,
                 "name": "Seated arm raises with breath",
@@ -861,19 +907,18 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 75,
-              "variant": "STANDARD",
-              "id": 45
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "3 minutes cool down. Focus on lengthening and releasing.",
-          "id": 12
+          "notes": "3 minutes cool down. Focus on lengthening and releasing."
         }
       ]
     },
@@ -884,9 +929,11 @@
       "date": "2026-01-31",
       "warm_up": [
         {
+          "id": 13,
           "name": "Standing Core",
           "sets": [
             {
+              "id": 46,
               "exercise": {
                 "id": 1,
                 "name": "Deep breaths",
@@ -894,16 +941,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 59,
-              "variant": "STANDARD",
-              "id": 46
+              "variant": "STANDARD"
             },
             {
+              "id": 47,
               "exercise": {
                 "id": 2,
                 "name": "Pilates breaths",
@@ -911,16 +959,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 4,
               "duration_seconds": 64,
-              "variant": "STANDARD",
-              "id": 47
+              "variant": "STANDARD"
             },
             {
+              "id": 48,
               "exercise": {
                 "id": 38,
                 "name": "Shoulder rolls",
@@ -928,16 +977,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 54,
-              "variant": "STANDARD",
-              "id": 48
+              "variant": "STANDARD"
             },
             {
+              "id": 49,
               "exercise": {
                 "id": 3,
                 "name": "Neck rolls",
@@ -945,16 +995,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 2,
               "duration_seconds": 69,
-              "variant": "STANDARD",
-              "id": 49
+              "variant": "STANDARD"
             },
             {
+              "id": 50,
               "exercise": {
                 "id": 39,
                 "name": "Spine twists",
@@ -962,16 +1013,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 2,
               "duration_seconds": 49,
-              "variant": "STANDARD",
-              "id": 50
+              "variant": "STANDARD"
             },
             {
+              "id": 51,
               "exercise": {
                 "id": 40,
                 "name": "Forward fold",
@@ -979,16 +1031,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "HAMSTRINGS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 59,
-              "variant": "STANDARD",
-              "id": 51
+              "variant": "STANDARD"
             },
             {
+              "id": 52,
               "exercise": {
                 "id": 41,
                 "name": "Plank to heels to downward dog flow",
@@ -996,26 +1049,27 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "PRONE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 64,
-              "variant": "STANDARD",
-              "id": 52
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "6 minutes full standing warm-up with dynamic plank transitions.",
-          "id": 13
+          "notes": "6 minutes full standing warm-up with dynamic plank transitions."
         }
       ],
       "main_session": [
         {
+          "id": 14,
           "name": "Supine Core",
           "sets": [
             {
+              "id": 53,
               "exercise": {
                 "id": 42,
                 "name": "Glute bridge walks",
@@ -1023,16 +1077,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 53
+              "variant": "STANDARD"
             },
             {
+              "id": 54,
               "exercise": {
                 "id": 9,
                 "name": "Crunches",
@@ -1040,16 +1095,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 54
+              "variant": "STANDARD"
             },
             {
+              "id": 55,
               "exercise": {
                 "id": 43,
                 "name": "Single leg glute bridge with opposite leg lift",
@@ -1057,16 +1113,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 55
+              "variant": "STANDARD"
             },
             {
+              "id": 56,
               "exercise": {
                 "id": 9,
                 "name": "Crunches",
@@ -1074,6 +1131,7 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -1081,10 +1139,10 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "PULSE",
-              "id": 56
+              "variant": "PULSE"
             },
             {
+              "id": 57,
               "exercise": {
                 "id": 43,
                 "name": "Single leg glute bridge with opposite leg lift",
@@ -1092,6 +1150,7 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -1099,10 +1158,10 @@
               },
               "reps": 5,
               "duration_seconds": 30,
-              "variant": "PULSE",
-              "id": 57
+              "variant": "PULSE"
             },
             {
+              "id": 58,
               "exercise": {
                 "id": 45,
                 "name": "Crunches with legs in tabletop",
@@ -1110,16 +1169,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 58
+              "variant": "STANDARD"
             },
             {
+              "id": 59,
               "exercise": {
                 "id": 35,
                 "name": "Lumbar twist",
@@ -1127,16 +1187,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 59
+              "variant": "STANDARD"
             },
             {
+              "id": 60,
               "exercise": {
                 "id": 46,
                 "name": "Crunches in left lumbar twist",
@@ -1144,16 +1205,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 60
+              "variant": "STANDARD"
             },
             {
+              "id": 61,
               "exercise": {
                 "id": 47,
                 "name": "Crunches in right lumbar twist",
@@ -1161,16 +1223,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 61
+              "variant": "STANDARD"
             },
             {
+              "id": 62,
               "exercise": {
                 "id": 7,
                 "name": "Toe taps from table top",
@@ -1178,16 +1241,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 62
+              "variant": "STANDARD"
             },
             {
+              "id": 63,
               "exercise": {
                 "id": 48,
                 "name": "Single leg stretch",
@@ -1195,16 +1259,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 63
+              "variant": "STANDARD"
             },
             {
+              "id": 64,
               "exercise": {
                 "id": 49,
                 "name": "Deadbugs",
@@ -1212,24 +1277,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 64
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "8 minutes lying glutes & core.",
-          "id": 14
+          "notes": "8 minutes lying glutes & core."
         },
         {
+          "id": 15,
           "name": "Side-Lying Glutes",
           "sets": [
             {
+              "id": 65,
               "exercise": {
                 "id": 11,
                 "name": "Side-lying knee bent lift and lower",
@@ -1237,16 +1303,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 65
+              "variant": "STANDARD"
             },
             {
+              "id": 66,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -1254,16 +1321,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 66
+              "variant": "STANDARD"
             },
             {
+              "id": 67,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -1271,6 +1339,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -1278,10 +1347,10 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "PULSE",
-              "id": 67
+              "variant": "PULSE"
             },
             {
+              "id": 68,
               "exercise": {
                 "id": 14,
                 "name": "Side-lying leg circles pointed",
@@ -1289,16 +1358,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 68
+              "variant": "STANDARD"
             },
             {
+              "id": 69,
               "exercise": {
                 "id": 15,
                 "name": "Side-lying oblique crunch",
@@ -1306,24 +1376,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 69
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "5 minutes side lying right glute. Right leg on top.",
-          "id": 15
+          "notes": "5 minutes side lying right glute. Right leg on top."
         },
         {
+          "id": 16,
           "name": "Quadruped Glutes",
           "sets": [
             {
+              "id": 70,
               "exercise": {
                 "id": 50,
                 "name": "Hover knee taps",
@@ -1331,16 +1402,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 70
+              "variant": "STANDARD"
             },
             {
+              "id": 71,
               "exercise": {
                 "id": 51,
                 "name": "Donkey kicks",
@@ -1348,16 +1420,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 71
+              "variant": "STANDARD"
             },
             {
+              "id": 72,
               "exercise": {
                 "id": 52,
                 "name": "Leg circles back to elbow",
@@ -1365,16 +1438,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 72
+              "variant": "STANDARD"
             },
             {
+              "id": 73,
               "exercise": {
                 "id": 53,
                 "name": "Tricep dips from quadruped",
@@ -1382,16 +1456,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 73
+              "variant": "STANDARD"
             },
             {
+              "id": 74,
               "exercise": {
                 "id": 54,
                 "name": "Quadruped oblique twist",
@@ -1399,24 +1474,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 74
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "3 minutes all fours core & glutes, right side.",
-          "id": 16
+          "notes": "3 minutes all fours core & glutes, right side."
         },
         {
+          "id": 17,
           "name": "Standing Glutes",
           "sets": [
             {
+              "id": 75,
               "exercise": {
                 "id": 55,
                 "name": "Static lunge",
@@ -1424,16 +1500,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 75
+              "variant": "STANDARD"
             },
             {
+              "id": 76,
               "exercise": {
                 "id": 56,
                 "name": "Lunge with chest opener",
@@ -1441,16 +1518,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 8,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 76
+              "variant": "STANDARD"
             },
             {
+              "id": 77,
               "exercise": {
                 "id": 57,
                 "name": "Lunge tap back toes",
@@ -1458,16 +1536,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 77
+              "variant": "STANDARD"
             },
             {
+              "id": 78,
               "exercise": {
                 "id": 18,
                 "name": "Wide squat hold",
@@ -1475,16 +1554,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 78
+              "variant": "STANDARD"
             },
             {
+              "id": 79,
               "exercise": {
                 "id": 19,
                 "name": "Side bends in squat",
@@ -1492,16 +1572,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 79
+              "variant": "STANDARD"
             },
             {
+              "id": 80,
               "exercise": {
                 "id": 58,
                 "name": "Squat with cactus arms lift and lower",
@@ -1509,16 +1590,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 80
+              "variant": "STANDARD"
             },
             {
+              "id": 81,
               "exercise": {
                 "id": 58,
                 "name": "Squat with cactus arms lift and lower",
@@ -1526,6 +1608,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -1533,18 +1616,18 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "PULSE",
-              "id": 81
+              "variant": "PULSE"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes standing right glute.",
-          "id": 17
+          "notes": "2 minutes standing right glute."
         },
         {
+          "id": 18,
           "name": "Prone Core",
           "sets": [
             {
+              "id": 82,
               "exercise": {
                 "id": 60,
                 "name": "Plank hold",
@@ -1552,24 +1635,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "PRONE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 82
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "1 minute plank core.",
-          "id": 18
+          "notes": "1 minute plank core."
         },
         {
+          "id": 19,
           "name": "Side-Lying Glutes",
           "sets": [
             {
+              "id": 83,
               "exercise": {
                 "id": 11,
                 "name": "Side-lying knee bent lift and lower",
@@ -1577,16 +1661,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 83
+              "variant": "STANDARD"
             },
             {
+              "id": 84,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -1594,16 +1679,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 84
+              "variant": "STANDARD"
             },
             {
+              "id": 85,
               "exercise": {
                 "id": 12,
                 "name": "Side-lying leg extension with point",
@@ -1611,6 +1697,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -1618,10 +1705,10 @@
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "PULSE",
-              "id": 85
+              "variant": "PULSE"
             },
             {
+              "id": 86,
               "exercise": {
                 "id": 14,
                 "name": "Side-lying leg circles pointed",
@@ -1629,16 +1716,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 86
+              "variant": "STANDARD"
             },
             {
+              "id": 87,
               "exercise": {
                 "id": 15,
                 "name": "Side-lying oblique crunch",
@@ -1646,24 +1734,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 87
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "5 minutes side lying left glute. Left leg on top.",
-          "id": 19
+          "notes": "5 minutes side lying left glute. Left leg on top."
         },
         {
+          "id": 20,
           "name": "Quadruped Glutes",
           "sets": [
             {
+              "id": 88,
               "exercise": {
                 "id": 50,
                 "name": "Hover knee taps",
@@ -1671,16 +1760,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 88
+              "variant": "STANDARD"
             },
             {
+              "id": 89,
               "exercise": {
                 "id": 51,
                 "name": "Donkey kicks",
@@ -1688,16 +1778,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 89
+              "variant": "STANDARD"
             },
             {
+              "id": 90,
               "exercise": {
                 "id": 52,
                 "name": "Leg circles back to elbow",
@@ -1705,16 +1796,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 90
+              "variant": "STANDARD"
             },
             {
+              "id": 91,
               "exercise": {
                 "id": 53,
                 "name": "Tricep dips from quadruped",
@@ -1722,16 +1814,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 91
+              "variant": "STANDARD"
             },
             {
+              "id": 92,
               "exercise": {
                 "id": 54,
                 "name": "Quadruped oblique twist",
@@ -1739,24 +1832,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 92
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "3 minutes all fours core & glutes, left side.",
-          "id": 20
+          "notes": "3 minutes all fours core & glutes, left side."
         },
         {
+          "id": 21,
           "name": "Standing Glutes",
           "sets": [
             {
+              "id": 93,
               "exercise": {
                 "id": 55,
                 "name": "Static lunge",
@@ -1764,16 +1858,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 93
+              "variant": "STANDARD"
             },
             {
+              "id": 94,
               "exercise": {
                 "id": 56,
                 "name": "Lunge with chest opener",
@@ -1781,16 +1876,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 8,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 94
+              "variant": "STANDARD"
             },
             {
+              "id": 95,
               "exercise": {
                 "id": 57,
                 "name": "Lunge tap back toes",
@@ -1798,16 +1894,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 95
+              "variant": "STANDARD"
             },
             {
+              "id": 96,
               "exercise": {
                 "id": 18,
                 "name": "Wide squat hold",
@@ -1815,16 +1912,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 96
+              "variant": "STANDARD"
             },
             {
+              "id": 97,
               "exercise": {
                 "id": 24,
                 "name": "Heel raises in squat",
@@ -1832,16 +1930,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HAMSTRINGS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 97
+              "variant": "STANDARD"
             },
             {
+              "id": 98,
               "exercise": {
                 "id": 25,
                 "name": "Squat pulses",
@@ -1849,24 +1948,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 98
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes standing left glute.",
-          "id": 21
+          "notes": "2 minutes standing left glute."
         },
         {
+          "id": 22,
           "name": "Seated Core",
           "sets": [
             {
+              "id": 99,
               "exercise": {
                 "id": 26,
                 "name": "C-curve half roll back arms forward",
@@ -1874,16 +1974,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 99
+              "variant": "STANDARD"
             },
             {
+              "id": 100,
               "exercise": {
                 "id": 27,
                 "name": "C-curve half roll back fingertips to temples",
@@ -1891,16 +1992,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 100
+              "variant": "STANDARD"
             },
             {
+              "id": 101,
               "exercise": {
                 "id": 27,
                 "name": "C-curve half roll back fingertips to temples",
@@ -1908,6 +2010,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -1915,10 +2018,10 @@
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "PULSE",
-              "id": 101
+              "variant": "PULSE"
             },
             {
+              "id": 102,
               "exercise": {
                 "id": 29,
                 "name": "Seated single leg toe taps",
@@ -1926,16 +2029,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 102
+              "variant": "STANDARD"
             },
             {
+              "id": 103,
               "exercise": {
                 "id": 30,
                 "name": "Seated double leg toe taps",
@@ -1943,24 +2047,25 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 35,
-              "variant": "STANDARD",
-              "id": 103
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "3 minutes sitting core.",
-          "id": 22
+          "notes": "3 minutes sitting core."
         },
         {
+          "id": 23,
           "name": "Supine Obliques",
           "sets": [
             {
+              "id": 104,
               "exercise": {
                 "id": 31,
                 "name": "Oblique crunch with twist",
@@ -1968,16 +2073,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 40,
-              "variant": "STANDARD",
-              "id": 104
+              "variant": "STANDARD"
             },
             {
+              "id": 105,
               "exercise": {
                 "id": 32,
                 "name": "Slow bicycles",
@@ -1985,16 +2091,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 30,
-              "variant": "STANDARD",
-              "id": 105
+              "variant": "STANDARD"
             },
             {
+              "id": 106,
               "exercise": {
                 "id": 33,
                 "name": "Quick bicycles",
@@ -2002,26 +2109,27 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 45,
-              "variant": "STANDARD",
-              "id": 106
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes lying core.",
-          "id": 23
+          "notes": "2 minutes lying core."
         }
       ],
       "cool_down": [
         {
+          "id": 24,
           "name": "Supine Glutes",
           "sets": [
             {
+              "id": 107,
               "exercise": {
                 "id": 34,
                 "name": "Frog legs with breath",
@@ -2029,16 +2137,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 65,
-              "variant": "STANDARD",
-              "id": 107
+              "variant": "STANDARD"
             },
             {
+              "id": 108,
               "exercise": {
                 "id": 35,
                 "name": "Lumbar twist",
@@ -2046,16 +2155,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 70,
-              "variant": "STANDARD",
-              "id": 108
+              "variant": "STANDARD"
             },
             {
+              "id": 109,
               "exercise": {
                 "id": 36,
                 "name": "Figure of 4 stretch",
@@ -2063,16 +2173,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 60,
-              "variant": "STANDARD",
-              "id": 109
+              "variant": "STANDARD"
             },
             {
+              "id": 110,
               "exercise": {
                 "id": 37,
                 "name": "Seated arm raises with breath",
@@ -2080,19 +2191,18 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 75,
-              "variant": "STANDARD",
-              "id": 110
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "2 minutes cool down.",
-          "id": 24
+          "notes": "2 minutes cool down."
         }
       ]
     },
@@ -2103,9 +2213,11 @@
       "date": "2026-02-07",
       "warm_up": [
         {
+          "id": 25,
           "name": "Standing Back Extensors",
           "sets": [
             {
+              "id": 111,
               "exercise": {
                 "id": 1,
                 "name": "Deep breaths",
@@ -2113,16 +2225,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 41,
-              "variant": "STANDARD",
-              "id": 111
+              "variant": "STANDARD"
             },
             {
+              "id": 112,
               "exercise": {
                 "id": 38,
                 "name": "Shoulder rolls",
@@ -2130,16 +2243,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 46,
-              "variant": "STANDARD",
-              "id": 112
+              "variant": "STANDARD"
             },
             {
+              "id": 113,
               "exercise": {
                 "id": 3,
                 "name": "Neck rolls",
@@ -2147,16 +2261,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 2,
               "duration_seconds": 36,
-              "variant": "STANDARD",
-              "id": 113
+              "variant": "STANDARD"
             },
             {
+              "id": 114,
               "exercise": {
                 "id": 4,
                 "name": "Lateral spinal stretch",
@@ -2164,16 +2279,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 2,
               "duration_seconds": 51,
-              "variant": "STANDARD",
-              "id": 114
+              "variant": "STANDARD"
             },
             {
+              "id": 115,
               "exercise": {
                 "id": 2,
                 "name": "Pilates breaths",
@@ -2181,16 +2297,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 4,
               "duration_seconds": 31,
-              "variant": "STANDARD",
-              "id": 115
+              "variant": "STANDARD"
             },
             {
+              "id": 116,
               "exercise": {
                 "id": 40,
                 "name": "Forward fold",
@@ -2198,16 +2315,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "HAMSTRINGS",
                 "starting_position": "STANDING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 41,
-              "variant": "STANDARD",
-              "id": 116
+              "variant": "STANDARD"
             },
             {
+              "id": 117,
               "exercise": {
                 "id": 61,
                 "name": "Plank to heels to downward dog to upward dog flow",
@@ -2215,16 +2333,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "PRONE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 46,
-              "variant": "STANDARD",
-              "id": 117
+              "variant": "STANDARD"
             },
             {
+              "id": 118,
               "exercise": {
                 "id": 62,
                 "name": "Cat-cow",
@@ -2232,16 +2351,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 36,
-              "variant": "STANDARD",
-              "id": 118
+              "variant": "STANDARD"
             },
             {
+              "id": 119,
               "exercise": {
                 "id": 63,
                 "name": "Table top twists and free movement",
@@ -2249,16 +2369,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 51,
-              "variant": "STANDARD",
-              "id": 119
+              "variant": "STANDARD"
             },
             {
+              "id": 120,
               "exercise": {
                 "id": 64,
                 "name": "Shoulder stability presses",
@@ -2266,26 +2387,27 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 31,
-              "variant": "STANDARD",
-              "id": 120
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "6 minutes standing prep with shoulder stability work.",
-          "id": 25
+          "notes": "6 minutes standing prep with shoulder stability work."
         }
       ],
       "main_session": [
         {
+          "id": 26,
           "name": "Quadruped Glutes",
           "sets": [
             {
+              "id": 121,
               "exercise": {
                 "id": 65,
                 "name": "Superman progressive",
@@ -2293,16 +2415,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 16,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 121
+              "variant": "STANDARD"
             },
             {
+              "id": 122,
               "exercise": {
                 "id": 66,
                 "name": "Superman with crunch",
@@ -2310,16 +2433,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 8,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 122
+              "variant": "STANDARD"
             },
             {
+              "id": 123,
               "exercise": {
                 "id": 67,
                 "name": "Ball between knees hover taps",
@@ -2327,16 +2451,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 123
+              "variant": "STANDARD"
             },
             {
+              "id": 124,
               "exercise": {
                 "id": 68,
                 "name": "Ball squeeze between knees",
@@ -2344,16 +2469,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "INNER_THIGHS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD",
-              "id": 124
+              "variant": "STANDARD"
             },
             {
+              "id": 125,
               "exercise": {
                 "id": 69,
                 "name": "Rock back and forward on heels with ball",
@@ -2361,16 +2487,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "STANDARD",
-              "id": 125
+              "variant": "STANDARD"
             },
             {
+              "id": 126,
               "exercise": {
                 "id": 70,
                 "name": "Ball behind left knee donkey kicks",
@@ -2378,16 +2505,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 126
+              "variant": "STANDARD"
             },
             {
+              "id": 127,
               "exercise": {
                 "id": 71,
                 "name": "Ball behind left knee fire hydrants",
@@ -2395,16 +2523,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 127
+              "variant": "STANDARD"
             },
             {
+              "id": 128,
               "exercise": {
                 "id": 72,
                 "name": "Ball behind left knee up and round to elbow",
@@ -2412,16 +2541,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 128
+              "variant": "STANDARD"
             },
             {
+              "id": 129,
               "exercise": {
                 "id": 70,
                 "name": "Ball behind left knee donkey kicks",
@@ -2429,6 +2559,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -2436,10 +2567,10 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "PULSE",
-              "id": 129
+              "variant": "PULSE"
             },
             {
+              "id": 130,
               "exercise": {
                 "id": 74,
                 "name": "Ball under left hand tricep push-ups",
@@ -2447,16 +2578,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "STANDARD",
-              "id": 130
+              "variant": "STANDARD"
             },
             {
+              "id": 131,
               "exercise": {
                 "id": 75,
                 "name": "Left knee bent right leg extended crunches",
@@ -2464,16 +2596,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 131
+              "variant": "STANDARD"
             },
             {
+              "id": 132,
               "exercise": {
                 "id": 76,
                 "name": "Ball behind right knee donkey kicks",
@@ -2481,16 +2614,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 132
+              "variant": "STANDARD"
             },
             {
+              "id": 133,
               "exercise": {
                 "id": 77,
                 "name": "Ball behind right knee fire hydrants",
@@ -2498,16 +2632,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 133
+              "variant": "STANDARD"
             },
             {
+              "id": 134,
               "exercise": {
                 "id": 78,
                 "name": "Ball behind right knee up and round to elbow",
@@ -2515,16 +2650,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD",
-              "id": 134
+              "variant": "STANDARD"
             },
             {
+              "id": 135,
               "exercise": {
                 "id": 76,
                 "name": "Ball behind right knee donkey kicks",
@@ -2532,6 +2668,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -2539,10 +2676,10 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "PULSE",
-              "id": 135
+              "variant": "PULSE"
             },
             {
+              "id": 136,
               "exercise": {
                 "id": 80,
                 "name": "Ball under right hand tricep push-ups",
@@ -2550,16 +2687,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "SHOULDERS",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 136
+              "variant": "STANDARD"
             },
             {
+              "id": 137,
               "exercise": {
                 "id": 81,
                 "name": "Right knee bent left leg extended crunches",
@@ -2567,24 +2705,25 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "QUADRUPED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 137
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "10 minutes all fours core, glutes & arms with ball work.",
-          "id": 26
+          "notes": "10 minutes all fours core, glutes & arms with ball work."
         },
         {
+          "id": 27,
           "name": "Kneeling Obliques",
           "sets": [
             {
+              "id": 138,
               "exercise": {
                 "id": 82,
                 "name": "Kneeling oblique side bends left",
@@ -2592,16 +2731,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 138
+              "variant": "STANDARD"
             },
             {
+              "id": 139,
               "exercise": {
                 "id": 83,
                 "name": "Kneeling side plank right leg lifts",
@@ -2609,16 +2749,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD",
-              "id": 139
+              "variant": "STANDARD"
             },
             {
+              "id": 140,
               "exercise": {
                 "id": 83,
                 "name": "Kneeling side plank right leg lifts",
@@ -2626,6 +2767,7 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -2633,10 +2775,10 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "PULSE",
-              "id": 140
+              "variant": "PULSE"
             },
             {
+              "id": 141,
               "exercise": {
                 "id": 85,
                 "name": "Kneeling side plank right leg oblique crunches",
@@ -2644,16 +2786,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 141
+              "variant": "STANDARD"
             },
             {
+              "id": 142,
               "exercise": {
                 "id": 86,
                 "name": "Kneeling hip opener right leg forward and back",
@@ -2661,16 +2804,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HIP_FLEXORS",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 142
+              "variant": "STANDARD"
             },
             {
+              "id": 143,
               "exercise": {
                 "id": 87,
                 "name": "Kneeling oblique side bends right",
@@ -2678,16 +2822,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 143
+              "variant": "STANDARD"
             },
             {
+              "id": 144,
               "exercise": {
                 "id": 88,
                 "name": "Kneeling side plank left leg lifts",
@@ -2695,16 +2840,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD",
-              "id": 144
+              "variant": "STANDARD"
             },
             {
+              "id": 145,
               "exercise": {
                 "id": 88,
                 "name": "Kneeling side plank left leg lifts",
@@ -2712,6 +2858,7 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -2719,10 +2866,10 @@
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "PULSE",
-              "id": 145
+              "variant": "PULSE"
             },
             {
+              "id": 146,
               "exercise": {
                 "id": 90,
                 "name": "Kneeling side plank left leg oblique crunches",
@@ -2730,16 +2877,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 146
+              "variant": "STANDARD"
             },
             {
+              "id": 147,
               "exercise": {
                 "id": 91,
                 "name": "Kneeling hip opener left leg forward and back",
@@ -2747,16 +2895,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "HIP_FLEXORS",
                 "starting_position": "KNEELING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 147
+              "variant": "STANDARD"
             },
             {
+              "id": 148,
               "exercise": {
                 "id": 92,
                 "name": "Side plank dips",
@@ -2764,16 +2913,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 148
+              "variant": "STANDARD"
             },
             {
+              "id": 149,
               "exercise": {
                 "id": 93,
                 "name": "Side plank thread needle",
@@ -2781,16 +2931,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SIDE_LYING",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD",
-              "id": 149
+              "variant": "STANDARD"
             },
             {
+              "id": 150,
               "exercise": {
                 "id": 94,
                 "name": "Mermaid stretch",
@@ -2798,24 +2949,25 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 33,
-              "variant": "STANDARD",
-              "id": 150
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "10 minutes kneeling core & glutes.",
-          "id": 27
+          "notes": "10 minutes kneeling core & glutes."
         },
         {
+          "id": 28,
           "name": "Supine Glutes",
           "sets": [
             {
+              "id": 151,
               "exercise": {
                 "id": 95,
                 "name": "Ball between knees super slow bridge",
@@ -2823,16 +2975,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 4,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 151
+              "variant": "STANDARD"
             },
             {
+              "id": 152,
               "exercise": {
                 "id": 96,
                 "name": "Ball between knees bridge with squeeze",
@@ -2840,16 +2993,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 8,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 152
+              "variant": "STANDARD"
             },
             {
+              "id": 153,
               "exercise": {
                 "id": 97,
                 "name": "Ball between knees squeeze",
@@ -2857,16 +3011,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "INNER_THIGHS",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 153
+              "variant": "STANDARD"
             },
             {
+              "id": 154,
               "exercise": {
                 "id": 96,
                 "name": "Ball between knees bridge with squeeze",
@@ -2874,6 +3029,7 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -2881,10 +3037,10 @@
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "PULSE",
-              "id": 154
+              "variant": "PULSE"
             },
             {
+              "id": 155,
               "exercise": {
                 "id": 99,
                 "name": "Ball between knees tabletop squeeze",
@@ -2892,16 +3048,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "INNER_THIGHS",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 33,
-              "variant": "STANDARD",
-              "id": 155
+              "variant": "STANDARD"
             },
             {
+              "id": 156,
               "exercise": {
                 "id": 100,
                 "name": "Ball between knees tabletop double leg toe taps",
@@ -2909,24 +3066,25 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 43,
-              "variant": "STANDARD",
-              "id": 156
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "4 minutes lying glutes & core with ball.",
-          "id": 28
+          "notes": "4 minutes lying glutes & core with ball."
         },
         {
+          "id": 29,
           "name": "Supine Core",
           "sets": [
             {
+              "id": 157,
               "exercise": {
                 "id": 101,
                 "name": "Ball between shoulder blades crunches",
@@ -2934,16 +3092,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 157
+              "variant": "STANDARD"
             },
             {
+              "id": 158,
               "exercise": {
                 "id": 102,
                 "name": "Ball between shoulder blades oblique crunches",
@@ -2951,16 +3110,17 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 158
+              "variant": "STANDARD"
             },
             {
+              "id": 159,
               "exercise": {
                 "id": 103,
                 "name": "Glute bridge walks with opposite hand to knee",
@@ -2968,16 +3128,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD",
-              "id": 159
+              "variant": "STANDARD"
             },
             {
+              "id": 160,
               "exercise": {
                 "id": 43,
                 "name": "Single leg glute bridge with opposite leg lift",
@@ -2985,16 +3146,17 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 5,
               "duration_seconds": 33,
-              "variant": "STANDARD",
-              "id": 160
+              "variant": "STANDARD"
             },
             {
+              "id": 161,
               "exercise": {
                 "id": 43,
                 "name": "Single leg glute bridge with opposite leg lift",
@@ -3002,6 +3164,7 @@
                 "difficulty": "ADVANCED",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD",
                   "PULSE"
@@ -3009,10 +3172,10 @@
               },
               "reps": 5,
               "duration_seconds": 43,
-              "variant": "PULSE",
-              "id": 161
+              "variant": "PULSE"
             },
             {
+              "id": 162,
               "exercise": {
                 "id": 7,
                 "name": "Toe taps from table top",
@@ -3020,16 +3183,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 48,
-              "variant": "STANDARD",
-              "id": 162
+              "variant": "STANDARD"
             },
             {
+              "id": 163,
               "exercise": {
                 "id": 8,
                 "name": "Knees side to side from table top",
@@ -3037,16 +3201,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "OBLIQUES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 38,
-              "variant": "STANDARD",
-              "id": 163
+              "variant": "STANDARD"
             },
             {
+              "id": 164,
               "exercise": {
                 "id": 104,
                 "name": "Double leg stretch",
@@ -3054,26 +3219,27 @@
                 "difficulty": "INTERMEDIATE",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 10,
               "duration_seconds": 53,
-              "variant": "STANDARD",
-              "id": 164
+              "variant": "STANDARD"
             }
           ],
           "reps": 2,
-          "notes": "Change leg and repeat.",
-          "id": 29
+          "notes": "Change leg and repeat."
         }
       ],
       "cool_down": [
         {
+          "id": 30,
           "name": "Supine Glutes",
           "sets": [
             {
+              "id": 165,
               "exercise": {
                 "id": 34,
                 "name": "Frog legs with breath",
@@ -3081,16 +3247,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 65,
-              "variant": "STANDARD",
-              "id": 165
+              "variant": "STANDARD"
             },
             {
+              "id": 166,
               "exercise": {
                 "id": 35,
                 "name": "Lumbar twist",
@@ -3098,16 +3265,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "BACK_EXTENSORS",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 70,
-              "variant": "STANDARD",
-              "id": 166
+              "variant": "STANDARD"
             },
             {
+              "id": 167,
               "exercise": {
                 "id": 36,
                 "name": "Figure of 4 stretch",
@@ -3115,16 +3283,17 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "GLUTES",
                 "starting_position": "SUPINE",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 1,
               "duration_seconds": 60,
-              "variant": "STANDARD",
-              "id": 167
+              "variant": "STANDARD"
             },
             {
+              "id": 168,
               "exercise": {
                 "id": 37,
                 "name": "Seated arm raises with breath",
@@ -3132,19 +3301,18 @@
                 "difficulty": "BEGINNER",
                 "primary_muscle_group": "CORE",
                 "starting_position": "SEATED",
+                "category": "EFFORT",
                 "variants": [
                   "STANDARD"
                 ]
               },
               "reps": 3,
               "duration_seconds": 75,
-              "variant": "STANDARD",
-              "id": 168
+              "variant": "STANDARD"
             }
           ],
           "reps": 1,
-          "notes": "3 minutes cool down.",
-          "id": 30
+          "notes": "3 minutes cool down."
         }
       ]
     }

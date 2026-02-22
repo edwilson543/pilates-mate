@@ -46,10 +46,28 @@ class Exercise(factory.Factory):
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
     description = factory.Sequence(lambda n: f"description-{n}")
+    category = lesson_planning.ExerciseCategory.EFFORT
     difficulty = lesson_planning.Difficulty.INTERMEDIATE
     primary_muscle_group = lesson_planning.MuscleGroup.CORE
     starting_position = lesson_planning.StartingPosition.STANDING
     variants = factory.LazyFunction(lambda: [lesson_planning.ExerciseVariant.STANDARD])
+
+    @classmethod
+    def create_in_repo(
+        cls, repo: lesson_planning.Repository, **kwargs: object
+    ) -> lesson_planning.LessonPlan:
+        exercise = cls.create(**kwargs)
+        exercise_id = repo.create_exercise(
+            name=exercise.name,
+            description=exercise.description,
+            category=exercise.category,
+            difficulty=exercise.difficulty,
+            primary_muscle_group=exercise.primary_muscle_group,
+            starting_position=exercise.starting_position,
+            variants=exercise.variants,
+        )
+        exercise.id = exercise_id
+        return exercise
 
 
 class ExerciseSet(factory.Factory):
@@ -88,6 +106,24 @@ class LessonPlan(factory.Factory):
     warm_up = factory.LazyFunction(lambda: [ExerciseSequence()])
     main_session = factory.LazyFunction(lambda: [ExerciseSequence()])
     cool_down = factory.LazyFunction(lambda: [ExerciseSequence()])
+
+    @classmethod
+    def create_in_repo(
+        cls, repo: lesson_planning.Repository, **kwargs: object
+    ) -> lesson_planning.LessonPlan:
+        lesson_plan = cls.create(**kwargs)
+        lesson_plan_id = repo.create_lesson_plan(
+            name=lesson_plan.name,
+            description=lesson_plan.description,
+            date=lesson_plan.date,
+            warm_up=lesson_plan.warm_up,
+            main_session=lesson_plan.main_session,
+            cool_down=lesson_plan.cool_down,
+        )
+        lesson_plan.id = lesson_plan_id
+        # TODO! set all exercise set / exercise sequence IDs correctly.
+        # Currently they will just retain the factory-generated IDs.
+        return lesson_plan
 
 
 class LessonPlanRequirements(factory.Factory):
