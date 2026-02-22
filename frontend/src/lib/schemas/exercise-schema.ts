@@ -31,9 +31,9 @@ export const exerciseFormSchema = z.object({
   movement_variants: z
     .array(z.enum(["STANDARD", "PULSE", "HOLD"]))
     .min(1, "At least one movement_variant is required"),
-  equipment_variants: z
-    .array(z.enum(["BALL", "BAND", "RING", "ANKLE_WEIGHTS", "HAND_WEIGHTS"]))
-    .default([]),
+  equipment_variants: z.array(
+    z.enum(["BALL", "BAND", "RING", "ANKLE_WEIGHTS", "HAND_WEIGHTS"]),
+  ),
 });
 
 export type ExerciseFormData = z.infer<typeof exerciseFormSchema>;

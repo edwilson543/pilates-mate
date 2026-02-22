@@ -71,7 +71,7 @@ export default function LessonPlansPage() {
             started.
           </p>
           <Button onClick={() => router.push("/lesson-plans/generate")}>
-            Generate Lesson Plan
+            Generate lesson plan
           </Button>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function LessonPlansPage() {
       <PageHeader
         title="Lesson plans"
         actionButton={{
-          label: "Generate Lesson Plan",
+          label: "Generate lesson plan",
           onClick: () => router.push("/lesson-plans/generate"),
         }}
       />

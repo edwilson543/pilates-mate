@@ -106,6 +106,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
       exerciseId: null,
       exercise: null,
       movement_variant: "",
+      equipment_variant: [],
       reps: 0,
       durationSeconds: 0,
     });
@@ -154,6 +155,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
       exerciseId: null,
       exercise: null,
       movement_variant: "",
+      equipment_variant: [],
       reps: 0,
       durationSeconds: 0,
     });
@@ -166,6 +168,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
       exerciseId: null,
       exercise: null,
       movement_variant: "",
+      equipment_variant: [],
       reps: 0,
       durationSeconds: 0,
     });
@@ -295,11 +298,13 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="">None</SelectItem>
-                            {set.exercise.equipment_variants.map((equipment) => (
-                              <SelectItem key={equipment} value={equipment}>
-                                {formatEnumMember(equipment)}
-                              </SelectItem>
-                            ))}
+                            {set.exercise.equipment_variants.map(
+                              (equipment) => (
+                                <SelectItem key={equipment} value={equipment}>
+                                  {formatEnumMember(equipment)}
+                                </SelectItem>
+                              ),
+                            )}
                           </SelectContent>
                         </Select>
                       </TableCell>
@@ -462,7 +467,9 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                         onValueChange={(value) =>
                           setFormData({
                             ...formData,
-                            equipment_variant: value ? [value as Equipment] : [],
+                            equipment_variant: value
+                              ? [value as Equipment]
+                              : [],
                           })
                         }
                       >

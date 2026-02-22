@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   addSetToSequenceLessonPlansSequencesSequenceIdSetsPost,
   type MovementVariant,
+  type Equipment,
 } from "@/lib/apiClient";
 import { toast } from "sonner";
 
@@ -15,12 +16,14 @@ export function useAddExerciseSet() {
       reps,
       durationSeconds,
       movement_variant,
+      equipment_variant,
     }: {
       sequenceId: number;
       exerciseId: number;
       reps: number;
       durationSeconds: number;
       movement_variant: MovementVariant;
+      equipment_variant: Equipment[];
     }) => {
       await addSetToSequenceLessonPlansSequencesSequenceIdSetsPost({
         path: { sequence_id: sequenceId },
@@ -29,6 +32,7 @@ export function useAddExerciseSet() {
           reps,
           duration_seconds: durationSeconds,
           movement_variant,
+          equipment_variant,
         },
         throwOnError: true,
       });
