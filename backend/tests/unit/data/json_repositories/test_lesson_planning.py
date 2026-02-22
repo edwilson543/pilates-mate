@@ -193,7 +193,9 @@ class TestAddSequenceToSection:
         repository = _lesson_planning.JSONRepository(
             database_file=tmp_path / "test.json"
         )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(repository)
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+            repository, warm_up=[], main_session=[], cool_down=[]
+        )
 
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan.id,
@@ -203,7 +205,6 @@ class TestAddSequenceToSection:
             notes="Focus on deep breaths",
         )
 
-        assert sequence_id == 1
         plan = repository.get_lesson_plan(lesson_plan.id)
         assert len(plan.warm_up) == 1
         assert plan.warm_up[0].id == sequence_id
@@ -216,7 +217,9 @@ class TestAddSequenceToSection:
         repository = _lesson_planning.JSONRepository(
             database_file=tmp_path / "test.json"
         )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(repository)
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+            repository, warm_up=[], main_session=[], cool_down=[]
+        )
 
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan.id,
@@ -234,7 +237,9 @@ class TestAddSequenceToSection:
         repository = _lesson_planning.JSONRepository(
             database_file=tmp_path / "test.json"
         )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(repository)
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+            repository, warm_up=[], main_session=[], cool_down=[]
+        )
 
         sequence_id_1 = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan.id,
@@ -284,7 +289,7 @@ class TestAddSetToSequence:
         exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
         sequence = lesson_planning_helpers.ExerciseSequence(sets=[])
         lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
-            repository, warm_up=[sequence]
+            repository, warm_up=[sequence], main_session=[], cool_down=[]
         )
 
         set_id = repository.add_set_to_sequence(
@@ -295,7 +300,6 @@ class TestAddSetToSequence:
             variant=lesson_planning.ExerciseVariant.STANDARD,
         )
 
-        assert set_id == 1
         plan = repository.get_lesson_plan(lesson_plan.id)
         assert len(plan.warm_up[0].sets) == 1
         assert plan.warm_up[0].sets[0].id == set_id

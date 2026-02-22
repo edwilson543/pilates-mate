@@ -25,5 +25,5 @@ def repository(
     database_file = tmp_path / "test_database.json"
     repo = json_repositories.JSONRepository(database_file=database_file)
 
-    with lesson_planning_helpers.install_fake_repository(repo):
+    with lesson_planning_helpers.inject_repository(repo):
         yield repo
