@@ -26,6 +26,10 @@ export const lessonPlanFormSchema = z.object({
     )
     .min(1, "Select at least one muscle group"),
 
+  available_equipment: z.array(
+    z.enum(["BALL", "BAND", "RING", "ANKLE_WEIGHTS", "HAND_WEIGHTS"]),
+  ),
+
   example_lesson_plan_ids: z.array(z.number()).default([]).optional(),
 
   user_prompt: z

@@ -11,6 +11,7 @@ class TestRenderSystemPrompt:
             duration_minutes=30,
             target_difficulty=_models.Difficulty.INTERMEDIATE,
             target_muscle_groups=[_models.MuscleGroup.GLUTES],
+            available_equipment=[_models.Equipment.BALL],
             all_exercises=[exercise],
             example_lesson_plans=[lesson_plan],
         )

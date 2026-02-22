@@ -54,6 +54,14 @@ const muscleGroups = [
 const difficultyLevels = ["BEGINNER", "INTERMEDIATE", "ADVANCED"] as const;
 const difficultyLabels = ["Beginner", "Intermediate", "Advanced"];
 
+const equipmentOptions = [
+  { id: "BALL", label: "Ball" },
+  { id: "BAND", label: "Band" },
+  { id: "RING", label: "Ring" },
+  { id: "ANKLE_WEIGHTS", label: "Ankle Weights" },
+  { id: "HAND_WEIGHTS", label: "Hand Weights" },
+] as const;
+
 export default function GenerateLessonPlanPage() {
   const router = useRouter();
   const generateMutation = useGenerateLessonPlan();
@@ -69,6 +77,7 @@ export default function GenerateLessonPlanPage() {
       duration_minutes: 45,
       target_difficulty: "INTERMEDIATE",
       target_muscle_groups: [],
+      available_equipment: [],
       example_lesson_plan_ids: [],
       user_prompt: "",
     },
@@ -185,6 +194,51 @@ export default function GenerateLessonPlanPage() {
                               </FormControl>
                               <FormLabel className="font-normal cursor-pointer">
                                 {group.label}
+                              </FormLabel>
+                            </FormItem>
+                          )}
+                        />
+                      ))}
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="available_equipment"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>Available equipment</FormLabel>
+                    <div className="space-y-2">
+                      {equipmentOptions.map((equipment) => (
+                        <FormField
+                          key={equipment.id}
+                          control={form.control}
+                          name="available_equipment"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value?.includes(equipment.id)}
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([
+                                          ...field.value,
+                                          equipment.id,
+                                        ])
+                                      : field.onChange(
+                                          field.value?.filter(
+                                            (value) => value !== equipment.id,
+                                          ),
+                                        );
+                                  }}
+                                  disabled={generateMutation.isPending}
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal cursor-pointer">
+                                {equipment.label}
                               </FormLabel>
                             </FormItem>
                           )}

@@ -54,7 +54,7 @@ class Exercise(factory.Factory):
     movement_variants = factory.LazyFunction(
         lambda: [lesson_planning.MovementVariant.STANDARD]
     )
-    equipment_variants = factory.ListFactory()
+    equipment_variants = factory.LazyFunction(lambda: [lesson_planning.Equipment.BALL])
 
     @classmethod
     def create_in_repo(
@@ -143,3 +143,4 @@ class LessonPlanRequirements(factory.Factory):
     )
     example_lesson_lan_ids = factory.ListFactory()
     user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
+    available_equipment = factory.LazyFunction(lambda: [lesson_planning.Equipment.BALL])

@@ -22,15 +22,31 @@ The class should mainly target the following muscle groups:
 {% endfor -%}
 It is however okay to include exercises for other muscle groups (particularly if they are complementary).
 
+## Available equipment
+The following equipment is available:
+{%- for equipment in available_equipment  %}
+{{ equipment }}
+{% else %}
+No equipment is available for this plan.
+{% endfor -%}
+
 ## Lesson plan structure
 You should structure your lesson plan into exercise sequences before proceeding to add individual exercise sets. 
 
 The key requirements when structuring the lesson plan are:
-- The lesson should be split into a warm up, main session, and cool down (the three "segments" of the lesson plan)
-- Within each segment, there must be one or more "sequence" of exercises
+- The lesson should be split into a warm up, main session, and cool down (the three "sections" of the lesson plan)
+- Within each section, there must be one or more "sequence" of exercises
 - Each sequence must consist of one or more "sets" of exercises
+- Each exercise set must:
+    - Specify the exercise being performed
+    - Specify the movement variant for that set
+        - This MUST be a valid movement variant for the exercise, according to the exercise bank
+    - Specify the equipment variant for that set
+        - This MUST be zero or one pieces of equipment
+        - This MUST be a valid equipment variant for the exercise, according to the exercise bank
 - Each exercise sequence should contain sets of exercises:
     - Focused primarily on one muscle group
+    - Using no equipment, or sticking to the same piece of equipment
     - Using the same or geometrically similar starting position
     - Sequences should start with the STANDARD exercise variant
     - PULSE and HOLD variants should only be used to end sequences

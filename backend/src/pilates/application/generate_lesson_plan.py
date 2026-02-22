@@ -39,6 +39,7 @@ class LessonPlanRequirements(pydantic.BaseModel):
     target_difficulty: lesson_planning.Difficulty
     target_muscle_groups: list[lesson_planning.MuscleGroup]
     example_lesson_plan_ids: list[int] = []
+    available_equipment: list[lesson_planning.Equipment]
     user_prompt: str
 
 
@@ -130,7 +131,6 @@ def _get_system_prompt(
     requirements: LessonPlanRequirements,
     repository: lesson_planning.Repository,
 ) -> str:
-    # TODO -> filter exercises by the available equipment.
     all_exercises = repository.get_exercises()
     example_lesson_plans = _get_example_lesson_plans(requirements, repository)
 
@@ -138,6 +138,7 @@ def _get_system_prompt(
         duration_minutes=requirements.duration_minutes,
         target_difficulty=requirements.target_difficulty,
         target_muscle_groups=requirements.target_muscle_groups,
+        available_equipment=requirements.available_equipment,
         all_exercises=all_exercises,
         example_lesson_plans=example_lesson_plans,
     )
