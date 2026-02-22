@@ -47,6 +47,7 @@ import type {
   ExerciseSequence,
   Exercise,
   MovementVariant,
+  Equipment,
 } from "@/lib/apiClient/types.gen";
 import { formatEnumMember } from "@/lib/utils";
 import { useUpdateExerciseSet } from "@/hooks/mutations/useUpdateExerciseSet";
@@ -68,12 +69,14 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
     exerciseId: number | null;
     exercise: Exercise | null;
     movement_variant: MovementVariant | "";
+    equipment_variant: Equipment[];
     reps: number;
     durationSeconds: number;
   }>({
     exerciseId: null,
     exercise: null,
     movement_variant: "",
+    equipment_variant: [],
     reps: 0,
     durationSeconds: 0,
   });
@@ -89,6 +92,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
         exerciseId: set.exercise.id,
         exercise: set.exercise,
         movement_variant: set.movement_variant,
+        equipment_variant: set.equipment_variant,
         reps: set.reps,
         durationSeconds: set.duration_seconds,
       });
@@ -117,6 +121,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
         reps: formData.reps,
         durationSeconds: formData.durationSeconds,
         movement_variant: formData.movement_variant as MovementVariant,
+        equipment_variant: formData.equipment_variant,
       });
       setEditingSetId(null);
     } catch (error) {
@@ -180,12 +185,14 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
           reps: formData.reps,
           durationSeconds: formData.durationSeconds,
           movement_variant: formData.movement_variant as MovementVariant,
+          equipment_variant: formData.equipment_variant,
         });
         setAddingSet(false);
         setFormData({
           exerciseId: null,
           exercise: null,
           movement_variant: "",
+          equipment_variant: [],
           reps: 0,
           durationSeconds: 0,
         });
@@ -230,6 +237,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
               <TableRow>
                 <TableHead className="font-semibold w-48">Exercise</TableHead>
                 <TableHead className="font-semibold w-32">Movement</TableHead>
+                <TableHead className="font-semibold w-32">Equipment</TableHead>
                 <TableHead className="font-semibold w-20">Reps</TableHead>
                 <TableHead className="font-semibold w-24">Duration</TableHead>
                 <TableHead className="font-semibold w-28">Actions</TableHead>
@@ -267,6 +275,31 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                                 </SelectItem>
                               ),
                             )}
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                      <TableCell>
+                        <Select
+                          value={formData.equipment_variant[0] || ""}
+                          onValueChange={(value) =>
+                            setFormData({
+                              ...formData,
+                              equipment_variant: value
+                                ? [value as Equipment]
+                                : [],
+                            })
+                          }
+                        >
+                          <SelectTrigger className="w-32">
+                            <SelectValue placeholder="None" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="">None</SelectItem>
+                            {set.exercise.equipment_variants.map((equipment) => (
+                              <SelectItem key={equipment} value={equipment}>
+                                {formatEnumMember(equipment)}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </TableCell>
@@ -331,6 +364,23 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           {formatEnumMember(set.movement_variant)}
                         </Badge>
                       </TableCell>
+                      <TableCell>
+                        {set.equipment_variant.length > 0 ? (
+                          <div className="flex gap-1 flex-wrap">
+                            {set.equipment_variant.map((equipment) => (
+                              <Badge
+                                key={equipment}
+                                variant="outline"
+                                className="text-xs"
+                              >
+                                {formatEnumMember(equipment)}
+                              </Badge>
+                            ))}
+                          </div>
+                        ) : (
+                          "-"
+                        )}
+                      </TableCell>
                       <TableCell>{set.reps || "-"}</TableCell>
                       <TableCell>
                         {set.duration_seconds
@@ -371,6 +421,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           exercise,
                           movement_variant:
                             exercise?.movement_variants[0] || "",
+                          equipment_variant: [],
                         })
                       }
                     />
@@ -397,6 +448,33 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                                 value={movement_variant}
                               >
                                 {formatEnumMember(movement_variant)}
+                              </SelectItem>
+                            ),
+                          )}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {formData.exercise && (
+                      <Select
+                        value={formData.equipment_variant[0] || ""}
+                        onValueChange={(value) =>
+                          setFormData({
+                            ...formData,
+                            equipment_variant: value ? [value as Equipment] : [],
+                          })
+                        }
+                      >
+                        <SelectTrigger className="w-32">
+                          <SelectValue placeholder="None" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="">None</SelectItem>
+                          {formData.exercise.equipment_variants.map(
+                            (equipment) => (
+                              <SelectItem key={equipment} value={equipment}>
+                                {formatEnumMember(equipment)}
                               </SelectItem>
                             ),
                           )}
