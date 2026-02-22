@@ -93,34 +93,34 @@ export function ExerciseForm({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="BREATH_WORK">Breath Work</SelectItem>
-                      <SelectItem value="STRETCH">Stretch</SelectItem>
-                      <SelectItem value="MOBILITY">Mobility</SelectItem>
-                      <SelectItem value="EFFORT">Effort</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <div className={"flex flex-row justify-between"}>
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="BREATH_WORK">Breath Work</SelectItem>
+                        <SelectItem value="STRETCH">Stretch</SelectItem>
+                        <SelectItem value="MOBILITY">Mobility</SelectItem>
+                        <SelectItem value="EFFORT">Effort</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="difficulty"
@@ -154,7 +154,7 @@ export function ExerciseForm({
                 name="primary_muscle_group"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Primary Muscle Group</FormLabel>
+                    <FormLabel>Primary muscle group</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -191,7 +191,7 @@ export function ExerciseForm({
                 name="starting_position"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Starting Position</FormLabel>
+                    <FormLabel>Starting position</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -227,7 +227,7 @@ export function ExerciseForm({
               render={() => (
                 <FormItem>
                   <div className="mb-4">
-                    <FormLabel>Variants</FormLabel>
+                    <FormLabel>Movements</FormLabel>
                   </div>
                   {(
                     [

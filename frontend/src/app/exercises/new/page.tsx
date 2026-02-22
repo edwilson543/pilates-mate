@@ -17,11 +17,11 @@ export default function NewExercisePage() {
 
   return (
     <div className="p-8">
-      <PageHeader title="Create Exercise" />
+      <PageHeader title="Create exercise" />
       <ExerciseForm
         onSubmit={handleSubmit}
         onCancel={() => router.push("/exercises")}
-        submitLabel="Create Exercise"
+        submitLabel="Create exercise"
         isPending={createExerciseMutation.isPending}
       />
     </div>

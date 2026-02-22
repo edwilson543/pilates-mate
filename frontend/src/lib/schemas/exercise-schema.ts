@@ -28,9 +28,9 @@ export const exerciseFormSchema = z.object({
     "PLANK",
     "SIDE_KNEELING",
   ]),
-  movement_movement_variants: z
+  movement_variants: z
     .array(z.enum(["STANDARD", "PULSE", "HOLD"]))
-    .min(1, "At least one movement_movement_variant is required"),
+    .min(1, "At least one movement_variant is required"),
 });
 
 export type ExerciseFormData = z.infer<typeof exerciseFormSchema>;

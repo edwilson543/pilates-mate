@@ -46,7 +46,7 @@ import {
 import type {
   ExerciseSequence,
   Exercise,
-  ExerciseVariant,
+  MovementVariant,
 } from "@/lib/apiClient/types.gen";
 import { formatEnumMember } from "@/lib/utils";
 import { useUpdateExerciseSet } from "@/hooks/mutations/useUpdateExerciseSet";
@@ -67,7 +67,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
   const [formData, setFormData] = React.useState<{
     exerciseId: number | null;
     exercise: Exercise | null;
-    movement_variant: ExerciseVariant | "";
+    movement_variant: MovementVariant | "";
     reps: number;
     durationSeconds: number;
   }>({
@@ -116,7 +116,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
         setId,
         reps: formData.reps,
         durationSeconds: formData.durationSeconds,
-        movement_variant: formData.movement_variant as ExerciseVariant,
+        movement_variant: formData.movement_variant as MovementVariant,
       });
       setEditingSetId(null);
     } catch (error) {
@@ -179,7 +179,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
           exerciseId: formData.exerciseId,
           reps: formData.reps,
           durationSeconds: formData.durationSeconds,
-          movement_variant: formData.movement_variant as ExerciseVariant,
+          movement_variant: formData.movement_variant as MovementVariant,
         });
         setAddingSet(false);
         setFormData({
@@ -229,7 +229,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
             <TableHeader>
               <TableRow>
                 <TableHead className="font-semibold w-48">Exercise</TableHead>
-                <TableHead className="font-semibold w-32">Variant</TableHead>
+                <TableHead className="font-semibold w-32">Movement</TableHead>
                 <TableHead className="font-semibold w-20">Reps</TableHead>
                 <TableHead className="font-semibold w-24">Duration</TableHead>
                 <TableHead className="font-semibold w-28">Actions</TableHead>
@@ -249,7 +249,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           onValueChange={(value) =>
                             setFormData({
                               ...formData,
-                              movement_variant: value as ExerciseVariant,
+                              movement_variant: value as MovementVariant,
                             })
                           }
                         >
@@ -382,7 +382,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                         onValueChange={(value) =>
                           setFormData({
                             ...formData,
-                            movement_variant: value as ExerciseVariant,
+                            movement_variant: value as MovementVariant,
                           })
                         }
                       >

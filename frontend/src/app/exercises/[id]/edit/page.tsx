@@ -56,7 +56,7 @@ export default function EditExercisePage({
         defaultValues={exercise}
         onSubmit={handleSubmit}
         onCancel={() => router.push(`/exercises/${exerciseId}`)}
-        submitLabel="Save Changes"
+        submitLabel="Save changes"
         isPending={updateExerciseMutation.isPending}
       />
     </div>
