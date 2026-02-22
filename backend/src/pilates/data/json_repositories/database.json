@@ -22,7 +22,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 70,
@@ -41,7 +42,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 75,
@@ -60,7 +62,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 2,
               "duration_seconds": 65,
@@ -79,7 +82,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 2,
               "duration_seconds": 80,
@@ -108,7 +112,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 52,
@@ -127,7 +132,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 57,
@@ -146,7 +152,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 47,
@@ -165,7 +172,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 62,
@@ -184,7 +192,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 42,
@@ -204,7 +213,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 52,
@@ -231,7 +241,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 57,
@@ -250,7 +261,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 47,
@@ -270,7 +282,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 62,
@@ -289,7 +302,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 42,
@@ -308,7 +322,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 52,
@@ -335,7 +350,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 57,
@@ -362,7 +378,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 47,
@@ -381,7 +398,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 62,
@@ -400,7 +418,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 42,
@@ -427,7 +446,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 52,
@@ -446,7 +466,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 57,
@@ -465,7 +486,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 47,
@@ -484,7 +506,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 62,
@@ -511,7 +534,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 42,
@@ -530,7 +554,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 52,
@@ -550,7 +575,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 57,
@@ -569,7 +595,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 47,
@@ -588,7 +615,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 62,
@@ -615,7 +643,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 42,
@@ -642,7 +671,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 52,
@@ -661,7 +691,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 57,
@@ -680,7 +711,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 47,
@@ -699,7 +731,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 62,
@@ -726,7 +759,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 42,
@@ -745,7 +779,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 52,
@@ -765,7 +800,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 57,
@@ -784,7 +820,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 47,
@@ -803,7 +840,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 62,
@@ -830,7 +868,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 42,
@@ -849,7 +888,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 52,
@@ -868,7 +908,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 57,
@@ -897,7 +938,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 65,
@@ -916,7 +958,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 70,
@@ -935,7 +978,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 60,
@@ -954,7 +998,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 75,
@@ -989,7 +1034,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 59,
@@ -1008,7 +1054,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 4,
               "duration_seconds": 64,
@@ -1027,7 +1074,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 54,
@@ -1046,7 +1094,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 2,
               "duration_seconds": 69,
@@ -1065,7 +1114,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 2,
               "duration_seconds": 49,
@@ -1084,7 +1134,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 59,
@@ -1103,7 +1154,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 64,
@@ -1132,7 +1184,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -1151,7 +1204,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -1170,7 +1224,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 30,
@@ -1190,7 +1245,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -1210,7 +1266,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 30,
@@ -1229,7 +1286,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -1248,7 +1306,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 40,
@@ -1267,7 +1326,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1286,7 +1346,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -1305,7 +1366,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1324,7 +1386,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -1343,7 +1406,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -1370,7 +1434,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1389,7 +1454,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -1409,7 +1475,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1428,7 +1495,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 35,
@@ -1447,7 +1515,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -1474,7 +1543,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1493,7 +1563,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -1512,7 +1583,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1531,7 +1603,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -1550,7 +1623,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -1577,7 +1651,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1596,7 +1671,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 8,
               "duration_seconds": 45,
@@ -1615,7 +1691,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1634,7 +1711,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 35,
@@ -1653,7 +1731,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -1672,7 +1751,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1692,7 +1772,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -1719,7 +1800,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 30,
@@ -1746,7 +1828,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -1765,7 +1848,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -1785,7 +1869,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1804,7 +1889,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 45,
@@ -1823,7 +1909,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1850,7 +1937,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -1869,7 +1957,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -1888,7 +1977,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1907,7 +1997,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -1926,7 +2017,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -1953,7 +2045,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -1972,7 +2065,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 8,
               "duration_seconds": 40,
@@ -1991,7 +2085,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -2010,7 +2105,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 45,
@@ -2029,7 +2125,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -2048,7 +2145,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -2075,7 +2173,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 40,
@@ -2094,7 +2193,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 30,
@@ -2114,7 +2214,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -2133,7 +2234,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -2152,7 +2254,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 35,
@@ -2179,7 +2282,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 40,
@@ -2198,7 +2302,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 30,
@@ -2217,7 +2322,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 45,
@@ -2246,7 +2352,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 65,
@@ -2265,7 +2372,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 70,
@@ -2284,7 +2392,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 60,
@@ -2303,7 +2412,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 75,
@@ -2338,7 +2448,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 41,
@@ -2357,7 +2468,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 46,
@@ -2376,7 +2488,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 2,
               "duration_seconds": 36,
@@ -2395,7 +2508,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 2,
               "duration_seconds": 51,
@@ -2414,7 +2528,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 4,
               "duration_seconds": 31,
@@ -2433,7 +2548,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 41,
@@ -2452,7 +2568,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 46,
@@ -2471,7 +2588,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 36,
@@ -2490,7 +2608,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 51,
@@ -2509,7 +2628,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 31,
@@ -2538,7 +2658,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 16,
               "duration_seconds": 43,
@@ -2557,7 +2678,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 8,
               "duration_seconds": 48,
@@ -2576,6 +2698,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2595,6 +2720,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2614,6 +2742,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2633,6 +2764,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2652,6 +2786,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2671,6 +2808,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2691,6 +2831,9 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2710,6 +2853,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2729,7 +2875,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 43,
@@ -2748,6 +2895,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2767,6 +2917,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2786,6 +2939,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2806,6 +2962,9 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2825,6 +2984,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -2844,7 +3006,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 48,
@@ -2871,7 +3034,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 38,
@@ -2890,7 +3054,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 53,
@@ -2910,7 +3075,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 33,
@@ -2929,7 +3095,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 43,
@@ -2948,7 +3115,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 48,
@@ -2967,7 +3135,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 38,
@@ -2986,7 +3155,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 53,
@@ -3006,7 +3176,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 33,
@@ -3025,7 +3196,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 43,
@@ -3044,7 +3216,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 48,
@@ -3063,7 +3236,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 38,
@@ -3082,7 +3256,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 53,
@@ -3101,7 +3276,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 33,
@@ -3128,6 +3304,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 4,
@@ -3147,6 +3326,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 8,
@@ -3166,6 +3348,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -3186,6 +3371,9 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -3205,6 +3393,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -3224,6 +3415,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -3251,6 +3445,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -3270,6 +3467,9 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
+                ],
+                "equipment_variants": [
+                  "BALL"
                 ]
               },
               "reps": 10,
@@ -3289,7 +3489,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 53,
@@ -3308,7 +3509,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 33,
@@ -3328,7 +3530,8 @@
                 "movement_variants": [
                   "STANDARD",
                   "PULSE"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 5,
               "duration_seconds": 43,
@@ -3347,7 +3550,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 48,
@@ -3366,7 +3570,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 38,
@@ -3385,7 +3590,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 10,
               "duration_seconds": 53,
@@ -3414,7 +3620,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 65,
@@ -3433,7 +3640,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 70,
@@ -3452,7 +3660,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 1,
               "duration_seconds": 60,
@@ -3471,7 +3680,8 @@
                 "category": "EFFORT",
                 "movement_variants": [
                   "STANDARD"
-                ]
+                ],
+                "equipment_variants": []
               },
               "reps": 3,
               "duration_seconds": 75,

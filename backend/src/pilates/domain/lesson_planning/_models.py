@@ -14,7 +14,10 @@ class Difficulty(enum.StrEnum):
 
 class Equipment(enum.StrEnum):
     BALL = "BALL"
+    BAND = "BAND"
+    RING = "RING"
     ANKLE_WEIGHTS = "ANKLE_WEIGHTS"
+    HAND_WEIGHTS = "HAND_WEIGHTS"
 
 
 class MuscleGroup(enum.StrEnum):
@@ -70,6 +73,7 @@ class Exercise(pydantic.BaseModel):
     primary_muscle_group: MuscleGroup
     starting_position: StartingPosition
     movement_variants: list[MovementVariant]
+    equipment_variants: list[Equipment]
 
 
 class ExerciseSet(pydantic.BaseModel):
@@ -78,6 +82,8 @@ class ExerciseSet(pydantic.BaseModel):
     reps: int
     duration_seconds: int
     movement_variant: MovementVariant
+    # An empty list corresponds to no equipment.
+    equipment_variant: list[Equipment]
 
 
 class ExerciseSequence(pydantic.BaseModel):

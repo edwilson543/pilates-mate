@@ -16,6 +16,7 @@ class _GeneratedExerciseSet(pydantic.BaseModel):
     reps: int
     duration_seconds: int
     movement_variant: lesson_planning.MovementVariant
+    equipment_variant: list[lesson_planning.Equipment]
 
 
 class _GeneratedExerciseSequence(pydantic.BaseModel):
@@ -81,6 +82,7 @@ async def generate_lesson_plan(
                 reps=set_item.reps,
                 duration_seconds=set_item.duration_seconds,
                 movement_variant=set_item.movement_variant,
+                equipment_variant=set_item.equipment_variant,
             )
 
     # Add main session sequences and sets
@@ -99,6 +101,7 @@ async def generate_lesson_plan(
                 reps=set_item.reps,
                 duration_seconds=set_item.duration_seconds,
                 movement_variant=set_item.movement_variant,
+                equipment_variant=set_item.equipment_variant,
             )
 
     # Add cool down sequences and sets
@@ -117,6 +120,7 @@ async def generate_lesson_plan(
                 reps=set_item.reps,
                 duration_seconds=set_item.duration_seconds,
                 movement_variant=set_item.movement_variant,
+                equipment_variant=set_item.equipment_variant,
             )
 
     return repository.get_lesson_plan(lesson_plan_id)
