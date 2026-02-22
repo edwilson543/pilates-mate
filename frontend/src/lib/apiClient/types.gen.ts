@@ -45,6 +45,7 @@ export type CreateExerciseRequest = {
    * Description
    */
   description: string;
+  category: ExerciseCategory;
   difficulty: Difficulty;
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;
@@ -85,6 +86,7 @@ export type Exercise = {
    * Description
    */
   description: string;
+  category: ExerciseCategory;
   difficulty: Difficulty;
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;
@@ -93,6 +95,15 @@ export type Exercise = {
    */
   variants: Array<ExerciseVariant>;
 };
+
+/**
+ * ExerciseCategory
+ */
+export type ExerciseCategory =
+  | "BREATH_WORK"
+  | "STRETCH"
+  | "MOBILITY"
+  | "EFFORT";
 
 /**
  * ExerciseSequence
@@ -267,6 +278,7 @@ export type UpdateExerciseRequest = {
    * Description
    */
   description: string;
+  category: ExerciseCategory;
   difficulty: Difficulty;
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;

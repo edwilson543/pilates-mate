@@ -42,6 +42,7 @@ export type {
   DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses,
   Difficulty,
   Exercise,
+  ExerciseCategory,
   ExerciseSequence,
   ExerciseSet,
   ExerciseVariant,
