@@ -292,8 +292,10 @@ class TestAddSetToSequence:
             repository, warm_up=[sequence], main_session=[], cool_down=[]
         )
 
+        sequence_id = lesson_plan.warm_up[0].id
+
         set_id = repository.add_set_to_sequence(
-            sequence_id=sequence.id,
+            sequence_id=sequence_id,
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
@@ -320,15 +322,17 @@ class TestAddSetToSequence:
             repository, warm_up=[sequence]
         )
 
+        sequence_id = lesson_plan.warm_up[0].id
+
         set_id_1 = repository.add_set_to_sequence(
-            sequence_id=sequence.id,
+            sequence_id=sequence_id,
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
             variant=lesson_planning.ExerciseVariant.STANDARD,
         )
         set_id_2 = repository.add_set_to_sequence(
-            sequence_id=sequence.id,
+            sequence_id=sequence_id,
             exercise_id=exercise.id,
             reps=10,
             duration_seconds=60,
@@ -367,13 +371,15 @@ class TestAddSetToSequence:
             database_file=tmp_path / "test.json"
         )
         sequence = lesson_planning_helpers.ExerciseSequence(sets=[])
-        lesson_planning_helpers.LessonPlan.create_in_repo(
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
+        sequence_id = lesson_plan.warm_up[0].id
+
         with pytest.raises(lesson_planning.ExerciseDoesNotExist) as exc_info:
             repository.add_set_to_sequence(
-                sequence_id=sequence.id,
+                sequence_id=sequence_id,
                 exercise_id=999,
                 reps=5,
                 duration_seconds=30,
@@ -390,13 +396,15 @@ class TestGetExerciseSet:
         )
         exercise_set = lesson_planning_helpers.ExerciseSet(reps=5, duration_seconds=30)
         sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
-        lesson_planning_helpers.LessonPlan.create_in_repo(
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
-        result = repository.get_exercise_set(exercise_set.id)
+        set_id = lesson_plan.warm_up[0].sets[0].id
 
-        assert result.id == exercise_set.id
+        result = repository.get_exercise_set(set_id)
+
+        assert result.id == set_id
         assert result.reps == 5
         assert result.duration_seconds == 30
         assert result.variant == exercise_set.variant
@@ -421,18 +429,20 @@ class TestUpdateExerciseSet:
             reps=5, duration_seconds=30, variant="STANDARD"
         )
         sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
-        lesson_planning_helpers.LessonPlan.create_in_repo(
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
+        set_id = lesson_plan.warm_up[0].sets[0].id
+
         repository.update_exercise_set(
-            id=exercise_set.id,
+            id=set_id,
             reps=10,
             duration_seconds=60,
             variant=lesson_planning.ExerciseVariant.PULSE,
         )
 
-        updated_set = repository.get_exercise_set(exercise_set.id)
+        updated_set = repository.get_exercise_set(set_id)
         assert updated_set.reps == 10
         assert updated_set.duration_seconds == 60
         assert updated_set.variant == lesson_planning.ExerciseVariant.PULSE
@@ -465,11 +475,14 @@ class TestDeleteExerciseSet:
             repository, warm_up=[sequence]
         )
 
-        repository.delete_exercise_set(set_1.id)
+        set_1_id = lesson_plan.warm_up[0].sets[0].id
+        set_2_id = lesson_plan.warm_up[0].sets[1].id
+
+        repository.delete_exercise_set(set_1_id)
 
         plan = repository.get_lesson_plan(lesson_plan.id)
         assert len(plan.warm_up[0].sets) == 1
-        assert plan.warm_up[0].sets[0].id == set_2.id
+        assert plan.warm_up[0].sets[0].id == set_2_id
 
     def test_raises_exception_when_set_does_not_exist(self, tmp_path: pathlib.Path):
         repository = _lesson_planning.JSONRepository(
