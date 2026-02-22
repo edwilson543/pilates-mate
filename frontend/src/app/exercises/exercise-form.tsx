@@ -53,6 +53,7 @@ export function ExerciseForm({
       primary_muscle_group: "CORE",
       starting_position: "SUPINE",
       movement_variants: ["STANDARD"],
+      equipment_variants: [],
     },
   });
 
@@ -268,6 +269,63 @@ export function ExerciseForm({
                             </FormControl>
                             <FormLabel className="font-normal">
                               {movement_variant.label}
+                            </FormLabel>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  ))}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="equipment_variants"
+              render={() => (
+                <FormItem>
+                  <div className="mb-4">
+                    <FormLabel>Equipment</FormLabel>
+                  </div>
+                  {(
+                    [
+                      { id: "BALL", label: "Ball" },
+                      { id: "BAND", label: "Band" },
+                      { id: "RING", label: "Ring" },
+                      { id: "ANKLE_WEIGHTS", label: "Ankle Weights" },
+                      { id: "HAND_WEIGHTS", label: "Hand Weights" },
+                    ] as const
+                  ).map((equipment) => (
+                    <FormField
+                      key={equipment.id}
+                      control={form.control}
+                      name="equipment_variants"
+                      render={({ field }) => {
+                        return (
+                          <FormItem
+                            key={equipment.id}
+                            className="flex flex-row items-start space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value?.includes(equipment.id)}
+                                onCheckedChange={(checked) => {
+                                  return checked
+                                    ? field.onChange([
+                                        ...field.value,
+                                        equipment.id,
+                                      ])
+                                    : field.onChange(
+                                        field.value?.filter(
+                                          (value) => value !== equipment.id,
+                                        ),
+                                      );
+                                }}
+                              />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {equipment.label}
                             </FormLabel>
                           </FormItem>
                         );
