@@ -2,13 +2,13 @@ import datetime as dt
 
 import factory
 
-from pilates.application import generate_plan
+from pilates.application import generate_lesson_plan
 from pilates.domain import lesson_planning
 
 
 class GeneratedExercise(factory.Factory):
     class Meta:
-        model = generate_plan._GeneratedExercise
+        model = generate_lesson_plan._GeneratedExercise
 
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
@@ -16,17 +16,17 @@ class GeneratedExercise(factory.Factory):
 
 class GeneratedExerciseSet(factory.Factory):
     class Meta:
-        model = generate_plan._GeneratedExerciseSet
+        model = generate_lesson_plan._GeneratedExerciseSet
 
     exercise = factory.SubFactory(GeneratedExercise)
     reps = 10
     duration_seconds = 30
-    variant = lesson_planning.ExerciseVariant.STANDARD
+    movement_variant = lesson_planning.MovementVariant.STANDARD
 
 
 class GeneratedExerciseSequence(factory.Factory):
     class Meta:
-        model = generate_plan._GeneratedExerciseSequence
+        model = generate_lesson_plan._GeneratedExerciseSequence
         exclude = ("n_sets",)
 
     n_sets = 3
@@ -50,7 +50,9 @@ class Exercise(factory.Factory):
     difficulty = lesson_planning.Difficulty.INTERMEDIATE
     primary_muscle_group = lesson_planning.MuscleGroup.CORE
     starting_position = lesson_planning.StartingPosition.STANDING
-    variants = factory.LazyFunction(lambda: [lesson_planning.ExerciseVariant.STANDARD])
+    movement_variants = factory.LazyFunction(
+        lambda: [lesson_planning.MovementVariant.STANDARD]
+    )
 
     @classmethod
     def create_in_repo(
@@ -64,7 +66,7 @@ class Exercise(factory.Factory):
             difficulty=exercise.difficulty,
             primary_muscle_group=exercise.primary_muscle_group,
             starting_position=exercise.starting_position,
-            variants=exercise.variants,
+            movement_variants=exercise.movement_variants,
         )
         exercise.id = exercise_id
         return exercise
@@ -78,7 +80,7 @@ class ExerciseSet(factory.Factory):
     exercise = factory.SubFactory(Exercise)
     reps = 10
     duration_seconds = 30
-    variant = lesson_planning.ExerciseVariant.STANDARD
+    movement_variant = lesson_planning.MovementVariant.STANDARD
 
 
 class ExerciseSequence(factory.Factory):
@@ -128,7 +130,7 @@ class LessonPlan(factory.Factory):
 
 class LessonPlanRequirements(factory.Factory):
     class Meta:
-        model = generate_plan.LessonPlanRequirements
+        model = generate_lesson_plan.LessonPlanRequirements
 
     duration_minutes = 30
     target_difficulty = lesson_planning.Difficulty.INTERMEDIATE

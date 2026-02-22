@@ -14,7 +14,7 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl">{exercise.name}</CardTitle>
           <Badge
-            variant={
+            movement_variant={
               exercise.difficulty === "BEGINNER"
                 ? "secondary"
                 : exercise.difficulty === "INTERMEDIATE"
@@ -62,9 +62,9 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
                 Available Variants:
               </span>
               <div className="flex gap-2 mt-2">
-                {exercise.variants.map((variant) => (
-                  <Badge key={variant} variant="outline">
-                    {formatEnumMember(variant)}
+                {exercise.movement_variants.map((movement_variant) => (
+                  <Badge key={movement_variant} variant="outline">
+                    {formatEnumMember(movement_variant)}
                   </Badge>
                 ))}
               </div>

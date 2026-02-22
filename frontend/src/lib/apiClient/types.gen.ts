@@ -20,7 +20,7 @@ export type AddSetToSequenceRequest = {
    * Duration Seconds
    */
   duration_seconds: number;
-  variant: ExerciseVariant;
+  movement_variant: MovementVariant;
 };
 
 /**
@@ -50,9 +50,9 @@ export type CreateExerciseRequest = {
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;
   /**
-   * Variants
+   * Movement Variants
    */
-  variants: Array<ExerciseVariant>;
+  movement_variants: Array<MovementVariant>;
 };
 
 /**
@@ -91,9 +91,9 @@ export type Exercise = {
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;
   /**
-   * Variants
+   * Movement Variants
    */
-  variants: Array<ExerciseVariant>;
+  movement_variants: Array<MovementVariant>;
 };
 
 /**
@@ -148,13 +148,8 @@ export type ExerciseSet = {
    * Duration Seconds
    */
   duration_seconds: number;
-  variant: ExerciseVariant;
+  movement_variant: MovementVariant;
 };
-
-/**
- * ExerciseVariant
- */
-export type ExerciseVariant = "STANDARD" | "PULSE" | "HOLD";
 
 /**
  * GenerateLessonPlanRequest
@@ -238,6 +233,11 @@ export type LessonPlanRequirements = {
 };
 
 /**
+ * MovementVariant
+ */
+export type MovementVariant = "STANDARD" | "PULSE" | "HOLD";
+
+/**
  * MuscleGroup
  */
 export type MuscleGroup =
@@ -283,9 +283,9 @@ export type UpdateExerciseRequest = {
   primary_muscle_group: MuscleGroup;
   starting_position: StartingPosition;
   /**
-   * Variants
+   * Movement Variants
    */
-  variants: Array<ExerciseVariant>;
+  movement_variants: Array<MovementVariant>;
 };
 
 /**
@@ -300,7 +300,7 @@ export type UpdateExerciseSetRequest = {
    * Duration Seconds
    */
   duration_seconds: number;
-  variant: ExerciseVariant;
+  movement_variant: MovementVariant;
 };
 
 /**

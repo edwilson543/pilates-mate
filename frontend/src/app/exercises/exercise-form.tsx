@@ -52,7 +52,7 @@ export function ExerciseForm({
       difficulty: "BEGINNER",
       primary_muscle_group: "CORE",
       starting_position: "SUPINE",
-      variants: ["STANDARD"],
+      movement_variants: ["STANDARD"],
     },
   });
 
@@ -223,7 +223,7 @@ export function ExerciseForm({
 
             <FormField
               control={form.control}
-              name="variants"
+              name="movement_variants"
               render={() => (
                 <FormItem>
                   <div className="mb-4">
@@ -235,36 +235,39 @@ export function ExerciseForm({
                       { id: "PULSE", label: "Pulse" },
                       { id: "HOLD", label: "Hold" },
                     ] as const
-                  ).map((variant) => (
+                  ).map((movement_variant) => (
                     <FormField
-                      key={variant.id}
+                      key={movement_variant.id}
                       control={form.control}
-                      name="variants"
+                      name="movement_variants"
                       render={({ field }) => {
                         return (
                           <FormItem
-                            key={variant.id}
+                            key={movement_variant.id}
                             className="flex flex-row items-start space-x-3 space-y-0"
                           >
                             <FormControl>
                               <Checkbox
-                                checked={field.value?.includes(variant.id)}
+                                checked={field.value?.includes(
+                                  movement_variant.id,
+                                )}
                                 onCheckedChange={(checked) => {
                                   return checked
                                     ? field.onChange([
                                         ...field.value,
-                                        variant.id,
+                                        movement_variant.id,
                                       ])
                                     : field.onChange(
                                         field.value?.filter(
-                                          (value) => value !== variant.id,
+                                          (value) =>
+                                            value !== movement_variant.id,
                                         ),
                                       );
                                 }}
                               />
                             </FormControl>
                             <FormLabel className="font-normal">
-                              {variant.label}
+                              {movement_variant.label}
                             </FormLabel>
                           </FormItem>
                         );

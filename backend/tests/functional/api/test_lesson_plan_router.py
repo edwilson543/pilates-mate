@@ -70,7 +70,7 @@ def test_adds_exercise_set_to_existing_sequence(api_client, repository):
             "exercise_id": exercise.id,
             "reps": 10,
             "duration_seconds": 60,
-            "variant": "STANDARD",
+            "movement_variant": "STANDARD",
         },
     )
 
@@ -82,12 +82,12 @@ def test_adds_exercise_set_to_existing_sequence(api_client, repository):
     assert new_set.exercise.id == exercise.id
     assert new_set.reps == 10
     assert new_set.duration_seconds == 60
-    assert new_set.variant == "STANDARD"
+    assert new_set.movement_variant == "STANDARD"
 
 
 def test_update_exercise_set_to_new_values(api_client, repository):
     exercise_set = lesson_planning_helpers.ExerciseSet(
-        reps=31, duration_seconds=30, variant="HOLD"
+        reps=31, duration_seconds=30, movement_variant="HOLD"
     )
     sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
     lesson_planning_helpers.LessonPlan.create_in_repo(
@@ -99,7 +99,7 @@ def test_update_exercise_set_to_new_values(api_client, repository):
         json={
             "reps": 10,
             "duration_seconds": 60,
-            "variant": "PULSE",
+            "movement_variant": "PULSE",
         },
     )
 
@@ -108,7 +108,7 @@ def test_update_exercise_set_to_new_values(api_client, repository):
     updated_set = repository.get_exercise_set(exercise_set.id)
     assert updated_set.reps == 10
     assert updated_set.duration_seconds == 60
-    assert updated_set.variant == lesson_planning.ExerciseVariant.PULSE
+    assert updated_set.movement_variant == lesson_planning.MovementVariant.PULSE
 
 
 def test_response_not_found_when_updating_nonexistent_set(api_client):
@@ -117,7 +117,7 @@ def test_response_not_found_when_updating_nonexistent_set(api_client):
         json={
             "reps": 10,
             "duration_seconds": 60,
-            "variant": "PULSE",
+            "movement_variant": "PULSE",
         },
     )
 

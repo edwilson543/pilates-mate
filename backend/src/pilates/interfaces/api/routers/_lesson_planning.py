@@ -4,7 +4,7 @@ import fastapi
 import pydantic
 
 from pilates import config
-from pilates.application import generate_plan
+from pilates.application import generate_lesson_plan
 from pilates.domain import lesson_planning
 
 
@@ -18,7 +18,7 @@ class CreateExerciseRequest(pydantic.BaseModel):
     difficulty: lesson_planning.Difficulty
     primary_muscle_group: lesson_planning.MuscleGroup
     starting_position: lesson_planning.StartingPosition
-    variants: list[lesson_planning.ExerciseVariant]
+    movement_variants: list[lesson_planning.MovementVariant]
 
 
 class CreateExerciseResponse(pydantic.BaseModel):
@@ -32,11 +32,11 @@ class UpdateExerciseRequest(pydantic.BaseModel):
     difficulty: lesson_planning.Difficulty
     primary_muscle_group: lesson_planning.MuscleGroup
     starting_position: lesson_planning.StartingPosition
-    variants: list[lesson_planning.ExerciseVariant]
+    movement_variants: list[lesson_planning.MovementVariant]
 
 
 class GenerateLessonPlanRequest(pydantic.BaseModel):
-    requirements: generate_plan.LessonPlanRequirements
+    requirements: generate_lesson_plan.LessonPlanRequirements
 
 
 class GenerateLessonPlanResponse(pydantic.BaseModel):
@@ -44,12 +44,12 @@ class GenerateLessonPlanResponse(pydantic.BaseModel):
 
 
 @router.post("/", status_code=201)
-async def generate_lesson_plan(
+async def generate_lesson_plan_(
     request: typing.Annotated[GenerateLessonPlanRequest, fastapi.Body()],
 ) -> GenerateLessonPlanResponse:
     client = config.get_completion_client()
     repository = config.get_lesson_planning_repository()
-    lesson_plan = await generate_plan.generate_lesson_plan(
+    lesson_plan = await generate_lesson_plan.generate_lesson_plan(
         requirements=request.requirements,
         client=client,
         repository=repository,
@@ -85,7 +85,7 @@ class AddSetToSequenceRequest(pydantic.BaseModel):
     exercise_id: int
     reps: int
     duration_seconds: int
-    variant: lesson_planning.ExerciseVariant
+    movement_variant: lesson_planning.MovementVariant
 
 
 class AddSetToSequenceResponse(pydantic.BaseModel):
@@ -95,7 +95,7 @@ class AddSetToSequenceResponse(pydantic.BaseModel):
 class UpdateExerciseSetRequest(pydantic.BaseModel):
     reps: int
     duration_seconds: int
-    variant: lesson_planning.ExerciseVariant
+    movement_variant: lesson_planning.MovementVariant
 
 
 @router.post("/sequences/{sequence_id}/sets", status_code=201)
@@ -110,7 +110,7 @@ def add_set_to_sequence(
             exercise_id=request.exercise_id,
             reps=request.reps,
             duration_seconds=request.duration_seconds,
-            variant=request.variant,
+            movement_variant=request.movement_variant,
         )
         return AddSetToSequenceResponse(id=set_id)
     except lesson_planning.SequenceDoesNotExist:
@@ -131,7 +131,7 @@ def update_exercise_set(
             id=set_id,
             reps=request.reps,
             duration_seconds=request.duration_seconds,
-            variant=request.variant,
+            movement_variant=request.movement_variant,
         )
     except lesson_planning.SetDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Set not found.")

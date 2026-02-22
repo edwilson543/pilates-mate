@@ -49,7 +49,7 @@ class ExerciseCategory(enum.StrEnum):
     EFFORT = "EFFORT"
 
 
-class ExerciseVariant(enum.StrEnum):
+class MovementVariant(enum.StrEnum):
     STANDARD = "STANDARD"
     PULSE = "PULSE"
     HOLD = "HOLD"
@@ -69,7 +69,7 @@ class Exercise(pydantic.BaseModel):
     difficulty: Difficulty
     primary_muscle_group: MuscleGroup
     starting_position: StartingPosition
-    variants: list[ExerciseVariant]
+    movement_variants: list[MovementVariant]
 
 
 class ExerciseSet(pydantic.BaseModel):
@@ -77,7 +77,7 @@ class ExerciseSet(pydantic.BaseModel):
     exercise: Exercise
     reps: int
     duration_seconds: int
-    variant: ExerciseVariant
+    movement_variant: MovementVariant
 
 
 class ExerciseSequence(pydantic.BaseModel):

@@ -2,7 +2,7 @@ import datetime as dt
 
 import pytest
 
-from pilates.application import generate_plan
+from pilates.application import generate_lesson_plan
 from testing.helpers import lesson_planning as lesson_planning_helpers
 from testing.helpers import vendors as vendor_helpers
 
@@ -18,7 +18,7 @@ class TestGenerateLessonPlan:
         exercise3 = lesson_planning_helpers.Exercise()
         repository._exercises.extend([exercise1, exercise2, exercise3])
 
-        fake_completion = generate_plan._GeneratedLessonPlan(
+        fake_completion = generate_lesson_plan._GeneratedLessonPlan(
             name="Morning Flow",
             description="A refreshing morning Pilates session",
             warm_up=[
@@ -26,7 +26,7 @@ class TestGenerateLessonPlan:
                     n_sets=1,
                     sets=[
                         lesson_planning_helpers.GeneratedExerciseSet(
-                            exercise=generate_plan._GeneratedExercise(
+                            exercise=generate_lesson_plan._GeneratedExercise(
                                 id=exercise1.id, name=exercise1.name
                             )
                         )
@@ -38,7 +38,7 @@ class TestGenerateLessonPlan:
                     n_sets=1,
                     sets=[
                         lesson_planning_helpers.GeneratedExerciseSet(
-                            exercise=generate_plan._GeneratedExercise(
+                            exercise=generate_lesson_plan._GeneratedExercise(
                                 id=exercise2.id, name=exercise2.name
                             )
                         )
@@ -50,7 +50,7 @@ class TestGenerateLessonPlan:
                     n_sets=1,
                     sets=[
                         lesson_planning_helpers.GeneratedExerciseSet(
-                            exercise=generate_plan._GeneratedExercise(
+                            exercise=generate_lesson_plan._GeneratedExercise(
                                 id=exercise3.id, name=exercise3.name
                             )
                         )
@@ -62,7 +62,7 @@ class TestGenerateLessonPlan:
 
         requirements = lesson_planning_helpers.LessonPlanRequirements()
 
-        result = await generate_plan.generate_lesson_plan(
+        result = await generate_lesson_plan.generate_lesson_plan(
             requirements=requirements,
             client=client,
             repository=repository,

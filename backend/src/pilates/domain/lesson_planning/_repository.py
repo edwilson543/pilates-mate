@@ -39,7 +39,7 @@ class Repository(abc.ABC):
         difficulty: _models.Difficulty,
         primary_muscle_group: _models.MuscleGroup,
         starting_position: _models.StartingPosition,
-        variants: list[_models.ExerciseVariant],
+        movement_variants: list[_models.MovementVariant],
     ) -> int:
         raise NotImplementedError
 
@@ -62,7 +62,7 @@ class Repository(abc.ABC):
         difficulty: _models.Difficulty,
         primary_muscle_group: _models.MuscleGroup,
         starting_position: _models.StartingPosition,
-        variants: list[_models.ExerciseVariant],
+        movement_variants: list[_models.MovementVariant],
     ) -> None:
         raise NotImplementedError
 
@@ -114,7 +114,7 @@ class Repository(abc.ABC):
         exercise_id: int,
         reps: int,
         duration_seconds: int,
-        variant: _models.ExerciseVariant,
+        movement_variant: _models.MovementVariant,
     ) -> int:
         """Add set to sequence. Returns set_id."""
         raise NotImplementedError
@@ -131,7 +131,7 @@ class Repository(abc.ABC):
         id: int,
         reps: int,
         duration_seconds: int,
-        variant: _models.ExerciseVariant,
+        movement_variant: _models.MovementVariant,
     ) -> None:
         """Update set properties. Does not change exercise reference."""
         raise NotImplementedError

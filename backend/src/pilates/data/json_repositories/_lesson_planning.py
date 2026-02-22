@@ -20,7 +20,7 @@ class JSONRepository(lesson_planning.Repository):
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
-        variants: list[lesson_planning.ExerciseVariant],
+        movement_variants: list[lesson_planning.MovementVariant],
     ) -> int:
         data = self._read_database()
 
@@ -33,7 +33,7 @@ class JSONRepository(lesson_planning.Repository):
             difficulty=difficulty,
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
-            variants=variants,
+            movement_variants=movement_variants,
         )
         data["exercises"].append(new_exercise.model_dump())
 
@@ -63,7 +63,7 @@ class JSONRepository(lesson_planning.Repository):
         difficulty: lesson_planning.Difficulty,
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
-        variants: list[lesson_planning.ExerciseVariant],
+        movement_variants: list[lesson_planning.MovementVariant],
     ) -> None:
         data = self._read_database()
 
@@ -86,7 +86,7 @@ class JSONRepository(lesson_planning.Repository):
             difficulty=difficulty,
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
-            variants=variants,
+            movement_variants=movement_variants,
         )
 
         # Update in exercises array
@@ -222,7 +222,7 @@ class JSONRepository(lesson_planning.Repository):
         exercise_id: int,
         reps: int,
         duration_seconds: int,
-        variant: lesson_planning.ExerciseVariant,
+        movement_variant: lesson_planning.MovementVariant,
     ) -> int:
         data = self._read_database()
 
@@ -271,7 +271,7 @@ class JSONRepository(lesson_planning.Repository):
             exercise=exercise,
             reps=reps,
             duration_seconds=duration_seconds,
-            variant=variant,
+            movement_variant=movement_variant,
         )
 
         # Append set to sequence
@@ -299,7 +299,7 @@ class JSONRepository(lesson_planning.Repository):
         id: int,
         reps: int,
         duration_seconds: int,
-        variant: lesson_planning.ExerciseVariant,
+        movement_variant: lesson_planning.MovementVariant,
     ) -> None:
         data = self._read_database()
 
@@ -312,7 +312,7 @@ class JSONRepository(lesson_planning.Repository):
                         if set_item["id"] == id:
                             set_item["reps"] = reps
                             set_item["duration_seconds"] = duration_seconds
-                            set_item["variant"] = variant.value
+                            set_item["movement_variant"] = movement_variant.value
                             set_found = True
                             break
                     if set_found:

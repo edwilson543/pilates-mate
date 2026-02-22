@@ -594,7 +594,7 @@ export default function ExercisesPage() {
                   <TableCell>{formatEnumMember(exercise.category)}</TableCell>
                   <TableCell>
                     <Badge
-                      variant={
+                      movement_variant={
                         exercise.difficulty === "BEGINNER"
                           ? "secondary"
                           : exercise.difficulty === "INTERMEDIATE"

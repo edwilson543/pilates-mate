@@ -6,9 +6,9 @@ from ._models import (
     ExerciseCategory,
     ExerciseSequence,
     ExerciseSet,
-    ExerciseVariant,
     LessonPlan,
     LessonPlanSection,
+    MovementVariant,
     MuscleGroup,
     StartingPosition,
 )

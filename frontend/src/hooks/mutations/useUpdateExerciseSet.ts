@@ -14,20 +14,20 @@ export function useUpdateExerciseSet() {
       setId,
       reps,
       durationSeconds,
-      variant,
+      movement_movement_variant,
     }: {
       sequenceId: number;
       setId: number;
       reps: number;
       durationSeconds: number;
-      variant: ExerciseVariant;
+      movement_movement_variant: ExerciseVariant;
     }) => {
       await updateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPut({
         path: { sequence_id: sequenceId, set_id: setId },
         body: {
           reps,
           duration_seconds: durationSeconds,
-          variant,
+          movement_movement_variant,
         },
         throwOnError: true,
       });

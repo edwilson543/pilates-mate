@@ -21,7 +21,7 @@ class TestCreateExercise:
             difficulty=lesson_planning.Difficulty.BEGINNER,
             primary_muscle_group=lesson_planning.MuscleGroup.CORE,
             starting_position=lesson_planning.StartingPosition.SUPINE,
-            variants=[lesson_planning.ExerciseVariant.STANDARD],
+            movement_variants=[lesson_planning.MovementVariant.STANDARD],
         )
 
         assert lesson_plan_id == 1
@@ -299,7 +299,7 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
-            variant=lesson_planning.ExerciseVariant.STANDARD,
+            movement_variant=lesson_planning.MovementVariant.STANDARD,
         )
 
         plan = repository.get_lesson_plan(lesson_plan.id)
@@ -309,7 +309,8 @@ class TestAddSetToSequence:
         assert plan.warm_up[0].sets[0].reps == 5
         assert plan.warm_up[0].sets[0].duration_seconds == 30
         assert (
-            plan.warm_up[0].sets[0].variant == lesson_planning.ExerciseVariant.STANDARD
+            plan.warm_up[0].sets[0].movement_variant
+            == lesson_planning.MovementVariant.STANDARD
         )
 
     def test_adds_multiple_sets_to_same_sequence(self, tmp_path: pathlib.Path):
@@ -329,14 +330,14 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
-            variant=lesson_planning.ExerciseVariant.STANDARD,
+            movement_variant=lesson_planning.MovementVariant.STANDARD,
         )
         set_id_2 = repository.add_set_to_sequence(
             sequence_id=sequence_id,
             exercise_id=exercise.id,
             reps=10,
             duration_seconds=60,
-            variant=lesson_planning.ExerciseVariant.PULSE,
+            movement_variant=lesson_planning.MovementVariant.PULSE,
         )
 
         assert set_id_2 == set_id_1 + 1
@@ -359,7 +360,7 @@ class TestAddSetToSequence:
                 exercise_id=exercise.id,
                 reps=5,
                 duration_seconds=30,
-                variant=lesson_planning.ExerciseVariant.STANDARD,
+                movement_variant=lesson_planning.MovementVariant.STANDARD,
             )
 
         assert exc_info.value.sequence_id == 999
@@ -383,7 +384,7 @@ class TestAddSetToSequence:
                 exercise_id=999,
                 reps=5,
                 duration_seconds=30,
-                variant=lesson_planning.ExerciseVariant.STANDARD,
+                movement_variant=lesson_planning.MovementVariant.STANDARD,
             )
 
         assert exc_info.value.exercise_id == 999
@@ -407,7 +408,7 @@ class TestGetExerciseSet:
         assert result.id == set_id
         assert result.reps == 5
         assert result.duration_seconds == 30
-        assert result.variant == exercise_set.variant
+        assert result.movement_variant == exercise_set.movement_variant
 
     def test_raises_exception_when_set_does_not_exist(self, tmp_path: pathlib.Path):
         repository = _lesson_planning.JSONRepository(
@@ -426,7 +427,7 @@ class TestUpdateExerciseSet:
             database_file=tmp_path / "test.json"
         )
         exercise_set = lesson_planning_helpers.ExerciseSet(
-            reps=5, duration_seconds=30, variant="STANDARD"
+            reps=5, duration_seconds=30, movement_variant="STANDARD"
         )
         sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
         lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
@@ -439,13 +440,13 @@ class TestUpdateExerciseSet:
             id=set_id,
             reps=10,
             duration_seconds=60,
-            variant=lesson_planning.ExerciseVariant.PULSE,
+            movement_variant=lesson_planning.MovementVariant.PULSE,
         )
 
         updated_set = repository.get_exercise_set(set_id)
         assert updated_set.reps == 10
         assert updated_set.duration_seconds == 60
-        assert updated_set.variant == lesson_planning.ExerciseVariant.PULSE
+        assert updated_set.movement_variant == lesson_planning.MovementVariant.PULSE
 
     def test_raises_exception_when_set_does_not_exist(self, tmp_path: pathlib.Path):
         repository = _lesson_planning.JSONRepository(
@@ -457,7 +458,7 @@ class TestUpdateExerciseSet:
                 id=999,
                 reps=10,
                 duration_seconds=60,
-                variant=lesson_planning.ExerciseVariant.PULSE,
+                movement_variant=lesson_planning.MovementVariant.PULSE,
             )
 
         assert exc_info.value.set_id == 999

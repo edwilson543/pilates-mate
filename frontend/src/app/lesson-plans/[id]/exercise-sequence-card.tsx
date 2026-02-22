@@ -67,13 +67,13 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
   const [formData, setFormData] = React.useState<{
     exerciseId: number | null;
     exercise: Exercise | null;
-    variant: ExerciseVariant | "";
+    movement_variant: ExerciseVariant | "";
     reps: number;
     durationSeconds: number;
   }>({
     exerciseId: null,
     exercise: null,
-    variant: "",
+    movement_variant: "",
     reps: 0,
     durationSeconds: 0,
   });
@@ -88,7 +88,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
       setFormData({
         exerciseId: set.exercise.id,
         exercise: set.exercise,
-        variant: set.variant,
+        movement_variant: set.movement_variant,
         reps: set.reps,
         durationSeconds: set.duration_seconds,
       });
@@ -101,14 +101,14 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
     setFormData({
       exerciseId: null,
       exercise: null,
-      variant: "",
+      movement_variant: "",
       reps: 0,
       durationSeconds: 0,
     });
   };
 
   const handleSaveEdit = async (setId: number) => {
-    if (!formData.variant) return;
+    if (!formData.movement_variant) return;
 
     try {
       await updateMutation.mutateAsync({
@@ -116,7 +116,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
         setId,
         reps: formData.reps,
         durationSeconds: formData.durationSeconds,
-        variant: formData.variant as ExerciseVariant,
+        movement_variant: formData.movement_variant as ExerciseVariant,
       });
       setEditingSetId(null);
     } catch (error) {
@@ -148,7 +148,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
     setFormData({
       exerciseId: null,
       exercise: null,
-      variant: "",
+      movement_variant: "",
       reps: 0,
       durationSeconds: 0,
     });
@@ -160,7 +160,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
     setFormData({
       exerciseId: null,
       exercise: null,
-      variant: "",
+      movement_variant: "",
       reps: 0,
       durationSeconds: 0,
     });
@@ -169,7 +169,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
   const handleSaveAdd = async () => {
     if (
       formData.exerciseId &&
-      formData.variant &&
+      formData.movement_variant &&
       formData.reps > 0 &&
       formData.durationSeconds > 0
     ) {
@@ -179,13 +179,13 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
           exerciseId: formData.exerciseId,
           reps: formData.reps,
           durationSeconds: formData.durationSeconds,
-          variant: formData.variant as ExerciseVariant,
+          movement_variant: formData.movement_variant as ExerciseVariant,
         });
         setAddingSet(false);
         setFormData({
           exerciseId: null,
           exercise: null,
-          variant: "",
+          movement_variant: "",
           reps: 0,
           durationSeconds: 0,
         });
@@ -198,14 +198,16 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
   const isFormValid = () => {
     if (editingSetId !== null) {
       return (
-        formData.reps > 0 && formData.durationSeconds > 0 && formData.variant
+        formData.reps > 0 &&
+        formData.durationSeconds > 0 &&
+        formData.movement_variant
       );
     }
     return (
       formData.exerciseId !== null &&
       formData.reps > 0 &&
       formData.durationSeconds > 0 &&
-      formData.variant
+      formData.movement_variant
     );
   };
 
@@ -243,11 +245,11 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                       </TableCell>
                       <TableCell>
                         <Select
-                          value={formData.variant}
+                          value={formData.movement_variant}
                           onValueChange={(value) =>
                             setFormData({
                               ...formData,
-                              variant: value as ExerciseVariant,
+                              movement_variant: value as ExerciseVariant,
                             })
                           }
                         >
@@ -255,11 +257,16 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {set.exercise.variants.map((variant) => (
-                              <SelectItem key={variant} value={variant}>
-                                {formatEnumMember(variant)}
-                              </SelectItem>
-                            ))}
+                            {set.exercise.movement_variants.map(
+                              (movement_variant) => (
+                                <SelectItem
+                                  key={movement_variant}
+                                  value={movement_variant}
+                                >
+                                  {formatEnumMember(movement_variant)}
+                                </SelectItem>
+                              ),
+                            )}
                           </SelectContent>
                         </Select>
                       </TableCell>
@@ -321,7 +328,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">
-                          {formatEnumMember(set.variant)}
+                          {formatEnumMember(set.movement_variant)}
                         </Badge>
                       </TableCell>
                       <TableCell>{set.reps || "-"}</TableCell>
@@ -362,7 +369,8 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           ...formData,
                           exerciseId,
                           exercise,
-                          variant: exercise?.variants[0] || "",
+                          movement_variant:
+                            exercise?.movement_variants[0] || "",
                         })
                       }
                     />
@@ -370,11 +378,11 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                   <TableCell>
                     {formData.exercise && (
                       <Select
-                        value={formData.variant}
+                        value={formData.movement_variant}
                         onValueChange={(value) =>
                           setFormData({
                             ...formData,
-                            variant: value as ExerciseVariant,
+                            movement_variant: value as ExerciseVariant,
                           })
                         }
                       >
@@ -382,11 +390,16 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {formData.exercise.variants.map((variant) => (
-                            <SelectItem key={variant} value={variant}>
-                              {formatEnumMember(variant)}
-                            </SelectItem>
-                          ))}
+                          {formData.exercise.movement_variants.map(
+                            (movement_variant) => (
+                              <SelectItem
+                                key={movement_variant}
+                                value={movement_variant}
+                              >
+                                {formatEnumMember(movement_variant)}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </Select>
                     )}

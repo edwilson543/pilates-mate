@@ -14,13 +14,13 @@ export function useAddExerciseSet() {
       exerciseId,
       reps,
       durationSeconds,
-      variant,
+      movement_movement_variant,
     }: {
       sequenceId: number;
       exerciseId: number;
       reps: number;
       durationSeconds: number;
-      variant: ExerciseVariant;
+      movement_movement_variant: ExerciseVariant;
     }) => {
       await addSetToSequenceLessonPlansSequencesSequenceIdSetsPost({
         path: { sequence_id: sequenceId },
@@ -28,7 +28,7 @@ export function useAddExerciseSet() {
           exercise_id: exerciseId,
           reps,
           duration_seconds: durationSeconds,
-          variant,
+          movement_movement_variant,
         },
         throwOnError: true,
       });
