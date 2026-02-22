@@ -21,6 +21,10 @@ export type AddSetToSequenceRequest = {
    */
   duration_seconds: number;
   movement_variant: MovementVariant;
+  /**
+   * Equipment Variant
+   */
+  equipment_variant: Array<Equipment>;
 };
 
 /**
@@ -53,6 +57,10 @@ export type CreateExerciseRequest = {
    * Movement Variants
    */
   movement_variants: Array<MovementVariant>;
+  /**
+   * Equipment Variants
+   */
+  equipment_variants: Array<Equipment>;
 };
 
 /**
@@ -69,6 +77,16 @@ export type CreateExerciseResponse = {
  * Difficulty
  */
 export type Difficulty = "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
+
+/**
+ * Equipment
+ */
+export type Equipment =
+  | "BALL"
+  | "BAND"
+  | "RING"
+  | "ANKLE_WEIGHTS"
+  | "HAND_WEIGHTS";
 
 /**
  * Exercise
@@ -94,6 +112,10 @@ export type Exercise = {
    * Movement Variants
    */
   movement_variants: Array<MovementVariant>;
+  /**
+   * Equipment Variants
+   */
+  equipment_variants: Array<Equipment>;
 };
 
 /**
@@ -149,6 +171,10 @@ export type ExerciseSet = {
    */
   duration_seconds: number;
   movement_variant: MovementVariant;
+  /**
+   * Equipment Variant
+   */
+  equipment_variant: Array<Equipment>;
 };
 
 /**
@@ -286,6 +312,10 @@ export type UpdateExerciseRequest = {
    * Movement Variants
    */
   movement_variants: Array<MovementVariant>;
+  /**
+   * Equipment Variants
+   */
+  equipment_variants: Array<Equipment>;
 };
 
 /**
@@ -301,6 +331,10 @@ export type UpdateExerciseSetRequest = {
    */
   duration_seconds: number;
   movement_variant: MovementVariant;
+  /**
+   * Equipment Variant
+   */
+  equipment_variant: Array<Equipment>;
 };
 
 /**
