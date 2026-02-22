@@ -17,6 +17,7 @@ def test_creates_then_gets_exercise(api_client):
         "primary_muscle_group": "GLUTES",
         "starting_position": "STANDING",
         "movement_variants": ["STANDARD"],
+        "equipment_variants": [],
     }
 
     create_response = api_client.post("/exercises", json=new_exercise)
@@ -55,6 +56,7 @@ def test_updates_exercise(api_client, repository):
         "primary_muscle_group": "GLUTES",
         "starting_position": "STANDING",
         "movement_variants": ["STANDARD", "PULSE"],
+        "equipment_variants": [],
     }
     update_response = api_client.put(f"/exercises/{exercise.id}", json=updated_exercise)
 
@@ -75,6 +77,7 @@ def test_update_response_not_found_when_exercise_does_not_exist(api_client):
         "primary_muscle_group": "GLUTES",
         "starting_position": "STANDING",
         "movement_variants": ["STANDARD", "PULSE"],
+        "equipment_variants": [],
     }
 
     response = api_client.put("/exercises/123", json=updated_exercise)
@@ -99,6 +102,7 @@ def test_updating_exercise_updates_lesson_plan_references(api_client, repository
         "primary_muscle_group": "GLUTES",
         "starting_position": "STANDING",
         "movement_variants": ["STANDARD", "PULSE"],
+        "equipment_variants": ["ANKLE_WEIGHTS"],
     }
     update_response = api_client.put(f"/exercises/{exercise.id}", json=updated_exercise)
     assert update_response.status_code == 204
@@ -112,3 +116,4 @@ def test_updating_exercise_updates_lesson_plan_references(api_client, repository
     assert warm_up_exercise["description"] == "Move up and down with a jump"
     assert warm_up_exercise["difficulty"] == "ADVANCED"
     assert warm_up_exercise["movement_variants"] == ["STANDARD", "PULSE"]
+    assert warm_up_exercise["equipment_variants"] == ["ANKLE_WEIGHTS"]
