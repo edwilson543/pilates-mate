@@ -80,6 +80,9 @@ class TestCreateLessonPlan:
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
+            warm_up=[],
+            main_session=[],
+            cool_down=[],
         )
 
         assert lesson_plan_id == 1
@@ -93,6 +96,9 @@ class TestCreateLessonPlan:
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
+            warm_up=[],
+            main_session=[],
+            cool_down=[],
         )
 
         lesson_plan = repository.get_lesson_plan(lesson_plan_id)
