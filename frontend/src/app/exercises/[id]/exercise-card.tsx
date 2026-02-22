@@ -34,6 +34,12 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
           </p>
           <div className="flex gap-6 text-sm pt-2">
             <div className="flex-1">
+              <span className="font-semibold text-foreground">Category:</span>{" "}
+              <span className="text-muted-foreground">
+                {formatEnumMember(exercise.category)}
+              </span>
+            </div>
+            <div className="flex-1">
               <span className="font-semibold text-foreground">
                 Muscle Group:
               </span>{" "}

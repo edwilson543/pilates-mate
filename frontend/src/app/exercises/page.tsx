@@ -39,6 +39,13 @@ import {
 } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
 
+const categoryOptions = [
+  { value: "BREATH_WORK", label: "Breath Work" },
+  { value: "STRETCH", label: "Stretch" },
+  { value: "MOBILITY", label: "Mobility" },
+  { value: "EFFORT", label: "Effort" },
+] as const;
+
 const difficultyOptions = [
   { value: "BEGINNER", label: "Beginner" },
   { value: "INTERMEDIATE", label: "Intermediate" },
@@ -75,6 +82,7 @@ export default function ExercisesPage() {
   const { data: exercises, isLoading, error } = useExercises();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedDifficulties, setSelectedDifficulties] = useState<string[]>(
     [],
   );
@@ -85,10 +93,11 @@ export default function ExercisesPage() {
     string[]
   >([]);
   const [sortColumn, setSortColumn] = useState<
-    "name" | "difficulty" | "primary_muscle_group"
+    "name" | "category" | "difficulty" | "primary_muscle_group"
   >("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
+  const categoryAnchor = useComboboxAnchor();
   const difficultyAnchor = useComboboxAnchor();
   const muscleGroupAnchor = useComboboxAnchor();
   const startingPositionAnchor = useComboboxAnchor();
@@ -103,6 +112,11 @@ export default function ExercisesPage() {
       result = result.filter((ex) =>
         ex.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
+    }
+
+    // Apply category filter
+    if (selectedCategories.length > 0) {
+      result = result.filter((ex) => selectedCategories.includes(ex.category));
     }
 
     // Apply difficulty filter
@@ -134,6 +148,9 @@ export default function ExercisesPage() {
         case "name":
           comparison = a.name.localeCompare(b.name);
           break;
+        case "category":
+          comparison = a.category.localeCompare(b.category);
+          break;
         case "difficulty": {
           const difficultyOrder = {
             BEGINNER: 0,
@@ -158,6 +175,7 @@ export default function ExercisesPage() {
   }, [
     exercises,
     searchTerm,
+    selectedCategories,
     selectedDifficulties,
     selectedMuscleGroups,
     selectedStartingPositions,
@@ -167,12 +185,13 @@ export default function ExercisesPage() {
 
   const hasActiveFilters =
     searchTerm ||
+    selectedCategories.length > 0 ||
     selectedDifficulties.length > 0 ||
     selectedMuscleGroups.length > 0 ||
     selectedStartingPositions.length > 0;
 
   const handleSort = (
-    column: "name" | "difficulty" | "primary_muscle_group",
+    column: "name" | "category" | "difficulty" | "primary_muscle_group",
   ) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -184,6 +203,7 @@ export default function ExercisesPage() {
 
   const clearFilters = () => {
     setSearchTerm("");
+    setSelectedCategories([]);
     setSelectedDifficulties([]);
     setSelectedMuscleGroups([]);
     setSelectedStartingPositions([]);
@@ -259,6 +279,50 @@ export default function ExercisesPage() {
                   className="pl-9"
                 />
               </div>
+            </div>
+
+            {/* Category Filter */}
+            <div>
+              <Label className="text-sm font-medium mb-2 block">Category</Label>
+              <Combobox
+                value={selectedCategories}
+                onValueChange={setSelectedCategories}
+                multiple
+              >
+                <ComboboxChips ref={categoryAnchor}>
+                  {selectedCategories.map((value) => {
+                    const option = categoryOptions.find(
+                      (o) => o.value === value,
+                    );
+                    return (
+                      <ComboboxChip key={value}>
+                        {option?.label || value}
+                      </ComboboxChip>
+                    );
+                  })}
+                  <ComboboxChipsInput
+                    placeholder={
+                      selectedCategories.length === 0
+                        ? "Select categories..."
+                        : undefined
+                    }
+                  />
+                </ComboboxChips>
+                <ComboboxContent anchor={categoryAnchor}>
+                  <ComboboxList>
+                    {categoryOptions
+                      .filter((o) => !selectedCategories.includes(o.value))
+                      .map((option) => (
+                        <ComboboxItem key={option.value} value={option.value}>
+                          {option.label}
+                        </ComboboxItem>
+                      ))}
+                    {selectedCategories.length === categoryOptions.length && (
+                      <ComboboxEmpty>All categories selected</ComboboxEmpty>
+                    )}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </div>
 
             {/* Difficulty Filter */}
@@ -464,6 +528,24 @@ export default function ExercisesPage() {
                 <TableHead>
                   <Button
                     variant="ghost"
+                    onClick={() => handleSort("category")}
+                    className="h-auto p-0 font-semibold hover:bg-transparent"
+                  >
+                    Category
+                    {sortColumn === "category" &&
+                      (sortDirection === "asc" ? (
+                        <ArrowUp className="ml-2 h-4 w-4" />
+                      ) : (
+                        <ArrowDown className="ml-2 h-4 w-4" />
+                      ))}
+                    {sortColumn !== "category" && (
+                      <ArrowUpDown className="ml-2 h-4 w-4 text-muted-foreground" />
+                    )}
+                  </Button>
+                </TableHead>
+                <TableHead>
+                  <Button
+                    variant="ghost"
                     onClick={() => handleSort("difficulty")}
                     className="h-auto p-0 font-semibold hover:bg-transparent"
                   >
@@ -509,6 +591,7 @@ export default function ExercisesPage() {
                   onClick={() => router.push(`/exercises/${exercise.id}`)}
                 >
                   <TableCell className="font-medium">{exercise.name}</TableCell>
+                  <TableCell>{formatEnumMember(exercise.category)}</TableCell>
                   <TableCell>
                     <Badge
                       variant={

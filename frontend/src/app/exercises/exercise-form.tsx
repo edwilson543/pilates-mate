@@ -48,6 +48,7 @@ export function ExerciseForm({
     defaultValues: defaultValues || {
       name: "",
       description: "",
+      category: "EFFORT",
       difficulty: "BEGINNER",
       primary_muscle_group: "CORE",
       starting_position: "SUPINE",
@@ -87,6 +88,33 @@ export function ExerciseForm({
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="BREATH_WORK">Breath Work</SelectItem>
+                      <SelectItem value="STRETCH">Stretch</SelectItem>
+                      <SelectItem value="MOBILITY">Mobility</SelectItem>
+                      <SelectItem value="EFFORT">Effort</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

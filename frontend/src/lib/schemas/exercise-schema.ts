@@ -3,6 +3,7 @@ import { z } from "zod";
 export const exerciseFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
+  category: z.enum(["BREATH_WORK", "STRETCH", "MOBILITY", "EFFORT"]),
   difficulty: z.enum(["BEGINNER", "INTERMEDIATE", "ADVANCED"]),
   primary_muscle_group: z.enum([
     "CORE",
