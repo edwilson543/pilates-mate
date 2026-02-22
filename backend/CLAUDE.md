@@ -43,32 +43,39 @@ The config layer is responsible for instantiating the correct implementations of
 ### Application layer
 The application layer is responsible for orchestrating domain logic.
 - The application layer is implemented at `./src/pilages/application/`
-- The application consists of modules name 
-- Implementations of ABCs defined in the domain be injected into use cases by the interfaces layer
-- The application layer must never instantiate abstract dependencies directly from the domain or data layers
+- The application consists of "use cases" which orchestrate domain logic into a particular business use case
+- For example `generate_lesson_plan.py` contains a function `generate_lesson_plan`, which orchestrates 
+  pilates lesson plan modelling, persistence logic and LLM completion logic to generate a lesson plan
+- Dependency injection
+  - Implementations of ABCs defined in the domain be injected into use cases as keyword arguments
+  - The application layer must never instantiate abstract dependencies directly from the domain or data layers
 
 ### Data layer
-- Implements abstract repositories defined in the domain
-- Connects the application to data persistence technologies (currently just a JSON file)
+The data layer is responsible for persistence logic.
+- The data layer is implemented at `./src/pilates/data/`
+- The data layer has two core responsibilities:
+  - Implementations of the abstract repositories defined in the domain layer
+  - Connection logic to local persistence technologies (for now, this is just a JSON file)
 
 ### Domain layer
--
-
-### Repository pattern to encapsulate persistence logic
-All application and domain code can only interact with the database via a `Repository`
-- Each method on the repository defines a database query or operation
-- The repository is defined as an ABC in the `domain/` layer, and implemented in the `fake/` layer
-- The repository is injected from the interfaces layer into application code
-
-
-### Abstract base classes (ABCs)
-Define abstractions in domain layer:
-- `domain/vendors/_base.py` → `CompletionClient` ABC with `OutputT` TypeVar
-- `domain/lesson_planning/_repository.py` → `Repository` ABC
+The domain layer is responsible for modelling business logic.
+- The domain layer is implemented at `./src/pilates/domain/`
+- Each domain is implemented as a subdirectory within `./domain`, for examples `./domain/lesson_planning/`
+- Each domain is responsible for:
+  - Modelling the concepts of that domain as objects
+    - Models are typically implemented using some combination of enums and Pydantic base models
+    - For example, the `lesson_planning` domain includes models like `Exercise` and `LessonPlan`
+  - Defining the interface into that domain for the application layer
+    - This interface is defined as a Python API represented by an abstract base class (ABC)
+    - For example, the `lesson_planning` domain includes a `Repository` interface, for retrieving lesson plans
+      from the relevant database (but abstracting the implementation details)
+    - For example, the `vendors` domain includes a `CompletionClient` interface, for requesting vendor APIs
+    - Implementations of the ABC can be implemented either directly in the domain, or in the `data/` layer
+      in the case of repositories. Implementations must always be instantiated from the config layer.
 
 ### Other notes on the source code
 
-### Async everywhere
+#### Async everywhere
 All application code is async. Use `async def` and `await` throughout.
 - `application/generate_plan.py` is async
 - `CompletionClient.get_completion()` is async
@@ -76,11 +83,27 @@ All application code is async. Use `async def` and `await` throughout.
 - Tests use `@pytest.mark.asyncio`
 
 #### Private module naming
-Implementation modules prefixed with underscore:
-- `_models.py`, `_repository.py`, `_render.py`
-- Public API exported via `__init__.py`
-- Signals internal implementation vs. public interface
+Modules prefixed with a private underscore cannot be imported, except:
+- By the packages `__init__.py` module (to expose objects publicly)
+- By neighbouring packages (to make use of the module's contents)
+- By the test module for that module
+ 
+Other notes:
+- Default to the minimum level of public visibility
+- Always import modules, not objects
+- Use the same private underscore naming convention for functions and classes
 
+## Testing helpers
+Testing helpers are implemented at `./testing/helpers`
+- There are two main types of helpers:
+  - Factories, for creating domain objects without having to populate every field
+  - Fake implementations of ABCs defined in the domain
+- The helpers are organised by the domain they help test (but are not restricted to use for tests of domain code)
+  - For example, `./helpers/vendors` contains a `FakeCompletiongClient` for testing use cases that call an LLM,
+    without actually making a request to a vendor API
+  - For example, `./helpers/lesson_planning` contains factories for creating Pilates lesson plans, without every
+    test having to write-out the creation boilerplate
+The "Tests" section provides more detail on how and when to use helpers.
 
 ## Tests
 After each commit, all tests should pass.
