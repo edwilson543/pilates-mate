@@ -253,6 +253,10 @@ export type LessonPlanRequirements = {
    */
   example_lesson_plan_ids?: Array<number>;
   /**
+   * Available Equipment
+   */
+  available_equipment: Array<Equipment>;
+  /**
    * User Prompt
    */
   user_prompt: string;
