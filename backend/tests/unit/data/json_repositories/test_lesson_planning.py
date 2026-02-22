@@ -22,6 +22,7 @@ class TestCreateExercise:
             primary_muscle_group=lesson_planning.MuscleGroup.CORE,
             starting_position=lesson_planning.StartingPosition.SUPINE,
             movement_variants=[lesson_planning.MovementVariant.STANDARD],
+            equipment_variants=[],
         )
 
         assert lesson_plan_id == 1
@@ -300,6 +301,7 @@ class TestAddSetToSequence:
             reps=5,
             duration_seconds=30,
             movement_variant=lesson_planning.MovementVariant.STANDARD,
+            equipment_variant=[],
         )
 
         plan = repository.get_lesson_plan(lesson_plan.id)
@@ -331,6 +333,7 @@ class TestAddSetToSequence:
             reps=5,
             duration_seconds=30,
             movement_variant=lesson_planning.MovementVariant.STANDARD,
+            equipment_variant=[],
         )
         set_id_2 = repository.add_set_to_sequence(
             sequence_id=sequence_id,
@@ -338,6 +341,7 @@ class TestAddSetToSequence:
             reps=10,
             duration_seconds=60,
             movement_variant=lesson_planning.MovementVariant.PULSE,
+            equipment_variant=[],
         )
 
         assert set_id_2 == set_id_1 + 1
@@ -361,6 +365,7 @@ class TestAddSetToSequence:
                 reps=5,
                 duration_seconds=30,
                 movement_variant=lesson_planning.MovementVariant.STANDARD,
+                equipment_variant=[],
             )
 
         assert exc_info.value.sequence_id == 999
@@ -385,6 +390,7 @@ class TestAddSetToSequence:
                 reps=5,
                 duration_seconds=30,
                 movement_variant=lesson_planning.MovementVariant.STANDARD,
+                equipment_variant=[],
             )
 
         assert exc_info.value.exercise_id == 999
@@ -441,6 +447,7 @@ class TestUpdateExerciseSet:
             reps=10,
             duration_seconds=60,
             movement_variant=lesson_planning.MovementVariant.PULSE,
+            equipment_variant=[],
         )
 
         updated_set = repository.get_exercise_set(set_id)
@@ -459,6 +466,7 @@ class TestUpdateExerciseSet:
                 reps=10,
                 duration_seconds=60,
                 movement_variant=lesson_planning.MovementVariant.PULSE,
+                equipment_variant=[],
             )
 
         assert exc_info.value.set_id == 999

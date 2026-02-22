@@ -71,6 +71,7 @@ def test_adds_exercise_set_to_existing_sequence(api_client, repository):
             "reps": 10,
             "duration_seconds": 60,
             "movement_variant": "STANDARD",
+            "equipment_variant": [],
         },
     )
 
@@ -100,6 +101,7 @@ def test_update_exercise_set_to_new_values(api_client, repository):
             "reps": 10,
             "duration_seconds": 60,
             "movement_variant": "PULSE",
+            "equipment_variant": [],
         },
     )
 
@@ -118,6 +120,7 @@ def test_response_not_found_when_updating_nonexistent_set(api_client):
             "reps": 10,
             "duration_seconds": 60,
             "movement_variant": "PULSE",
+            "equipment_variant": [],
         },
     )
 
