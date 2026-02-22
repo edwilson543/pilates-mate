@@ -1,7 +1,7 @@
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import routers
+from pilates.interfaces.api import routers
 
 
 app = fastapi.FastAPI()
@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(routers.exercise_router, prefix="/exercises", tags=["exercises"])
+app.include_router(routers.exercises_router, prefix="/exercises", tags=["exercises"])
 app.include_router(
-    routers.lesson_plan_router, prefix="/lesson-plans", tags=["lesson-plans"]
+    routers.lesson_planning_router, prefix="/lesson-plans", tags=["lesson-plans"]
 )
