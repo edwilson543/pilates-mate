@@ -86,6 +86,7 @@ class AddSetToSequenceRequest(pydantic.BaseModel):
     reps: int
     duration_seconds: int
     movement_variant: lesson_planning.MovementVariant
+    equipment_variant: list[lesson_planning.Equipment]
 
 
 class AddSetToSequenceResponse(pydantic.BaseModel):
@@ -96,6 +97,7 @@ class UpdateExerciseSetRequest(pydantic.BaseModel):
     reps: int
     duration_seconds: int
     movement_variant: lesson_planning.MovementVariant
+    equipment_variant: list[lesson_planning.Equipment]
 
 
 @router.post("/sequences/{sequence_id}/sets", status_code=201)
@@ -111,6 +113,7 @@ def add_set_to_sequence(
             reps=request.reps,
             duration_seconds=request.duration_seconds,
             movement_variant=request.movement_variant,
+            equipment_variant=request.equipment_variant,
         )
         return AddSetToSequenceResponse(id=set_id)
     except lesson_planning.SequenceDoesNotExist:
@@ -132,6 +135,7 @@ def update_exercise_set(
             reps=request.reps,
             duration_seconds=request.duration_seconds,
             movement_variant=request.movement_variant,
+            equipment_variant=request.equipment_variant,
         )
     except lesson_planning.SetDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Set not found.")
