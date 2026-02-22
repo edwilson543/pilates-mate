@@ -320,7 +320,9 @@ class JSONRepository(lesson_planning.Repository):
                             set_item["reps"] = reps
                             set_item["duration_seconds"] = duration_seconds
                             set_item["movement_variant"] = movement_variant.value
-                            set_item["equipment_variant"] = [eq.value for eq in equipment_variant]
+                            set_item["equipment_variant"] = [
+                                eq.value for eq in equipment_variant
+                            ]
                             set_found = True
                             break
                     if set_found:
