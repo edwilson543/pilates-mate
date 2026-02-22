@@ -43,6 +43,7 @@ class FakeRepository(lesson_planning.Repository):
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
         movement_variants: list[lesson_planning.MovementVariant],
+        equipment_variants: list[lesson_planning.Equipment],
     ) -> int:
         next_id = len(self._exercises) + 1
 
@@ -55,6 +56,7 @@ class FakeRepository(lesson_planning.Repository):
             primary_muscle_group=primary_muscle_group,
             starting_position=starting_position,
             movement_variants=movement_variants,
+            equipment_variants=equipment_variants,
         )
         self._exercises.append(new_exercise)
 
@@ -80,6 +82,7 @@ class FakeRepository(lesson_planning.Repository):
         primary_muscle_group: lesson_planning.MuscleGroup,
         starting_position: lesson_planning.StartingPosition,
         movement_variants: list[lesson_planning.MovementVariant],
+        equipment_variants: list[lesson_planning.Equipment],
     ) -> None:
         def _update(exercise_: lesson_planning.Exercise) -> None:
             exercise_.name = name
@@ -89,6 +92,7 @@ class FakeRepository(lesson_planning.Repository):
             exercise_.primary_muscle_group = primary_muscle_group
             exercise_.starting_position = starting_position
             exercise_.movement_variants = movement_variants
+            exercise_.equipment_variants = equipment_variants
 
         for exercise in self._exercises:
             if exercise.id == id:
@@ -227,6 +231,7 @@ class FakeRepository(lesson_planning.Repository):
         reps: int,
         duration_seconds: int,
         movement_variant: lesson_planning.MovementVariant,
+        equipment_variant: list[lesson_planning.Equipment],
     ) -> int:
         # Look up exercise
         exercise = self.get_exercise(exercise_id)
@@ -268,6 +273,7 @@ class FakeRepository(lesson_planning.Repository):
             reps=reps,
             duration_seconds=duration_seconds,
             movement_variant=movement_variant,
+            equipment_variant=equipment_variant,
         )
 
         # Get current plan and section
@@ -308,6 +314,7 @@ class FakeRepository(lesson_planning.Repository):
         reps: int,
         duration_seconds: int,
         movement_variant: lesson_planning.MovementVariant,
+        equipment_variant: list[lesson_planning.Equipment],
     ) -> None:
         # Find set location (plan_index, section_name, sequence_index, set_index)
         plan_index = None
@@ -353,6 +360,7 @@ class FakeRepository(lesson_planning.Repository):
                 "reps": reps,
                 "duration_seconds": duration_seconds,
                 "movement_variant": movement_variant,
+                "equipment_variant": equipment_variant,
             }
         )
 
