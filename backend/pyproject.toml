@@ -49,7 +49,16 @@ allow_untyped_defs = true
 
 
 [tool.importlinter]
-root_package = "pilates"
+root_packages = ["pilates", "testing", "tests"]
+
+[[tool.importlinter.contracts]]
+name = "Root packages"
+type = "layers"
+layers = [
+    "tests",
+    "testing",
+    "pilates",
+]
 
 [[tool.importlinter.contracts]]
 name = "Top level layers"
