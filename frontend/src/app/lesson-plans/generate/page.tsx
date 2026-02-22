@@ -91,7 +91,7 @@ export default function GenerateLessonPlanPage() {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 pb-16">
       <PageHeader title="Generate lesson plan" />
       <Card className="w-full">
         <CardContent className="pt-6">
