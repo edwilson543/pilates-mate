@@ -1,32 +1,92 @@
-This is the Python and FastAPI backend for the Pilates lesson planning application. 
+This directory contains the backend for the Pilates lesson planning application.
+The backend is implemented in Python, and served via a FastAPI application.
 
-# Architecture
+# Project structure
+The project is split into three main packages:
+- Source code for the application, implemented in `./src/pilates/`
+- Tests for the source code, implemented in `./tests/`
+- Testing helpers, implemented in `./testing/`
 
-The backend follows a layered architecture:
-- Interfaces
-  - Entrypoints into the code, for now just a FastAPI server
-- Config
-  - Defines the configuration of the application
-  - For example the implementations of ABCs defined in the domain to use
-- Application
-  - Contains functions that orchestrate domain logic
-  - Can only be called from the interfaces layer
-- Data
-  - Implements abstract repositories defined in the domain
-  - Connects the application to data persistence technologies (currently just a JSON file)
+`import-linter` is used to prevent:
+- The source code importing from the testing helpers or from tests
+- The testing helpers importing from tests
 
-**Layer Dependencies:**
-The `import-linter` enforces strict layering (configured in `pyproject.toml`):
-- main → interfaces → config → application → data → domain
-- Each layer can only import from layers below it
-- Prevents circular dependencies and coupling
+## Architecture of the source code
+The backend follows a strict layered architecture.
+- The layering is: interfaces → config → application | data → domain
+- Each layer has a separate responsibility, and can only import from the layers beneath it
+- The layering is enforced by `import-linter` (which is configured in `pyproject.toml`)
+- The objectives of the layered architecture are to:
+  - Clearly define and decouple responsibilities
+  - Decouple domain concepts and integrations with external services from their implementations 
+  - Prevent circular dependencies 
+
+### Interfaces layer
+The interfaces layer contains the entrypoints into the code.
+- The interfaces layer is implemented at `./src/pilates/interfaces/`
+- For now, the only interface is a FastAPI application, implemented at `./interfaces/api/` 
+- Dependencies in the interfaces layer must be instantiated by calling into the config layer
+- The interfaces layer must never instantiate dependencies directly from the domain or data layers
+
+### Config layer
+The config layer is responsible for instantiating the correct implementations of ABCs declared in the domain.
+- The config layer is implemented at `./src/pilates/config.py` 
+- Each public function in `config.py` takes the form `get_xyz()`, and returns the instantiated concrete implementation
+  of an abstract base class declared in the domain.
+- Instantiations retrieved from the config can be used in two ways:
+  - Injected into use cases defined in the application layer. For example, the `generate_lesson_plan` use case 
+    requires a `CompletionClient` implementation so that it can call a third-party vendor
+  - Methods can just be called directly. For example, the `get_lesson_plans` API router just calls the 
+    `get_lesson_plans` method on the lesson planning repository to make a database query.
+- For example, the config layer determines which implementation of the lesson planning repository to use, giving 
+
+### Application layer
+The application layer is responsible for orchestrating domain logic.
+- The application layer is implemented at `./src/pilages/application/`
+- The application consists of modules name 
+- Implementations of ABCs defined in the domain be injected into use cases by the interfaces layer
+- The application layer must never instantiate abstract dependencies directly from the domain or data layers
+
+### Data layer
+- Implements abstract repositories defined in the domain
+- Connects the application to data persistence technologies (currently just a JSON file)
+
+### Domain layer
+-
+
+### Repository pattern to encapsulate persistence logic
+All application and domain code can only interact with the database via a `Repository`
+- Each method on the repository defines a database query or operation
+- The repository is defined as an ABC in the `domain/` layer, and implemented in the `fake/` layer
+- The repository is injected from the interfaces layer into application code
 
 
-# Testing
+### Abstract base classes (ABCs)
+Define abstractions in domain layer:
+- `domain/vendors/_base.py` → `CompletionClient` ABC with `OutputT` TypeVar
+- `domain/lesson_planning/_repository.py` → `Repository` ABC
+
+### Other notes on the source code
+
+### Async everywhere
+All application code is async. Use `async def` and `await` throughout.
+- `application/generate_plan.py` is async
+- `CompletionClient.get_completion()` is async
+- FastAPI routes that use these are async
+- Tests use `@pytest.mark.asyncio`
+
+#### Private module naming
+Implementation modules prefixed with underscore:
+- `_models.py`, `_repository.py`, `_render.py`
+- Public API exported via `__init__.py`
+- Signals internal implementation vs. public interface
+
+
+## Tests
 After each commit, all tests should pass.
 Run the tests using `make test`.
 
-## Test categorisation
+### Test categorisation
 Tests are split into the following categories:
 - Unit tests (`tests/unit/`)
   - Purpose: for testing small pieces of functionality in isolation
@@ -50,7 +110,7 @@ Tests are split into the following categories:
     functional test can have multiple series of blocks
   - Functional tests should be implemented as ordinary functions
 
-## Test factories
+### Test factories
 Use test factories to generate fake data during test setup.
 - Test factories are implemented in `testing/helpers/` → `ExerciseFactory`, `LessonPlanFactory`
 - Test factories are used to create domain models, specifying realistic default values for every field,
@@ -66,7 +126,7 @@ Use test factories to generate fake data during test setup.
     - For example: `Exercise.create_in_repo(repository, difficulty="ADVANCED")`
     - This is the expected pattern for setting up state in functional tests
 
-## Test fakes
+### Test fakes
 Use fake implementations to avoid interacting with external services.
 - Test fakes are implemented in `/testing/<domain>/`
   - `/testing/vendors/` provides a `FakeCompletionClient`, acting as a fake LLM vendor providing canned completions
@@ -88,37 +148,3 @@ The following checks are installed:
 - `make check`: Ensures code is formatted correctly and all `ruff` rules are satisfied
 - `make mypy`: Ensures code is typed correctly, using `mypy`
 - `make lint_imports`: Ensures all imports obey the project dependency graph, using `import-linter`
-
-
-# Other patterns
-
-## Async everywhere
-All application code is async. Use `async def` and `await` throughout.
-- `application/generate_plan.py` is async
-- `CompletionClient.get_completion()` is async
-- FastAPI routes that use these are async
-- Tests use `@pytest.mark.asyncio`
-
-## Abstract base classes (ABCs)
-Define abstractions in domain layer:
-- `domain/vendors/_base.py` → `CompletionClient` ABC with `OutputT` TypeVar
-- `domain/lesson_planning/_repository.py` → `Repository` ABC
-
-## Dependency injection via config.py
-Get implementations from `config.py`, never instantiate directly.
-- `config.get_completion_client()` → returns OpenAI client
-- `config.get_lesson_planning_repository()` → returns JSON repository
-- Used in `interfaces/api/routers.py` and CLI
-- Tests override via `pytest.MonkeyPatch`
-
-## Repository pattern to encapsulate persistence logic
-All application and domain code can only interact with the database via a `Repository`
-- Each method on the repository defines a database query or operation
-- The repository is defined as an ABC in the `domain/` layer, and implemented in the `fake/` layer
-- The repository is injected from the interfaces layer into application code
-
-## Private module naming
-Implementation modules prefixed with underscore:
-- `_models.py`, `_repository.py`, `_render.py`
-- Public API exported via `__init__.py`
-- Signals internal implementation vs. public interface
