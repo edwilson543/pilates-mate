@@ -18,6 +18,7 @@ class CreateExerciseRequest(pydantic.BaseModel):
     primary_muscle_group: lesson_planning.MuscleGroup
     starting_position: lesson_planning.StartingPosition
     movement_variants: list[lesson_planning.MovementVariant]
+    equipment_variants: list[lesson_planning.Equipment]
 
 
 class CreateExerciseResponse(pydantic.BaseModel):
@@ -32,6 +33,7 @@ class UpdateExerciseRequest(pydantic.BaseModel):
     primary_muscle_group: lesson_planning.MuscleGroup
     starting_position: lesson_planning.StartingPosition
     movement_variants: list[lesson_planning.MovementVariant]
+    equipment_variants: list[lesson_planning.Equipment]
 
 
 @router.post("/", status_code=201)
@@ -47,6 +49,7 @@ def create_exercise(
         primary_muscle_group=request.primary_muscle_group,
         starting_position=request.starting_position,
         movement_variants=request.movement_variants,
+        equipment_variants=request.equipment_variants,
     )
     return CreateExerciseResponse(id=exercise_id)
 
@@ -82,6 +85,7 @@ def update_exercise(
             primary_muscle_group=request.primary_muscle_group,
             starting_position=request.starting_position,
             movement_variants=request.movement_variants,
+            equipment_variants=request.equipment_variants,
         )
     except lesson_planning.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
