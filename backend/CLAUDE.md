@@ -21,7 +21,70 @@ The `import-linter` enforces strict layering (configured in `pyproject.toml`):
 - Each layer can only import from layers below it
 - Prevents circular dependencies and coupling
 
-# Key patterns
+
+# Testing
+After each commit, all tests should pass.
+Run the tests using `make test`.
+
+## Test categorisation
+Tests are split into the following categories:
+- Unit tests (`tests/unit/`)
+  - Purpose: for testing small pieces of functionality in isolation
+  - Unit tests should be grouped in to test classes, with the test class named after the function under test
+    - For example the test class for `def do_something` should be called `TestDoSomething`
+  - Each unit test should test one specific scenario only
+  - Each test method name should finish a sentence started by the test classes' name
+    - For example the test for the scenario "do_something" errors when invalid inputs are given
+    - Should be called `def test_errors_when_invalid_inputs_are_given`
+  - Each unit test method should be split into three sections:
+    - Setup
+    - Execution
+    - Assertions
+  - Use blank lines to separate the sections of the test, not comments
+- Functional tests (`tests/functional/`)
+  - Purpose: for testing interfaces into the code, such as FastAPI endpoints
+  - Functional tests should use the `api_client` fixture to make requests to the test FastAPI app
+  - Functional tests should use the `repository` fixture to set up and inspect state, rather than
+    interacting with application or domain code directly
+  - Functional tests should also be split into (setup / execution / assertion) blocks, however each
+    functional test can have multiple series of blocks
+  - Functional tests should be implemented as ordinary functions
+
+## Test factories
+Use test factories to generate fake data during test setup.
+- Test factories are implemented in `testing/helpers/` → `ExerciseFactory`, `LessonPlanFactory`
+- Test factories are used to create domain models, specifying realistic default values for every field,
+  and creating any downstream objects via subfactories
+- Factories should be instantiated during the "setup" section of tests
+- When instantiating a factory, only explicitly specify the fields that are relevant to the test
+  - For example, a test for a query that filters exercises on `category` should only specify the
+    `category` of the exercises factoried during the test setup
+- Factories can be used in two main ways:
+  - To instantiate domain objects that are then passed directly to application code (unit tests)
+  - To create and persist domain objects into a `Repository` using the `create_in_repo` class method,
+    which accepts the repository as its first argument, followed by any fields to override
+    - For example: `Exercise.create_in_repo(repository, difficulty="ADVANCED")`
+    - This is the expected pattern for setting up state in functional tests
+
+## Test fakes
+Use fake implementations to avoid interacting with external services.
+- Test fakes are implemented in `/testing/<domain>/`
+  - `/testing/vendors/` provides a `FakeCompletionClient`, acting as a fake LLM vendor providing canned completions
+- Fake implementations should be used differently, depending on the test category:
+  - In unit tests, fakes should be instantiated and injected into the code directly
+  - In functional tests, fakes should be instantiated directly, but since we don't call the code under
+    test directly, must be installed via their `install` method which is a context manager
+    - `with fake_completion_client.install(): ...`
+  - The `repository` fixture used in functional tests is backed by the real repository implementation,
+    so no fake repository is needed or should be used in functional tests
+
+
+# Linting
+After each commit, all linting checks should pass.
+Run the tests using `make lint`.
+
+
+# Other patterns
 
 ## Async everywhere
 All application code is async. Use `async def` and `await` throughout.
@@ -53,45 +116,3 @@ Implementation modules prefixed with underscore:
 - `_models.py`, `_repository.py`, `_render.py`
 - Public API exported via `__init__.py`
 - Signals internal implementation vs. public interface
-
-# Testing
-After each commit, all tests should pass.
-Run the tests using `make test`.
-
-## Test factories
-Use factories for generating test data:
-- Factories in `testing/helpers/` → `ExerciseFactory`, `LessonPlanFactory`
-- Only specify fields relevant to the test
-
-# Test fakes
-Use fakes for stubbing concrete ABC implementations.
-- Fakes are implemented in `testing/fakes/` → `FakeRepository`, `FakeCompletionClient`
-- In unit tests, fakes can be instantiated and injected into the code directly.
-- In functional tests, fakes are better installed via a context manager: `with install_fake_completion_client(): ...`
-
-See `tests/unit/application/test_generate_plan.py:15` for factory usage.
-See `tests/functional/api/test_routers.py:12` for repository patching via context manager.
-
-Tests are split into the following categories:
-- Unit tests
-  - For small pieces of functionality
-  - Test should be grouped in to test classes, named after the function under test
-  - Each test method name should finish a sentence started by the test classes' name
-  - Each test method should have three sections:
-    - Setup
-    - Execution
-    - Assertions
-  - Use blank lines to separate the sections, not comments
-- Functional tests: for testing interfaces into the code, such as FastAPI endpoints
-  - These should use the `api_client` to make requests to the test FastAPI app
-  - These tests are not allowed to interact with application or domain code
-
-Test style:
-- To facilitate test setup, prefer using factories defined in `testing/helpers/*`, 
-rather than directly instantiating domain models. When instantiating factories, you
-should only specify the fields that are relevant to the test. 
-
-# Linting
-After each commit, all linting checks should pass.
-Run the tests using `make lint`.
-
