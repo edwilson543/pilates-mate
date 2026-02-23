@@ -53,7 +53,11 @@ import { formatEnumMember } from "@/lib/utils";
 import { useUpdateExerciseSet } from "@/hooks/mutations/useUpdateExerciseSet";
 import { useDeleteExerciseSet } from "@/hooks/mutations/useDeleteExerciseSet";
 import { useAddExerciseSet } from "@/hooks/mutations/useAddExerciseSet";
+import { useUpdateExerciseSequence } from "@/hooks/mutations/useUpdateExerciseSequence";
+import { useDeleteExerciseSequence } from "@/hooks/mutations/useDeleteExerciseSequence";
 import { ExerciseSelector } from "@/app/lesson-plans/[id]/exercise-selector";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ExerciseSequenceCardProps {
   sequence: ExerciseSequence;
@@ -64,6 +68,14 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
   const [addingSet, setAddingSet] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [setToDelete, setSetToDelete] = React.useState<number | null>(null);
+  const [editingSequence, setEditingSequence] = React.useState(false);
+  const [deleteSequenceDialogOpen, setDeleteSequenceDialogOpen] =
+    React.useState(false);
+  const [sequenceFormData, setSequenceFormData] = React.useState({
+    name: "",
+    reps: 0,
+    notes: "",
+  });
 
   const [formData, setFormData] = React.useState<{
     exerciseId: number | null;
@@ -84,6 +96,8 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
   const updateMutation = useUpdateExerciseSet();
   const deleteMutation = useDeleteExerciseSet();
   const addMutation = useAddExerciseSet();
+  const updateSequenceMutation = useUpdateExerciseSequence();
+  const deleteSequenceMutation = useDeleteExerciseSequence();
 
   const handleEditClick = (setId: number) => {
     const set = sequence.sets.find((s) => s.id === setId);
@@ -221,18 +235,164 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
     );
   };
 
+  const handleEditSequenceClick = () => {
+    setSequenceFormData({
+      name: sequence.name,
+      reps: sequence.reps,
+      notes: sequence.notes,
+    });
+    setEditingSequence(true);
+  };
+
+  const handleCancelSequenceEdit = () => {
+    setEditingSequence(false);
+    setSequenceFormData({
+      name: "",
+      reps: 0,
+      notes: "",
+    });
+  };
+
+  const handleSaveSequenceEdit = async () => {
+    if (sequenceFormData.name && sequenceFormData.reps > 0) {
+      try {
+        await updateSequenceMutation.mutateAsync({
+          sequenceId: sequence.id,
+          name: sequenceFormData.name,
+          reps: sequenceFormData.reps,
+          notes: sequenceFormData.notes,
+        });
+        setEditingSequence(false);
+      } catch (error) {
+        // Error handled by mutation
+      }
+    }
+  };
+
+  const handleDeleteSequenceClick = () => {
+    setDeleteSequenceDialogOpen(true);
+  };
+
+  const handleConfirmDeleteSequence = async () => {
+    try {
+      await deleteSequenceMutation.mutateAsync({
+        sequenceId: sequence.id,
+      });
+      setDeleteSequenceDialogOpen(false);
+    } catch (error) {
+      // Error handled by mutation
+    }
+  };
+
+  const isSequenceFormValid = () => {
+    return sequenceFormData.name.length > 0 && sequenceFormData.reps > 0;
+  };
+
   return (
     <>
       <Card className="transition-shadow duration-200 hover:shadow-lg border-2">
         <CardHeader className="pb-3">
-          <CardTitle className="text-xl">{sequence.name}</CardTitle>
-          <CardDescription>
-            <p>
-              Total duration: {getSequenceDurationSeconds(sequence)}s, Reps:{" "}
-              {sequence.reps}
-            </p>
-            <p>{sequence.notes}</p>
-          </CardDescription>
+          {editingSequence ? (
+            <div className="space-y-4">
+              <div className="flex justify-between items-start">
+                <div className="flex-1 space-y-4">
+                  <div>
+                    <Label htmlFor="sequence-name">Sequence Name</Label>
+                    <Input
+                      id="sequence-name"
+                      value={sequenceFormData.name}
+                      onChange={(e) =>
+                        setSequenceFormData({
+                          ...sequenceFormData,
+                          name: e.target.value,
+                        })
+                      }
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="sequence-reps">Reps</Label>
+                    <Input
+                      id="sequence-reps"
+                      type="number"
+                      value={sequenceFormData.reps}
+                      onChange={(e) =>
+                        setSequenceFormData({
+                          ...sequenceFormData,
+                          reps: Number(e.target.value),
+                        })
+                      }
+                      className="mt-1 w-32"
+                      min="1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="sequence-notes">Notes</Label>
+                    <Textarea
+                      id="sequence-notes"
+                      value={sequenceFormData.notes}
+                      onChange={(e) =>
+                        setSequenceFormData({
+                          ...sequenceFormData,
+                          notes: e.target.value,
+                        })
+                      }
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-2 ml-4">
+                  <Button
+                    size="icon-sm"
+                    variant="ghost"
+                    onClick={handleSaveSequenceEdit}
+                    disabled={
+                      !isSequenceFormValid() || updateSequenceMutation.isPending
+                    }
+                  >
+                    <CheckIcon className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon-sm"
+                    variant="ghost"
+                    onClick={handleCancelSequenceEdit}
+                    disabled={updateSequenceMutation.isPending}
+                  >
+                    <XIcon className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-between items-start">
+              <div>
+                <CardTitle className="text-xl">{sequence.name}</CardTitle>
+                <CardDescription>
+                  <p>
+                    Total duration: {getSequenceDurationSeconds(sequence)}s,
+                    Reps: {sequence.reps}
+                  </p>
+                  <p>{sequence.notes}</p>
+                </CardDescription>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  size="icon-sm"
+                  variant="ghost"
+                  onClick={handleEditSequenceClick}
+                >
+                  <PencilIcon className="h-4 w-4" />
+                </Button>
+                <Button
+                  size="icon-sm"
+                  variant="ghost"
+                  onClick={handleDeleteSequenceClick}
+                >
+                  <TrashIcon className="h-4 w-4 text-destructive" />
+                </Button>
+              </div>
+            </div>
+          )}
         </CardHeader>
         <CardContent>
           <Table>
@@ -573,6 +733,31 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
             <AlertDialogAction
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        open={deleteSequenceDialogOpen}
+        onOpenChange={setDeleteSequenceDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Exercise Sequence</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this sequence? This will delete
+              all sets within the sequence. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmDeleteSequence}
+              disabled={deleteSequenceMutation.isPending}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               Delete
