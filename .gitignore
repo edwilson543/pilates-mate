@@ -17,6 +17,7 @@ TODO.txt
 TODO.prompts.txt
 **/output-plans/*
 **/notes.md
+**/*.csv
 
 # Claude
 .claude
