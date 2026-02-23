@@ -443,13 +443,12 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                       </TableCell>
                       <TableCell>
                         <Select
-                          value={formData.equipment_variant[0] || ""}
+                          value={formData.equipment_variant[0] || "NONE"}
                           onValueChange={(value) =>
                             setFormData({
                               ...formData,
-                              equipment_variant: value
-                                ? [value as Equipment]
-                                : [],
+                              equipment_variant:
+                                value === "NONE" ? [] : [value as Equipment],
                             })
                           }
                         >
@@ -457,7 +456,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                             <SelectValue placeholder="None" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">None</SelectItem>
+                            <SelectItem value="NONE">None</SelectItem>
                             {set.exercise.equipment_variants.map(
                               (equipment) => (
                                 <SelectItem key={equipment} value={equipment}>
@@ -623,13 +622,12 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                   <TableCell>
                     {formData.exercise && (
                       <Select
-                        value={formData.equipment_variant[0] || ""}
+                        value={formData.equipment_variant[0] || "NONE"}
                         onValueChange={(value) =>
                           setFormData({
                             ...formData,
-                            equipment_variant: value
-                              ? [value as Equipment]
-                              : [],
+                            equipment_variant:
+                              value === "NONE" ? [] : [value as Equipment],
                           })
                         }
                       >
@@ -637,7 +635,7 @@ export function ExerciseSequenceCard({ sequence }: ExerciseSequenceCardProps) {
                           <SelectValue placeholder="None" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">None</SelectItem>
+                          <SelectItem value="NONE">None</SelectItem>
                           {formData.exercise.equipment_variants.map(
                             (equipment) => (
                               <SelectItem key={equipment} value={equipment}>
