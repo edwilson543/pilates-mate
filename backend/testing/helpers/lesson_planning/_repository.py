@@ -435,6 +435,108 @@ class FakeRepository(lesson_planning.Repository):
         updated_plans[plan_index] = updated_plan
         object.__setattr__(self, "_lesson_plans", updated_plans)
 
+    def update_exercise_sequence(
+        self,
+        *,
+        id: int,
+        name: str,
+        reps: int,
+        notes: str,
+    ) -> None:
+        # Find sequence location
+        plan_index = None
+        section_name = None
+        sequence_index = None
+
+        for p_idx, plan in enumerate(self._lesson_plans):
+            for s_name in ["warm_up", "main_session", "cool_down"]:
+                section = getattr(plan, s_name)
+                for seq_idx, sequence in enumerate(section):
+                    if sequence.id == id:
+                        plan_index = p_idx
+                        section_name = s_name
+                        sequence_index = seq_idx
+                        break
+                if sequence_index is not None:
+                    break
+            if sequence_index is not None:
+                break
+
+        if sequence_index is None:
+            raise lesson_planning.SequenceDoesNotExist(sequence_id=id)
+
+        # Type narrowing
+        assert plan_index is not None
+        assert section_name is not None
+
+        # Get current objects
+        current_plan = self._lesson_plans[plan_index]
+        current_section = getattr(current_plan, section_name)
+        current_sequence = current_section[sequence_index]
+
+        # Update sequence metadata (preserving sets)
+        updated_sequence = current_sequence.model_copy(
+            update={
+                "name": name,
+                "reps": reps,
+                "notes": notes,
+            }
+        )
+
+        # Update section with new sequence
+        updated_section = current_section.copy()
+        updated_section[sequence_index] = updated_sequence
+
+        # Update plan with new section
+        updated_plan = current_plan.model_copy(update={section_name: updated_section})
+
+        # Update repository with new plan list
+        updated_plans = self._lesson_plans.copy()
+        updated_plans[plan_index] = updated_plan
+        object.__setattr__(self, "_lesson_plans", updated_plans)
+
+    def delete_exercise_sequence(self, sequence_id: int) -> None:
+        # Find sequence location
+        plan_index = None
+        section_name = None
+        sequence_index = None
+
+        for p_idx, plan in enumerate(self._lesson_plans):
+            for s_name in ["warm_up", "main_session", "cool_down"]:
+                section = getattr(plan, s_name)
+                for seq_idx, sequence in enumerate(section):
+                    if sequence.id == sequence_id:
+                        plan_index = p_idx
+                        section_name = s_name
+                        sequence_index = seq_idx
+                        break
+                if sequence_index is not None:
+                    break
+            if sequence_index is not None:
+                break
+
+        if sequence_index is None:
+            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+
+        # Type narrowing
+        assert plan_index is not None
+        assert section_name is not None
+
+        # Get current objects
+        current_plan = self._lesson_plans[plan_index]
+        current_section = getattr(current_plan, section_name)
+
+        # Filter out the sequence
+        updated_section = [s for s in current_section if s.id != sequence_id]
+
+        # Update plan with new section
+        updated_plan = current_plan.model_copy(update={section_name: updated_section})
+
+        # Update repository with new plan list
+        updated_plans = self._lesson_plans.copy()
+        updated_plans[plan_index] = updated_plan
+        object.__setattr__(self, "_lesson_plans", updated_plans)
+
 
 def _section_to_field_name(section: lesson_planning.LessonPlanSection) -> str:
     """Convert LessonPlanSection enum to field name."""

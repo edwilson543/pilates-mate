@@ -158,3 +158,105 @@ def test_response_not_found_when_deleting_nonexistent_set(api_client):
 
     assert response.status_code == 404
     assert response.json() == {"detail": "Set not found."}
+
+
+def test_adds_sequence_to_section(api_client, repository):
+    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository, warm_up=[], main_session=[], cool_down=[]
+    )
+
+    response = api_client.post(
+        f"/lesson-plans/{lesson_plan.id}/sequences",
+        json={
+            "section": "WARM_UP",
+            "name": "Breathing Sequence",
+            "reps": 2,
+            "notes": "Focus on deep breaths",
+        },
+    )
+
+    assert response.status_code == 201
+    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    new_sequence = lesson_plan.warm_up[0]
+    assert response.json()["id"] == new_sequence.id
+
+    assert new_sequence.name == "Breathing Sequence"
+    assert new_sequence.reps == 2
+    assert new_sequence.notes == "Focus on deep breaths"
+    assert new_sequence.sets == []
+
+
+def test_response_not_found_when_adding_sequence_to_nonexistent_plan(api_client):
+    response = api_client.post(
+        "/lesson-plans/999/sequences",
+        json={
+            "section": "WARM_UP",
+            "name": "Test Sequence",
+            "reps": 1,
+            "notes": "Test notes",
+        },
+    )
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Lesson plan not found."}
+
+
+def test_update_exercise_sequence_to_new_values(api_client, repository):
+    sequence = lesson_planning_helpers.ExerciseSequence(
+        name="Original Name", reps=1, notes="Original notes"
+    )
+    lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository, main_session=[sequence]
+    )
+
+    response = api_client.put(
+        f"/lesson-plans/sequences/{sequence.id}",
+        json={
+            "name": "Updated Name",
+            "reps": 3,
+            "notes": "Updated notes",
+        },
+    )
+
+    assert response.status_code == 204
+
+    updated_sequence = repository.get_lesson_plan(1).main_session[0]
+    assert updated_sequence.name == "Updated Name"
+    assert updated_sequence.reps == 3
+    assert updated_sequence.notes == "Updated notes"
+
+
+def test_response_not_found_when_updating_nonexistent_sequence(api_client):
+    response = api_client.put(
+        "/lesson-plans/sequences/999",
+        json={
+            "name": "Test Name",
+            "reps": 2,
+            "notes": "Test notes",
+        },
+    )
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Sequence not found."}
+
+
+def test_deletes_existing_exercise_sequence(repository, api_client):
+    sequence_1 = lesson_planning_helpers.ExerciseSequence()
+    sequence_2 = lesson_planning_helpers.ExerciseSequence()
+    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository, cool_down=[sequence_1, sequence_2]
+    )
+
+    response = api_client.delete(f"/lesson-plans/sequences/{sequence_1.id}")
+
+    assert response.status_code == 204
+    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    assert len(lesson_plan.cool_down) == 1
+    assert lesson_plan.cool_down[0].id == sequence_2.id
+
+
+def test_response_not_found_when_deleting_nonexistent_sequence(api_client):
+    response = api_client.delete("/lesson-plans/sequences/999")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Sequence not found."}

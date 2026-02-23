@@ -15,8 +15,8 @@ def main():
 
     fieldnames = rows[0].keys()
 
-    with open("exercises.csv", "x", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    with open("exercises.csv", "w", newline="") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
         for row in rows:
             writer.writerow(row)

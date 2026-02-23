@@ -144,3 +144,20 @@ class Repository(abc.ABC):
     def delete_exercise_set(self, set_id: int) -> None:
         """Delete set from its sequence."""
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def update_exercise_sequence(
+        self,
+        *,
+        id: int,
+        name: str,
+        reps: int,
+        notes: str,
+    ) -> None:
+        """Update sequence metadata. Does not affect sets within sequence."""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def delete_exercise_sequence(self, sequence_id: int) -> None:
+        """Delete sequence and all sets within it."""
+        raise NotImplementedError

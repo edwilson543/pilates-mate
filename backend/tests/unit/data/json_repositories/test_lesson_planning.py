@@ -504,6 +504,137 @@ class TestDeleteExerciseSet:
         assert exc_info.value.set_id == 999
 
 
+class TestUpdateExerciseSequence:
+    def test_updates_sequence_properties(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        sequence = lesson_planning_helpers.ExerciseSequence(
+            name="Original Name", reps=1, notes="Original notes"
+        )
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+            repository, warm_up=[sequence]
+        )
+
+        sequence_id = lesson_plan.warm_up[0].id
+
+        repository.update_exercise_sequence(
+            id=sequence_id,
+            name="Updated Name",
+            reps=3,
+            notes="Updated notes",
+        )
+
+        updated_plan = repository.get_lesson_plan(lesson_plan.id)
+        updated_sequence = updated_plan.warm_up[0]
+        assert updated_sequence.name == "Updated Name"
+        assert updated_sequence.reps == 3
+        assert updated_sequence.notes == "Updated notes"
+
+    def test_preserves_sets_when_updating_sequence(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        set_1 = lesson_planning_helpers.ExerciseSet()
+        set_2 = lesson_planning_helpers.ExerciseSet()
+        sequence = lesson_planning_helpers.ExerciseSequence(
+            name="Original Name", sets=[set_1, set_2]
+        )
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+            repository, main_session=[sequence]
+        )
+
+        sequence_id = lesson_plan.main_session[0].id
+
+        repository.update_exercise_sequence(
+            id=sequence_id,
+            name="Updated Name",
+            reps=2,
+            notes="New notes",
+        )
+
+        updated_plan = repository.get_lesson_plan(lesson_plan.id)
+        assert len(updated_plan.main_session[0].sets) == 2
+        assert updated_plan.main_session[0].sets[0].id == set_1.id
+        assert updated_plan.main_session[0].sets[1].id == set_2.id
+
+    def test_raises_exception_when_sequence_does_not_exist(
+        self, tmp_path: pathlib.Path
+    ):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+
+        with pytest.raises(lesson_planning.SequenceDoesNotExist) as exc_info:
+            repository.update_exercise_sequence(
+                id=999,
+                name="Test Name",
+                reps=2,
+                notes="Test notes",
+            )
+
+        assert exc_info.value.sequence_id == 999
+
+
+class TestDeleteExerciseSequence:
+    def test_deletes_sequence_from_section(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        sequence_1 = lesson_planning_helpers.ExerciseSequence()
+        sequence_2 = lesson_planning_helpers.ExerciseSequence()
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+            repository, warm_up=[sequence_1, sequence_2]
+        )
+
+        sequence_1_id = lesson_plan.warm_up[0].id
+        sequence_2_id = lesson_plan.warm_up[1].id
+
+        repository.delete_exercise_sequence(sequence_1_id)
+
+        plan = repository.get_lesson_plan(lesson_plan.id)
+        assert len(plan.warm_up) == 1
+        assert plan.warm_up[0].id == sequence_2_id
+
+    def test_deletes_sequence_and_cascades_to_sets(self, tmp_path: pathlib.Path):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+        set_1 = lesson_planning_helpers.ExerciseSet()
+        set_2 = lesson_planning_helpers.ExerciseSet()
+        sequence = lesson_planning_helpers.ExerciseSequence(sets=[set_1, set_2])
+        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+            repository, cool_down=[sequence]
+        )
+
+        sequence_id = lesson_plan.cool_down[0].id
+        set_1_id = lesson_plan.cool_down[0].sets[0].id
+        set_2_id = lesson_plan.cool_down[0].sets[1].id
+
+        repository.delete_exercise_sequence(sequence_id)
+
+        plan = repository.get_lesson_plan(lesson_plan.id)
+        assert len(plan.cool_down) == 0
+
+        with pytest.raises(lesson_planning.SetDoesNotExist):
+            repository.get_exercise_set(set_1_id)
+
+        with pytest.raises(lesson_planning.SetDoesNotExist):
+            repository.get_exercise_set(set_2_id)
+
+    def test_raises_exception_when_sequence_does_not_exist(
+        self, tmp_path: pathlib.Path
+    ):
+        repository = _lesson_planning.JSONRepository(
+            database_file=tmp_path / "test.json"
+        )
+
+        with pytest.raises(lesson_planning.SequenceDoesNotExist) as exc_info:
+            repository.delete_exercise_sequence(999)
+
+        assert exc_info.value.sequence_id == 999
+
+
 def test_database_isnt_corrupted():
     repository = _lesson_planning.JSONRepository()
 

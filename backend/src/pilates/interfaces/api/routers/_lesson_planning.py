@@ -151,3 +151,65 @@ def delete_exercise_set(
         repository.delete_exercise_set(set_id)
     except lesson_planning.SetDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Set not found.")
+
+
+class AddSequenceToSectionRequest(pydantic.BaseModel):
+    section: lesson_planning.LessonPlanSection
+    name: str = pydantic.Field(min_length=1, max_length=200)
+    reps: int = pydantic.Field(ge=1)
+    notes: str = pydantic.Field(max_length=1000)
+
+
+class AddSequenceToSectionResponse(pydantic.BaseModel):
+    id: int
+
+
+class UpdateExerciseSequenceRequest(pydantic.BaseModel):
+    name: str = pydantic.Field(min_length=1, max_length=200)
+    reps: int = pydantic.Field(ge=1)
+    notes: str = pydantic.Field(max_length=1000)
+
+
+@router.post("/{lesson_plan_id}/sequences", status_code=201)
+def add_sequence_to_section(
+    lesson_plan_id: int,
+    request: typing.Annotated[AddSequenceToSectionRequest, fastapi.Body()],
+) -> AddSequenceToSectionResponse:
+    repository = config.get_lesson_planning_repository()
+    try:
+        sequence_id = repository.add_sequence_to_section(
+            lesson_plan_id=lesson_plan_id,
+            section=request.section,
+            name=request.name,
+            reps=request.reps,
+            notes=request.notes,
+        )
+        return AddSequenceToSectionResponse(id=sequence_id)
+    except lesson_planning.LessonPlanDoesNotExist:
+        raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")
+
+
+@router.put("/sequences/{sequence_id}", status_code=204)
+def update_exercise_sequence(
+    sequence_id: int,
+    request: typing.Annotated[UpdateExerciseSequenceRequest, fastapi.Body()],
+) -> None:
+    repository = config.get_lesson_planning_repository()
+    try:
+        repository.update_exercise_sequence(
+            id=sequence_id,
+            name=request.name,
+            reps=request.reps,
+            notes=request.notes,
+        )
+    except lesson_planning.SequenceDoesNotExist:
+        raise fastapi.HTTPException(status_code=404, detail="Sequence not found.")
+
+
+@router.delete("/sequences/{sequence_id}", status_code=204)
+def delete_exercise_sequence(sequence_id: int) -> None:
+    repository = config.get_lesson_planning_repository()
+    try:
+        repository.delete_exercise_sequence(sequence_id)
+    except lesson_planning.SequenceDoesNotExist:
+        raise fastapi.HTTPException(status_code=404, detail="Sequence not found.")

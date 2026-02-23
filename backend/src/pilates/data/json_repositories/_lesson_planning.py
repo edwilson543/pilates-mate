@@ -362,6 +362,59 @@ class JSONRepository(lesson_planning.Repository):
 
         self._write_database(data)
 
+    def update_exercise_sequence(
+        self,
+        *,
+        id: int,
+        name: str,
+        reps: int,
+        notes: str,
+    ) -> None:
+        data = self._read_database()
+
+        # Find and update sequence dict in place
+        sequence_found = False
+        for plan in data["lesson_plans"]:
+            for section_name in ["warm_up", "main_session", "cool_down"]:
+                for sequence in plan[section_name]:
+                    if sequence["id"] == id:
+                        sequence["name"] = name
+                        sequence["reps"] = reps
+                        sequence["notes"] = notes
+                        sequence_found = True
+                        break
+                if sequence_found:
+                    break
+            if sequence_found:
+                break
+
+        if not sequence_found:
+            raise lesson_planning.SequenceDoesNotExist(sequence_id=id)
+
+        self._write_database(data)
+
+    def delete_exercise_sequence(self, sequence_id: int) -> None:
+        data = self._read_database()
+
+        # Find section containing sequence and filter it out
+        sequence_found = False
+        for plan in data["lesson_plans"]:
+            for section_name in ["warm_up", "main_session", "cool_down"]:
+                original_length = len(plan[section_name])
+                plan[section_name] = [
+                    seq for seq in plan[section_name] if seq["id"] != sequence_id
+                ]
+                if len(plan[section_name]) < original_length:
+                    sequence_found = True
+                    break
+            if sequence_found:
+                break
+
+        if not sequence_found:
+            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+
+        self._write_database(data)
+
     # Helpers.
 
     def _read_database(self) -> dict:
