@@ -5,6 +5,35 @@ export type ClientOptions = {
 };
 
 /**
+ * AddSequenceToSectionRequest
+ */
+export type AddSequenceToSectionRequest = {
+  section: LessonPlanSection;
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Reps
+   */
+  reps: number;
+  /**
+   * Notes
+   */
+  notes: string;
+};
+
+/**
+ * AddSequenceToSectionResponse
+ */
+export type AddSequenceToSectionResponse = {
+  /**
+   * Id
+   */
+  id: number;
+};
+
+/**
  * AddSetToSequenceRequest
  */
 export type AddSetToSequenceRequest = {
@@ -263,6 +292,11 @@ export type LessonPlanRequirements = {
 };
 
 /**
+ * LessonPlanSection
+ */
+export type LessonPlanSection = "WARM_UP" | "MAIN_SESSION" | "COOL_DOWN";
+
+/**
  * MovementVariant
  */
 export type MovementVariant = "STANDARD" | "PULSE" | "HOLD";
@@ -320,6 +354,24 @@ export type UpdateExerciseRequest = {
    * Equipment Variants
    */
   equipment_variants: Array<Equipment>;
+};
+
+/**
+ * UpdateExerciseSequenceRequest
+ */
+export type UpdateExerciseSequenceRequest = {
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Reps
+   */
+  reps: number;
+  /**
+   * Notes
+   */
+  notes: string;
 };
 
 /**
@@ -697,3 +749,101 @@ export type UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutResponses
 
 export type UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutResponse =
   UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutResponses[keyof UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutResponses];
+
+export type AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostData = {
+  body: AddSequenceToSectionRequest;
+  path: {
+    /**
+     * Lesson Plan Id
+     */
+    lesson_plan_id: number;
+  };
+  query?: never;
+  url: "/lesson-plans/{lesson_plan_id}/sequences";
+};
+
+export type AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostError =
+  AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostErrors[keyof AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostErrors];
+
+export type AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostResponses =
+  {
+    /**
+     * Successful Response
+     */
+    201: AddSequenceToSectionResponse;
+  };
+
+export type AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostResponse =
+  AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostResponses[keyof AddSequenceToSectionLessonPlansLessonPlanIdSequencesPostResponses];
+
+export type DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteData = {
+  body?: never;
+  path: {
+    /**
+     * Sequence Id
+     */
+    sequence_id: number;
+  };
+  query?: never;
+  url: "/lesson-plans/sequences/{sequence_id}";
+};
+
+export type DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteError =
+  DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteErrors[keyof DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteErrors];
+
+export type DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteResponses =
+  {
+    /**
+     * Successful Response
+     */
+    204: void;
+  };
+
+export type DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteResponse =
+  DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteResponses[keyof DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteResponses];
+
+export type UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutData = {
+  body: UpdateExerciseSequenceRequest;
+  path: {
+    /**
+     * Sequence Id
+     */
+    sequence_id: number;
+  };
+  query?: never;
+  url: "/lesson-plans/sequences/{sequence_id}";
+};
+
+export type UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutError =
+  UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutErrors[keyof UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutErrors];
+
+export type UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponses = {
+  /**
+   * Successful Response
+   */
+  204: void;
+};
+
+export type UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponse =
+  UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponses[keyof UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponses];
