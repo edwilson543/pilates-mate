@@ -12,7 +12,7 @@ api:
 
 # Static analysis.
 
-local_ci: test lint
+local_ci: lint test
 
 .PHONY:test
 test:

@@ -1,0 +1,23 @@
+from testing.helpers import lesson_planning as lesson_planning_helpers
+
+
+def test_deletes_existing_exercise_sequence(repository, api_client):
+    sequence_1 = lesson_planning_helpers.ExerciseSequence()
+    sequence_2 = lesson_planning_helpers.ExerciseSequence()
+    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository, cool_down=[sequence_1, sequence_2]
+    )
+
+    response = api_client.delete(f"/lesson-plans/sequences/{sequence_1.id}")
+
+    assert response.status_code == 204
+    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    assert len(lesson_plan.cool_down) == 1
+    assert lesson_plan.cool_down[0].id == sequence_2.id
+
+
+def test_response_not_found_when_deleting_nonexistent_sequence(api_client):
+    response = api_client.delete("/lesson-plans/sequences/999")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Sequence not found."}
