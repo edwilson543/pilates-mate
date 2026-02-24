@@ -119,12 +119,7 @@ The frontend uses:
 ## API client
 
 The frontend integrates with the backend's API server via the API client at `./src/lib/apiClient/`.
-
-- To update the API client inline with changes made to the backend:
-  - Run the backend API server locally (run `make api` from `../backend`)
-  - Generate the `apiClient` with `pnpm openapi-ts`
-  - Format the `apiClient` with `pnpm format`
-  - Commit the changes with message `Auto-update frontend API client using hey-api`
+To update the API client inline with changes made to the backend, see `## Making changes to the API` in `../CLAUDE.md`
 
 ## Query and mutation hooks
 
