@@ -1,11 +1,11 @@
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 def test_deletes_existing_exercise_sets(repository, api_client):
-    first_set = lesson_planning_helpers.ExerciseSet()
-    second_set = lesson_planning_helpers.ExerciseSet()
-    sequence = lesson_planning_helpers.ExerciseSequence(sets=[first_set, second_set])
-    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+    first_set = lesson_plan_helpers.ExerciseSet()
+    second_set = lesson_plan_helpers.ExerciseSet()
+    sequence = lesson_plan_helpers.ExerciseSequence(sets=[first_set, second_set])
+    lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
         repository, cool_down=[sequence]
     )
 

@@ -2,13 +2,13 @@ import datetime as dt
 
 import attrs
 
-from pilates.domain import lesson_planning
+from pilates.domain import lesson_plans
 
 
 @attrs.frozen
-class FakeRepository(lesson_planning.Repository):
-    _exercises: list[lesson_planning.Exercise] = attrs.field(factory=list)
-    _lesson_plans: list[lesson_planning.LessonPlan] = attrs.field(factory=list)
+class FakeRepository(lesson_plans.Repository):
+    _exercises: list[lesson_plans.Exercise] = attrs.field(factory=list)
+    _lesson_plans: list[lesson_plans.LessonPlan] = attrs.field(factory=list)
 
     _next_sequence_id: int = attrs.field(init=False)
     _next_set_id: int = attrs.field(init=False)
@@ -38,16 +38,16 @@ class FakeRepository(lesson_planning.Repository):
         *,
         name: str,
         description: str,
-        category: lesson_planning.ExerciseCategory,
-        difficulty: lesson_planning.Difficulty,
-        primary_muscle_group: lesson_planning.MuscleGroup,
-        starting_position: lesson_planning.StartingPosition,
-        movement_variants: list[lesson_planning.MovementVariant],
-        equipment_variants: list[lesson_planning.Equipment],
+        category: lesson_plans.ExerciseCategory,
+        difficulty: lesson_plans.Difficulty,
+        primary_muscle_group: lesson_plans.MuscleGroup,
+        starting_position: lesson_plans.StartingPosition,
+        movement_variants: list[lesson_plans.MovementVariant],
+        equipment_variants: list[lesson_plans.Equipment],
     ) -> int:
         next_id = len(self._exercises) + 1
 
-        new_exercise = lesson_planning.Exercise(
+        new_exercise = lesson_plans.Exercise(
             id=next_id,
             name=name,
             description=description,
@@ -62,29 +62,29 @@ class FakeRepository(lesson_planning.Repository):
 
         return next_id
 
-    def get_exercises(self) -> list[lesson_planning.Exercise]:
+    def get_exercises(self) -> list[lesson_plans.Exercise]:
         return self._exercises.copy()
 
-    def get_exercise(self, exercise_id: int) -> lesson_planning.Exercise:
+    def get_exercise(self, exercise_id: int) -> lesson_plans.Exercise:
         for exercise in self._exercises:
             if exercise.id == exercise_id:
                 return exercise
-        raise lesson_planning.ExerciseDoesNotExist(exercise_id=exercise_id)
+        raise lesson_plans.ExerciseDoesNotExist(exercise_id=exercise_id)
 
     def update_exercise(
         self,
         *,
         id: int,
         name: str,
-        category: lesson_planning.ExerciseCategory,
+        category: lesson_plans.ExerciseCategory,
         description: str,
-        difficulty: lesson_planning.Difficulty,
-        primary_muscle_group: lesson_planning.MuscleGroup,
-        starting_position: lesson_planning.StartingPosition,
-        movement_variants: list[lesson_planning.MovementVariant],
-        equipment_variants: list[lesson_planning.Equipment],
+        difficulty: lesson_plans.Difficulty,
+        primary_muscle_group: lesson_plans.MuscleGroup,
+        starting_position: lesson_plans.StartingPosition,
+        movement_variants: list[lesson_plans.MovementVariant],
+        equipment_variants: list[lesson_plans.Equipment],
     ) -> None:
-        def _update(exercise_: lesson_planning.Exercise) -> None:
+        def _update(exercise_: lesson_plans.Exercise) -> None:
             exercise_.name = name
             exercise_.description = description
             exercise_.category = category
@@ -105,14 +105,14 @@ class FakeRepository(lesson_planning.Repository):
 
                 return None
 
-        raise lesson_planning.ExerciseDoesNotExist(exercise_id=id)
+        raise lesson_plans.ExerciseDoesNotExist(exercise_id=id)
 
     def _update_sequences(
         self,
-        sequences: list[lesson_planning.ExerciseSequence],
+        sequences: list[lesson_plans.ExerciseSequence],
         exercise_id: int,
-        updated_exercise: lesson_planning.Exercise,
-    ) -> list[lesson_planning.ExerciseSequence]:
+        updated_exercise: lesson_plans.Exercise,
+    ) -> list[lesson_plans.ExerciseSequence]:
         """Update exercise references in a list of sequences."""
         updated_sequences = []
         for sequence in sequences:
@@ -137,13 +137,13 @@ class FakeRepository(lesson_planning.Repository):
         name: str,
         description: str,
         date: dt.date,
-        warm_up: list[lesson_planning.ExerciseSequence],
-        main_session: list[lesson_planning.ExerciseSequence],
-        cool_down: list[lesson_planning.ExerciseSequence],
+        warm_up: list[lesson_plans.ExerciseSequence],
+        main_session: list[lesson_plans.ExerciseSequence],
+        cool_down: list[lesson_plans.ExerciseSequence],
     ) -> int:
         next_id = len(self._lesson_plans) + 1
 
-        new_lesson_plan = lesson_planning.LessonPlan(
+        new_lesson_plan = lesson_plans.LessonPlan(
             id=next_id,
             name=name,
             description=description,
@@ -156,19 +156,19 @@ class FakeRepository(lesson_planning.Repository):
 
         return next_id
 
-    def get_lesson_plans(self) -> list[lesson_planning.LessonPlan]:
+    def get_lesson_plans(self) -> list[lesson_plans.LessonPlan]:
         return self._lesson_plans.copy()
 
-    def get_lesson_plan(self, lesson_plan_id: int) -> lesson_planning.LessonPlan:
+    def get_lesson_plan(self, lesson_plan_id: int) -> lesson_plans.LessonPlan:
         for plan in self._lesson_plans:
             if plan.id == lesson_plan_id:
                 return plan
-        raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+        raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
     def delete_lesson_plan(self, lesson_plan_id: int) -> None:
         plan_exists = any(plan.id == lesson_plan_id for plan in self._lesson_plans)
         if not plan_exists:
-            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+            raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
         filtered_plans = [
             plan for plan in self._lesson_plans if plan.id != lesson_plan_id
@@ -179,7 +179,7 @@ class FakeRepository(lesson_planning.Repository):
         self,
         *,
         lesson_plan_id: int,
-        section: lesson_planning.LessonPlanSection,
+        section: lesson_plans.LessonPlanSection,
         name: str,
         reps: int,
         notes: str,
@@ -192,14 +192,14 @@ class FakeRepository(lesson_planning.Repository):
                 break
 
         if plan_index is None:
-            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+            raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
         # Generate sequence ID
         sequence_id = self._next_sequence_id
         object.__setattr__(self, "_next_sequence_id", self._next_sequence_id + 1)
 
         # Create new sequence with empty sets
-        new_sequence = lesson_planning.ExerciseSequence(
+        new_sequence = lesson_plans.ExerciseSequence(
             id=sequence_id,
             name=name,
             sets=[],
@@ -230,8 +230,8 @@ class FakeRepository(lesson_planning.Repository):
         exercise_id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_planning.MovementVariant,
-        equipment_variant: list[lesson_planning.Equipment],
+        movement_variant: lesson_plans.MovementVariant,
+        equipment_variant: list[lesson_plans.Equipment],
     ) -> int:
         # Look up exercise
         exercise = self.get_exercise(exercise_id)
@@ -256,7 +256,7 @@ class FakeRepository(lesson_planning.Repository):
                 break
 
         if sequence_index is None:
-            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+            raise lesson_plans.SequenceDoesNotExist(sequence_id=sequence_id)
 
         # Type narrowing: if sequence_index is not None, then plan_index and section_name are also not None
         assert plan_index is not None
@@ -267,7 +267,7 @@ class FakeRepository(lesson_planning.Repository):
         object.__setattr__(self, "_next_set_id", self._next_set_id + 1)
 
         # Create new set with denormalized exercise data
-        new_set = lesson_planning.ExerciseSet(
+        new_set = lesson_plans.ExerciseSet(
             id=set_id,
             exercise=exercise,
             reps=reps,
@@ -297,7 +297,7 @@ class FakeRepository(lesson_planning.Repository):
 
         return set_id
 
-    def get_exercise_set(self, set_id: int) -> lesson_planning.ExerciseSet:
+    def get_exercise_set(self, set_id: int) -> lesson_plans.ExerciseSet:
         """Find set across all lesson plans."""
         for plan in self._lesson_plans:
             for section in [plan.warm_up, plan.main_session, plan.cool_down]:
@@ -305,7 +305,7 @@ class FakeRepository(lesson_planning.Repository):
                     for exercise_set in sequence.sets:
                         if exercise_set.id == set_id:
                             return exercise_set
-        raise lesson_planning.SetDoesNotExist(set_id=set_id)
+        raise lesson_plans.SetDoesNotExist(set_id=set_id)
 
     def update_exercise_set(
         self,
@@ -313,8 +313,8 @@ class FakeRepository(lesson_planning.Repository):
         id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_planning.MovementVariant,
-        equipment_variant: list[lesson_planning.Equipment],
+        movement_variant: lesson_plans.MovementVariant,
+        equipment_variant: list[lesson_plans.Equipment],
     ) -> None:
         # Find set location (plan_index, section_name, sequence_index, set_index)
         plan_index = None
@@ -341,7 +341,7 @@ class FakeRepository(lesson_planning.Repository):
                 break
 
         if set_index is None:
-            raise lesson_planning.SetDoesNotExist(set_id=id)
+            raise lesson_plans.SetDoesNotExist(set_id=id)
 
         # Type narrowing
         assert plan_index is not None
@@ -407,7 +407,7 @@ class FakeRepository(lesson_planning.Repository):
                 break
 
         if set_index is None:
-            raise lesson_planning.SetDoesNotExist(set_id=set_id)
+            raise lesson_plans.SetDoesNotExist(set_id=set_id)
 
         # Type narrowing
         assert plan_index is not None
@@ -463,7 +463,7 @@ class FakeRepository(lesson_planning.Repository):
                 break
 
         if sequence_index is None:
-            raise lesson_planning.SequenceDoesNotExist(sequence_id=id)
+            raise lesson_plans.SequenceDoesNotExist(sequence_id=id)
 
         # Type narrowing
         assert plan_index is not None
@@ -516,7 +516,7 @@ class FakeRepository(lesson_planning.Repository):
                 break
 
         if sequence_index is None:
-            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+            raise lesson_plans.SequenceDoesNotExist(sequence_id=sequence_id)
 
         # Type narrowing
         assert plan_index is not None
@@ -538,11 +538,11 @@ class FakeRepository(lesson_planning.Repository):
         object.__setattr__(self, "_lesson_plans", updated_plans)
 
 
-def _section_to_field_name(section: lesson_planning.LessonPlanSection) -> str:
+def _section_to_field_name(section: lesson_plans.LessonPlanSection) -> str:
     """Convert LessonPlanSection enum to field name."""
     mapping = {
-        lesson_planning.LessonPlanSection.WARM_UP: "warm_up",
-        lesson_planning.LessonPlanSection.MAIN_SESSION: "main_session",
-        lesson_planning.LessonPlanSection.COOL_DOWN: "cool_down",
+        lesson_plans.LessonPlanSection.WARM_UP: "warm_up",
+        lesson_plans.LessonPlanSection.MAIN_SESSION: "main_session",
+        lesson_plans.LessonPlanSection.COOL_DOWN: "cool_down",
     }
     return mapping[section]

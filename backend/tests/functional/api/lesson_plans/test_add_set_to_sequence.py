@@ -1,12 +1,12 @@
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 def test_adds_exercise_set_to_existing_sequence(api_client, repository):
-    sequence = lesson_planning_helpers.ExerciseSequence(sets=[])
-    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+    sequence = lesson_plan_helpers.ExerciseSequence(sets=[])
+    lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
         repository, warm_up=[sequence]
     )
-    exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
+    exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
 
     response = api_client.post(
         f"/lesson-plans/sequences/{sequence.id}/sets",

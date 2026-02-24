@@ -1,8 +1,8 @@
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 def test_deletes_lesson_plan(api_client, repository):
-    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(repository)
+    lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(repository)
 
     response = api_client.delete(f"/lesson-plans/{lesson_plan.id}")
 

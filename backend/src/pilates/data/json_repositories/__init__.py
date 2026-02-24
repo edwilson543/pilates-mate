@@ -1,1 +1,1 @@
-from ._lesson_planning import JSONRepository
+from ._lesson_plans import JSONRepository

@@ -1,11 +1,11 @@
-from pilates.domain.lesson_planning import _generation, _models
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from pilates.domain.lesson_plans import _generation, _models
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 class TestRenderSystemPrompt:
     def test_renders_without_smoke(self):
-        lesson_plan = lesson_planning_helpers.LessonPlan()
-        exercise = lesson_planning_helpers.Exercise()
+        lesson_plan = lesson_plan_helpers.LessonPlan()
+        exercise = lesson_plan_helpers.Exercise()
 
         system_prompt = _generation.render_system_prompt(
             duration_minutes=30,

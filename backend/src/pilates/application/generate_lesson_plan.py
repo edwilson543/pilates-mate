@@ -2,7 +2,7 @@ import datetime as dt
 
 import pydantic
 
-from pilates.domain import lesson_planning, vendors
+from pilates.domain import lesson_plans, vendors
 
 
 class _GeneratedExercise(pydantic.BaseModel):
@@ -15,8 +15,8 @@ class _GeneratedExerciseSet(pydantic.BaseModel):
     exercise: _GeneratedExercise
     reps: int
     duration_seconds: int
-    movement_variant: lesson_planning.MovementVariant
-    equipment_variant: list[lesson_planning.Equipment]
+    movement_variant: lesson_plans.MovementVariant
+    equipment_variant: list[lesson_plans.Equipment]
 
 
 class _GeneratedExerciseSequence(pydantic.BaseModel):
@@ -36,10 +36,10 @@ class _GeneratedLessonPlan(pydantic.BaseModel):
 
 class LessonPlanRequirements(pydantic.BaseModel):
     duration_minutes: int
-    target_difficulty: lesson_planning.Difficulty
-    target_muscle_groups: list[lesson_planning.MuscleGroup]
+    target_difficulty: lesson_plans.Difficulty
+    target_muscle_groups: list[lesson_plans.MuscleGroup]
     example_lesson_plan_ids: list[int] = []
-    available_equipment: list[lesson_planning.Equipment]
+    available_equipment: list[lesson_plans.Equipment]
     user_prompt: str
 
 
@@ -47,8 +47,8 @@ async def generate_lesson_plan(
     *,
     requirements: LessonPlanRequirements,
     client: vendors.CompletionClient,
-    repository: lesson_planning.Repository,
-) -> lesson_planning.LessonPlan:
+    repository: lesson_plans.Repository,
+) -> lesson_plans.LessonPlan:
     system_prompt = _get_system_prompt(requirements, repository)
 
     lesson_plan = await client.get_completion(
@@ -71,7 +71,7 @@ async def generate_lesson_plan(
     for sequence in lesson_plan.warm_up:
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan_id,
-            section=lesson_planning.LessonPlanSection.WARM_UP,
+            section=lesson_plans.LessonPlanSection.WARM_UP,
             name=sequence.name,
             reps=sequence.reps,
             notes=sequence.notes,
@@ -90,7 +90,7 @@ async def generate_lesson_plan(
     for sequence in lesson_plan.main_session:
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan_id,
-            section=lesson_planning.LessonPlanSection.MAIN_SESSION,
+            section=lesson_plans.LessonPlanSection.MAIN_SESSION,
             name=sequence.name,
             reps=sequence.reps,
             notes=sequence.notes,
@@ -109,7 +109,7 @@ async def generate_lesson_plan(
     for sequence in lesson_plan.cool_down:
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan_id,
-            section=lesson_planning.LessonPlanSection.COOL_DOWN,
+            section=lesson_plans.LessonPlanSection.COOL_DOWN,
             name=sequence.name,
             reps=sequence.reps,
             notes=sequence.notes,
@@ -129,12 +129,12 @@ async def generate_lesson_plan(
 
 def _get_system_prompt(
     requirements: LessonPlanRequirements,
-    repository: lesson_planning.Repository,
+    repository: lesson_plans.Repository,
 ) -> str:
     all_exercises = repository.get_exercises()
     example_lesson_plans = _get_example_lesson_plans(requirements, repository)
 
-    return lesson_planning.render_system_prompt(
+    return lesson_plans.render_system_prompt(
         duration_minutes=requirements.duration_minutes,
         target_difficulty=requirements.target_difficulty,
         target_muscle_groups=requirements.target_muscle_groups,
@@ -146,8 +146,8 @@ def _get_system_prompt(
 
 def _get_example_lesson_plans(
     requirements: LessonPlanRequirements,
-    repository: lesson_planning.Repository,
-) -> list[lesson_planning.LessonPlan]:
+    repository: lesson_plans.Repository,
+) -> list[lesson_plans.LessonPlan]:
     all_lesson_plans = repository.get_lesson_plans()
     if requirements.example_lesson_plan_ids:
         example_lesson_plans = [

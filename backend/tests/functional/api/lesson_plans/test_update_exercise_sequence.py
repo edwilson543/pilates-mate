@@ -1,13 +1,11 @@
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 def test_update_exercise_sequence_to_new_values(api_client, repository):
-    sequence = lesson_planning_helpers.ExerciseSequence(
+    sequence = lesson_plan_helpers.ExerciseSequence(
         name="Original Name", reps=1, notes="Original notes"
     )
-    lesson_planning_helpers.LessonPlan.create_in_repo(
-        repository, main_session=[sequence]
-    )
+    lesson_plan_helpers.LessonPlan.create_in_repo(repository, main_session=[sequence])
 
     response = api_client.put(
         f"/lesson-plans/sequences/{sequence.id}",

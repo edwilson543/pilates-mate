@@ -1,8 +1,8 @@
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 def test_updates_exercise(api_client, repository):
-    exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
+    exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
 
     updated_exercise = {
         "name": "Jump Squats",
@@ -43,10 +43,10 @@ def test_update_response_not_found_when_exercise_does_not_exist(api_client):
 
 
 def test_updating_exercise_updates_lesson_plan_references(api_client, repository):
-    exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
-    exercise_set = lesson_planning_helpers.ExerciseSet(exercise=exercise)
-    sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
-    lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+    exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
+    exercise_set = lesson_plan_helpers.ExerciseSet(exercise=exercise)
+    sequence = lesson_plan_helpers.ExerciseSequence(sets=[exercise_set])
+    lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
         repository, warm_up=[sequence]
     )
 

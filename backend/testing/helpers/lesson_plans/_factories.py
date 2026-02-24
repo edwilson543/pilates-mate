@@ -3,7 +3,7 @@ import datetime as dt
 import factory
 
 from pilates.application import generate_lesson_plan
-from pilates.domain import lesson_planning
+from pilates.domain import lesson_plans
 
 
 class GeneratedExercise(factory.Factory):
@@ -21,7 +21,7 @@ class GeneratedExerciseSet(factory.Factory):
     exercise = factory.SubFactory(GeneratedExercise)
     reps = 10
     duration_seconds = 30
-    movement_variant = lesson_planning.MovementVariant.STANDARD
+    movement_variant = lesson_plans.MovementVariant.STANDARD
     equipment_variant = factory.ListFactory()
 
 
@@ -42,24 +42,24 @@ class GeneratedExerciseSequence(factory.Factory):
 
 class Exercise(factory.Factory):
     class Meta:
-        model = lesson_planning.Exercise
+        model = lesson_plans.Exercise
 
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
     description = factory.Sequence(lambda n: f"description-{n}")
-    category = lesson_planning.ExerciseCategory.EFFORT
-    difficulty = lesson_planning.Difficulty.INTERMEDIATE
-    primary_muscle_group = lesson_planning.MuscleGroup.CORE
-    starting_position = lesson_planning.StartingPosition.STANDING
+    category = lesson_plans.ExerciseCategory.EFFORT
+    difficulty = lesson_plans.Difficulty.INTERMEDIATE
+    primary_muscle_group = lesson_plans.MuscleGroup.CORE
+    starting_position = lesson_plans.StartingPosition.STANDING
     movement_variants = factory.LazyFunction(
-        lambda: [lesson_planning.MovementVariant.STANDARD]
+        lambda: [lesson_plans.MovementVariant.STANDARD]
     )
-    equipment_variants = factory.LazyFunction(lambda: [lesson_planning.Equipment.BALL])
+    equipment_variants = factory.LazyFunction(lambda: [lesson_plans.Equipment.BALL])
 
     @classmethod
     def create_in_repo(
-        cls, repo: lesson_planning.Repository, **kwargs: object
-    ) -> lesson_planning.LessonPlan:
+        cls, repo: lesson_plans.Repository, **kwargs: object
+    ) -> lesson_plans.LessonPlan:
         exercise = cls.create(**kwargs)
         exercise_id = repo.create_exercise(
             name=exercise.name,
@@ -77,19 +77,19 @@ class Exercise(factory.Factory):
 
 class ExerciseSet(factory.Factory):
     class Meta:
-        model = lesson_planning.ExerciseSet
+        model = lesson_plans.ExerciseSet
 
     id = factory.Sequence(lambda n: n)
     exercise = factory.SubFactory(Exercise)
     reps = 10
     duration_seconds = 30
-    movement_variant = lesson_planning.MovementVariant.STANDARD
+    movement_variant = lesson_plans.MovementVariant.STANDARD
     equipment_variant = factory.ListFactory()
 
 
 class ExerciseSequence(factory.Factory):
     class Meta:
-        model = lesson_planning.ExerciseSequence
+        model = lesson_plans.ExerciseSequence
         exclude = ("n_sets",)
 
     id = factory.Sequence(lambda n: n)
@@ -103,7 +103,7 @@ class ExerciseSequence(factory.Factory):
 
 class LessonPlan(factory.Factory):
     class Meta:
-        model = lesson_planning.LessonPlan
+        model = lesson_plans.LessonPlan
 
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
@@ -115,8 +115,8 @@ class LessonPlan(factory.Factory):
 
     @classmethod
     def create_in_repo(
-        cls, repo: lesson_planning.Repository, **kwargs: object
-    ) -> lesson_planning.LessonPlan:
+        cls, repo: lesson_plans.Repository, **kwargs: object
+    ) -> lesson_plans.LessonPlan:
         lesson_plan = cls.create(**kwargs)
         lesson_plan_id = repo.create_lesson_plan(
             name=lesson_plan.name,
@@ -137,10 +137,8 @@ class LessonPlanRequirements(factory.Factory):
         model = generate_lesson_plan.LessonPlanRequirements
 
     duration_minutes = 30
-    target_difficulty = lesson_planning.Difficulty.INTERMEDIATE
-    target_muscle_groups = factory.LazyFunction(
-        lambda: [lesson_planning.MuscleGroup.CORE]
-    )
+    target_difficulty = lesson_plans.Difficulty.INTERMEDIATE
+    target_muscle_groups = factory.LazyFunction(lambda: [lesson_plans.MuscleGroup.CORE])
     example_lesson_lan_ids = factory.ListFactory()
     user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
-    available_equipment = factory.LazyFunction(lambda: [lesson_planning.Equipment.BALL])
+    available_equipment = factory.LazyFunction(lambda: [lesson_plans.Equipment.BALL])

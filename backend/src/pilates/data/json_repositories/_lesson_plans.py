@@ -4,11 +4,11 @@ import pathlib
 
 import attrs
 
-from pilates.domain import lesson_planning
+from pilates.domain import lesson_plans
 
 
 @attrs.frozen
-class JSONRepository(lesson_planning.Repository):
+class JSONRepository(lesson_plans.Repository):
     database_file: pathlib.Path = pathlib.Path(__file__).parent / "database.json"
 
     def create_exercise(
@@ -16,17 +16,17 @@ class JSONRepository(lesson_planning.Repository):
         *,
         name: str,
         description: str,
-        category: lesson_planning.ExerciseCategory,
-        difficulty: lesson_planning.Difficulty,
-        primary_muscle_group: lesson_planning.MuscleGroup,
-        starting_position: lesson_planning.StartingPosition,
-        movement_variants: list[lesson_planning.MovementVariant],
-        equipment_variants: list[lesson_planning.Equipment],
+        category: lesson_plans.ExerciseCategory,
+        difficulty: lesson_plans.Difficulty,
+        primary_muscle_group: lesson_plans.MuscleGroup,
+        starting_position: lesson_plans.StartingPosition,
+        movement_variants: list[lesson_plans.MovementVariant],
+        equipment_variants: list[lesson_plans.Equipment],
     ) -> int:
         data = self._read_database()
 
         next_id = max((exercise["id"] for exercise in data["exercises"]), default=0) + 1
-        new_exercise = lesson_planning.Exercise(
+        new_exercise = lesson_plans.Exercise(
             id=next_id,
             name=name,
             description=description,
@@ -42,18 +42,18 @@ class JSONRepository(lesson_planning.Repository):
         self._write_database(data)
         return next_id
 
-    def get_exercises(self) -> list[lesson_planning.Exercise]:
+    def get_exercises(self) -> list[lesson_plans.Exercise]:
         data = self._read_database()
         return [
-            lesson_planning.Exercise.model_validate(exercise)
+            lesson_plans.Exercise.model_validate(exercise)
             for exercise in data["exercises"]
         ]
 
-    def get_exercise(self, exercise_id: int) -> lesson_planning.Exercise:
+    def get_exercise(self, exercise_id: int) -> lesson_plans.Exercise:
         for exercise in self.get_exercises():
             if exercise.id == exercise_id:
                 return exercise
-        raise lesson_planning.ExerciseDoesNotExist(exercise_id=exercise_id)
+        raise lesson_plans.ExerciseDoesNotExist(exercise_id=exercise_id)
 
     def update_exercise(
         self,
@@ -61,12 +61,12 @@ class JSONRepository(lesson_planning.Repository):
         id: int,
         name: str,
         description: str,
-        category: lesson_planning.ExerciseCategory,
-        difficulty: lesson_planning.Difficulty,
-        primary_muscle_group: lesson_planning.MuscleGroup,
-        starting_position: lesson_planning.StartingPosition,
-        movement_variants: list[lesson_planning.MovementVariant],
-        equipment_variants: list[lesson_planning.Equipment],
+        category: lesson_plans.ExerciseCategory,
+        difficulty: lesson_plans.Difficulty,
+        primary_muscle_group: lesson_plans.MuscleGroup,
+        starting_position: lesson_plans.StartingPosition,
+        movement_variants: list[lesson_plans.MovementVariant],
+        equipment_variants: list[lesson_plans.Equipment],
     ) -> None:
         data = self._read_database()
 
@@ -78,10 +78,10 @@ class JSONRepository(lesson_planning.Repository):
                 break
 
         if exercise_index is None:
-            raise lesson_planning.ExerciseDoesNotExist(exercise_id=id)
+            raise lesson_plans.ExerciseDoesNotExist(exercise_id=id)
 
         # Create updated exercise
-        updated_exercise = lesson_planning.Exercise(
+        updated_exercise = lesson_plans.Exercise(
             id=id,
             name=name,
             category=category,
@@ -112,15 +112,15 @@ class JSONRepository(lesson_planning.Repository):
         name: str,
         description: str,
         date: dt.date,
-        warm_up: list[lesson_planning.ExerciseSequence],
-        main_session: list[lesson_planning.ExerciseSequence],
-        cool_down: list[lesson_planning.ExerciseSequence],
+        warm_up: list[lesson_plans.ExerciseSequence],
+        main_session: list[lesson_plans.ExerciseSequence],
+        cool_down: list[lesson_plans.ExerciseSequence],
     ) -> int:
         data = self._read_database()
 
         next_id = max((plan["id"] for plan in data["lesson_plans"]), default=0) + 1
 
-        new_lesson_plan = lesson_planning.LessonPlan(
+        new_lesson_plan = lesson_plans.LessonPlan(
             id=next_id,
             name=name,
             description=description,
@@ -135,18 +135,18 @@ class JSONRepository(lesson_planning.Repository):
 
         return next_id
 
-    def get_lesson_plans(self) -> list[lesson_planning.LessonPlan]:
+    def get_lesson_plans(self) -> list[lesson_plans.LessonPlan]:
         data = self._read_database()
         return [
-            lesson_planning.LessonPlan.model_validate(plan)
+            lesson_plans.LessonPlan.model_validate(plan)
             for plan in data["lesson_plans"]
         ]
 
-    def get_lesson_plan(self, lesson_plan_id: int) -> lesson_planning.LessonPlan:
+    def get_lesson_plan(self, lesson_plan_id: int) -> lesson_plans.LessonPlan:
         for plan in self.get_lesson_plans():
             if plan.id == lesson_plan_id:
                 return plan
-        raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+        raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
     def delete_lesson_plan(self, lesson_plan_id: int) -> None:
         data = self._read_database()
@@ -154,7 +154,7 @@ class JSONRepository(lesson_planning.Repository):
         # Verify plan exists
         plan_exists = any(plan["id"] == lesson_plan_id for plan in data["lesson_plans"])
         if not plan_exists:
-            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+            raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
         # Filter out the plan
         data["lesson_plans"] = [
@@ -167,7 +167,7 @@ class JSONRepository(lesson_planning.Repository):
         self,
         *,
         lesson_plan_id: int,
-        section: lesson_planning.LessonPlanSection,
+        section: lesson_plans.LessonPlanSection,
         name: str,
         reps: int,
         notes: str,
@@ -182,7 +182,7 @@ class JSONRepository(lesson_planning.Repository):
                 break
 
         if plan_index is None:
-            raise lesson_planning.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
+            raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
         # Generate sequence ID
         next_id = (
@@ -199,7 +199,7 @@ class JSONRepository(lesson_planning.Repository):
         )
 
         # Create new sequence with empty sets
-        new_sequence = lesson_planning.ExerciseSequence(
+        new_sequence = lesson_plans.ExerciseSequence(
             id=next_id,
             name=name,
             sets=[],
@@ -226,8 +226,8 @@ class JSONRepository(lesson_planning.Repository):
         exercise_id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_planning.MovementVariant,
-        equipment_variant: list[lesson_planning.Equipment],
+        movement_variant: lesson_plans.MovementVariant,
+        equipment_variant: list[lesson_plans.Equipment],
     ) -> int:
         data = self._read_database()
 
@@ -253,7 +253,7 @@ class JSONRepository(lesson_planning.Repository):
                 break
 
         if sequence_index is None:
-            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+            raise lesson_plans.SequenceDoesNotExist(sequence_id=sequence_id)
 
         # Generate set ID
         next_id = (
@@ -271,7 +271,7 @@ class JSONRepository(lesson_planning.Repository):
         )
 
         # Create new set with denormalized exercise data
-        new_set = lesson_planning.ExerciseSet(
+        new_set = lesson_plans.ExerciseSet(
             id=next_id,
             exercise=exercise,
             reps=reps,
@@ -289,15 +289,15 @@ class JSONRepository(lesson_planning.Repository):
 
         return next_id
 
-    def get_exercise_set(self, set_id: int) -> lesson_planning.ExerciseSet:
+    def get_exercise_set(self, set_id: int) -> lesson_plans.ExerciseSet:
         data = self._read_database()
         for plan in data["lesson_plans"]:
             for section_name in ["warm_up", "main_session", "cool_down"]:
                 for sequence in plan[section_name]:
                     for set_item in sequence["sets"]:
                         if set_item["id"] == set_id:
-                            return lesson_planning.ExerciseSet.model_validate(set_item)
-        raise lesson_planning.SetDoesNotExist(set_id=set_id)
+                            return lesson_plans.ExerciseSet.model_validate(set_item)
+        raise lesson_plans.SetDoesNotExist(set_id=set_id)
 
     def update_exercise_set(
         self,
@@ -305,8 +305,8 @@ class JSONRepository(lesson_planning.Repository):
         id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_planning.MovementVariant,
-        equipment_variant: list[lesson_planning.Equipment],
+        movement_variant: lesson_plans.MovementVariant,
+        equipment_variant: list[lesson_plans.Equipment],
     ) -> None:
         data = self._read_database()
 
@@ -333,7 +333,7 @@ class JSONRepository(lesson_planning.Repository):
                 break
 
         if not set_found:
-            raise lesson_planning.SetDoesNotExist(set_id=id)
+            raise lesson_plans.SetDoesNotExist(set_id=id)
 
         self._write_database(data)
 
@@ -358,7 +358,7 @@ class JSONRepository(lesson_planning.Repository):
                 break
 
         if not set_found:
-            raise lesson_planning.SetDoesNotExist(set_id=set_id)
+            raise lesson_plans.SetDoesNotExist(set_id=set_id)
 
         self._write_database(data)
 
@@ -389,7 +389,7 @@ class JSONRepository(lesson_planning.Repository):
                 break
 
         if not sequence_found:
-            raise lesson_planning.SequenceDoesNotExist(sequence_id=id)
+            raise lesson_plans.SequenceDoesNotExist(sequence_id=id)
 
         self._write_database(data)
 
@@ -411,7 +411,7 @@ class JSONRepository(lesson_planning.Repository):
                 break
 
         if not sequence_found:
-            raise lesson_planning.SequenceDoesNotExist(sequence_id=sequence_id)
+            raise lesson_plans.SequenceDoesNotExist(sequence_id=sequence_id)
 
         self._write_database(data)
 
@@ -439,11 +439,11 @@ class JSONRepository(lesson_planning.Repository):
             json.dump(data, f)
 
 
-def _section_to_field_name(section: lesson_planning.LessonPlanSection) -> str:
+def _section_to_field_name(section: lesson_plans.LessonPlanSection) -> str:
     """Convert LessonPlanSection enum to field name."""
     mapping = {
-        lesson_planning.LessonPlanSection.WARM_UP: "warm_up",
-        lesson_planning.LessonPlanSection.MAIN_SESSION: "main_session",
-        lesson_planning.LessonPlanSection.COOL_DOWN: "cool_down",
+        lesson_plans.LessonPlanSection.WARM_UP: "warm_up",
+        lesson_plans.LessonPlanSection.MAIN_SESSION: "main_session",
+        lesson_plans.LessonPlanSection.COOL_DOWN: "cool_down",
     }
     return mapping[section]

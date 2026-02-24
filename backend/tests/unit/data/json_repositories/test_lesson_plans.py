@@ -3,25 +3,23 @@ import pathlib
 
 import pytest
 
-from pilates.data.json_repositories import _lesson_planning
-from pilates.domain import lesson_planning
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from pilates.data.json_repositories import _lesson_plans
+from pilates.domain import lesson_plans
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 class TestCreateExercise:
     def test_creates_exercise_with_given_parameters(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
         lesson_plan_id = repository.create_exercise(
             name="Hundred",
             description="Classic Pilates breathing exercise",
-            category=lesson_planning.ExerciseCategory.BREATH_WORK,
-            difficulty=lesson_planning.Difficulty.BEGINNER,
-            primary_muscle_group=lesson_planning.MuscleGroup.CORE,
-            starting_position=lesson_planning.StartingPosition.SUPINE,
-            movement_variants=[lesson_planning.MovementVariant.STANDARD],
+            category=lesson_plans.ExerciseCategory.BREATH_WORK,
+            difficulty=lesson_plans.Difficulty.BEGINNER,
+            primary_muscle_group=lesson_plans.MuscleGroup.CORE,
+            starting_position=lesson_plans.StartingPosition.SUPINE,
+            movement_variants=[lesson_plans.MovementVariant.STANDARD],
             equipment_variants=[],
         )
 
@@ -30,11 +28,9 @@ class TestCreateExercise:
 
 class TestGetExercises:
     def test_returns_all_created_exercises(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        lesson_planning_helpers.Exercise.create_in_repo(repository, name="Hundred")
-        lesson_planning_helpers.Exercise.create_in_repo(repository, name="Roll Up")
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        lesson_plan_helpers.Exercise.create_in_repo(repository, name="Hundred")
+        lesson_plan_helpers.Exercise.create_in_repo(repository, name="Roll Up")
 
         exercises = repository.get_exercises()
 
@@ -45,10 +41,8 @@ class TestGetExercises:
 
 class TestGetExercise:
     def test_returns_exercise_with_matching_id(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        exercise = lesson_planning_helpers.Exercise.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        exercise = lesson_plan_helpers.Exercise.create_in_repo(
             repository, name="Plank", description="Core stability exercise"
         )
 
@@ -61,11 +55,9 @@ class TestGetExercise:
     def test_raises_exception_when_exercise_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.ExerciseDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.ExerciseDoesNotExist) as exc_info:
             repository.get_exercise(999)
 
         assert exc_info.value.exercise_id == 999
@@ -73,9 +65,7 @@ class TestGetExercise:
 
 class TestCreateLessonPlan:
     def test_returns_lesson_plan_id(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
         lesson_plan_id = repository.create_lesson_plan(
             name="Beginner Flow",
@@ -89,9 +79,7 @@ class TestCreateLessonPlan:
         assert lesson_plan_id == 1
 
     def test_creates_lesson_plan_with_empty_sections(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
         lesson_plan_id = repository.create_lesson_plan(
             name="Beginner Flow",
@@ -110,15 +98,9 @@ class TestCreateLessonPlan:
 
 class TestGetLessonPlans:
     def test_returns_all_created_lesson_plans(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        lesson_planning_helpers.LessonPlan.create_in_repo(
-            repository, name="Beginner Flow"
-        )
-        lesson_planning_helpers.LessonPlan.create_in_repo(
-            repository, name="Advanced Flow"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        lesson_plan_helpers.LessonPlan.create_in_repo(repository, name="Beginner Flow")
+        lesson_plan_helpers.LessonPlan.create_in_repo(repository, name="Advanced Flow")
 
         lesson_plans = repository.get_lesson_plans()
 
@@ -129,10 +111,8 @@ class TestGetLessonPlans:
 
 class TestGetLessonPlan:
     def test_returns_lesson_plan_with_matching_id(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository,
             name="Beginner Flow",
             description="A gentle introduction to Pilates",
@@ -147,11 +127,9 @@ class TestGetLessonPlan:
     def test_raises_exception_when_lesson_plan_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.LessonPlanDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.LessonPlanDoesNotExist) as exc_info:
             repository.get_lesson_plan(999)
 
         assert exc_info.value.lesson_plan_id == 999
@@ -159,13 +137,11 @@ class TestGetLessonPlan:
 
 class TestDeleteLessonPlan:
     def test_deletes_lesson_plan_with_matching_id(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        lesson_plan_1 = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        lesson_plan_1 = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, name="Beginner Flow"
         )
-        lesson_plan_2 = lesson_planning_helpers.LessonPlan.create_in_repo(
+        lesson_plan_2 = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, name="Advanced Flow"
         )
 
@@ -179,11 +155,9 @@ class TestDeleteLessonPlan:
     def test_raises_exception_when_lesson_plan_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.LessonPlanDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.LessonPlanDoesNotExist) as exc_info:
             repository.delete_lesson_plan(999)
 
         assert exc_info.value.lesson_plan_id == 999
@@ -191,16 +165,14 @@ class TestDeleteLessonPlan:
 
 class TestAddSequenceToSection:
     def test_adds_sequence_to_warm_up_section(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[], main_session=[], cool_down=[]
         )
 
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan.id,
-            section=lesson_planning.LessonPlanSection.WARM_UP,
+            section=lesson_plans.LessonPlanSection.WARM_UP,
             name="Breathing Sequence",
             reps=1,
             notes="Focus on deep breaths",
@@ -215,16 +187,14 @@ class TestAddSequenceToSection:
         assert plan.warm_up[0].sets == []
 
     def test_adds_sequence_to_main_session_section(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[], main_session=[], cool_down=[]
         )
 
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan.id,
-            section=lesson_planning.LessonPlanSection.MAIN_SESSION,
+            section=lesson_plans.LessonPlanSection.MAIN_SESSION,
             name="Core Work",
             reps=3,
             notes="Maintain form",
@@ -235,23 +205,21 @@ class TestAddSequenceToSection:
         assert plan.main_session[0].id == sequence_id
 
     def test_adds_multiple_sequences_to_same_section(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[], main_session=[], cool_down=[]
         )
 
         sequence_id_1 = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan.id,
-            section=lesson_planning.LessonPlanSection.WARM_UP,
+            section=lesson_plans.LessonPlanSection.WARM_UP,
             name="First Sequence",
             reps=1,
             notes="Notes 1",
         )
         sequence_id_2 = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan.id,
-            section=lesson_planning.LessonPlanSection.WARM_UP,
+            section=lesson_plans.LessonPlanSection.WARM_UP,
             name="Second Sequence",
             reps=2,
             notes="Notes 2",
@@ -266,14 +234,12 @@ class TestAddSequenceToSection:
     def test_raises_exception_when_lesson_plan_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.LessonPlanDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.LessonPlanDoesNotExist) as exc_info:
             repository.add_sequence_to_section(
                 lesson_plan_id=999,
-                section=lesson_planning.LessonPlanSection.WARM_UP,
+                section=lesson_plans.LessonPlanSection.WARM_UP,
                 name="Test Sequence",
                 reps=1,
                 notes="Test notes",
@@ -284,12 +250,10 @@ class TestAddSequenceToSection:
 
 class TestAddSetToSequence:
     def test_adds_set_to_sequence(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
-        sequence = lesson_planning_helpers.ExerciseSequence(sets=[])
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
+        sequence = lesson_plan_helpers.ExerciseSequence(sets=[])
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence], main_session=[], cool_down=[]
         )
 
@@ -300,7 +264,7 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
-            movement_variant=lesson_planning.MovementVariant.STANDARD,
+            movement_variant=lesson_plans.MovementVariant.STANDARD,
             equipment_variant=[],
         )
 
@@ -312,16 +276,14 @@ class TestAddSetToSequence:
         assert plan.warm_up[0].sets[0].duration_seconds == 30
         assert (
             plan.warm_up[0].sets[0].movement_variant
-            == lesson_planning.MovementVariant.STANDARD
+            == lesson_plans.MovementVariant.STANDARD
         )
 
     def test_adds_multiple_sets_to_same_sequence(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
-        sequence = lesson_planning_helpers.ExerciseSequence(sets=[])
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
+        sequence = lesson_plan_helpers.ExerciseSequence(sets=[])
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
@@ -332,7 +294,7 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
-            movement_variant=lesson_planning.MovementVariant.STANDARD,
+            movement_variant=lesson_plans.MovementVariant.STANDARD,
             equipment_variant=[],
         )
         set_id_2 = repository.add_set_to_sequence(
@@ -340,7 +302,7 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=10,
             duration_seconds=60,
-            movement_variant=lesson_planning.MovementVariant.PULSE,
+            movement_variant=lesson_plans.MovementVariant.PULSE,
             equipment_variant=[],
         )
 
@@ -353,18 +315,16 @@ class TestAddSetToSequence:
     def test_raises_exception_when_sequence_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        exercise = lesson_planning_helpers.Exercise.create_in_repo(repository)
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
 
-        with pytest.raises(lesson_planning.SequenceDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.SequenceDoesNotExist) as exc_info:
             repository.add_set_to_sequence(
                 sequence_id=999,
                 exercise_id=exercise.id,
                 reps=5,
                 duration_seconds=30,
-                movement_variant=lesson_planning.MovementVariant.STANDARD,
+                movement_variant=lesson_plans.MovementVariant.STANDARD,
                 equipment_variant=[],
             )
 
@@ -373,23 +333,21 @@ class TestAddSetToSequence:
     def test_raises_exception_when_exercise_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        sequence = lesson_planning_helpers.ExerciseSequence(sets=[])
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        sequence = lesson_plan_helpers.ExerciseSequence(sets=[])
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
         sequence_id = lesson_plan.warm_up[0].id
 
-        with pytest.raises(lesson_planning.ExerciseDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.ExerciseDoesNotExist) as exc_info:
             repository.add_set_to_sequence(
                 sequence_id=sequence_id,
                 exercise_id=999,
                 reps=5,
                 duration_seconds=30,
-                movement_variant=lesson_planning.MovementVariant.STANDARD,
+                movement_variant=lesson_plans.MovementVariant.STANDARD,
                 equipment_variant=[],
             )
 
@@ -398,12 +356,10 @@ class TestAddSetToSequence:
 
 class TestGetExerciseSet:
     def test_returns_set_with_matching_id(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        exercise_set = lesson_planning_helpers.ExerciseSet(reps=5, duration_seconds=30)
-        sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        exercise_set = lesson_plan_helpers.ExerciseSet(reps=5, duration_seconds=30)
+        sequence = lesson_plan_helpers.ExerciseSequence(sets=[exercise_set])
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
@@ -417,11 +373,9 @@ class TestGetExerciseSet:
         assert result.movement_variant == exercise_set.movement_variant
 
     def test_raises_exception_when_set_does_not_exist(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.SetDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.SetDoesNotExist) as exc_info:
             repository.get_exercise_set(999)
 
         assert exc_info.value.set_id == 999
@@ -429,14 +383,12 @@ class TestGetExerciseSet:
 
 class TestUpdateExerciseSet:
     def test_updates_set_properties(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        exercise_set = lesson_planning_helpers.ExerciseSet(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        exercise_set = lesson_plan_helpers.ExerciseSet(
             reps=5, duration_seconds=30, movement_variant="STANDARD"
         )
-        sequence = lesson_planning_helpers.ExerciseSequence(sets=[exercise_set])
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        sequence = lesson_plan_helpers.ExerciseSequence(sets=[exercise_set])
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
@@ -446,26 +398,24 @@ class TestUpdateExerciseSet:
             id=set_id,
             reps=10,
             duration_seconds=60,
-            movement_variant=lesson_planning.MovementVariant.PULSE,
+            movement_variant=lesson_plans.MovementVariant.PULSE,
             equipment_variant=[],
         )
 
         updated_set = repository.get_exercise_set(set_id)
         assert updated_set.reps == 10
         assert updated_set.duration_seconds == 60
-        assert updated_set.movement_variant == lesson_planning.MovementVariant.PULSE
+        assert updated_set.movement_variant == lesson_plans.MovementVariant.PULSE
 
     def test_raises_exception_when_set_does_not_exist(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.SetDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.SetDoesNotExist) as exc_info:
             repository.update_exercise_set(
                 id=999,
                 reps=10,
                 duration_seconds=60,
-                movement_variant=lesson_planning.MovementVariant.PULSE,
+                movement_variant=lesson_plans.MovementVariant.PULSE,
                 equipment_variant=[],
             )
 
@@ -474,13 +424,11 @@ class TestUpdateExerciseSet:
 
 class TestDeleteExerciseSet:
     def test_deletes_set_from_sequence(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        set_1 = lesson_planning_helpers.ExerciseSet()
-        set_2 = lesson_planning_helpers.ExerciseSet()
-        sequence = lesson_planning_helpers.ExerciseSequence(sets=[set_1, set_2])
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        set_1 = lesson_plan_helpers.ExerciseSet()
+        set_2 = lesson_plan_helpers.ExerciseSet()
+        sequence = lesson_plan_helpers.ExerciseSequence(sets=[set_1, set_2])
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
@@ -494,11 +442,9 @@ class TestDeleteExerciseSet:
         assert plan.warm_up[0].sets[0].id == set_2_id
 
     def test_raises_exception_when_set_does_not_exist(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.SetDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.SetDoesNotExist) as exc_info:
             repository.delete_exercise_set(999)
 
         assert exc_info.value.set_id == 999
@@ -506,13 +452,11 @@ class TestDeleteExerciseSet:
 
 class TestUpdateExerciseSequence:
     def test_updates_sequence_properties(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        sequence = lesson_planning_helpers.ExerciseSequence(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        sequence = lesson_plan_helpers.ExerciseSequence(
             name="Original Name", reps=1, notes="Original notes"
         )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence]
         )
 
@@ -532,15 +476,13 @@ class TestUpdateExerciseSequence:
         assert updated_sequence.notes == "Updated notes"
 
     def test_preserves_sets_when_updating_sequence(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        set_1 = lesson_planning_helpers.ExerciseSet()
-        set_2 = lesson_planning_helpers.ExerciseSet()
-        sequence = lesson_planning_helpers.ExerciseSequence(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        set_1 = lesson_plan_helpers.ExerciseSet()
+        set_2 = lesson_plan_helpers.ExerciseSet()
+        sequence = lesson_plan_helpers.ExerciseSequence(
             name="Original Name", sets=[set_1, set_2]
         )
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, main_session=[sequence]
         )
 
@@ -561,11 +503,9 @@ class TestUpdateExerciseSequence:
     def test_raises_exception_when_sequence_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.SequenceDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.SequenceDoesNotExist) as exc_info:
             repository.update_exercise_sequence(
                 id=999,
                 name="Test Name",
@@ -578,12 +518,10 @@ class TestUpdateExerciseSequence:
 
 class TestDeleteExerciseSequence:
     def test_deletes_sequence_from_section(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        sequence_1 = lesson_planning_helpers.ExerciseSequence()
-        sequence_2 = lesson_planning_helpers.ExerciseSequence()
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        sequence_1 = lesson_plan_helpers.ExerciseSequence()
+        sequence_2 = lesson_plan_helpers.ExerciseSequence()
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, warm_up=[sequence_1, sequence_2]
         )
 
@@ -597,13 +535,11 @@ class TestDeleteExerciseSequence:
         assert plan.warm_up[0].id == sequence_2_id
 
     def test_deletes_sequence_and_cascades_to_sets(self, tmp_path: pathlib.Path):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
-        set_1 = lesson_planning_helpers.ExerciseSet()
-        set_2 = lesson_planning_helpers.ExerciseSet()
-        sequence = lesson_planning_helpers.ExerciseSequence(sets=[set_1, set_2])
-        lesson_plan = lesson_planning_helpers.LessonPlan.create_in_repo(
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
+        set_1 = lesson_plan_helpers.ExerciseSet()
+        set_2 = lesson_plan_helpers.ExerciseSet()
+        sequence = lesson_plan_helpers.ExerciseSequence(sets=[set_1, set_2])
+        lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
             repository, cool_down=[sequence]
         )
 
@@ -616,27 +552,25 @@ class TestDeleteExerciseSequence:
         plan = repository.get_lesson_plan(lesson_plan.id)
         assert len(plan.cool_down) == 0
 
-        with pytest.raises(lesson_planning.SetDoesNotExist):
+        with pytest.raises(lesson_plans.SetDoesNotExist):
             repository.get_exercise_set(set_1_id)
 
-        with pytest.raises(lesson_planning.SetDoesNotExist):
+        with pytest.raises(lesson_plans.SetDoesNotExist):
             repository.get_exercise_set(set_2_id)
 
     def test_raises_exception_when_sequence_does_not_exist(
         self, tmp_path: pathlib.Path
     ):
-        repository = _lesson_planning.JSONRepository(
-            database_file=tmp_path / "test.json"
-        )
+        repository = _lesson_plans.JSONRepository(database_file=tmp_path / "test.json")
 
-        with pytest.raises(lesson_planning.SequenceDoesNotExist) as exc_info:
+        with pytest.raises(lesson_plans.SequenceDoesNotExist) as exc_info:
             repository.delete_exercise_sequence(999)
 
         assert exc_info.value.sequence_id == 999
 
 
 def test_database_isnt_corrupted():
-    repository = _lesson_planning.JSONRepository()
+    repository = _lesson_plans.JSONRepository()
 
     assert repository.get_exercises() is not None
     assert repository.get_lesson_plans() is not None

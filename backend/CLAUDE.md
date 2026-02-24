@@ -60,14 +60,14 @@ The data layer is responsible for persistence logic.
 ### Domain layer
 The domain layer is responsible for modelling business logic.
 - The domain layer is implemented at `./src/pilates/domain/`
-- Each domain is implemented as a subdirectory within `./domain`, for examples `./domain/lesson_planning/`
+- Each domain is implemented as a subdirectory within `./domain`, for examples `./domain/lesson_plans/`
 - Each domain is responsible for:
   - Modelling the concepts of that domain as objects
     - Models are typically implemented using some combination of enums and Pydantic base models
-    - For example, the `lesson_planning` domain includes models like `Exercise` and `LessonPlan`
+    - For example, the `lesson_plans` domain includes models like `Exercise` and `LessonPlan`
   - Defining the interface into that domain for the application layer
     - This interface is defined as a Python API represented by an abstract base class (ABC)
-    - For example, the `lesson_planning` domain includes a `Repository` interface, for retrieving lesson plans
+    - For example, the `lesson_plans` domain includes a `Repository` interface, for retrieving lesson plans
       from the relevant database (but abstracting the implementation details)
     - For example, the `vendors` domain includes a `CompletionClient` interface, for requesting vendor APIs
     - Implementations of the ABC can be implemented either directly in the domain, or in the `data/` layer
@@ -101,7 +101,7 @@ Testing helpers are implemented at `./testing/helpers`
 - The helpers are organised by the domain they help test (but are not restricted to use for tests of domain code)
   - For example, `./helpers/vendors` contains a `FakeCompletiongClient` for testing use cases that call an LLM,
     without actually making a request to a vendor API
-  - For example, `./helpers/lesson_planning` contains factories for creating Pilates lesson plans, without every
+  - For example, `./helpers/lesson_plans` contains factories for creating Pilates lesson plans, without every
     test having to write-out the creation boilerplate
 The "Tests" section provides more detail on how and when to use helpers.
 

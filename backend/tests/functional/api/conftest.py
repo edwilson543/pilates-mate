@@ -6,7 +6,7 @@ from fastapi import testclient
 
 from pilates.data import json_repositories
 from pilates.interfaces.api import app
-from testing.helpers import lesson_planning as lesson_planning_helpers
+from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 @pytest.fixture()
@@ -25,5 +25,5 @@ def repository(
     database_file = tmp_path / "test_database.json"
     repo = json_repositories.JSONRepository(database_file=database_file)
 
-    with lesson_planning_helpers.inject_repository(repo):
+    with lesson_plan_helpers.inject_repository(repo):
         yield repo

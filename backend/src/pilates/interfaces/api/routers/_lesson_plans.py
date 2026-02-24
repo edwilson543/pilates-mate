@@ -5,7 +5,7 @@ import pydantic
 
 from pilates import config
 from pilates.application import generate_lesson_plan
-from pilates.domain import lesson_planning
+from pilates.domain import lesson_plans
 
 
 router = fastapi.APIRouter()
@@ -14,11 +14,11 @@ router = fastapi.APIRouter()
 class CreateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
-    category: lesson_planning.ExerciseCategory
-    difficulty: lesson_planning.Difficulty
-    primary_muscle_group: lesson_planning.MuscleGroup
-    starting_position: lesson_planning.StartingPosition
-    movement_variants: list[lesson_planning.MovementVariant]
+    category: lesson_plans.ExerciseCategory
+    difficulty: lesson_plans.Difficulty
+    primary_muscle_group: lesson_plans.MuscleGroup
+    starting_position: lesson_plans.StartingPosition
+    movement_variants: list[lesson_plans.MovementVariant]
 
 
 class CreateExerciseResponse(pydantic.BaseModel):
@@ -28,11 +28,11 @@ class CreateExerciseResponse(pydantic.BaseModel):
 class UpdateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
-    category: lesson_planning.ExerciseCategory
-    difficulty: lesson_planning.Difficulty
-    primary_muscle_group: lesson_planning.MuscleGroup
-    starting_position: lesson_planning.StartingPosition
-    movement_variants: list[lesson_planning.MovementVariant]
+    category: lesson_plans.ExerciseCategory
+    difficulty: lesson_plans.Difficulty
+    primary_muscle_group: lesson_plans.MuscleGroup
+    starting_position: lesson_plans.StartingPosition
+    movement_variants: list[lesson_plans.MovementVariant]
 
 
 class GenerateLessonPlanRequest(pydantic.BaseModel):
@@ -40,7 +40,7 @@ class GenerateLessonPlanRequest(pydantic.BaseModel):
 
 
 class GenerateLessonPlanResponse(pydantic.BaseModel):
-    lesson_plan: lesson_planning.LessonPlan
+    lesson_plan: lesson_plans.LessonPlan
 
 
 @router.post("/", status_code=201)
@@ -48,7 +48,7 @@ async def generate_lesson_plan_(
     request: typing.Annotated[GenerateLessonPlanRequest, fastapi.Body()],
 ) -> GenerateLessonPlanResponse:
     client = config.get_completion_client()
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     lesson_plan = await generate_lesson_plan.generate_lesson_plan(
         requirements=request.requirements,
         client=client,
@@ -58,26 +58,26 @@ async def generate_lesson_plan_(
 
 
 @router.get("/")
-def get_lesson_plans() -> list[lesson_planning.LessonPlan]:
-    repository = config.get_lesson_planning_repository()
+def get_lesson_plans() -> list[lesson_plans.LessonPlan]:
+    repository = config.get_lesson_plans_repository()
     return repository.get_lesson_plans()
 
 
 @router.get("/{lesson_plan_id}")
-def get_lesson_plan(lesson_plan_id: int) -> lesson_planning.LessonPlan:
-    repository = config.get_lesson_planning_repository()
+def get_lesson_plan(lesson_plan_id: int) -> lesson_plans.LessonPlan:
+    repository = config.get_lesson_plans_repository()
     try:
         return repository.get_lesson_plan(lesson_plan_id)
-    except lesson_planning.LessonPlanDoesNotExist:
+    except lesson_plans.LessonPlanDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")
 
 
 @router.delete("/{lesson_plan_id}", status_code=204)
 def delete_lesson_plan(lesson_plan_id: int) -> None:
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     try:
         repository.delete_lesson_plan(lesson_plan_id)
-    except lesson_planning.LessonPlanDoesNotExist:
+    except lesson_plans.LessonPlanDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")
 
 
@@ -85,8 +85,8 @@ class AddSetToSequenceRequest(pydantic.BaseModel):
     exercise_id: int
     reps: int
     duration_seconds: int
-    movement_variant: lesson_planning.MovementVariant
-    equipment_variant: list[lesson_planning.Equipment]
+    movement_variant: lesson_plans.MovementVariant
+    equipment_variant: list[lesson_plans.Equipment]
 
 
 class AddSetToSequenceResponse(pydantic.BaseModel):
@@ -96,8 +96,8 @@ class AddSetToSequenceResponse(pydantic.BaseModel):
 class UpdateExerciseSetRequest(pydantic.BaseModel):
     reps: int
     duration_seconds: int
-    movement_variant: lesson_planning.MovementVariant
-    equipment_variant: list[lesson_planning.Equipment]
+    movement_variant: lesson_plans.MovementVariant
+    equipment_variant: list[lesson_plans.Equipment]
 
 
 @router.post("/sequences/{sequence_id}/sets", status_code=201)
@@ -105,7 +105,7 @@ def add_set_to_sequence(
     sequence_id: int,
     request: typing.Annotated[AddSetToSequenceRequest, fastapi.Body()],
 ) -> AddSetToSequenceResponse:
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     try:
         set_id = repository.add_set_to_sequence(
             sequence_id=sequence_id,
@@ -116,9 +116,9 @@ def add_set_to_sequence(
             equipment_variant=request.equipment_variant,
         )
         return AddSetToSequenceResponse(id=set_id)
-    except lesson_planning.SequenceDoesNotExist:
+    except lesson_plans.SequenceDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Sequence not found.")
-    except lesson_planning.ExerciseDoesNotExist:
+    except lesson_plans.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
 
 
@@ -128,7 +128,7 @@ def update_exercise_set(
     set_id: int,
     request: typing.Annotated[UpdateExerciseSetRequest, fastapi.Body()],
 ) -> None:
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     try:
         repository.update_exercise_set(
             id=set_id,
@@ -137,7 +137,7 @@ def update_exercise_set(
             movement_variant=request.movement_variant,
             equipment_variant=request.equipment_variant,
         )
-    except lesson_planning.SetDoesNotExist:
+    except lesson_plans.SetDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Set not found.")
 
 
@@ -146,15 +146,15 @@ def delete_exercise_set(
     sequence_id: int,
     set_id: int,
 ) -> None:
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     try:
         repository.delete_exercise_set(set_id)
-    except lesson_planning.SetDoesNotExist:
+    except lesson_plans.SetDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Set not found.")
 
 
 class AddSequenceToSectionRequest(pydantic.BaseModel):
-    section: lesson_planning.LessonPlanSection
+    section: lesson_plans.LessonPlanSection
     name: str = pydantic.Field(min_length=1, max_length=200)
     reps: int = pydantic.Field(ge=1)
     notes: str = pydantic.Field(max_length=1000)
@@ -175,7 +175,7 @@ def add_sequence_to_section(
     lesson_plan_id: int,
     request: typing.Annotated[AddSequenceToSectionRequest, fastapi.Body()],
 ) -> AddSequenceToSectionResponse:
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     try:
         sequence_id = repository.add_sequence_to_section(
             lesson_plan_id=lesson_plan_id,
@@ -185,7 +185,7 @@ def add_sequence_to_section(
             notes=request.notes,
         )
         return AddSequenceToSectionResponse(id=sequence_id)
-    except lesson_planning.LessonPlanDoesNotExist:
+    except lesson_plans.LessonPlanDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")
 
 
@@ -194,7 +194,7 @@ def update_exercise_sequence(
     sequence_id: int,
     request: typing.Annotated[UpdateExerciseSequenceRequest, fastapi.Body()],
 ) -> None:
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     try:
         repository.update_exercise_sequence(
             id=sequence_id,
@@ -202,14 +202,14 @@ def update_exercise_sequence(
             reps=request.reps,
             notes=request.notes,
         )
-    except lesson_planning.SequenceDoesNotExist:
+    except lesson_plans.SequenceDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Sequence not found.")
 
 
 @router.delete("/sequences/{sequence_id}", status_code=204)
 def delete_exercise_sequence(sequence_id: int) -> None:
-    repository = config.get_lesson_planning_repository()
+    repository = config.get_lesson_plans_repository()
     try:
         repository.delete_exercise_sequence(sequence_id)
-    except lesson_planning.SequenceDoesNotExist:
+    except lesson_plans.SequenceDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Sequence not found.")

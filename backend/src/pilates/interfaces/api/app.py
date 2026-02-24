@@ -17,5 +17,5 @@ app.add_middleware(
 
 app.include_router(routers.exercises_router, prefix="/exercises", tags=["exercises"])
 app.include_router(
-    routers.lesson_planning_router, prefix="/lesson-plans", tags=["lesson-plans"]
+    routers.lesson_plans_router, prefix="/lesson-plans", tags=["lesson-plans"]
 )
