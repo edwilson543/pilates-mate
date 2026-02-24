@@ -111,27 +111,42 @@ Run the tests using `make test`.
 
 ### Test categorisation
 Tests are split into the following categories:
-- Unit tests (`tests/unit/`)
-  - Purpose: for testing small pieces of functionality in isolation
-  - Unit tests should be grouped in to test classes, with the test class named after the function under test
-    - For example the test class for `def do_something` should be called `TestDoSomething`
-  - Each unit test should test one specific scenario only
-  - Each test method name should finish a sentence started by the test classes' name
+- Unit tests, for testing small pieces of functionality in isolation (`tests/unit/`)
+- Functional tests, for testing interfaces into the code, such as FastAPI endpoints (`tests/functional/`)
+
+### Unit tests
+- Unit tests must live in a module in `tests/unit` mirroring the application module
+  - For example, tests for: `./src/pilates/application/generate_lesson_plan.py`
+  - Must be implemented in: `./tests/unit/application/test_generate_lesson_plan.py`
+- Group tests for each function/method into test classes, named after the function under test
+  - For example the test class for `def do_something` should be called `TestDoSomething`
+- Each test should be implemented as a method on the test class, and cover one specific scenario only
+  - Test method names should finish a sentence started by the test classes' name
     - For example the test for the scenario "do_something" errors when invalid inputs are given
-    - Should be called `def test_errors_when_invalid_inputs_are_given`
-  - Each unit test method should be split into three sections:
-    - Setup
-    - Execution
-    - Assertions
-  - Use blank lines to separate the sections of the test, not comments
-- Functional tests (`tests/functional/`)
-  - Purpose: for testing interfaces into the code, such as FastAPI endpoints
-  - Functional tests should use the `api_client` fixture to make requests to the test FastAPI app
-  - Functional tests should use the `repository` fixture to set up and inspect state, rather than
+    - The method should be called be called `def test_errors_when_invalid_inputs_are_given`
+- Unit tests should be split into three sections:
+  - Setup: instantiation of any objects (perhaps using factories), to pass as kwargs to the code under test
+  - Execution: call the function/method we are testing
+  - Assertions: make final assertions on the return value / exception raised by the application code
+- Use blank lines to separate the sections of the test, not comments. Somtimes, it's also useful to
+  add blank lines between sections of the setup / assertions. It depends on the length of the test -
+  the main objective is that the test is easy to read
+
+### Functional tests
+- Functional tests must live in a module named after the API router being tested
+  - For example, tests for the `create_lesson_plan` API route live in `test_create_lesson_plan`
+- Functional tests should be implemented as functions (note, not test classes)
+  - Each test function name should finish a sentence started by the module name
+  - For example, `test_creates_then_gets_lesson_plan`
+- Functional tests should invoke one (or more, if necessary) API router
+  - Using the `api_client` fixture to make HTTP requests
+  - Using the `repository` fixture plus testing helper factories to set up and inspect state, rather than
     interacting with application or domain code directly
-  - Functional tests should also be split into (setup / execution / assertion) blocks, however each
-    functional test can have multiple series of blocks
-  - Functional tests should be implemented as ordinary functions
+- Functional tests should not cover every scenario, typically one test for each status code, for example:
+  - One test for the happy path (e.g. object created successfully, 201)
+  - One test for an application error (e.g. invalid creationg parameters, 400)
+- Functional tests should also be split into (setup / execution / assertion) blocks, however each
+  functional test can have multiple series of such blocks
 
 ### Test factories
 Use test factories to generate fake data during test setup.
