@@ -37,7 +37,7 @@ class UpdateExerciseRequest(pydantic.BaseModel):
 
 
 @router.post("/", status_code=201)
-def create_exercise(
+async def create_exercise(
     request: typing.Annotated[CreateExerciseRequest, fastapi.Body()],
 ) -> CreateExerciseResponse:
     repository = config.get_lesson_plans_repository()
@@ -55,13 +55,13 @@ def create_exercise(
 
 
 @router.get("/")
-def get_exercises() -> list[lesson_plans.Exercise]:
+async def get_exercises() -> list[lesson_plans.Exercise]:
     repository = config.get_lesson_plans_repository()
     return repository.get_exercises()
 
 
 @router.get("/{exercise_id}")
-def get_exercise(exercise_id: int) -> lesson_plans.Exercise:
+async def get_exercise(exercise_id: int) -> lesson_plans.Exercise:
     repository = config.get_lesson_plans_repository()
     try:
         return repository.get_exercise(exercise_id)
@@ -70,7 +70,7 @@ def get_exercise(exercise_id: int) -> lesson_plans.Exercise:
 
 
 @router.put("/{exercise_id}", status_code=204)
-def update_exercise(
+async def update_exercise(
     exercise_id: int,
     request: typing.Annotated[UpdateExerciseRequest, fastapi.Body()],
 ) -> None:

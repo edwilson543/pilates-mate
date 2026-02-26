@@ -7,7 +7,7 @@ The project is split into three main packages:
 - Tests for the source code, implemented in `./tests/`
 - Testing helpers, implemented in `./testing/`
 
-`import-linter` is used to prevent:
+`import-linter` is used to enforce the project structure (configured in `pyproject.toml`):
 - The source code importing from the testing helpers or from tests
 - The testing helpers importing from tests
 
@@ -24,9 +24,12 @@ The backend follows a strict layered architecture.
 ### Interfaces layer
 The interfaces layer contains the entrypoints into the code.
 - The interfaces layer is implemented at `./src/pilates/interfaces/`
-- For now, the only interface is a FastAPI application, implemented at `./interfaces/api/` 
+- For now, the only interface is a FastAPI application, implemented at `./interfaces/api/`
 - Dependencies in the interfaces layer must be instantiated by calling into the config layer
 - The interfaces layer must never instantiate dependencies directly from the domain or data layers
+
+#### FastAPI conventions
+- All routers must be `async`
 
 ### Config layer
 The config layer is responsible for instantiating the correct implementations of ABCs declared in the domain.
@@ -75,23 +78,47 @@ The domain layer is responsible for modelling business logic.
 
 ### Other notes on the source code
 
-#### Async everywhere
-All application code is async. Use `async def` and `await` throughout.
-- `application/generate_plan.py` is async
-- `CompletionClient.get_completion()` is async
-- FastAPI routes that use these are async
-- Tests use `@pytest.mark.asyncio`
+#### Python package structure
+Python packages in the source code should either:
+- Only contain public children
+  - That is, only contain modules and subpackages without a leading underscore in their name
+  - Packages with public children are NOT allowed to have imports into their `__init__.py`. This is because
+    it creates multiple public import paths to the same object
+- Only contain private children, with their public objects imported into the package's `__init__.py`
+  - That is, only contain modules and subpackages with a leading underscore, e.g. `some_domain/_models.py`
+  - And then any public objects implemented in `_models.py` can be exposed via `__init__.py` 
 
-#### Private module naming
 Modules prefixed with a private underscore cannot be imported, except:
-- By the packages `__init__.py` module (to expose objects publicly)
-- By neighbouring packages (to make use of the module's contents)
-- By the test module for that module
+- By its parent package's `__init__.py` module (to expose objects publicly)
+- By neighbouring private children in the same package (to make use of the module's contents)
+- By the test module for that private module
  
 Other notes:
 - Default to the minimum level of public visibility
-- Always import modules, not objects
 - Use the same private underscore naming convention for functions and classes
+
+#### Import patterns
+- Always import modules, not objects
+  - For example: `from pilates.domain import lesson_plans`
+- Use aliases to delineate similar imports
+  - And always use the same alias for a particular import
+  - For example:
+```python
+from pilates.domain import lesson_plans
+from testing.helpers import lesson_plans as lesson_plan_helpers
+```
+
+#### Keyword-only arguments
+- All public functions and methods should use `*` to enforce keyword-only arguments
+- Private functions are allowed to use positional arguments - for example helpers within
+  modules or private methods on classes
+
+#### Exception classes
+- For errors raised from the application and domain layer, define custom exception classes 
+  rather than raising builtin or third-party exceptions
+- Exception classes should be decorated with `@attrs.frozen`
+- Metadata should be attached to the exception class as field on the `attrs` class
+
 
 ## Testing helpers
 Testing helpers are implemented at `./testing/helpers`
@@ -141,7 +168,8 @@ Tests are split into the following categories:
 - Functional tests should invoke one (or more, if necessary) API router
   - Using the `api_client` fixture to make HTTP requests
   - Using the `repository` fixture plus testing helper factories to set up and inspect state, rather than
-    interacting with application or domain code directly
+    interacting with application or domain code directly. If the test does not need to set up or inspect
+    the database state, then using the `repository` fixture is unnecessary
 - Functional tests should not cover every scenario, typically one test for each status code, for example:
   - One test for the happy path (e.g. object created successfully, 201)
   - One test for an application error (e.g. invalid creationg parameters, 400)
@@ -171,11 +199,13 @@ Use fake implementations to avoid interacting with external services.
 - Fake implementations should be used differently, depending on the test category:
   - In unit tests, fakes should be instantiated and injected into the code directly
   - In functional tests, fakes should be instantiated directly, but since we don't call the code under
-    test directly, must be installed via their `install` method which is a context manager
-    - `with fake_completion_client.install(): ...`
+    test directly, must be installed via their `inject` method which is a context manager
+    - `with fake_completion_client.inject(): ...`
   - The `repository` fixture used in functional tests is backed by the real repository implementation,
     so no fake repository is needed or should be used in functional tests
 
+### Other notes on tests
+- Tests for async code should use the `@pytest.mark.asyncio` pytest marker
 
 # Linting
 After each commit, all linting checks should pass. 

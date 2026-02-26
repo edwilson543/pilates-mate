@@ -58,13 +58,13 @@ async def generate_lesson_plan_(
 
 
 @router.get("/")
-def get_lesson_plans() -> list[lesson_plans.LessonPlan]:
+async def get_lesson_plans() -> list[lesson_plans.LessonPlan]:
     repository = config.get_lesson_plans_repository()
     return repository.get_lesson_plans()
 
 
 @router.get("/{lesson_plan_id}")
-def get_lesson_plan(lesson_plan_id: int) -> lesson_plans.LessonPlan:
+async def get_lesson_plan(lesson_plan_id: int) -> lesson_plans.LessonPlan:
     repository = config.get_lesson_plans_repository()
     try:
         return repository.get_lesson_plan(lesson_plan_id)
@@ -73,7 +73,7 @@ def get_lesson_plan(lesson_plan_id: int) -> lesson_plans.LessonPlan:
 
 
 @router.delete("/{lesson_plan_id}", status_code=204)
-def delete_lesson_plan(lesson_plan_id: int) -> None:
+async def delete_lesson_plan(lesson_plan_id: int) -> None:
     repository = config.get_lesson_plans_repository()
     try:
         repository.delete_lesson_plan(lesson_plan_id)
@@ -101,7 +101,7 @@ class UpdateExerciseSetRequest(pydantic.BaseModel):
 
 
 @router.post("/sequences/{sequence_id}/sets", status_code=201)
-def add_set_to_sequence(
+async def add_set_to_sequence(
     sequence_id: int,
     request: typing.Annotated[AddSetToSequenceRequest, fastapi.Body()],
 ) -> AddSetToSequenceResponse:
@@ -123,7 +123,7 @@ def add_set_to_sequence(
 
 
 @router.put("/sequences/{sequence_id}/sets/{set_id}", status_code=204)
-def update_exercise_set(
+async def update_exercise_set(
     sequence_id: int,
     set_id: int,
     request: typing.Annotated[UpdateExerciseSetRequest, fastapi.Body()],
@@ -142,7 +142,7 @@ def update_exercise_set(
 
 
 @router.delete("/sequences/{sequence_id}/sets/{set_id}", status_code=204)
-def delete_exercise_set(
+async def delete_exercise_set(
     sequence_id: int,
     set_id: int,
 ) -> None:
@@ -171,7 +171,7 @@ class UpdateExerciseSequenceRequest(pydantic.BaseModel):
 
 
 @router.post("/{lesson_plan_id}/sequences", status_code=201)
-def add_sequence_to_section(
+async def add_sequence_to_section(
     lesson_plan_id: int,
     request: typing.Annotated[AddSequenceToSectionRequest, fastapi.Body()],
 ) -> AddSequenceToSectionResponse:
@@ -190,7 +190,7 @@ def add_sequence_to_section(
 
 
 @router.put("/sequences/{sequence_id}", status_code=204)
-def update_exercise_sequence(
+async def update_exercise_sequence(
     sequence_id: int,
     request: typing.Annotated[UpdateExerciseSequenceRequest, fastapi.Body()],
 ) -> None:
@@ -207,7 +207,7 @@ def update_exercise_sequence(
 
 
 @router.delete("/sequences/{sequence_id}", status_code=204)
-def delete_exercise_sequence(sequence_id: int) -> None:
+async def delete_exercise_sequence(sequence_id: int) -> None:
     repository = config.get_lesson_plans_repository()
     try:
         repository.delete_exercise_sequence(sequence_id)

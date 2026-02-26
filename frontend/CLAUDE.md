@@ -106,13 +106,17 @@ Use `sonner` for user feedback in mutation hooks:
 - Toaster configured in root layout
 
 # Design
-
 The frontend uses:
 
 - Tailwinds CSS for custom styling
   - Prefer to use existing tailwinds classes over custom styling
 - Shadcn component library
   - Prefer to use existing shadcn components over custom components
+
+# Copy
+Use sentence case for all copy - only the first word and proper nouns should be capitalised. For example:
+- Create exercise, not Create Exercise
+- Generate lesson plan, not Generate Lesson Plan
 
 # Backend integration
 
