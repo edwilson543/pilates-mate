@@ -53,6 +53,22 @@ Forms use react-hook-form + zod validation:
 See `app/exercises/new/page.tsx:1` for complete example.
 See `lib/schemas/exercise-schema.ts:1` for Zod schema example.
 
+### When to extract form components
+
+Forms should be extracted to separate components when:
+
+- Used by multiple pages (e.g., `ExerciseForm` used by both `new/page.tsx` and `[id]/edit/page.tsx`)
+- Complex and exceeding ~150 lines
+- The form logic can be meaningfully reused
+
+Forms may remain inline when:
+
+- Used by a single page with no reuse planned
+- Relatively simple (under ~100 lines)
+- Tightly coupled to specific page state
+
+Extracted forms should live alongside their route (e.g., `app/exercises/exercise-form.tsx`), not in `components/common/` unless truly shared across multiple routes.
+
 ## Query hooks
 
 Query hooks abstract API calls for components:
@@ -105,18 +121,21 @@ Use `sonner` for user feedback in mutation hooks:
 - `toast.error("Failed to create exercise")`
 - Toaster configured in root layout
 
+# Copy
+
+Use sentence case for all copy - only the first word and proper nouns should be capitalised. For example:
+
+- Create exercise, not Create Exercise
+- Generate lesson plan, not Generate Lesson Plan
+
 # Design
+
 The frontend uses:
 
 - Tailwinds CSS for custom styling
   - Prefer to use existing tailwinds classes over custom styling
 - Shadcn component library
   - Prefer to use existing shadcn components over custom components
-
-# Copy
-Use sentence case for all copy - only the first word and proper nouns should be capitalised. For example:
-- Create exercise, not Create Exercise
-- Generate lesson plan, not Generate Lesson Plan
 
 # Backend integration
 
