@@ -74,6 +74,16 @@ layers = [
 ]
 exhaustive = true
 
+[[tool.importlinter.contracts]]
+name = "Domain layers"
+type = "layers"
+containers = "pilates.domain"
+layers = [
+    "lesson_plans",
+    "templates | vendors",
+]
+exhaustive = true
+
 [tool.ruff]
 
 line-length = 88
