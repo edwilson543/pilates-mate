@@ -18,7 +18,7 @@ def test_update_exercise_sequence_to_new_values(api_client, unit_of_work):
 
     assert response.status_code == 204
 
-    updated_sequence = unit_of_work.get_lesson_plan(1).main_session[0]
+    updated_sequence = unit_of_work.lesson_plans.get_lesson_plan(1).main_session[0]
     assert updated_sequence.name == "Updated Name"
     assert updated_sequence.reps == 3
     assert updated_sequence.notes == "Updated notes"

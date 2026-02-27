@@ -62,21 +62,21 @@ The data layer is responsible for persistence logic.
   - Implementations of the abstract repositories defined in the domain layer
   - Connection logic to local persistence technologies (for now, this is just a JSON file)
 - The unit of work pattern coordinates persistence operations across multiple repositories
-  - The `UnitOfWork` provides access to all repositories via attributes (e.g., `uow.lesson_plans`)
+  - The `UnitOfWork` provides access to all repositories via attributes (e.g., `uow.exercises`, `uow.lesson_plans`)
   - The `UnitOfWork` provides a `transaction()` async context manager for managing transactional boundaries
   - All persistence operations should go through the unit of work rather than instantiating repositories directly
 
 ### Domain layer
 The domain layer is responsible for modelling business logic.
 - The domain layer is implemented at `./src/pilates/domain/`
-- Each domain is implemented as a subdirectory within `./domain`, for examples `./domain/lesson_plans/`
+- Each domain is implemented as a subdirectory within `./domain`, for examples `./domain/exercises/` and `./domain/lesson_plans/`
 - Each domain is responsible for:
   - Modelling the concepts of that domain as objects
     - Models are typically implemented using some combination of enums and Pydantic base models
-    - For example, the `lesson_plans` domain includes models like `Exercise` and `LessonPlan`
+    - For example, the `exercises` domain includes the `Exercise` model `Equipment` enum
   - Defining the interface into that domain for the application layer
     - This interface is defined as a Python API represented by an abstract base class (ABC)
-    - For example, the `lesson_plans` domain includes a `Repository` interface, for retrieving lesson plans
+    - For example, the `lesson_plans` domain includes a `Repository` interface for retrieving lesson plans
       from the relevant database (but abstracting the implementation details)
     - For example, the `vendors` domain includes a `CompletionClient` interface, for requesting vendor APIs
     - Implementations of the ABC can be implemented either directly in the domain, or in the `data/` layer

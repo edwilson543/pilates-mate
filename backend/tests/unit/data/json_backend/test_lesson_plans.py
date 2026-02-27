@@ -2,61 +2,10 @@ import datetime as dt
 
 import pytest
 
-from pilates import config
 from pilates.data.json_backend import _unit_of_work
-from pilates.domain import lesson_plans
+from pilates.domain import exercises, lesson_plans
+from testing.helpers import exercises as exercise_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
-
-
-class TestCreateExercise:
-    def test_creates_exercise_with_given_parameters(
-        self, uow: _unit_of_work.JSONUnitOfWork
-    ):
-        lesson_plan_id = uow.lesson_plans.create_exercise(
-            name="Hundred",
-            description="Classic Pilates breathing exercise",
-            category=lesson_plans.ExerciseCategory.BREATH_WORK,
-            difficulty=lesson_plans.Difficulty.BEGINNER,
-            primary_muscle_group=lesson_plans.MuscleGroup.CORE,
-            starting_position=lesson_plans.StartingPosition.SUPINE,
-            movement_variants=[lesson_plans.MovementVariant.STANDARD],
-            equipment_variants=[],
-        )
-
-        assert lesson_plan_id == 1
-
-
-class TestGetExercises:
-    def test_returns_all_created_exercises(self, uow: _unit_of_work.JSONUnitOfWork):
-        lesson_plan_helpers.Exercise.insert(uow, name="Hundred")
-        lesson_plan_helpers.Exercise.insert(uow, name="Roll Up")
-
-        exercises = uow.lesson_plans.get_exercises()
-
-        assert len(exercises) == 2
-        assert exercises[0].name == "Hundred"
-        assert exercises[1].name == "Roll Up"
-
-
-class TestGetExercise:
-    def test_returns_exercise_with_matching_id(self, uow: _unit_of_work.JSONUnitOfWork):
-        exercise = lesson_plan_helpers.Exercise.insert(
-            uow, name="Plank", description="Core stability exercise"
-        )
-
-        result = uow.lesson_plans.get_exercise(exercise.id)
-
-        assert result.id == exercise.id
-        assert result.name == "Plank"
-        assert result.description == "Core stability exercise"
-
-    def test_raises_exception_when_exercise_does_not_exist(
-        self, uow: _unit_of_work.JSONUnitOfWork
-    ):
-        with pytest.raises(lesson_plans.ExerciseDoesNotExist) as exc_info:
-            uow.lesson_plans.get_exercise(999)
-
-        assert exc_info.value.exercise_id == 999
 
 
 class TestCreateLessonPlan:
@@ -236,7 +185,7 @@ class TestAddSequenceToSection:
 
 class TestAddSetToSequence:
     def test_adds_set_to_sequence(self, uow: _unit_of_work.JSONUnitOfWork):
-        exercise = lesson_plan_helpers.Exercise.insert(uow)
+        exercise = exercise_helpers.Exercise.insert(uow)
         sequence = lesson_plan_helpers.ExerciseSequence(sets=[])
         lesson_plan = lesson_plan_helpers.LessonPlan.insert(
             uow, warm_up=[sequence], main_session=[], cool_down=[]
@@ -249,25 +198,25 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
-            movement_variant=lesson_plans.MovementVariant.STANDARD,
+            movement_variant=exercises.MovementVariant.STANDARD,
             equipment_variant=[],
         )
 
         plan = uow.lesson_plans.get_lesson_plan(lesson_plan.id)
         assert len(plan.warm_up[0].sets) == 1
         assert plan.warm_up[0].sets[0].id == set_id
-        assert plan.warm_up[0].sets[0].exercise.id == exercise.id
+        assert plan.warm_up[0].sets[0].exercise_id == exercise.id
         assert plan.warm_up[0].sets[0].reps == 5
         assert plan.warm_up[0].sets[0].duration_seconds == 30
         assert (
             plan.warm_up[0].sets[0].movement_variant
-            == lesson_plans.MovementVariant.STANDARD
+            == exercises.MovementVariant.STANDARD
         )
 
     def test_adds_multiple_sets_to_same_sequence(
         self, uow: _unit_of_work.JSONUnitOfWork
     ):
-        exercise = lesson_plan_helpers.Exercise.insert(uow)
+        exercise = exercise_helpers.Exercise.insert(uow)
         sequence = lesson_plan_helpers.ExerciseSequence(sets=[])
         lesson_plan = lesson_plan_helpers.LessonPlan.insert(uow, warm_up=[sequence])
 
@@ -278,7 +227,7 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=5,
             duration_seconds=30,
-            movement_variant=lesson_plans.MovementVariant.STANDARD,
+            movement_variant=exercises.MovementVariant.STANDARD,
             equipment_variant=[],
         )
         set_id_2 = uow.lesson_plans.add_set_to_sequence(
@@ -286,7 +235,7 @@ class TestAddSetToSequence:
             exercise_id=exercise.id,
             reps=10,
             duration_seconds=60,
-            movement_variant=lesson_plans.MovementVariant.PULSE,
+            movement_variant=exercises.MovementVariant.PULSE,
             equipment_variant=[],
         )
 
@@ -299,7 +248,7 @@ class TestAddSetToSequence:
     def test_raises_exception_when_sequence_does_not_exist(
         self, uow: _unit_of_work.JSONUnitOfWork
     ):
-        exercise = lesson_plan_helpers.Exercise.insert(uow)
+        exercise = exercise_helpers.Exercise.insert(uow)
 
         with pytest.raises(lesson_plans.SequenceDoesNotExist) as exc_info:
             uow.lesson_plans.add_set_to_sequence(
@@ -307,7 +256,7 @@ class TestAddSetToSequence:
                 exercise_id=exercise.id,
                 reps=5,
                 duration_seconds=30,
-                movement_variant=lesson_plans.MovementVariant.STANDARD,
+                movement_variant=exercises.MovementVariant.STANDARD,
                 equipment_variant=[],
             )
 
@@ -321,13 +270,13 @@ class TestAddSetToSequence:
 
         sequence_id = lesson_plan.warm_up[0].id
 
-        with pytest.raises(lesson_plans.ExerciseDoesNotExist) as exc_info:
+        with pytest.raises(exercises.ExerciseDoesNotExist) as exc_info:
             uow.lesson_plans.add_set_to_sequence(
                 sequence_id=sequence_id,
                 exercise_id=999,
                 reps=5,
                 duration_seconds=30,
-                movement_variant=lesson_plans.MovementVariant.STANDARD,
+                movement_variant=exercises.MovementVariant.STANDARD,
                 equipment_variant=[],
             )
 
@@ -372,14 +321,14 @@ class TestUpdateExerciseSet:
             id=set_id,
             reps=10,
             duration_seconds=60,
-            movement_variant=lesson_plans.MovementVariant.PULSE,
+            movement_variant=exercises.MovementVariant.PULSE,
             equipment_variant=[],
         )
 
         updated_set = uow.lesson_plans.get_exercise_set(set_id)
         assert updated_set.reps == 10
         assert updated_set.duration_seconds == 60
-        assert updated_set.movement_variant == lesson_plans.MovementVariant.PULSE
+        assert updated_set.movement_variant == exercises.MovementVariant.PULSE
 
     def test_raises_exception_when_set_does_not_exist(
         self, uow: _unit_of_work.JSONUnitOfWork
@@ -389,7 +338,7 @@ class TestUpdateExerciseSet:
                 id=999,
                 reps=10,
                 duration_seconds=60,
-                movement_variant=lesson_plans.MovementVariant.PULSE,
+                movement_variant=exercises.MovementVariant.PULSE,
                 equipment_variant=[],
             )
 
@@ -530,10 +479,3 @@ class TestDeleteExerciseSequence:
             uow.lesson_plans.delete_exercise_sequence(999)
 
         assert exc_info.value.sequence_id == 999
-
-
-def test_database_isnt_corrupted():
-    real_unit_of_work = config.get_unit_of_work()
-
-    assert real_unit_of_work.lesson_plans.get_exercises() is not None
-    assert real_unit_of_work.lesson_plans.get_lesson_plans() is not None

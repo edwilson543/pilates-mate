@@ -2,12 +2,12 @@ import datetime as dt
 
 import attrs
 
-from pilates.domain import lesson_plans
+from pilates.domain import exercises, lesson_plans
 
 
 @attrs.frozen
 class FakeRepository(lesson_plans.Repository):
-    _exercises: list[lesson_plans.Exercise] = attrs.field(factory=list)
+    _exercises: list[exercises.Exercise] = attrs.field(factory=list)
     _lesson_plans: list[lesson_plans.LessonPlan] = attrs.field(factory=list)
 
     _next_sequence_id: int = attrs.field(init=False)
@@ -32,104 +32,6 @@ class FakeRepository(lesson_plans.Repository):
                         if exercise_set.id > max_set_id:
                             max_set_id = exercise_set.id
         object.__setattr__(self, "_next_set_id", max_set_id + 1)
-
-    def create_exercise(
-        self,
-        *,
-        name: str,
-        description: str,
-        category: lesson_plans.ExerciseCategory,
-        difficulty: lesson_plans.Difficulty,
-        primary_muscle_group: lesson_plans.MuscleGroup,
-        starting_position: lesson_plans.StartingPosition,
-        movement_variants: list[lesson_plans.MovementVariant],
-        equipment_variants: list[lesson_plans.Equipment],
-    ) -> int:
-        next_id = len(self._exercises) + 1
-
-        new_exercise = lesson_plans.Exercise(
-            id=next_id,
-            name=name,
-            description=description,
-            category=category,
-            difficulty=difficulty,
-            primary_muscle_group=primary_muscle_group,
-            starting_position=starting_position,
-            movement_variants=movement_variants,
-            equipment_variants=equipment_variants,
-        )
-        self._exercises.append(new_exercise)
-
-        return next_id
-
-    def get_exercises(self) -> list[lesson_plans.Exercise]:
-        return self._exercises.copy()
-
-    def get_exercise(self, exercise_id: int) -> lesson_plans.Exercise:
-        for exercise in self._exercises:
-            if exercise.id == exercise_id:
-                return exercise
-        raise lesson_plans.ExerciseDoesNotExist(exercise_id=exercise_id)
-
-    def update_exercise(
-        self,
-        *,
-        id: int,
-        name: str,
-        category: lesson_plans.ExerciseCategory,
-        description: str,
-        difficulty: lesson_plans.Difficulty,
-        primary_muscle_group: lesson_plans.MuscleGroup,
-        starting_position: lesson_plans.StartingPosition,
-        movement_variants: list[lesson_plans.MovementVariant],
-        equipment_variants: list[lesson_plans.Equipment],
-    ) -> None:
-        def _update(exercise_: lesson_plans.Exercise) -> None:
-            exercise_.name = name
-            exercise_.description = description
-            exercise_.category = category
-            exercise_.difficulty = difficulty
-            exercise_.primary_muscle_group = primary_muscle_group
-            exercise_.starting_position = starting_position
-            exercise_.movement_variants = movement_variants
-            exercise_.equipment_variants = equipment_variants
-
-        for exercise in self._exercises:
-            if exercise.id == id:
-                _update(exercise)
-                # Since exercises are denormalized on lesson plans, we need to propagate changes.
-                for lesson_plan in self._lesson_plans:
-                    for lp_exercise in lesson_plan.exercises:
-                        if lp_exercise.id == id:
-                            _update(lp_exercise)
-
-                return None
-
-        raise lesson_plans.ExerciseDoesNotExist(exercise_id=id)
-
-    def _update_sequences(
-        self,
-        sequences: list[lesson_plans.ExerciseSequence],
-        exercise_id: int,
-        updated_exercise: lesson_plans.Exercise,
-    ) -> list[lesson_plans.ExerciseSequence]:
-        """Update exercise references in a list of sequences."""
-        updated_sequences = []
-        for sequence in sequences:
-            updated_sets = []
-            for exercise_set in sequence.sets:
-                if exercise_set.exercise.id == exercise_id:
-                    updated_set = exercise_set.model_copy(
-                        update={"exercise": updated_exercise}
-                    )
-                    updated_sets.append(updated_set)
-                else:
-                    updated_sets.append(exercise_set)
-
-            updated_sequence = sequence.model_copy(update={"sets": updated_sets})
-            updated_sequences.append(updated_sequence)
-
-        return updated_sequences
 
     def create_lesson_plan(
         self,
@@ -230,12 +132,9 @@ class FakeRepository(lesson_plans.Repository):
         exercise_id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_plans.MovementVariant,
-        equipment_variant: list[lesson_plans.Equipment],
+        movement_variant: exercises.MovementVariant,
+        equipment_variant: list[exercises.Equipment],
     ) -> int:
-        # Look up exercise
-        exercise = self.get_exercise(exercise_id)
-
         # Find sequence across all lesson plans
         plan_index = None
         section_name = None
@@ -269,7 +168,7 @@ class FakeRepository(lesson_plans.Repository):
         # Create new set with denormalized exercise data
         new_set = lesson_plans.ExerciseSet(
             id=set_id,
-            exercise=exercise,
+            exercise_id=exercise_id,
             reps=reps,
             duration_seconds=duration_seconds,
             movement_variant=movement_variant,
@@ -313,8 +212,8 @@ class FakeRepository(lesson_plans.Repository):
         id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_plans.MovementVariant,
-        equipment_variant: list[lesson_plans.Equipment],
+        movement_variant: exercises.MovementVariant,
+        equipment_variant: list[exercises.Equipment],
     ) -> None:
         # Find set location (plan_index, section_name, sequence_index, set_index)
         plan_index = None

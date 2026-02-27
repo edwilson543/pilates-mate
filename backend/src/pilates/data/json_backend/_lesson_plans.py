@@ -1,110 +1,17 @@
 import datetime as dt
-import json
 import pathlib
+import typing
 
 import attrs
 
-from pilates.domain import lesson_plans
+from pilates.domain import exercises, lesson_plans
+
+from . import _mixins
 
 
 @attrs.frozen
-class JSONRepository(lesson_plans.Repository):
+class JSONRepository(lesson_plans.Repository, _mixins.JSONRepositoryMixin):
     database_file: pathlib.Path
-
-    def create_exercise(
-        self,
-        *,
-        name: str,
-        description: str,
-        category: lesson_plans.ExerciseCategory,
-        difficulty: lesson_plans.Difficulty,
-        primary_muscle_group: lesson_plans.MuscleGroup,
-        starting_position: lesson_plans.StartingPosition,
-        movement_variants: list[lesson_plans.MovementVariant],
-        equipment_variants: list[lesson_plans.Equipment],
-    ) -> int:
-        data = self._read_database()
-
-        next_id = max((exercise["id"] for exercise in data["exercises"]), default=0) + 1
-        new_exercise = lesson_plans.Exercise(
-            id=next_id,
-            name=name,
-            description=description,
-            category=category,
-            difficulty=difficulty,
-            primary_muscle_group=primary_muscle_group,
-            starting_position=starting_position,
-            movement_variants=movement_variants,
-            equipment_variants=equipment_variants,
-        )
-        data["exercises"].append(new_exercise.model_dump())
-
-        self._write_database(data)
-        return next_id
-
-    def get_exercises(self) -> list[lesson_plans.Exercise]:
-        data = self._read_database()
-        return [
-            lesson_plans.Exercise.model_validate(exercise)
-            for exercise in data["exercises"]
-        ]
-
-    def get_exercise(self, exercise_id: int) -> lesson_plans.Exercise:
-        for exercise in self.get_exercises():
-            if exercise.id == exercise_id:
-                return exercise
-        raise lesson_plans.ExerciseDoesNotExist(exercise_id=exercise_id)
-
-    def update_exercise(
-        self,
-        *,
-        id: int,
-        name: str,
-        description: str,
-        category: lesson_plans.ExerciseCategory,
-        difficulty: lesson_plans.Difficulty,
-        primary_muscle_group: lesson_plans.MuscleGroup,
-        starting_position: lesson_plans.StartingPosition,
-        movement_variants: list[lesson_plans.MovementVariant],
-        equipment_variants: list[lesson_plans.Equipment],
-    ) -> None:
-        data = self._read_database()
-
-        # Find exercise index
-        exercise_index = None
-        for idx, exercise in enumerate(data["exercises"]):
-            if exercise["id"] == id:
-                exercise_index = idx
-                break
-
-        if exercise_index is None:
-            raise lesson_plans.ExerciseDoesNotExist(exercise_id=id)
-
-        # Create updated exercise
-        updated_exercise = lesson_plans.Exercise(
-            id=id,
-            name=name,
-            category=category,
-            description=description,
-            difficulty=difficulty,
-            primary_muscle_group=primary_muscle_group,
-            starting_position=starting_position,
-            movement_variants=movement_variants,
-            equipment_variants=equipment_variants,
-        )
-
-        # Update in exercises array
-        data["exercises"][exercise_index] = updated_exercise.model_dump()
-
-        # Update all references in lesson plans (denormalization handling)
-        for plan in data["lesson_plans"]:
-            for section in ["warm_up", "main_session", "cool_down"]:
-                for sequence in plan[section]:
-                    for set_item in sequence["sets"]:
-                        if set_item["exercise"]["id"] == id:
-                            set_item["exercise"] = updated_exercise.model_dump()
-
-        self._write_database(data)
 
     def create_lesson_plan(
         self,
@@ -226,13 +133,11 @@ class JSONRepository(lesson_plans.Repository):
         exercise_id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_plans.MovementVariant,
-        equipment_variant: list[lesson_plans.Equipment],
+        movement_variant: exercises.MovementVariant,
+        equipment_variant: list[exercises.Equipment],
     ) -> int:
         data = self._read_database()
-
-        # Look up exercise
-        exercise = self.get_exercise(exercise_id)
+        _validate_exercise_id(data, exercise_id)
 
         # Find sequence across all lesson plans
         plan_index = None
@@ -273,7 +178,8 @@ class JSONRepository(lesson_plans.Repository):
         # Create new set with denormalized exercise data
         new_set = lesson_plans.ExerciseSet(
             id=next_id,
-            exercise=exercise,
+            # In the db repository, the foreign key will ensure data integrity...
+            exercise_id=exercise_id,
             reps=reps,
             duration_seconds=duration_seconds,
             movement_variant=movement_variant,
@@ -305,8 +211,8 @@ class JSONRepository(lesson_plans.Repository):
         id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: lesson_plans.MovementVariant,
-        equipment_variant: list[lesson_plans.Equipment],
+        movement_variant: exercises.MovementVariant,
+        equipment_variant: list[exercises.Equipment],
     ) -> None:
         data = self._read_database()
 
@@ -415,28 +321,12 @@ class JSONRepository(lesson_plans.Repository):
 
         self._write_database(data)
 
-    # Helpers.
 
-    def _read_database(self) -> dict:
-        self._maybe_init_database()
-        with open(self.database_file, "r") as f:
-            return json.load(f)
-
-    def _write_database(self, data: dict) -> None:
-        with open(self.database_file, "w") as f:
-            json.dump(data, f, indent=2)
-
-    def _maybe_init_database(self) -> None:
-        if self.database_file.is_file():
-            return None
-
-        data: dict[str, list] = {
-            "lesson_plans": [],
-            "exercises": [],
-        }
-
-        with open(self.database_file, "x") as f:
-            json.dump(data, f)
+def _validate_exercise_id(data: dict[str, typing.Any], exercise_id: int) -> None:
+    for exercise in data["exercises"]:
+        if exercise["id"] == exercise_id:
+            return
+    raise exercises.ExerciseDoesNotExist(exercise_id=exercise_id)
 
 
 def _section_to_field_name(section: lesson_plans.LessonPlanSection) -> str:

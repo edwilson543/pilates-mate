@@ -2,7 +2,7 @@ import datetime as dt
 
 import pydantic
 
-from pilates.domain import lesson_plans, unit_of_work, vendors
+from pilates.domain import exercises, lesson_plans, unit_of_work, vendors
 
 
 class _GeneratedExercise(pydantic.BaseModel):
@@ -15,8 +15,8 @@ class _GeneratedExerciseSet(pydantic.BaseModel):
     exercise: _GeneratedExercise
     reps: int
     duration_seconds: int
-    movement_variant: lesson_plans.MovementVariant
-    equipment_variant: list[lesson_plans.Equipment]
+    movement_variant: exercises.MovementVariant
+    equipment_variant: list[exercises.Equipment]
 
 
 class _GeneratedExerciseSequence(pydantic.BaseModel):
@@ -36,10 +36,10 @@ class _GeneratedLessonPlan(pydantic.BaseModel):
 
 class LessonPlanRequirements(pydantic.BaseModel):
     duration_minutes: int
-    target_difficulty: lesson_plans.Difficulty
-    target_muscle_groups: list[lesson_plans.MuscleGroup]
+    target_difficulty: exercises.Difficulty
+    target_muscle_groups: list[exercises.MuscleGroup]
     example_lesson_plan_ids: list[int] = []
-    available_equipment: list[lesson_plans.Equipment]
+    available_equipment: list[exercises.Equipment]
     user_prompt: str
 
 
@@ -49,7 +49,7 @@ async def generate_lesson_plan(
     client: vendors.CompletionClient,
     uow: unit_of_work.UnitOfWork,
 ) -> lesson_plans.LessonPlan:
-    system_prompt = _get_system_prompt(requirements, uow.lesson_plans)
+    system_prompt = _get_system_prompt(requirements, uow)
 
     lesson_plan = await client.get_completion(
         system_prompt=system_prompt,
@@ -130,10 +130,10 @@ async def generate_lesson_plan(
 
 def _get_system_prompt(
     requirements: LessonPlanRequirements,
-    repository: lesson_plans.Repository,
+    uow: unit_of_work.UnitOfWork,
 ) -> str:
-    all_exercises = repository.get_exercises()
-    example_lesson_plans = _get_example_lesson_plans(requirements, repository)
+    all_exercises = uow.exercises.get_exercises()
+    example_lesson_plans = _get_example_lesson_plans(requirements, uow.lesson_plans)
 
     return lesson_plans.render_system_prompt(
         duration_minutes=requirements.duration_minutes,

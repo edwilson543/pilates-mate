@@ -3,12 +3,9 @@ import datetime as dt
 
 import attrs
 
+from pilates.domain import exercises
+
 from . import _models
-
-
-@attrs.frozen
-class ExerciseDoesNotExist(Exception):
-    exercise_id: int
 
 
 @attrs.frozen
@@ -27,49 +24,6 @@ class SetDoesNotExist(Exception):
 
 
 class Repository(abc.ABC):
-    # Exercises.
-
-    @abc.abstractmethod
-    def create_exercise(
-        self,
-        *,
-        name: str,
-        description: str,
-        category: _models.ExerciseCategory,
-        difficulty: _models.Difficulty,
-        primary_muscle_group: _models.MuscleGroup,
-        starting_position: _models.StartingPosition,
-        movement_variants: list[_models.MovementVariant],
-        equipment_variants: list[_models.Equipment],
-    ) -> int:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def get_exercises(self) -> list[_models.Exercise]:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def get_exercise(self, exercise_id: int) -> _models.Exercise:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def update_exercise(
-        self,
-        *,
-        id: int,
-        name: str,
-        description: str,
-        category: _models.ExerciseCategory,
-        difficulty: _models.Difficulty,
-        primary_muscle_group: _models.MuscleGroup,
-        starting_position: _models.StartingPosition,
-        movement_variants: list[_models.MovementVariant],
-        equipment_variants: list[_models.Equipment],
-    ) -> None:
-        raise NotImplementedError
-
-    # Lesson plans.
-
     @abc.abstractmethod
     def create_lesson_plan(
         self,
@@ -116,8 +70,8 @@ class Repository(abc.ABC):
         exercise_id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: _models.MovementVariant,
-        equipment_variant: list[_models.Equipment],
+        movement_variant: exercises.MovementVariant,
+        equipment_variant: list[exercises.Equipment],
     ) -> int:
         """Add set to sequence. Returns set_id."""
         raise NotImplementedError
@@ -134,8 +88,8 @@ class Repository(abc.ABC):
         id: int,
         reps: int,
         duration_seconds: int,
-        movement_variant: _models.MovementVariant,
-        equipment_variant: list[_models.Equipment],
+        movement_variant: exercises.MovementVariant,
+        equipment_variant: list[exercises.Equipment],
     ) -> None:
         """Update set properties. Does not change exercise reference."""
         raise NotImplementedError

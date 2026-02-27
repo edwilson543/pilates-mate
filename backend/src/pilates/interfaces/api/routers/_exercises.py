@@ -4,7 +4,7 @@ import fastapi
 import pydantic
 
 from pilates import config
-from pilates.domain import lesson_plans
+from pilates.domain import exercises
 
 
 router = fastapi.APIRouter()
@@ -13,12 +13,12 @@ router = fastapi.APIRouter()
 class CreateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
-    category: lesson_plans.ExerciseCategory
-    difficulty: lesson_plans.Difficulty
-    primary_muscle_group: lesson_plans.MuscleGroup
-    starting_position: lesson_plans.StartingPosition
-    movement_variants: list[lesson_plans.MovementVariant]
-    equipment_variants: list[lesson_plans.Equipment]
+    category: exercises.ExerciseCategory
+    difficulty: exercises.Difficulty
+    primary_muscle_group: exercises.MuscleGroup
+    starting_position: exercises.StartingPosition
+    movement_variants: list[exercises.MovementVariant]
+    equipment_variants: list[exercises.Equipment]
 
 
 class CreateExerciseResponse(pydantic.BaseModel):
@@ -28,12 +28,12 @@ class CreateExerciseResponse(pydantic.BaseModel):
 class UpdateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
-    category: lesson_plans.ExerciseCategory
-    difficulty: lesson_plans.Difficulty
-    primary_muscle_group: lesson_plans.MuscleGroup
-    starting_position: lesson_plans.StartingPosition
-    movement_variants: list[lesson_plans.MovementVariant]
-    equipment_variants: list[lesson_plans.Equipment]
+    category: exercises.ExerciseCategory
+    difficulty: exercises.Difficulty
+    primary_muscle_group: exercises.MuscleGroup
+    starting_position: exercises.StartingPosition
+    movement_variants: list[exercises.MovementVariant]
+    equipment_variants: list[exercises.Equipment]
 
 
 @router.post("/", status_code=201)
@@ -41,7 +41,7 @@ async def create_exercise(
     request: typing.Annotated[CreateExerciseRequest, fastapi.Body()],
 ) -> CreateExerciseResponse:
     uow = config.get_unit_of_work()
-    exercise_id = uow.lesson_plans.create_exercise(
+    exercise_id = uow.exercises.create_exercise(
         name=request.name,
         description=request.description,
         category=request.category,
@@ -55,17 +55,17 @@ async def create_exercise(
 
 
 @router.get("/")
-async def get_exercises() -> list[lesson_plans.Exercise]:
+async def get_exercises() -> list[exercises.Exercise]:
     uow = config.get_unit_of_work()
-    return uow.lesson_plans.get_exercises()
+    return uow.exercises.get_exercises()
 
 
 @router.get("/{exercise_id}")
-async def get_exercise(exercise_id: int) -> lesson_plans.Exercise:
+async def get_exercise(exercise_id: int) -> exercises.Exercise:
     uow = config.get_unit_of_work()
     try:
-        return uow.lesson_plans.get_exercise(exercise_id)
-    except lesson_plans.ExerciseDoesNotExist:
+        return uow.exercises.get_exercise(exercise_id)
+    except exercises.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
 
 
@@ -76,7 +76,7 @@ async def update_exercise(
 ) -> None:
     uow = config.get_unit_of_work()
     try:
-        uow.lesson_plans.update_exercise(
+        uow.exercises.update_exercise(
             id=exercise_id,
             name=request.name,
             description=request.description,
@@ -87,5 +87,5 @@ async def update_exercise(
             movement_variants=request.movement_variants,
             equipment_variants=request.equipment_variants,
         )
-    except lesson_plans.ExerciseDoesNotExist:
+    except exercises.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")

@@ -2,7 +2,7 @@ import csv
 import typing
 
 from pilates import config
-from pilates.domain import lesson_plans
+from pilates.domain import exercises
 
 
 def main():
@@ -10,7 +10,7 @@ def main():
     Export the exercises from the database to a CSV file at `./exercises.csv`.
     """
     uow = config.get_unit_of_work()
-    exercises = uow.lesson_plans.get_exercises()
+    exercises = uow.exercises.get_exercises()
     rows = [_convert_exercise_to_row(exercise) for exercise in exercises]
 
     fieldnames = rows[0].keys()
@@ -23,12 +23,12 @@ def main():
 
 
 def _convert_exercise_to_row(
-    exercise: lesson_plans.Exercise,
+    exercise: exercises.Exercise,
 ) -> dict[str, typing.Any]:
     row = exercise.model_dump(exclude={"movement_variants", "equipment_variants"})
-    for equipment in lesson_plans.Equipment:
+    for equipment in exercises.Equipment:
         row[equipment.value] = 1 if equipment in exercise.equipment_variants else 0
-    for movement in lesson_plans.MovementVariant:
+    for movement in exercises.MovementVariant:
         row[movement.value] = 1 if movement in exercise.movement_variants else 0
 
     return row

@@ -78,6 +78,6 @@ Where each sequence is denoted as:
 {% endfor %}
 
 # Exercise bank
-{% for exercise in exercises %}
+{% for exercise in exercises.values() %}
 {% include 'exercise.jinja' %}
 {% endfor %}

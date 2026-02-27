@@ -81,6 +81,7 @@ containers = "pilates.domain"
 layers = [
     "unit_of_work",
     "lesson_plans",
+    "exercises",
     "templates | vendors",
 ]
 exhaustive = true

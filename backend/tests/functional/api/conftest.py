@@ -6,7 +6,7 @@ from fastapi import testclient
 
 from pilates.data import json_backend
 from pilates.interfaces.api import app
-from testing.helpers import lesson_plans as lesson_plan_helpers
+from testing.helpers import unit_of_work as unit_of_work_helpers
 
 
 @pytest.fixture()
@@ -25,5 +25,5 @@ def unit_of_work(
     database_file = tmp_path / "test_database.json"
     uow = json_backend.JSONUnitOfWork(database_file=database_file)
 
-    with lesson_plan_helpers.inject_uow(uow):
+    with unit_of_work_helpers.inject_uow(uow):
         yield uow

@@ -17,7 +17,7 @@ def test_adds_sequence_to_section(api_client, unit_of_work):
     )
 
     assert response.status_code == 201
-    lesson_plan = unit_of_work.get_lesson_plan(lesson_plan.id)
+    lesson_plan = unit_of_work.lesson_plans.get_lesson_plan(lesson_plan.id)
     new_sequence = lesson_plan.warm_up[0]
     assert response.json()["id"] == new_sequence.id
 

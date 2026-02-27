@@ -1,4 +1,4 @@
-from pilates.domain import lesson_plans
+from pilates.domain import exercises
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
@@ -21,10 +21,10 @@ def test_update_exercise_set_to_new_values(api_client, unit_of_work):
 
     assert response.status_code == 204
 
-    updated_set = unit_of_work.get_exercise_set(exercise_set.id)
+    updated_set = unit_of_work.lesson_plans.get_exercise_set(exercise_set.id)
     assert updated_set.reps == 10
     assert updated_set.duration_seconds == 60
-    assert updated_set.movement_variant == lesson_plans.MovementVariant.PULSE
+    assert updated_set.movement_variant == exercises.MovementVariant.PULSE
 
 
 def test_response_not_found_when_updating_nonexistent_set(api_client):

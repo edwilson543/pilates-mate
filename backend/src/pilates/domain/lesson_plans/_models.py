@@ -5,57 +5,7 @@ import enum
 
 import pydantic
 
-
-class Difficulty(enum.StrEnum):
-    BEGINNER = "BEGINNER"
-    INTERMEDIATE = "INTERMEDIATE"
-    ADVANCED = "ADVANCED"
-
-
-class Equipment(enum.StrEnum):
-    BALL = "BALL"
-    BAND = "BAND"
-    RING = "RING"
-    ANKLE_WEIGHTS = "ANKLE_WEIGHTS"
-    HAND_WEIGHTS = "HAND_WEIGHTS"
-
-
-class MuscleGroup(enum.StrEnum):
-    CORE = "CORE"
-    GLUTES = "GLUTES"
-    HIP_FLEXORS = "HIP_FLEXORS"
-    BACK_EXTENSORS = "BACK_EXTENSORS"
-    SHOULDERS = "SHOULDERS"
-    INNER_THIGHS = "INNER_THIGHS"
-    HAMSTRINGS = "HAMSTRINGS"
-    OBLIQUES = "OBLIQUES"
-    TRICEPS = "TRICEPS"
-    CHEST = "CHEST"
-
-
-class StartingPosition(enum.StrEnum):
-    SUPINE = "SUPINE"
-    PRONE = "PRONE"
-    SIDE_LYING = "SIDE_LYING"
-    SEATED = "SEATED"
-    QUADRUPED = "QUADRUPED"
-    STANDING = "STANDING"
-    KNEELING = "KNEELING"
-    PLANK = "PLANK"
-    SIDE_KNEELING = "SIDE_KNEELING"
-
-
-class ExerciseCategory(enum.StrEnum):
-    BREATH_WORK = "BREATH_WORK"
-    STRETCH = "STRETCH"
-    MOBILITY = "MOBILITY"
-    EFFORT = "EFFORT"
-
-
-class MovementVariant(enum.StrEnum):
-    STANDARD = "STANDARD"
-    PULSE = "PULSE"
-    HOLD = "HOLD"
+from pilates.domain import exercises
 
 
 class LessonPlanSection(enum.StrEnum):
@@ -64,26 +14,14 @@ class LessonPlanSection(enum.StrEnum):
     COOL_DOWN = "COOL_DOWN"
 
 
-class Exercise(pydantic.BaseModel):
-    id: int
-    name: str
-    description: str
-    category: ExerciseCategory
-    difficulty: Difficulty
-    primary_muscle_group: MuscleGroup
-    starting_position: StartingPosition
-    movement_variants: list[MovementVariant]
-    equipment_variants: list[Equipment]
-
-
 class ExerciseSet(pydantic.BaseModel):
     id: int
-    exercise: Exercise
+    exercise_id: int
     reps: int
     duration_seconds: int
-    movement_variant: MovementVariant
+    movement_variant: exercises.MovementVariant
     # An empty list corresponds to no equipment.
-    equipment_variant: list[Equipment]
+    equipment_variant: list[exercises.Equipment]
 
 
 class ExerciseSequence(pydantic.BaseModel):
@@ -106,11 +44,3 @@ class LessonPlan(pydantic.BaseModel):
     @property
     def exercise_sequences(self) -> list[ExerciseSequence]:
         return self.warm_up + self.main_session + self.cool_down
-
-    @property
-    def exercises(self) -> list[Exercise]:
-        return [
-            exercise_set.exercise
-            for exercise_sequence in self.exercise_sequences
-            for exercise_set in exercise_sequence.sets
-        ]

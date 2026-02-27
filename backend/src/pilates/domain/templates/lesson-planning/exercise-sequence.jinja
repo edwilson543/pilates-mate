@@ -3,5 +3,5 @@ Duration: {{ sequence.sets | map(attribute='duration_seconds') | sum }} seconds
 Reps: {{ sequence.reps }}
 Notes: {{ sequence.notes }}
 {%- for set in sequence.sets %}
-- {{ set.exercise.name }} ({{ set.reps }} reps)
+- {{ exercises[set.exercise_id].name }} ({{ set.reps }} reps)
 {%- endfor %}

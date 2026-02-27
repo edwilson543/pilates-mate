@@ -3,20 +3,21 @@ import datetime as dt
 import pytest
 
 from pilates.application import generate_lesson_plan
+from testing.helpers import exercises as exercise_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
+from testing.helpers import unit_of_work as unit_of_work_helpers
 from testing.helpers import vendors as vendor_helpers
 
 
 @pytest.mark.asyncio
 class TestGenerateLessonPlan:
     async def test_generates_and_returns_lesson_plan(self):
-        repository = lesson_plan_helpers.FakeRepository()
+        uow = unit_of_work_helpers.FakeUnitOfWork()
 
         # Create exercises that will be referenced in the generated plan
-        exercise1 = lesson_plan_helpers.Exercise()
-        exercise2 = lesson_plan_helpers.Exercise()
-        exercise3 = lesson_plan_helpers.Exercise()
-        repository._exercises.extend([exercise1, exercise2, exercise3])
+        exercise1 = exercise_helpers.Exercise.insert(uow)
+        exercise2 = exercise_helpers.Exercise.insert(uow)
+        exercise3 = exercise_helpers.Exercise.insert(uow)
 
         fake_completion = generate_lesson_plan._GeneratedLessonPlan(
             name="Morning Flow",
@@ -63,9 +64,7 @@ class TestGenerateLessonPlan:
         requirements = lesson_plan_helpers.LessonPlanRequirements()
 
         result = await generate_lesson_plan.generate_lesson_plan(
-            requirements=requirements,
-            client=client,
-            repository=repository,
+            requirements=requirements, client=client, uow=uow
         )
 
         assert result.id == 1

@@ -5,7 +5,7 @@ import pydantic
 
 from pilates import config
 from pilates.application import generate_lesson_plan
-from pilates.domain import lesson_plans
+from pilates.domain import exercises, lesson_plans
 
 
 router = fastapi.APIRouter()
@@ -14,11 +14,11 @@ router = fastapi.APIRouter()
 class CreateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
-    category: lesson_plans.ExerciseCategory
-    difficulty: lesson_plans.Difficulty
-    primary_muscle_group: lesson_plans.MuscleGroup
-    starting_position: lesson_plans.StartingPosition
-    movement_variants: list[lesson_plans.MovementVariant]
+    category: exercises.ExerciseCategory
+    difficulty: exercises.Difficulty
+    primary_muscle_group: exercises.MuscleGroup
+    starting_position: exercises.StartingPosition
+    movement_variants: list[exercises.MovementVariant]
 
 
 class CreateExerciseResponse(pydantic.BaseModel):
@@ -28,11 +28,11 @@ class CreateExerciseResponse(pydantic.BaseModel):
 class UpdateExerciseRequest(pydantic.BaseModel):
     name: str
     description: str
-    category: lesson_plans.ExerciseCategory
-    difficulty: lesson_plans.Difficulty
-    primary_muscle_group: lesson_plans.MuscleGroup
-    starting_position: lesson_plans.StartingPosition
-    movement_variants: list[lesson_plans.MovementVariant]
+    category: exercises.ExerciseCategory
+    difficulty: exercises.Difficulty
+    primary_muscle_group: exercises.MuscleGroup
+    starting_position: exercises.StartingPosition
+    movement_variants: list[exercises.MovementVariant]
 
 
 class GenerateLessonPlanRequest(pydantic.BaseModel):
@@ -83,8 +83,8 @@ class AddSetToSequenceRequest(pydantic.BaseModel):
     exercise_id: int
     reps: int
     duration_seconds: int
-    movement_variant: lesson_plans.MovementVariant
-    equipment_variant: list[lesson_plans.Equipment]
+    movement_variant: exercises.MovementVariant
+    equipment_variant: list[exercises.Equipment]
 
 
 class AddSetToSequenceResponse(pydantic.BaseModel):
@@ -94,8 +94,8 @@ class AddSetToSequenceResponse(pydantic.BaseModel):
 class UpdateExerciseSetRequest(pydantic.BaseModel):
     reps: int
     duration_seconds: int
-    movement_variant: lesson_plans.MovementVariant
-    equipment_variant: list[lesson_plans.Equipment]
+    movement_variant: exercises.MovementVariant
+    equipment_variant: list[exercises.Equipment]
 
 
 @router.post("/sequences/{sequence_id}/sets", status_code=201)
@@ -115,8 +115,10 @@ async def add_set_to_sequence(
         )
         return AddSetToSequenceResponse(id=set_id)
     except lesson_plans.SequenceDoesNotExist:
-        raise fastapi.HTTPException(status_code=404, detail="Sequence not found.")
-    except lesson_plans.ExerciseDoesNotExist:
+        raise fastapi.HTTPException(
+            status_code=404, detail="Exercise sequence not found."
+        )
+    except exercises.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
 
 

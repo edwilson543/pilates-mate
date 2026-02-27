@@ -3,7 +3,7 @@ import datetime as dt
 import factory
 
 from pilates.application import generate_lesson_plan
-from pilates.domain import lesson_plans, unit_of_work
+from pilates.domain import exercises, lesson_plans, unit_of_work
 
 
 class GeneratedExercise(factory.Factory):
@@ -21,7 +21,7 @@ class GeneratedExerciseSet(factory.Factory):
     exercise = factory.SubFactory(GeneratedExercise)
     reps = 10
     duration_seconds = 30
-    movement_variant = lesson_plans.MovementVariant.STANDARD
+    movement_variant = exercises.MovementVariant.STANDARD
     equipment_variant = factory.ListFactory()
 
 
@@ -40,50 +40,15 @@ class GeneratedExerciseSequence(factory.Factory):
     reps = 1
 
 
-class Exercise(factory.Factory):
-    class Meta:
-        model = lesson_plans.Exercise
-
-    id = factory.Sequence(lambda n: n)
-    name = factory.Sequence(lambda n: f"name-{n}")
-    description = factory.Sequence(lambda n: f"description-{n}")
-    category = lesson_plans.ExerciseCategory.EFFORT
-    difficulty = lesson_plans.Difficulty.INTERMEDIATE
-    primary_muscle_group = lesson_plans.MuscleGroup.CORE
-    starting_position = lesson_plans.StartingPosition.STANDING
-    movement_variants = factory.LazyFunction(
-        lambda: [lesson_plans.MovementVariant.STANDARD]
-    )
-    equipment_variants = factory.LazyFunction(lambda: [lesson_plans.Equipment.BALL])
-
-    @classmethod
-    def insert(
-        cls, uow: unit_of_work.UnitOfWork, **kwargs: object
-    ) -> lesson_plans.LessonPlan:
-        exercise = cls.create(**kwargs)
-        exercise_id = uow.lesson_plans.create_exercise(
-            name=exercise.name,
-            description=exercise.description,
-            category=exercise.category,
-            difficulty=exercise.difficulty,
-            primary_muscle_group=exercise.primary_muscle_group,
-            starting_position=exercise.starting_position,
-            movement_variants=exercise.movement_variants,
-            equipment_variants=exercise.equipment_variants,
-        )
-        exercise.id = exercise_id
-        return exercise
-
-
 class ExerciseSet(factory.Factory):
     class Meta:
         model = lesson_plans.ExerciseSet
 
     id = factory.Sequence(lambda n: n)
-    exercise = factory.SubFactory(Exercise)
+    exercise_id = factory.Sequence(lambda n: n)
     reps = 10
     duration_seconds = 30
-    movement_variant = lesson_plans.MovementVariant.STANDARD
+    movement_variant = exercises.MovementVariant.STANDARD
     equipment_variant = factory.ListFactory()
 
 
@@ -137,8 +102,8 @@ class LessonPlanRequirements(factory.Factory):
         model = generate_lesson_plan.LessonPlanRequirements
 
     duration_minutes = 30
-    target_difficulty = lesson_plans.Difficulty.INTERMEDIATE
-    target_muscle_groups = factory.LazyFunction(lambda: [lesson_plans.MuscleGroup.CORE])
+    target_difficulty = exercises.Difficulty.INTERMEDIATE
+    target_muscle_groups = factory.LazyFunction(lambda: [exercises.MuscleGroup.CORE])
     example_lesson_lan_ids = factory.ListFactory()
     user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
-    available_equipment = factory.LazyFunction(lambda: [lesson_plans.Equipment.BALL])
+    available_equipment = factory.LazyFunction(lambda: [exercises.Equipment.BALL])
