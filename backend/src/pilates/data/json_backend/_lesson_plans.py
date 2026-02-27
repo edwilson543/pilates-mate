@@ -9,7 +9,7 @@ from pilates.domain import lesson_plans
 
 @attrs.frozen
 class JSONRepository(lesson_plans.Repository):
-    database_file: pathlib.Path = pathlib.Path(__file__).parent / "database.json"
+    database_file: pathlib.Path
 
     def create_exercise(
         self,

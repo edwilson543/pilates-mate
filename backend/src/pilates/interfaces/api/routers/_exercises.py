@@ -40,8 +40,8 @@ class UpdateExerciseRequest(pydantic.BaseModel):
 async def create_exercise(
     request: typing.Annotated[CreateExerciseRequest, fastapi.Body()],
 ) -> CreateExerciseResponse:
-    repository = config.get_lesson_plans_repository()
-    exercise_id = repository.create_exercise(
+    uow = config.get_unit_of_work()
+    exercise_id = uow.lesson_plans.create_exercise(
         name=request.name,
         description=request.description,
         category=request.category,
@@ -56,15 +56,15 @@ async def create_exercise(
 
 @router.get("/")
 async def get_exercises() -> list[lesson_plans.Exercise]:
-    repository = config.get_lesson_plans_repository()
-    return repository.get_exercises()
+    uow = config.get_unit_of_work()
+    return uow.lesson_plans.get_exercises()
 
 
 @router.get("/{exercise_id}")
 async def get_exercise(exercise_id: int) -> lesson_plans.Exercise:
-    repository = config.get_lesson_plans_repository()
+    uow = config.get_unit_of_work()
     try:
-        return repository.get_exercise(exercise_id)
+        return uow.lesson_plans.get_exercise(exercise_id)
     except lesson_plans.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
 
@@ -74,9 +74,9 @@ async def update_exercise(
     exercise_id: int,
     request: typing.Annotated[UpdateExerciseRequest, fastapi.Body()],
 ) -> None:
-    repository = config.get_lesson_plans_repository()
+    uow = config.get_unit_of_work()
     try:
-        repository.update_exercise(
+        uow.lesson_plans.update_exercise(
             id=exercise_id,
             name=request.name,
             description=request.description,

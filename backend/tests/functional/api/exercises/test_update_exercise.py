@@ -1,8 +1,8 @@
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
-def test_updates_exercise(api_client, repository):
-    exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
+def test_updates_exercise(api_client, unit_of_work):
+    exercise = lesson_plan_helpers.Exercise.insert(unit_of_work)
 
     updated_exercise = {
         "name": "Jump Squats",
@@ -42,12 +42,12 @@ def test_update_response_not_found_when_exercise_does_not_exist(api_client):
     assert response.json() == {"detail": "Exercise not found."}
 
 
-def test_updating_exercise_updates_lesson_plan_references(api_client, repository):
-    exercise = lesson_plan_helpers.Exercise.create_in_repo(repository)
+def test_updating_exercise_updates_lesson_plan_references(api_client, unit_of_work):
+    exercise = lesson_plan_helpers.Exercise.insert(unit_of_work)
     exercise_set = lesson_plan_helpers.ExerciseSet(exercise=exercise)
     sequence = lesson_plan_helpers.ExerciseSequence(sets=[exercise_set])
-    lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
-        repository, warm_up=[sequence]
+    lesson_plan = lesson_plan_helpers.LessonPlan.insert(
+        unit_of_work, warm_up=[sequence]
     )
 
     updated_exercise = {

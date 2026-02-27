@@ -2,7 +2,7 @@ import datetime as dt
 
 import pydantic
 
-from pilates.domain import lesson_plans, vendors
+from pilates.domain import lesson_plans, unit_of_work, vendors
 
 
 class _GeneratedExercise(pydantic.BaseModel):
@@ -47,9 +47,9 @@ async def generate_lesson_plan(
     *,
     requirements: LessonPlanRequirements,
     client: vendors.CompletionClient,
-    repository: lesson_plans.Repository,
+    uow: unit_of_work.UnitOfWork,
 ) -> lesson_plans.LessonPlan:
-    system_prompt = _get_system_prompt(requirements, repository)
+    system_prompt = _get_system_prompt(requirements, uow.lesson_plans)
 
     lesson_plan = await client.get_completion(
         system_prompt=system_prompt,
@@ -57,74 +57,75 @@ async def generate_lesson_plan(
         output_format=_GeneratedLessonPlan,
     )
 
-    # Initially, create an empty lesson plan.
-    lesson_plan_id = repository.create_lesson_plan(
-        name=lesson_plan.name,
-        description=lesson_plan.description,
-        date=dt.datetime.now().date(),
-        warm_up=[],
-        main_session=[],
-        cool_down=[],
-    )
-
-    # Add warm up sequences and sets
-    for sequence in lesson_plan.warm_up:
-        sequence_id = repository.add_sequence_to_section(
-            lesson_plan_id=lesson_plan_id,
-            section=lesson_plans.LessonPlanSection.WARM_UP,
-            name=sequence.name,
-            reps=sequence.reps,
-            notes=sequence.notes,
+    async with uow.transaction():
+        # Initially, create an empty lesson plan.
+        lesson_plan_id = uow.lesson_plans.create_lesson_plan(
+            name=lesson_plan.name,
+            description=lesson_plan.description,
+            date=dt.datetime.now().date(),
+            warm_up=[],
+            main_session=[],
+            cool_down=[],
         )
-        for set_item in sequence.sets:
-            repository.add_set_to_sequence(
-                sequence_id=sequence_id,
-                exercise_id=set_item.exercise.id,
-                reps=set_item.reps,
-                duration_seconds=set_item.duration_seconds,
-                movement_variant=set_item.movement_variant,
-                equipment_variant=set_item.equipment_variant,
-            )
 
-    # Add main session sequences and sets
-    for sequence in lesson_plan.main_session:
-        sequence_id = repository.add_sequence_to_section(
-            lesson_plan_id=lesson_plan_id,
-            section=lesson_plans.LessonPlanSection.MAIN_SESSION,
-            name=sequence.name,
-            reps=sequence.reps,
-            notes=sequence.notes,
-        )
-        for set_item in sequence.sets:
-            repository.add_set_to_sequence(
-                sequence_id=sequence_id,
-                exercise_id=set_item.exercise.id,
-                reps=set_item.reps,
-                duration_seconds=set_item.duration_seconds,
-                movement_variant=set_item.movement_variant,
-                equipment_variant=set_item.equipment_variant,
+        # Add warm up sequences and sets
+        for sequence in lesson_plan.warm_up:
+            sequence_id = uow.lesson_plans.add_sequence_to_section(
+                lesson_plan_id=lesson_plan_id,
+                section=lesson_plans.LessonPlanSection.WARM_UP,
+                name=sequence.name,
+                reps=sequence.reps,
+                notes=sequence.notes,
             )
+            for set_item in sequence.sets:
+                uow.lesson_plans.add_set_to_sequence(
+                    sequence_id=sequence_id,
+                    exercise_id=set_item.exercise.id,
+                    reps=set_item.reps,
+                    duration_seconds=set_item.duration_seconds,
+                    movement_variant=set_item.movement_variant,
+                    equipment_variant=set_item.equipment_variant,
+                )
 
-    # Add cool down sequences and sets
-    for sequence in lesson_plan.cool_down:
-        sequence_id = repository.add_sequence_to_section(
-            lesson_plan_id=lesson_plan_id,
-            section=lesson_plans.LessonPlanSection.COOL_DOWN,
-            name=sequence.name,
-            reps=sequence.reps,
-            notes=sequence.notes,
-        )
-        for set_item in sequence.sets:
-            repository.add_set_to_sequence(
-                sequence_id=sequence_id,
-                exercise_id=set_item.exercise.id,
-                reps=set_item.reps,
-                duration_seconds=set_item.duration_seconds,
-                movement_variant=set_item.movement_variant,
-                equipment_variant=set_item.equipment_variant,
+        # Add main session sequences and sets
+        for sequence in lesson_plan.main_session:
+            sequence_id = uow.lesson_plans.add_sequence_to_section(
+                lesson_plan_id=lesson_plan_id,
+                section=lesson_plans.LessonPlanSection.MAIN_SESSION,
+                name=sequence.name,
+                reps=sequence.reps,
+                notes=sequence.notes,
             )
+            for set_item in sequence.sets:
+                uow.lesson_plans.add_set_to_sequence(
+                    sequence_id=sequence_id,
+                    exercise_id=set_item.exercise.id,
+                    reps=set_item.reps,
+                    duration_seconds=set_item.duration_seconds,
+                    movement_variant=set_item.movement_variant,
+                    equipment_variant=set_item.equipment_variant,
+                )
 
-    return repository.get_lesson_plan(lesson_plan_id)
+        # Add cool down sequences and sets
+        for sequence in lesson_plan.cool_down:
+            sequence_id = uow.lesson_plans.add_sequence_to_section(
+                lesson_plan_id=lesson_plan_id,
+                section=lesson_plans.LessonPlanSection.COOL_DOWN,
+                name=sequence.name,
+                reps=sequence.reps,
+                notes=sequence.notes,
+            )
+            for set_item in sequence.sets:
+                uow.lesson_plans.add_set_to_sequence(
+                    sequence_id=sequence_id,
+                    exercise_id=set_item.exercise.id,
+                    reps=set_item.reps,
+                    duration_seconds=set_item.duration_seconds,
+                    movement_variant=set_item.movement_variant,
+                    equipment_variant=set_item.equipment_variant,
+                )
+
+    return uow.lesson_plans.get_lesson_plan(lesson_plan_id)
 
 
 def _get_system_prompt(

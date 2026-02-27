@@ -3,7 +3,7 @@ import datetime as dt
 import factory
 
 from pilates.application import generate_lesson_plan
-from pilates.domain import lesson_plans
+from pilates.domain import lesson_plans, unit_of_work
 
 
 class GeneratedExercise(factory.Factory):
@@ -57,11 +57,11 @@ class Exercise(factory.Factory):
     equipment_variants = factory.LazyFunction(lambda: [lesson_plans.Equipment.BALL])
 
     @classmethod
-    def create_in_repo(
-        cls, repo: lesson_plans.Repository, **kwargs: object
+    def insert(
+        cls, uow: unit_of_work.UnitOfWork, **kwargs: object
     ) -> lesson_plans.LessonPlan:
         exercise = cls.create(**kwargs)
-        exercise_id = repo.create_exercise(
+        exercise_id = uow.lesson_plans.create_exercise(
             name=exercise.name,
             description=exercise.description,
             category=exercise.category,
@@ -114,11 +114,11 @@ class LessonPlan(factory.Factory):
     cool_down = factory.LazyFunction(lambda: [ExerciseSequence()])
 
     @classmethod
-    def create_in_repo(
-        cls, repo: lesson_plans.Repository, **kwargs: object
+    def insert(
+        cls, uow: unit_of_work.UnitOfWork, **kwargs: object
     ) -> lesson_plans.LessonPlan:
         lesson_plan = cls.create(**kwargs)
-        lesson_plan_id = repo.create_lesson_plan(
+        lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name=lesson_plan.name,
             description=lesson_plan.description,
             date=lesson_plan.date,

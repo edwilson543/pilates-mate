@@ -1,10 +1,10 @@
-from pilates.data import json_repositories
-from pilates.domain import lesson_plans, vendors
+from pilates.data import json_backend
+from pilates.domain import unit_of_work, vendors
 
 
 def get_completion_client() -> vendors.CompletionClient:
     return vendors.OpenAICompletionClient(model="gpt-5-mini")
 
 
-def get_lesson_plans_repository() -> lesson_plans.Repository:
-    return json_repositories.JSONRepository()
+def get_unit_of_work() -> unit_of_work.UnitOfWork:
+    return json_backend.JSONUnitOfWork()

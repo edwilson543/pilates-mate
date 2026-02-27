@@ -33,15 +33,16 @@ The interfaces layer contains the entrypoints into the code.
 
 ### Config layer
 The config layer is responsible for instantiating the correct implementations of ABCs declared in the domain.
-- The config layer is implemented at `./src/pilates/config.py` 
+- The config layer is implemented at `./src/pilates/config.py`
 - Each public function in `config.py` takes the form `get_xyz()`, and returns the instantiated concrete implementation
   of an abstract base class declared in the domain.
 - Instantiations retrieved from the config can be used in two ways:
-  - Injected into use cases defined in the application layer. For example, the `generate_lesson_plan` use case 
+  - Injected into use cases defined in the application layer. For example, the `generate_lesson_plan` use case
     requires a `CompletionClient` implementation so that it can call a third-party vendor
-  - Methods can just be called directly. For example, the `get_lesson_plans` API router just calls the 
-    `get_lesson_plans` method on the lesson planning repository to make a database query.
-- For example, the config layer determines which implementation of the lesson planning repository to use, giving 
+  - Methods can just be called directly. For example, the `get_lesson_plans` API router retrieves a `UnitOfWork`
+    from the config, then calls methods on its repositories to query the database.
+- For example, the config layer determines which implementation of the unit of work to use, which in turn
+  determines which repository implementations are used for persistence operations. 
 
 ### Application layer
 The application layer is responsible for orchestrating domain logic.
@@ -56,9 +57,14 @@ The application layer is responsible for orchestrating domain logic.
 ### Data layer
 The data layer is responsible for persistence logic.
 - The data layer is implemented at `./src/pilates/data/`
-- The data layer has two core responsibilities:
+- The data layer has three core responsibilities:
+  - Implementations of the `UnitOfWork` ABC defined in the domain layer
   - Implementations of the abstract repositories defined in the domain layer
   - Connection logic to local persistence technologies (for now, this is just a JSON file)
+- The unit of work pattern coordinates persistence operations across multiple repositories
+  - The `UnitOfWork` provides access to all repositories via attributes (e.g., `uow.lesson_plans`)
+  - The `UnitOfWork` provides a `transaction()` async context manager for managing transactional boundaries
+  - All persistence operations should go through the unit of work rather than instantiating repositories directly
 
 ### Domain layer
 The domain layer is responsible for modelling business logic.
@@ -75,6 +81,10 @@ The domain layer is responsible for modelling business logic.
     - For example, the `vendors` domain includes a `CompletionClient` interface, for requesting vendor APIs
     - Implementations of the ABC can be implemented either directly in the domain, or in the `data/` layer
       in the case of repositories. Implementations must always be instantiated from the config layer.
+- The domain layer also defines cross-cutting persistence patterns:
+  - The `UnitOfWork` ABC coordinates persistence operations across repositories
+  - It provides repository access via attributes and manages transactional boundaries
+  - Implementations live in the data layer and are instantiated via the config layer
 
 ### Other notes on the source code
 
@@ -167,9 +177,9 @@ Tests are split into the following categories:
   - For example, `test_creates_then_gets_lesson_plan`
 - Functional tests should invoke one (or more, if necessary) API router
   - Using the `api_client` fixture to make HTTP requests
-  - Using the `repository` fixture plus testing helper factories to set up and inspect state, rather than
+  - Using the `uow` fixture plus testing helper factories to set up and inspect state, rather than
     interacting with application or domain code directly. If the test does not need to set up or inspect
-    the database state, then using the `repository` fixture is unnecessary
+    the database state, then using the `uow` fixture is unnecessary
 - Functional tests should not cover every scenario, typically one test for each status code, for example:
   - One test for the happy path (e.g. object created successfully, 201)
   - One test for an application error (e.g. invalid creationg parameters, 400)
@@ -187,9 +197,9 @@ Use test factories to generate fake data during test setup.
     `category` of the exercises factoried during the test setup
 - Factories can be used in two main ways:
   - To instantiate domain objects that are then passed directly to application code (unit tests)
-  - To create and persist domain objects into a `Repository` using the `create_in_repo` class method,
-    which accepts the repository as its first argument, followed by any fields to override
-    - For example: `Exercise.create_in_repo(repository, difficulty="ADVANCED")`
+  - To create and persist domain objects using the `insert` class method,
+    which accepts a `UnitOfWork` as its first argument, followed by any fields to override
+    - For example: `Exercise.insert(uow, difficulty="ADVANCED")`
     - This is the expected pattern for setting up state in functional tests
 
 ### Test fakes
@@ -201,8 +211,8 @@ Use fake implementations to avoid interacting with external services.
   - In functional tests, fakes should be instantiated directly, but since we don't call the code under
     test directly, must be installed via their `inject` method which is a context manager
     - `with fake_completion_client.inject(): ...`
-  - The `repository` fixture used in functional tests is backed by the real repository implementation,
-    so no fake repository is needed or should be used in functional tests
+  - The `uow` fixture used in functional tests is backed by the real unit of work implementation,
+    so no fake unit of work or repositories are needed or should be used in functional tests
 
 ### Other notes on tests
 - Tests for async code should use the `@pytest.mark.asyncio` pytest marker

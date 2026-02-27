@@ -1,12 +1,12 @@
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
-def test_deletes_existing_exercise_sets(repository, api_client):
+def test_deletes_existing_exercise_sets(unit_of_work, api_client):
     first_set = lesson_plan_helpers.ExerciseSet()
     second_set = lesson_plan_helpers.ExerciseSet()
     sequence = lesson_plan_helpers.ExerciseSequence(sets=[first_set, second_set])
-    lesson_plan = lesson_plan_helpers.LessonPlan.create_in_repo(
-        repository, cool_down=[sequence]
+    lesson_plan = lesson_plan_helpers.LessonPlan.insert(
+        unit_of_work, cool_down=[sequence]
     )
 
     response = api_client.delete(
@@ -14,7 +14,7 @@ def test_deletes_existing_exercise_sets(repository, api_client):
     )
 
     assert response.status_code == 204
-    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    lesson_plan = unit_of_work.get_lesson_plan(lesson_plan.id)
     assert lesson_plan.cool_down[0].sets == [second_set]
 
     response = api_client.delete(
@@ -22,7 +22,7 @@ def test_deletes_existing_exercise_sets(repository, api_client):
     )
 
     assert response.status_code == 204
-    lesson_plan = repository.get_lesson_plan(lesson_plan.id)
+    lesson_plan = unit_of_work.get_lesson_plan(lesson_plan.id)
     assert lesson_plan.cool_down[0].sets == []
 
 

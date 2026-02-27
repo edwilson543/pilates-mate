@@ -1,11 +1,11 @@
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
-def test_update_exercise_sequence_to_new_values(api_client, repository):
+def test_update_exercise_sequence_to_new_values(api_client, unit_of_work):
     sequence = lesson_plan_helpers.ExerciseSequence(
         name="Original Name", reps=1, notes="Original notes"
     )
-    lesson_plan_helpers.LessonPlan.create_in_repo(repository, main_session=[sequence])
+    lesson_plan_helpers.LessonPlan.insert(unit_of_work, main_session=[sequence])
 
     response = api_client.put(
         f"/lesson-plans/sequences/{sequence.id}",
@@ -18,7 +18,7 @@ def test_update_exercise_sequence_to_new_values(api_client, repository):
 
     assert response.status_code == 204
 
-    updated_sequence = repository.get_lesson_plan(1).main_session[0]
+    updated_sequence = unit_of_work.get_lesson_plan(1).main_session[0]
     assert updated_sequence.name == "Updated Name"
     assert updated_sequence.reps == 3
     assert updated_sequence.notes == "Updated notes"

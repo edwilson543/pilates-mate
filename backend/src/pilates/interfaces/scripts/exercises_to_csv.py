@@ -9,8 +9,8 @@ def main():
     """
     Export the exercises from the database to a CSV file at `./exercises.csv`.
     """
-    repo = config.get_lesson_plans_repository()
-    exercises = repo.get_exercises()
+    uow = config.get_unit_of_work()
+    exercises = uow.lesson_plans.get_exercises()
     rows = [_convert_exercise_to_row(exercise) for exercise in exercises]
 
     fieldnames = rows[0].keys()

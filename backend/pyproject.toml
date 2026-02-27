@@ -79,6 +79,7 @@ name = "Domain layers"
 type = "layers"
 containers = "pilates.domain"
 layers = [
+    "unit_of_work",
     "lesson_plans",
     "templates | vendors",
 ]

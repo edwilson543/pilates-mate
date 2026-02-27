@@ -1,4 +1,4 @@
-from ._config import inject_repository
+from ._config import inject_uow
 from ._factories import (
     Exercise,
     ExerciseSequence,
