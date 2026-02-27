@@ -4,6 +4,7 @@ import factory
 
 from pilates.application import generate_lesson_plan
 from pilates.domain import exercises, lesson_plans, unit_of_work
+from testing.helpers import exercises as exercise_helpers
 
 
 class GeneratedExercise(factory.Factory):
@@ -43,6 +44,7 @@ class GeneratedExerciseSequence(factory.Factory):
 class ExerciseSet(factory.Factory):
     class Meta:
         model = lesson_plans.ExerciseSet
+        exclude = ("exercise", "exercise_id_counter")
 
     id = factory.Sequence(lambda n: n)
     exercise_id = factory.Sequence(lambda n: n)
@@ -80,9 +82,19 @@ class LessonPlan(factory.Factory):
 
     @classmethod
     def insert(
-        cls, uow: unit_of_work.UnitOfWork, **kwargs: object
+        cls,
+        uow: unit_of_work.UnitOfWork,
+        create_exercises: bool = True,
+        **kwargs: object,
     ) -> lesson_plans.LessonPlan:
         lesson_plan = cls.create(**kwargs)
+
+        # Create real exercises, otherwise the referenced `exercise_id`s will be invalid.
+        if create_exercises:
+            for set in lesson_plan.exercise_sets:
+                exercise = exercise_helpers.Exercise.insert(uow)
+                set.exercise_id = exercise.id
+
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name=lesson_plan.name,
             description=lesson_plan.description,

@@ -44,3 +44,7 @@ class LessonPlan(pydantic.BaseModel):
     @property
     def exercise_sequences(self) -> list[ExerciseSequence]:
         return self.warm_up + self.main_session + self.cool_down
+
+    @property
+    def exercise_sets(self) -> list[ExerciseSet]:
+        return [set for sequence in self.exercise_sequences for set in sequence.sets]

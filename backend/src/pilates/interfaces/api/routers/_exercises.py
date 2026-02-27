@@ -5,6 +5,7 @@ import pydantic
 
 from pilates import config
 from pilates.domain import exercises
+from pilates.interfaces.api import schemas
 
 
 router = fastapi.APIRouter()
@@ -55,16 +56,18 @@ async def create_exercise(
 
 
 @router.get("/")
-async def get_exercises() -> list[exercises.Exercise]:
+async def get_exercises() -> list[schemas.Exercise]:
     uow = config.get_unit_of_work()
-    return uow.exercises.get_exercises()
+    all_exercises = uow.exercises.get_exercises()
+    return [schemas.Exercise.from_domain(exercise) for exercise in all_exercises]
 
 
 @router.get("/{exercise_id}")
-async def get_exercise(exercise_id: int) -> exercises.Exercise:
+async def get_exercise(exercise_id: int) -> schemas.Exercise:
     uow = config.get_unit_of_work()
     try:
-        return uow.exercises.get_exercise(exercise_id)
+        domain_exercise = uow.exercises.get_exercise(exercise_id)
+        return schemas.Exercise.from_domain(obj=domain_exercise)
     except exercises.ExerciseDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Exercise not found.")
 

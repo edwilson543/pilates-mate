@@ -28,8 +28,24 @@ The interfaces layer contains the entrypoints into the code.
 - Dependencies in the interfaces layer must be instantiated by calling into the config layer
 - The interfaces layer must never instantiate dependencies directly from the domain or data layers
 
-#### FastAPI conventions
+#### API routes
+API routes are implemented as FastAPI routers in `./interfaces/api/routers/`
 - All routers must be `async`
+- Request and response models for specific endpoints are defined inline within router modules
+  - Named with `Request` and `Response` suffixes (e.g., `GenerateLessonPlanRequest`)
+  - Defined as Pydantic models inheriting from `pydantic.BaseModel`
+- Routers interact with the config layer to obtain dependencies (e.g., `config.get_unit_of_work()`)
+- Domain exceptions should be caught and converted to appropriate HTTP responses using `fastapi.HTTPException`
+
+#### API schemas
+The API layer uses separate schema models to decouple API contracts from domain models
+- Schema models are defined in `./interfaces/api/schemas.py`
+- Each schema provides a `from_domain()` class method to convert domain objects to API format
+- Schemas may differ from domain models by:
+  - Hydrating relationships (e.g., replacing IDs with full nested objects)
+  - Including or excluding fields based on API requirements
+  - Transforming data for presentation purposes
+- Schemas are primarily used for GET endpoint responses to provide richer data structures to API consumers
 
 ### Config layer
 The config layer is responsible for instantiating the correct implementations of ABCs declared in the domain.

@@ -25,7 +25,7 @@ def test_adds_exercise_set_to_existing_sequence(api_client, unit_of_work):
     new_set = lesson_plan.warm_up[0].sets[0]
     assert response.json()["id"] == new_set.id
 
-    assert new_set.exercise.id == exercise.id
+    assert new_set.exercise_id == exercise.id
     assert new_set.reps == 10
     assert new_set.duration_seconds == 60
     assert new_set.movement_variant == "STANDARD"

@@ -6,6 +6,7 @@ import pydantic
 from pilates import config
 from pilates.application import generate_lesson_plan
 from pilates.domain import exercises, lesson_plans
+from pilates.interfaces.api import schemas
 
 
 router = fastapi.APIRouter()
@@ -40,7 +41,7 @@ class GenerateLessonPlanRequest(pydantic.BaseModel):
 
 
 class GenerateLessonPlanResponse(pydantic.BaseModel):
-    lesson_plan: lesson_plans.LessonPlan
+    lesson_plan: schemas.LessonPlan
 
 
 @router.post("/", status_code=201)
@@ -52,20 +53,36 @@ async def generate_lesson_plan_(
     lesson_plan = await generate_lesson_plan.generate_lesson_plan(
         requirements=request.requirements, client=client, uow=uow
     )
-    return GenerateLessonPlanResponse(lesson_plan=lesson_plan)
+    all_exercises = uow.exercises.get_exercises()
+    exercises_by_id = {ex.id: ex for ex in all_exercises}
+    lesson_plan_schema = schemas.LessonPlan.from_domain(
+        lesson_plan, exercises_by_id=exercises_by_id
+    )
+    return GenerateLessonPlanResponse(lesson_plan=lesson_plan_schema)
 
 
 @router.get("/")
-async def get_lesson_plans() -> list[lesson_plans.LessonPlan]:
+async def get_lesson_plans() -> list[schemas.LessonPlan]:
     uow = config.get_unit_of_work()
-    return uow.lesson_plans.get_lesson_plans()
+    all_plans = uow.lesson_plans.get_lesson_plans()
+    all_exercises = uow.exercises.get_exercises()
+    exercises_by_id = {ex.id: ex for ex in all_exercises}
+    return [
+        schemas.LessonPlan.from_domain(plan, exercises_by_id=exercises_by_id)
+        for plan in all_plans
+    ]
 
 
 @router.get("/{lesson_plan_id}")
-async def get_lesson_plan(lesson_plan_id: int) -> lesson_plans.LessonPlan:
+async def get_lesson_plan(lesson_plan_id: int) -> schemas.LessonPlan:
     uow = config.get_unit_of_work()
     try:
-        return uow.lesson_plans.get_lesson_plan(lesson_plan_id)
+        lesson_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
+        all_exercises = uow.exercises.get_exercises()
+        exercises_by_id = {ex.id: ex for ex in all_exercises}
+        return schemas.LessonPlan.from_domain(
+            lesson_plan, exercises_by_id=exercises_by_id
+        )
     except lesson_plans.LessonPlanDoesNotExist:
         raise fastapi.HTTPException(status_code=404, detail="Lesson plan not found.")
 
