@@ -15,6 +15,11 @@ class FakeCompletionClient(vendors.CompletionClient):
     def __init__(self, completion: pydantic.BaseModel):
         self._completion = completion
 
+    @contextlib.contextmanager
+    def inject(self) -> typing.Generator[None, None, None]:
+        with mock.patch.object(config, "get_completion_client", return_value=self):
+            yield
+
     async def get_completion(
         self,
         system_prompt: str,
@@ -22,13 +27,3 @@ class FakeCompletionClient(vendors.CompletionClient):
         output_format: type[OutputT],
     ) -> OutputT:
         return typing.cast(OutputT, self._completion)
-
-
-@contextlib.contextmanager
-def install_fake_completion_client(
-    completion: pydantic.BaseModel,
-) -> typing.Generator[None, None, None]:
-    client = FakeCompletionClient(completion=completion)
-
-    with mock.patch.object(config, "get_completion_client", return_value=client):
-        yield

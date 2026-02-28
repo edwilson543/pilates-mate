@@ -18,8 +18,9 @@ The frontend is mainly implemented within `./src` and consists of the follow lay
       - For example, the sidebar
       - You are allowed to contribute to these.
   - In general, you should prefer using prebuilt shadcn components instead of custom components
+  - Components relevant to only a single route/page should just live alongside that page at `./src/app/${page}`
 - `./hooks`
-  - Contains hooks that can be re-used by components, for example queries for fetching data from the API
+  - Contains React hooks that can be re-used by components, for example queries for fetching data from the API
   - Hooks and their files should be named using camelCase
 - `./lib`
   - This contains lower-level library code which can be composed by hooks
@@ -51,6 +52,22 @@ Forms use react-hook-form + zod validation:
 
 See `app/exercises/new/page.tsx:1` for complete example.
 See `lib/schemas/exercise-schema.ts:1` for Zod schema example.
+
+### When to extract form components
+
+Forms should be extracted to separate components when:
+
+- Used by multiple pages (e.g., `ExerciseForm` used by both `new/page.tsx` and `[id]/edit/page.tsx`)
+- Complex and exceeding ~150 lines
+- The form logic can be meaningfully reused
+
+Forms may remain inline when:
+
+- Used by a single page with no reuse planned
+- Relatively simple (under ~100 lines)
+- Tightly coupled to specific page state
+
+Extracted forms should live alongside their route (e.g., `app/exercises/exercise-form.tsx`), not in `components/common/` unless truly shared across multiple routes.
 
 ## Query hooks
 
@@ -104,6 +121,13 @@ Use `sonner` for user feedback in mutation hooks:
 - `toast.error("Failed to create exercise")`
 - Toaster configured in root layout
 
+# Copy
+
+Use sentence case for all copy - only the first word and proper nouns should be capitalised. For example:
+
+- Create exercise, not Create Exercise
+- Generate lesson plan, not Generate Lesson Plan
+
 # Design
 
 The frontend uses:
@@ -118,12 +142,7 @@ The frontend uses:
 ## API client
 
 The frontend integrates with the backend's API server via the API client at `./src/lib/apiClient/`.
-
-- To update the API client inline with changes made to the backend:
-  - Run the backend API server locally (run `make api` from `../backend`)
-  - Generate the `apiClient` with `pnpm openapi-ts`
-  - Format the `apiClient` with `pnpm format`
-  - Commit the changes with message `Auto-update frontend API client using hey-api`
+To update the API client inline with changes made to the backend, see `## Making changes to the API` in `../CLAUDE.md`
 
 ## Query and mutation hooks
 

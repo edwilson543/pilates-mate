@@ -1,0 +1,75 @@
+name: Continuous integration
+
+on:
+  push:
+    branches: [ 'main' ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          # Pin to a specific uv version.
+          version: "0.5.28"
+          enable-cache: true
+          cache-dependency-glob: "backend/uv.lock"
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run test suite with pytest
+        run: make test
+
+      - name: Run mypy
+        if: always()
+        run: make mypy
+
+      - name: Run ruff checker
+        if: always()
+        run: make check
+
+      - name: Run import linter
+        if: always()
+        run: make lint_imports
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.16.0'
+          cache: 'pnpm'
+          cache-dependency-path: ./frontend/pnpm-lock.yaml
+
+      - name: Install frontend dependencies
+        run: make install
+
+      - name: Lint
+        run: make lint
+
+      # TODO! write some tests...
+#      - name: Test
+#        run: make test

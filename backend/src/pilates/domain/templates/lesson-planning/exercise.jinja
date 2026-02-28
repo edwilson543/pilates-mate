@@ -4,3 +4,5 @@ Description: {{ exercise.description }}
 Difficulty: {{ exercise.difficulty }}
 Primary muscle group: {{ exercise.primary_muscle_group }}
 Starting position: {{ exercise.starting_position }}
+Movement variants: {% for movement in exercise.movement_variants %}{{ movement }}{% if not loop.last %}, {% endif %}{% endfor %}
+Equipment variants: {% for equipment in exercise.equipment_variants %}{{ equipment }}{% if not loop.last %}, {% endif %}{% else %}None{% endfor %}

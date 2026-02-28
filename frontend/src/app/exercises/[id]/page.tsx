@@ -31,7 +31,7 @@ export default function ExerciseDetailPage({
   if (error || !exercise) {
     return (
       <div className="p-8">
-        <PageHeader title="Exercise Not Found" />
+        <PageHeader title="Exercise not found" />
         <div className="text-center py-12">
           <p className="text-destructive mb-4">
             The exercise you&apos;re looking for could not be found.
@@ -55,7 +55,13 @@ export default function ExerciseDetailPage({
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to exercises
       </Button>
-      <PageHeader title={exercise.name} />
+      <PageHeader
+        title={exercise.name}
+        actionButton={{
+          label: "Edit exercise",
+          onClick: () => router.push(`/exercises/${exerciseId}/edit`),
+        }}
+      />
       <ExerciseCard exercise={exercise} />
     </div>
   );

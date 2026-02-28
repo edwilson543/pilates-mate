@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Exercise } from "@/lib/apiClient/types.gen";
 
-import {formatEnumMember} from "@/lib/utils";
+import { formatEnumMember } from "@/lib/utils";
 interface ExerciseCardProps {
   exercise: Exercise;
 }
@@ -34,8 +34,14 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
           </p>
           <div className="flex gap-6 text-sm pt-2">
             <div className="flex-1">
+              <span className="font-semibold text-foreground">Category:</span>{" "}
+              <span className="text-muted-foreground">
+                {formatEnumMember(exercise.category)}
+              </span>
+            </div>
+            <div className="flex-1">
               <span className="font-semibold text-foreground">
-                Muscle Group:
+                Muscle group
               </span>{" "}
               <span className="text-muted-foreground">
                 {formatEnumMember(exercise.primary_muscle_group)}
@@ -43,13 +49,41 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
             </div>
             <div className="flex-1">
               <span className="font-semibold text-foreground">
-                Starting Position:
+                Starting position:
               </span>{" "}
               <span className="text-muted-foreground">
                 {formatEnumMember(exercise.starting_position)}
               </span>
             </div>
           </div>
+          <div className="pt-3 border-t">
+            <div className="text-sm">
+              <span className="font-semibold text-foreground">
+                Movement variants
+              </span>
+              <div className="flex gap-2 mt-2">
+                {exercise.movement_variants.map((movement_variant) => (
+                  <Badge key={movement_variant} variant="outline">
+                    {formatEnumMember(movement_variant)}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+          {exercise.equipment_variants.length > 0 && (
+            <div className="pt-3 border-t">
+              <div className="text-sm">
+                <span className="font-semibold text-foreground">Equipment</span>
+                <div className="flex gap-2 mt-2">
+                  {exercise.equipment_variants.map((equipment) => (
+                    <Badge key={equipment} variant="outline">
+                      {formatEnumMember(equipment)}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

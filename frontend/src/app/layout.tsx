@@ -29,10 +29,10 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <QueryClientProvider client={queryClient}>
           <Toaster />
-          <div className="flex">
+          <div className="flex h-screen">
             <SidebarProvider>
               <AppSidebar />
-              <main className="w-full">{children}</main>
+              <main className="w-full overflow-y-auto">{children}</main>
             </SidebarProvider>
           </div>
         </QueryClientProvider>

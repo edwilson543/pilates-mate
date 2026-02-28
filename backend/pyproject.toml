@@ -33,13 +33,6 @@ dev = [
 ]
 
 # ----------
-# Scripts.
-# ----------
-
-[project.scripts]
-pilates = "pilates.main:main"
-
-# ----------
 # Tooling.
 # ----------
 
@@ -56,7 +49,16 @@ allow_untyped_defs = true
 
 
 [tool.importlinter]
-root_package = "pilates"
+root_packages = ["pilates", "testing", "tests"]
+
+[[tool.importlinter.contracts]]
+name = "Root packages"
+type = "layers"
+layers = [
+    "tests",
+    "testing",
+    "pilates",
+]
 
 [[tool.importlinter.contracts]]
 name = "Top level layers"
@@ -69,6 +71,18 @@ layers = [
     "application",
     "data",
     "domain",
+]
+exhaustive = true
+
+[[tool.importlinter.contracts]]
+name = "Domain layers"
+type = "layers"
+containers = "pilates.domain"
+layers = [
+    "unit_of_work",
+    "lesson_plans",
+    "exercises",
+    "templates | vendors",
 ]
 exhaustive = true
 
