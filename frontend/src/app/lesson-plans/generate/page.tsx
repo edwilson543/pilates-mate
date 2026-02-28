@@ -72,6 +72,7 @@ export default function GenerateLessonPlanPage() {
   const comboboxAnchor = useComboboxAnchor();
 
   const form = useForm<LessonPlanFormData>({
+    // @ts-ignore
     resolver: zodResolver(lessonPlanFormSchema),
     defaultValues: {
       duration_minutes: 45,

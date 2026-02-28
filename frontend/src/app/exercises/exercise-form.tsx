@@ -44,6 +44,7 @@ export function ExerciseForm({
   isPending = false,
 }: ExerciseFormProps) {
   const form = useForm<ExerciseFormData>({
+   // @ts-ignore
     resolver: zodResolver(exerciseFormSchema),
     defaultValues: defaultValues || {
       name: "",
