@@ -4,6 +4,7 @@ from ._factories import (
     GeneratedExercise,
     GeneratedExerciseSequence,
     GeneratedExerciseSet,
+    GeneratedLessonPlan,
     LessonPlan,
     LessonPlanRequirements,
 )

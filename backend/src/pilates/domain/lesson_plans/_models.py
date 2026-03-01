@@ -48,7 +48,3 @@ class LessonPlan(pydantic.BaseModel):
     @property
     def exercise_sets(self) -> list[ExerciseSet]:
         return [set for sequence in self.exercise_sequences for set in sequence.sets]
-
-    @property
-    def duration_minutes(self) -> float:
-        return sum(set.duration_seconds for set in self.exercise_sets) / 60

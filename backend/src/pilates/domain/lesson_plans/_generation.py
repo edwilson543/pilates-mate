@@ -46,6 +46,27 @@ class GeneratedLessonPlan(pydantic.BaseModel):
     main_session: list[GeneratedExerciseSequence]
     cool_down: list[GeneratedExerciseSequence]
 
+    @property
+    def duration_minutes(self) -> float:
+        actual_duration_seconds = sum(
+            set.duration_seconds * sequence.reps
+            for sequence in self.sequences
+            for set in sequence.sets
+        )
+        return actual_duration_seconds / 60
+
+    @property
+    def exercises(self) -> list[GeneratedExercise]:
+        return [set.exercise for set in self.sets]
+
+    @property
+    def sets(self) -> list[GeneratedExerciseSet]:
+        return [set for sequence in self.sequences for set in sequence.sets]
+
+    @property
+    def sequences(self) -> list[GeneratedExerciseSequence]:
+        return self.warm_up + self.main_session + self.cool_down
+
 
 async def generate_lesson_plan(
     *,

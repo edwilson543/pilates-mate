@@ -13,6 +13,14 @@ class GeneratedExercise(factory.Factory):
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
 
+    @classmethod
+    def from_generated_exercise(
+        cls, exercise: lesson_plans.GeneratedExercise, **kwargs: object
+    ) -> exercises.Exercise:
+        return exercise_helpers.Exercise.build(
+            id=exercise.id, name=exercise.name, **kwargs
+        )
+
 
 class GeneratedExerciseSet(factory.Factory):
     class Meta:
@@ -38,6 +46,17 @@ class GeneratedExerciseSequence(factory.Factory):
     name = factory.Sequence(lambda n: f"name-{n}")
     notes = factory.Sequence(lambda n: f"notes-{n}")
     reps = 1
+
+
+class GeneratedLessonPlan(factory.Factory):
+    class Meta:
+        model = lesson_plans.GeneratedLessonPlan
+
+    name = factory.Sequence(lambda n: f"name-{n}")
+    description = factory.Sequence(lambda n: f"description-{n}")
+    warm_up = factory.LazyFunction(lambda: [GeneratedExerciseSequence()])
+    main_session = factory.LazyFunction(lambda: [GeneratedExerciseSequence()])
+    cool_down = factory.LazyFunction(lambda: [GeneratedExerciseSequence()])
 
 
 class ExerciseSet(factory.Factory):
