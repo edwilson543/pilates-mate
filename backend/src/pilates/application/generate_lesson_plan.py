@@ -34,18 +34,10 @@ class _GeneratedLessonPlan(pydantic.BaseModel):
     cool_down: list[_GeneratedExerciseSequence]
 
 
-class LessonPlanRequirements(pydantic.BaseModel):
-    duration_minutes: int
-    target_difficulty: exercises.Difficulty
-    target_muscle_groups: list[exercises.MuscleGroup]
-    example_lesson_plan_ids: list[int] = []
-    available_equipment: list[exercises.Equipment]
-    user_prompt: str
-
 
 async def generate_lesson_plan(
     *,
-    requirements: LessonPlanRequirements,
+    requirements: lesson_plans.LessonPlanRequirements,
     client: vendors.CompletionClient,
     uow: unit_of_work.UnitOfWork,
 ) -> lesson_plans.LessonPlan:
@@ -129,7 +121,7 @@ async def generate_lesson_plan(
 
 
 def _get_system_prompt(
-    requirements: LessonPlanRequirements,
+    requirements: lesson_plans.LessonPlanRequirements,
     uow: unit_of_work.UnitOfWork,
 ) -> str:
     all_exercises = uow.exercises.get_exercises()
@@ -146,7 +138,7 @@ def _get_system_prompt(
 
 
 def _get_example_lesson_plans(
-    requirements: LessonPlanRequirements,
+    requirements: lesson_plans.LessonPlanRequirements,
     repository: lesson_plans.Repository,
 ) -> list[lesson_plans.LessonPlan]:
     all_lesson_plans = repository.get_lesson_plans()

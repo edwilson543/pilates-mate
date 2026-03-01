@@ -111,7 +111,7 @@ class LessonPlan(factory.Factory):
 
 class LessonPlanRequirements(factory.Factory):
     class Meta:
-        model = generate_lesson_plan.LessonPlanRequirements
+        model = lesson_plans.LessonPlanRequirements
 
     duration_minutes = 30
     target_difficulty = exercises.Difficulty.INTERMEDIATE

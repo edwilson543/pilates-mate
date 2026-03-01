@@ -1,6 +1,17 @@
+import pydantic
+
 from pilates.domain import exercises, templates
 
 from . import _models
+
+
+class LessonPlanRequirements(pydantic.BaseModel):
+    duration_minutes: int
+    target_difficulty: exercises.Difficulty
+    target_muscle_groups: list[exercises.MuscleGroup]
+    example_lesson_plan_ids: list[int] = []
+    available_equipment: list[exercises.Equipment]
+    user_prompt: str
 
 
 def render_system_prompt(
