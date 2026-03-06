@@ -20,4 +20,4 @@ TODO.prompts.txt
 **/*.csv
 
 # Claude
-.claude
+.claude/*.local.*
