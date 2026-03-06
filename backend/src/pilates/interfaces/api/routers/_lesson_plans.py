@@ -37,7 +37,7 @@ class UpdateExerciseRequest(pydantic.BaseModel):
 
 
 class GenerateLessonPlanRequest(pydantic.BaseModel):
-    requirements: generate_lesson_plan.LessonPlanRequirements
+    requirements: lesson_plans.LessonPlanRequirements
 
 
 class GenerateLessonPlanResponse(pydantic.BaseModel):

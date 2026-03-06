@@ -2,14 +2,13 @@ import datetime as dt
 
 import factory
 
-from pilates.application import generate_lesson_plan
 from pilates.domain import exercises, lesson_plans, unit_of_work
 from testing.helpers import exercises as exercise_helpers
 
 
 class GeneratedExercise(factory.Factory):
     class Meta:
-        model = generate_lesson_plan._GeneratedExercise
+        model = lesson_plans.GeneratedExercise
 
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
@@ -17,7 +16,7 @@ class GeneratedExercise(factory.Factory):
 
 class GeneratedExerciseSet(factory.Factory):
     class Meta:
-        model = generate_lesson_plan._GeneratedExerciseSet
+        model = lesson_plans.GeneratedExerciseSet
 
     exercise = factory.SubFactory(GeneratedExercise)
     reps = 10
@@ -28,7 +27,7 @@ class GeneratedExerciseSet(factory.Factory):
 
 class GeneratedExerciseSequence(factory.Factory):
     class Meta:
-        model = generate_lesson_plan._GeneratedExerciseSequence
+        model = lesson_plans.GeneratedExerciseSequence
         exclude = ("n_sets",)
 
     n_sets = 3
