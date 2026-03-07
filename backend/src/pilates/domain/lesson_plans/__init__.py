@@ -2,7 +2,7 @@ from ._evaluation import (
     EvaluationCategory,
     EvaluationDeps,
     GeneratedLessonPlanEvaluation,
-    evaluate_generated_lesson_plan,
+    evaluate_system_prompt,
 )
 from ._generation import (
     GeneratedExercise,

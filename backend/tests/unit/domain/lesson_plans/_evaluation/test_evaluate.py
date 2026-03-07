@@ -12,7 +12,7 @@ class TestEvaluateGeneratedLessonPlan:
         requirements = lesson_plan_helpers.LessonPlanRequirements()
         deps = get_evaluation_deps()
 
-        result = _evaluation.evaluate_generated_lesson_plan(
+        result = _evaluation._evaluate_generated_lesson_plan(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
         summary = result.render()
@@ -39,13 +39,13 @@ class TestAggregate:
         requirements = lesson_plan_helpers.LessonPlanRequirements()
         deps = get_evaluation_deps()
 
-        evaluation_1 = _evaluation.evaluate_generated_lesson_plan(
+        evaluation_1 = _evaluation._evaluate_generated_lesson_plan(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
-        evaluation_2 = _evaluation.evaluate_generated_lesson_plan(
+        evaluation_2 = _evaluation._evaluate_generated_lesson_plan(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
-        evaluation_3 = _evaluation.evaluate_generated_lesson_plan(
+        evaluation_3 = _evaluation._evaluate_generated_lesson_plan(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
 

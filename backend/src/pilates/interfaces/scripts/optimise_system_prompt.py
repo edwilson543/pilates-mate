@@ -17,7 +17,7 @@ import shutil
 import pydantic
 
 from pilates import config
-from pilates.domain import exercises, lesson_plans
+from pilates.domain import lesson_plans
 
 
 # Configuration parameters.
@@ -46,13 +46,10 @@ async def _main() -> None:
     with open(template_path) as f:
         current_template = f.read()
 
-    # Get evaluation requirements.
-    requirements_list = _get_evaluation_requirements()
-
     # Initialize tracking variables.
     best_template = current_template
     best_version = BASE_VERSION
-    best_score = await _evaluate_template_version(best_version, requirements_list)
+    best_score = await _evaluate_template_version(best_version)
     print(f"Baseline score ({BASE_VERSION}): {best_score:.3f}")
     print()
 
@@ -80,9 +77,7 @@ async def _main() -> None:
             )
 
             # Evaluate using the versioning system.
-            score = await _evaluate_template_version(
-                candidate_version, requirements_list
-            )
+            score = await _evaluate_template_version(candidate_version)
             candidate_scores.append((candidate, candidate_version, score))
             print(f"  Candidate {i} ({candidate_version}): {score:.3f}")
 
@@ -279,66 +274,17 @@ include the entire template text.
 """
 
 
-async def _evaluate_template_version(
-    version: str,
-    requirements_list: list[lesson_plans.LessonPlanRequirements],
-) -> float:
+async def _evaluate_template_version(version: str) -> float:
     """
     Evaluate a template version by generating and scoring lesson plans.
 
     Returns a single numeric score (higher is better).
     """
-    # Generate and evaluate lesson plans using this template version.
-    evaluation_tasks = [
-        _generate_and_evaluate_with_version(
-            version=version,
-            requirements=requirements,
-        )
-        for requirements in requirements_list
-    ]
-    evaluations = await asyncio.gather(*evaluation_tasks)
-
-    # Aggregate evaluations.
-    aggregated = lesson_plans.GeneratedLessonPlanEvaluation.aggregate(evaluations)
-
-    # Calculate overall score.
-    score = _calculate_score_from_evaluation(aggregated)
-    return score
-
-
-async def _generate_and_evaluate_with_version(
-    *,
-    version: str,
-    requirements: lesson_plans.LessonPlanRequirements,
-) -> lesson_plans.GeneratedLessonPlanEvaluation:
-    """
-    Generate a lesson plan using a specific template version and evaluate it.
-    """
-    completion_client = config.get_completion_client()
     deps = config.get_evaluation_deps()
-    uow = config.get_unit_of_work()
+    evaluation = await lesson_plans.evaluate_system_prompt(version=version, deps=deps)
 
-    # Get system prompt using the versioning system.
-    system_prompt = lesson_plans.get_system_prompt(
-        requirements=requirements,
-        lesson_plans_repo=uow.lesson_plans,
-        exercises_repo=uow.exercises,
-        version=version,
-    )
-
-    # Generate lesson plan.
-    generated_plan = await lesson_plans.generate_lesson_plan(
-        requirements=requirements,
-        client=completion_client,
-        system_prompt=system_prompt,
-    )
-
-    # Evaluate the generated plan.
-    return lesson_plans.evaluate_generated_lesson_plan(
-        generated_plan=generated_plan,
-        requirements=requirements,
-        deps=deps,
-    )
+    score = _calculate_score_from_evaluation(evaluation)
+    return score
 
 
 def _calculate_score_from_evaluation(
@@ -410,71 +356,6 @@ def _extract_metric_value(metric: object) -> float:
         return float(metric.correlation_coefficient) * 100
     else:
         return 0.0
-
-
-def _get_evaluation_requirements() -> list[lesson_plans.LessonPlanRequirements]:
-    """
-    Get the list of test scenarios for evaluation.
-
-    This is the same as in evaluate_system_prompt.py but could be
-    reduced for faster optimization iterations.
-    """
-    full_body = [
-        lesson_plans.LessonPlanRequirements(
-            duration_minutes=45,
-            target_difficulty=difficulty,
-            target_muscle_groups=[
-                exercises.MuscleGroup.GLUTES,
-                exercises.MuscleGroup.CORE,
-                exercises.MuscleGroup.HIP_FLEXORS,
-                exercises.MuscleGroup.INNER_THIGHS,
-                exercises.MuscleGroup.CHEST,
-                exercises.MuscleGroup.TRICEPS,
-            ],
-            example_lesson_plan_ids=[],
-            available_equipment=available_equipment,
-            user_prompt="Focus on core and glutes equally, but weave in some focus on the other muscle groups.",
-        )
-        for difficulty in exercises.Difficulty
-        for available_equipment in [[], [exercises.Equipment.BALL]]
-    ]
-    core_focus = [
-        lesson_plans.LessonPlanRequirements(
-            duration_minutes=30,
-            target_difficulty=difficulty,
-            target_muscle_groups=[
-                exercises.MuscleGroup.CORE,
-                exercises.MuscleGroup.GLUTES,
-                exercises.MuscleGroup.HIP_FLEXORS,
-                exercises.MuscleGroup.INNER_THIGHS,
-                exercises.MuscleGroup.CHEST,
-                exercises.MuscleGroup.TRICEPS,
-            ],
-            example_lesson_plan_ids=[],
-            available_equipment=[exercises.Equipment.BALL],
-            user_prompt="Focus mainly on core today, with equal balance given to the other muscle groups.",
-        )
-        for difficulty in exercises.Difficulty
-    ]
-    glutes_focus = [
-        lesson_plans.LessonPlanRequirements(
-            duration_minutes=30,
-            target_difficulty=difficulty,
-            target_muscle_groups=[
-                exercises.MuscleGroup.GLUTES,
-                exercises.MuscleGroup.CORE,
-                exercises.MuscleGroup.HIP_FLEXORS,
-                exercises.MuscleGroup.INNER_THIGHS,
-                exercises.MuscleGroup.CHEST,
-                exercises.MuscleGroup.TRICEPS,
-            ],
-            example_lesson_plan_ids=[],
-            available_equipment=[exercises.Equipment.BALL],
-            user_prompt="Focus mainly on a glutes blast, with equal balance given to the other muscle groups.",
-        )
-        for difficulty in exercises.Difficulty
-    ]
-    return full_body + core_focus + glutes_focus
 
 
 if __name__ == "__main__":

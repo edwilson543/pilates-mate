@@ -6,7 +6,7 @@ import typing
 
 import attrs
 
-from pilates.domain import exercises, templates
+from pilates.domain import exercises, templates, vendors
 
 from .. import _generation, _repository
 
@@ -105,6 +105,7 @@ class GeneratedLessonPlanEvaluation:
 
 @attrs.frozen
 class EvaluationDeps:
+    completions_client: vendors.CompletionClient
     exercises_repo: exercises.Repository
     lesson_plan_repo: _repository.Repository
 

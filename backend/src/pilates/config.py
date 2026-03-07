@@ -13,5 +13,7 @@ def get_unit_of_work() -> unit_of_work.UnitOfWork:
 def get_evaluation_deps() -> lesson_plans.EvaluationDeps:
     uow = get_unit_of_work()
     return lesson_plans.EvaluationDeps(
-        lesson_plan_repo=uow.lesson_plans, exercises_repo=uow.exercises
+        completions_client=get_completion_client(),
+        lesson_plan_repo=uow.lesson_plans,
+        exercises_repo=uow.exercises
     )
