@@ -13,14 +13,14 @@
     ]
   },
   "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "make format"
-          }
-        ]
-      }
-    ]
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "pnpm eslint --fix --quiet {file_path} && pnpm prettier --write {file_path} && pnpm tsc --noEmit"
+        }
+      ]
+    }
+  ]
 }

@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "make format"
+            "command": "uv run ruff format {file_path} && uv run ruff check {file_path} --fix && uv run mypy {file_path}"
           }
         ]
       }
