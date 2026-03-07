@@ -2,7 +2,6 @@ from pilates.interfaces.cli._main import cli
 
 
 def test_optimise_prompt_help_text(cli_runner):
-    """Test that optimise-prompt displays help text correctly."""
     result = cli_runner.invoke(cli, ["optimise-prompt", "--help"])
 
     assert result.exit_code == 0

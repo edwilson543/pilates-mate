@@ -24,7 +24,9 @@ The backend follows a strict layered architecture.
 ### Interfaces layer
 The interfaces layer contains the entrypoints into the code.
 - The interfaces layer is implemented at `./src/pilates/interfaces/`
-- For now, the only interface is a FastAPI application, implemented at `./interfaces/api/`
+- There are two interfaces into the code:
+  - A FastAPI application, implemented at `./interfaces/api/`
+  - A Click CLI, implemented at `./interfaces/cli/`
 - Dependencies in the interfaces layer must be instantiated by calling into the config layer
 - The interfaces layer must never instantiate dependencies directly from the domain or data layers
 
@@ -232,6 +234,7 @@ Use fake implementations to avoid interacting with external services.
 
 ### Other notes on tests
 - Tests for async code should use the `@pytest.mark.asyncio` pytest marker
+- Never add a docstring to tests. Instead, use an instructive name for the test function/method 
 
 # Linting
 After each commit, all linting checks should pass. 
