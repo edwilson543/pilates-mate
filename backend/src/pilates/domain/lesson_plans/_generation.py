@@ -88,6 +88,7 @@ def get_system_prompt(
     requirements: LessonPlanRequirements,
     lesson_plans_repo: _repository.Repository,
     exercises_repo: exercises.Repository,
+    version: str = "v1",
 ) -> str:
     all_exercises = exercises_repo.get_exercises()
     example_lesson_plans = _get_example_lesson_plans(requirements, lesson_plans_repo)
@@ -99,6 +100,7 @@ def get_system_prompt(
         available_equipment=requirements.available_equipment,
         all_exercises=all_exercises,
         example_lesson_plans=example_lesson_plans,
+        version=version,
     )
 
 
@@ -128,6 +130,7 @@ def _render_system_prompt(
     available_equipment: list[exercises.Equipment],
     all_exercises: list[exercises.Exercise],
     example_lesson_plans: list[_models.LessonPlan],
+    version: str = "v1",
 ) -> str:
     prompt_variables = {
         "duration_minutes": duration_minutes,
@@ -139,7 +142,7 @@ def _render_system_prompt(
     }
 
     return templates.render(
-        directory="lesson-planning",
+        directory=f"lesson-planning/{version}",
         filename="system.jinja",
         variables=prompt_variables,
     )
