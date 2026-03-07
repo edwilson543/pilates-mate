@@ -146,9 +146,4 @@ class Evaluation(factory.Factory):
     name = factory.Sequence(lambda n: f"Evaluation-{n}")
     category = lesson_plans.EvaluationCategory.VALIDATION
     description = factory.Sequence(lambda n: f"Description-{n}")
-    outcome = factory.LazyFunction(
-        lambda: lesson_plans.ExerciseValidityMetric(
-            percentage_of_valid_exercises=100.0,
-            invalid_exercises=[],
-        )
-    )
+    outcome = factory.LazyFunction(dict)

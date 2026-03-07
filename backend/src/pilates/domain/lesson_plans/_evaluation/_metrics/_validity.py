@@ -3,8 +3,8 @@ from __future__ import annotations
 import attrs
 
 from pilates.domain import exercises
+from pilates.domain.lesson_plans import _generation
 
-from .. import _generation
 from . import _base
 
 
@@ -16,8 +16,10 @@ class ExerciseValidityMetric(_base.Metric):
     def render(self) -> str:
         if not self.invalid_exercises:
             return f"{self.percentage_of_valid_exercises}%"
-        invalid_names = [exercise.name for exercise in self.invalid_exercises]
-        return f"{self.percentage_of_valid_exercises}% ({len(self.invalid_exercises)} invalid exercises: {invalid_names})"
+        invalids = ", ".join(
+            f"{exercise.name} ({exercise.id})" for exercise in self.invalid_exercises
+        )
+        return f"{self.percentage_of_valid_exercises}% ({len(self.invalid_exercises)} invalid exercises: {invalids})"
 
     @classmethod
     def aggregate(cls, metrics: list[ExerciseValidityMetric]) -> ExerciseValidityMetric:
@@ -229,7 +231,7 @@ class MovementVariantValidity(_base.Evaluator[MovementVariantValidityMetric]):
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> MovementVariantValidityMetric:
-        exercise_lookup = _base.build_exercise_lookup(deps.exercises_repo)
+        exercise_lookup = deps.build_exercise_lookup()
 
         valid_count = 0
         invalid_sets = []
@@ -315,7 +317,7 @@ Note: empty list is always valid (no equipment).
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> EquipmentVariantValidityMetric:
-        exercise_lookup = _base.build_exercise_lookup(deps.exercises_repo)
+        exercise_lookup = deps.build_exercise_lookup()
 
         valid_count = 0
         invalid_sets = []

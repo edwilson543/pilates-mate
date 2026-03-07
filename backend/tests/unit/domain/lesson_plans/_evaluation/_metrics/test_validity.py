@@ -1,9 +1,8 @@
 from pilates.domain import exercises
-from pilates.domain.lesson_plans import _evaluation
+from pilates.domain.lesson_plans._evaluation._metrics import _validity
 from testing.helpers import exercises as exercises_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
-
-from . import get_evaluation_deps
+from tests.unit.domain.lesson_plans._evaluation import get_evaluation_deps
 
 
 class TestExerciseValidity:
@@ -16,7 +15,7 @@ class TestExerciseValidity:
         ]
         deps = get_evaluation_deps(exercises=exercises)
 
-        evaluator = _evaluation.ExerciseValidity()
+        evaluator = _validity.ExerciseValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -34,7 +33,7 @@ class TestExerciseValidity:
         # Exclude one of the exercises from the database.
         deps = get_evaluation_deps(exercises=exercises[:-1])
 
-        evaluator = _evaluation.ExerciseValidity()
+        evaluator = _validity.ExerciseValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -62,7 +61,7 @@ class TestEquipmentValidity:
             warm_up=[sequence]
         )
 
-        evaluator = _evaluation.EquipmentValidity()
+        evaluator = _validity.EquipmentValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan,
             requirements=requirements,
@@ -89,7 +88,7 @@ class TestEquipmentValidity:
             warm_up=[sequence]
         )
 
-        evaluator = _evaluation.EquipmentValidity()
+        evaluator = _validity.EquipmentValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan,
             requirements=requirements,
@@ -129,7 +128,7 @@ class TestMovementVariantValidity:
         requirements = lesson_plan_helpers.LessonPlanRequirements()
         deps = get_evaluation_deps(exercises=[exercise])
 
-        evaluator = _evaluation.MovementVariantValidity()
+        evaluator = _validity.MovementVariantValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -162,7 +161,7 @@ class TestMovementVariantValidity:
         requirements = lesson_plan_helpers.LessonPlanRequirements()
         deps = get_evaluation_deps(exercises=[exercise])
 
-        evaluator = _evaluation.MovementVariantValidity()
+        evaluator = _validity.MovementVariantValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -201,7 +200,7 @@ class TestEquipmentVariantValidity:
         requirements = lesson_plan_helpers.LessonPlanRequirements()
         deps = get_evaluation_deps(exercises=[exercise])
 
-        evaluator = _evaluation.EquipmentVariantValidity()
+        evaluator = _validity.EquipmentVariantValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -234,7 +233,7 @@ class TestEquipmentVariantValidity:
         requirements = lesson_plan_helpers.LessonPlanRequirements()
         deps = get_evaluation_deps(exercises=[exercise])
 
-        evaluator = _evaluation.EquipmentVariantValidity()
+        evaluator = _validity.EquipmentVariantValidity()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -245,3 +244,91 @@ class TestEquipmentVariantValidity:
             generated_exercise,
             [exercises.Equipment.RING],
         )
+
+
+class TestExerciseValidityMetricScoring:
+    def test_to_numeric_score_when_perfect(self) -> None:
+        metric = _validity.ExerciseValidityMetric(
+            percentage_of_valid_exercises=100.0,
+            invalid_exercises=[],
+        )
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_slightly_imperfect(self) -> None:
+        metric = _validity.ExerciseValidityMetric(
+            percentage_of_valid_exercises=95.0,
+            invalid_exercises=[],
+        )
+
+        assert metric.to_numeric_score() == 50.0
+
+    def test_to_numeric_score_when_very_poor(self) -> None:
+        metric = _validity.ExerciseValidityMetric(
+            percentage_of_valid_exercises=90.0,
+            invalid_exercises=[],
+        )
+
+        assert metric.to_numeric_score() == 0.0
+
+    def test_to_numeric_score_when_below_threshold(self) -> None:
+        metric = _validity.ExerciseValidityMetric(
+            percentage_of_valid_exercises=85.0,
+            invalid_exercises=[],
+        )
+
+        assert metric.to_numeric_score() == 0.0
+
+
+class TestEquipmentValidityMetricScoring:
+    def test_to_numeric_score_when_perfect(self) -> None:
+        metric = _validity.EquipmentValidityMetric(
+            percentage_of_valid_equipment=100.0,
+            invalid_equipment=[],
+        )
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_imperfect(self) -> None:
+        metric = _validity.EquipmentValidityMetric(
+            percentage_of_valid_equipment=95.0,
+            invalid_equipment=[exercises.Equipment.BALL],
+        )
+
+        assert metric.to_numeric_score() == 50.0
+
+
+class TestMovementVariantValidityMetricScoring:
+    def test_to_numeric_score_when_perfect(self) -> None:
+        metric = _validity.MovementVariantValidityMetric(
+            percentage_of_valid_variants=100.0,
+            invalid_sets=[],
+        )
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_imperfect(self) -> None:
+        metric = _validity.MovementVariantValidityMetric(
+            percentage_of_valid_variants=95.0,
+            invalid_sets=[],
+        )
+
+        assert metric.to_numeric_score() == 50.0
+
+
+class TestEquipmentVariantValidityMetricScoring:
+    def test_to_numeric_score_when_perfect(self) -> None:
+        metric = _validity.EquipmentVariantValidityMetric(
+            percentage_of_valid_equipment_variants=100.0,
+            invalid_sets=[],
+        )
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_imperfect(self) -> None:
+        metric = _validity.EquipmentVariantValidityMetric(
+            percentage_of_valid_equipment_variants=92.0,
+            invalid_sets=[],
+        )
+
+        assert metric.to_numeric_score() == 20.0

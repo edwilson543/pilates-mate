@@ -1,20 +1,133 @@
 from __future__ import annotations
 
 import asyncio
+import typing
+
+import attrs
+
+from pilates.domain import templates
 
 from .. import _generation
-from . import (
-    _base,
-    _constants,
-    _requirements_compliance,
-    _structural_quality,
-    _validity,
-)
+from . import _constants, _metrics
+
+
+@attrs.frozen
+class Evaluation:
+    name: str
+    category: _metrics.EvaluationCategory
+    description: str
+    outcome: typing.Any
+
+
+@attrs.frozen
+class GeneratedLessonPlanEvaluation:
+    evaluations: list[Evaluation]
+
+    @classmethod
+    def aggregate(cls, evaluations: list[typing.Self]) -> typing.Self:
+        """
+        Aggregate multiple evaluations by calculating the mean of their metrics.
+
+        This is mathematically invalid for some metrics, but provides a good enough measure.
+
+        :raises ValueError: If the evaluations list is empty.
+        """
+        if not evaluations:
+            raise ValueError("Cannot calculate mean of empty evaluations list")
+
+        # Group evaluations by name (each name corresponds to one evaluator type).
+        evaluations_by_name: dict[str, list[Evaluation]] = {}
+        for evaluation in evaluations:
+            for single_evaluation in evaluation.evaluations:
+                if single_evaluation.name not in evaluations_by_name:
+                    evaluations_by_name[single_evaluation.name] = []
+                evaluations_by_name[single_evaluation.name].append(single_evaluation)
+
+        # Aggregate each group of evaluations.
+        aggregated_evaluations: list[Evaluation] = []
+        for name, evaluation_group in evaluations_by_name.items():
+            # Extract the outcome metrics from each evaluation.
+            outcomes = [evaluation.outcome for evaluation in evaluation_group]
+
+            # Get the metric class and call its aggregate method.
+            metric_class = type(outcomes[0])
+            aggregated_metric = metric_class.aggregate(outcomes)
+
+            # Create a new evaluation with the aggregated metric.
+            aggregated_evaluation = Evaluation(
+                name=evaluation_group[0].name,
+                category=evaluation_group[0].category,
+                description=evaluation_group[0].description,
+                outcome=aggregated_metric,
+            )
+            aggregated_evaluations.append(aggregated_evaluation)
+
+        return cls(evaluations=aggregated_evaluations)
+
+    def render(self) -> str:
+        evaluations_by_category: dict[_metrics.EvaluationCategory, list[Evaluation]] = {
+            category: [] for category in _metrics.EvaluationCategory
+        }
+        for evaluation in self.evaluations:
+            evaluations_by_category[evaluation.category].append(evaluation)
+
+        return templates.render(
+            directory="evaluation",
+            filename="lesson-plan-evaluation.jinja",
+            variables={"evaluations_by_category": evaluations_by_category},
+        )
+
+    def to_numeric_score(self) -> float:
+        """
+        Calculate aggregate numeric score for optimization tracking.
+
+        Strategy:
+        1. If any validation metric fails (< 100%), apply heavy penalty
+        2. Otherwise, calculate weighted average by category:
+           - Validation: 40% weight
+           - Requirements: 30% weight
+           - Structural: 30% weight
+        """
+        validation_scores = []
+        requirements_scores = []
+        structural_scores = []
+
+        for evaluation in self.evaluations:
+            metric_score = evaluation.outcome.to_numeric_score()
+
+            if evaluation.category == _metrics.EvaluationCategory.VALIDATION:
+                validation_scores.append(metric_score)
+            elif (
+                evaluation.category
+                == _metrics.EvaluationCategory.REQUIREMENTS_COMPLIANCE
+            ):
+                requirements_scores.append(metric_score)
+            elif evaluation.category == _metrics.EvaluationCategory.STRUCTURAL_QUALITY:
+                structural_scores.append(metric_score)
+
+        validation_avg = sum(validation_scores) / len(validation_scores)
+        if validation_avg < 100.0:
+            return validation_avg * 0.5
+
+        requirements_avg = (
+            sum(requirements_scores) / len(requirements_scores)
+            if requirements_scores
+            else 100.0
+        )
+        structural_avg = (
+            sum(structural_scores) / len(structural_scores)
+            if structural_scores
+            else 100.0
+        )
+
+        return (
+            (validation_avg * 0.4) + (requirements_avg * 0.3) + (structural_avg * 0.3)
+        )
 
 
 async def evaluate_system_prompt(
-    *, version: str, deps: _base.EvaluationDeps
-) -> _base.GeneratedLessonPlanEvaluation:
+    *, version: str, deps: _metrics.EvaluationDeps
+) -> GeneratedLessonPlanEvaluation:
     requirements_list = _constants.get_evaluation_requirements()
 
     evaluation_tasks = [
@@ -32,57 +145,57 @@ async def evaluate_system_prompt(
     ]
     evaluations = await asyncio.gather(*evaluation_tasks)
 
-    return _base.GeneratedLessonPlanEvaluation.aggregate(evaluations)
+    return GeneratedLessonPlanEvaluation.aggregate(evaluations)
 
 
 async def _generate_and_evaluate(
     system_prompt: str,
     requirements: _generation.LessonPlanRequirements,
-    deps: _base.EvaluationDeps,
-) -> _base.GeneratedLessonPlanEvaluation:
+    deps: _metrics.EvaluationDeps,
+) -> GeneratedLessonPlanEvaluation:
     generated_plan = await _generation.generate_lesson_plan(
         requirements=requirements,
         client=deps.completions_client,
         system_prompt=system_prompt,
     )
 
-    return _evaluate_generated_lesson_plan(
+    return evaluate_generated_lesson_plan(
         generated_plan=generated_plan, requirements=requirements, deps=deps
     )
 
 
-def _evaluate_generated_lesson_plan(
+def evaluate_generated_lesson_plan(
     *,
     generated_plan: _generation.GeneratedLessonPlan,
     requirements: _generation.LessonPlanRequirements,
-    deps: _base.EvaluationDeps,
-) -> _base.GeneratedLessonPlanEvaluation:
+    deps: _metrics.EvaluationDeps,
+) -> GeneratedLessonPlanEvaluation:
     evaluators = [
         # Validation.
-        _validity.ExerciseValidity(),
-        _validity.EquipmentValidity(),
-        _validity.MovementVariantValidity(),
-        _validity.EquipmentVariantValidity(),
+        _metrics.ExerciseValidity(),
+        _metrics.EquipmentValidity(),
+        _metrics.MovementVariantValidity(),
+        _metrics.EquipmentVariantValidity(),
         # Requirements compliance.
-        _requirements_compliance.DurationCompliance(),
-        _requirements_compliance.DifficultyScore(),
-        _requirements_compliance.MuscleGroupCoverage(),
-        _requirements_compliance.EquipmentUtilization(),
+        _metrics.DurationCompliance(),
+        _metrics.DifficultyScore(),
+        _metrics.MuscleGroupCoverage(),
+        _metrics.EquipmentUtilization(),
         # Structural quality.
-        _structural_quality.SectionBalance(),
-        _structural_quality.TransitionQuality(),
-        _structural_quality.ProgressiveDifficulty(),
-        _structural_quality.VariantOrderingCompliance(),
-        _structural_quality.EquipmentConsistencyCompliance(),
-        _structural_quality.MuscleGroupFocusCompliance(),
-        _structural_quality.StartingPositionConsistencyCompliance(),
+        _metrics.SectionBalance(),
+        _metrics.TransitionQuality(),
+        _metrics.ProgressiveDifficulty(),
+        _metrics.VariantOrderingCompliance(),
+        _metrics.EquipmentConsistencyCompliance(),
+        _metrics.MuscleGroupFocusCompliance(),
+        _metrics.StartingPositionConsistencyCompliance(),
     ]
 
-    evaluations: list[_base.Evaluation] = []
+    evaluations: list[Evaluation] = []
 
     for evaluator in evaluators:
         outcome = evaluator.evaluate(generated_plan, requirements, deps)
-        evaluation = _base.Evaluation(
+        evaluation = Evaluation(
             name=evaluator.name,
             category=evaluator.category,
             description=evaluator.description,
@@ -90,4 +203,20 @@ def _evaluate_generated_lesson_plan(
         )
         evaluations.append(evaluation)
 
-    return _base.GeneratedLessonPlanEvaluation(evaluations=evaluations)
+    return GeneratedLessonPlanEvaluation(evaluations=evaluations)
+
+
+async def _generate_and_evaluate(
+    system_prompt: str,
+    requirements: _generation.LessonPlanRequirements,
+    deps: _metrics.EvaluationDeps,
+) -> GeneratedLessonPlanEvaluation:
+    generated_plan = await _generation.generate_lesson_plan(
+        requirements=requirements,
+        client=deps.completions_client,
+        system_prompt=system_prompt,
+    )
+
+    return evaluate_generated_lesson_plan(
+        generated_plan=generated_plan, requirements=requirements, deps=deps
+    )

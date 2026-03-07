@@ -3,8 +3,8 @@ from __future__ import annotations
 import attrs
 
 from pilates.domain import exercises
+from pilates.domain.lesson_plans import _generation
 
-from .. import _generation
 from . import _base
 
 
@@ -36,38 +36,6 @@ class DurationComplianceMetric(PercentageMetric):
             return 100.0 - (distance * 5.0)
         else:
             return max(0.0, 50.0 - ((distance - 10.0) * 2.0))
-
-
-@attrs.frozen
-class VariantOrderingComplianceMetric(PercentageMetric):
-    """Variant ordering compliance: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
-
-
-@attrs.frozen
-class EquipmentConsistencyComplianceMetric(PercentageMetric):
-    """Equipment consistency: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
-
-
-@attrs.frozen
-class MuscleGroupFocusComplianceMetric(PercentageMetric):
-    """Muscle group focus: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
-
-
-@attrs.frozen
-class StartingPositionConsistencyComplianceMetric(PercentageMetric):
-    """Starting position consistency: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
 
 
 class DurationCompliance(_base.Evaluator[DurationComplianceMetric]):
@@ -139,7 +107,7 @@ class DifficultyScore(_base.Evaluator[DifficultyScoreMetric]):
             exercises.Difficulty.ADVANCED: 10,
         }
 
-        exercise_lookup = _base.build_exercise_lookup(deps.exercises_repo)
+        exercise_lookup = deps.build_exercise_lookup()
 
         total_weighted_difficulty = 0.0
         total_duration = 0.0
@@ -238,7 +206,7 @@ class MuscleGroupCoverage(_base.Evaluator[MuscleGroupCoverageMetric]):
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> MuscleGroupCoverageMetric:
-        exercise_lookup = _base.build_exercise_lookup(deps.exercises_repo)
+        exercise_lookup = deps.build_exercise_lookup()
         required_groups_set = set(requirements.target_muscle_groups)
 
         matching_count = 0

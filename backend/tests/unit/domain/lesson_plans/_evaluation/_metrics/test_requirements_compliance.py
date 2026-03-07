@@ -1,11 +1,10 @@
 import pytest
 
 from pilates.domain import exercises
-from pilates.domain.lesson_plans import _evaluation
+from pilates.domain.lesson_plans._evaluation._metrics import _requirements_compliance
 from testing.helpers import exercises as exercises_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
-
-from . import get_evaluation_deps
+from tests.unit.domain.lesson_plans._evaluation import get_evaluation_deps
 
 
 class TestDurationCompliance:
@@ -25,7 +24,7 @@ class TestDurationCompliance:
             warm_up=[sequence], main_session=[sequence], cool_down=[sequence]
         )
 
-        evaluator = _evaluation.DurationCompliance()
+        evaluator = _requirements_compliance.DurationCompliance()
         result = evaluator.evaluate(
             generated_plan=generated_plan,
             requirements=requirements,
@@ -55,7 +54,7 @@ class TestDifficultyScore:
         )
         deps = get_evaluation_deps(exercises=[beginner_exercise])
 
-        evaluator = _evaluation.DifficultyScore()
+        evaluator = _requirements_compliance.DifficultyScore()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -83,7 +82,7 @@ class TestDifficultyScore:
         )
         deps = get_evaluation_deps(exercises=[beginner_exercise])
 
-        evaluator = _evaluation.DifficultyScore()
+        evaluator = _requirements_compliance.DifficultyScore()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -111,7 +110,7 @@ class TestDifficultyScore:
         )
         deps = get_evaluation_deps(exercises=[advanced_exercise])
 
-        evaluator = _evaluation.DifficultyScore()
+        evaluator = _requirements_compliance.DifficultyScore()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -146,7 +145,7 @@ class TestMuscleGroupCoverage:
         )
         deps = get_evaluation_deps(exercises=[core_exercise, glutes_exercise])
 
-        evaluator = _evaluation.MuscleGroupCoverage()
+        evaluator = _requirements_compliance.MuscleGroupCoverage()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -182,7 +181,7 @@ class TestMuscleGroupCoverage:
         )
         deps = get_evaluation_deps(exercises=[core_exercise, glutes_exercise])
 
-        evaluator = _evaluation.MuscleGroupCoverage()
+        evaluator = _requirements_compliance.MuscleGroupCoverage()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -193,74 +192,6 @@ class TestMuscleGroupCoverage:
             exercises.MuscleGroup.CORE,
             exercises.MuscleGroup.GLUTES,
         }
-
-
-class TestSectionBalance:
-    def test_high_correlation_when_ideal_distribution(self):
-        # Create a plan with ideal distribution: 10% warm-up, 80% main, 10% cool-down.
-        warm_up_set = lesson_plan_helpers.GeneratedExerciseSet(duration_seconds=60)
-        main_set = lesson_plan_helpers.GeneratedExerciseSet(duration_seconds=480)
-        cool_down_set = lesson_plan_helpers.GeneratedExerciseSet(duration_seconds=60)
-
-        warm_up_sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[warm_up_set], reps=1
-        )
-        main_sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[main_set], reps=1
-        )
-        cool_down_sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[cool_down_set], reps=1
-        )
-
-        generated_plan = lesson_plan_helpers.GeneratedLessonPlan.build(
-            warm_up=[warm_up_sequence],
-            main_session=[main_sequence],
-            cool_down=[cool_down_sequence],
-        )
-        requirements = lesson_plan_helpers.LessonPlanRequirements()
-        deps = get_evaluation_deps()
-
-        evaluator = _evaluation.SectionBalance()
-        result = evaluator.evaluate(
-            generated_plan=generated_plan, requirements=requirements, deps=deps
-        )
-
-        assert result.warm_up_percentage == 10.0
-        assert result.main_session_percentage == 80.0
-        assert result.cool_down_percentage == 10.0
-        assert result.correlation_coefficient == pytest.approx(1.0, abs=0.01)
-
-    def test_low_correlation_when_unbalanced(self):
-        # Create an unbalanced plan: mostly warm-up.
-        warm_up_set = lesson_plan_helpers.GeneratedExerciseSet(duration_seconds=500)
-        main_set = lesson_plan_helpers.GeneratedExerciseSet(duration_seconds=50)
-        cool_down_set = lesson_plan_helpers.GeneratedExerciseSet(duration_seconds=50)
-
-        warm_up_sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[warm_up_set], reps=1
-        )
-        main_sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[main_set], reps=1
-        )
-        cool_down_sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[cool_down_set], reps=1
-        )
-
-        generated_plan = lesson_plan_helpers.GeneratedLessonPlan.build(
-            warm_up=[warm_up_sequence],
-            main_session=[main_sequence],
-            cool_down=[cool_down_sequence],
-        )
-        requirements = lesson_plan_helpers.LessonPlanRequirements()
-        deps = get_evaluation_deps()
-
-        evaluator = _evaluation.SectionBalance()
-        result = evaluator.evaluate(
-            generated_plan=generated_plan, requirements=requirements, deps=deps
-        )
-
-        # Should have poor correlation with ideal distribution.
-        assert result.correlation_coefficient < 0.5
 
 
 class TestEquipmentUtilization:
@@ -282,7 +213,7 @@ class TestEquipmentUtilization:
         )
         deps = get_evaluation_deps()
 
-        evaluator = _evaluation.EquipmentUtilization()
+        evaluator = _requirements_compliance.EquipmentUtilization()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
@@ -314,10 +245,139 @@ class TestEquipmentUtilization:
         )
         deps = get_evaluation_deps()
 
-        evaluator = _evaluation.EquipmentUtilization()
+        evaluator = _requirements_compliance.EquipmentUtilization()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
 
         assert result.percentage_utilized == 33.3
         assert result.used_equipment == [exercises.Equipment.BALL]
+
+
+class TestDurationComplianceMetricScoring:
+    def test_to_numeric_score_when_perfect(self) -> None:
+        metric = _requirements_compliance.DurationComplianceMetric(value=100.0)
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_within_ideal_range_lower(self) -> None:
+        metric = _requirements_compliance.DurationComplianceMetric(value=95.0)
+
+        assert metric.to_numeric_score() == 75.0
+
+    def test_to_numeric_score_when_within_ideal_range_upper(self) -> None:
+        metric = _requirements_compliance.DurationComplianceMetric(value=105.0)
+
+        assert metric.to_numeric_score() == 75.0
+
+    def test_to_numeric_score_when_at_acceptable_boundary(self) -> None:
+        metric = _requirements_compliance.DurationComplianceMetric(value=90.0)
+
+        assert metric.to_numeric_score() == 50.0
+
+    def test_to_numeric_score_when_outside_acceptable_range(self) -> None:
+        metric = _requirements_compliance.DurationComplianceMetric(value=80.0)
+
+        assert metric.to_numeric_score() == 30.0
+
+    def test_to_numeric_score_when_very_poor(self) -> None:
+        metric = _requirements_compliance.DurationComplianceMetric(value=60.0)
+
+        assert metric.to_numeric_score() == 0.0
+
+
+class TestDifficultyScoreMetricScoring:
+    def test_to_numeric_score_when_perfect_match(self) -> None:
+        metric = _requirements_compliance.DifficultyScoreMetric(
+            generated_score=5.0,
+            target_score=5.0,
+            percentage_of_target=100.0,
+        )
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_slightly_off(self) -> None:
+        metric = _requirements_compliance.DifficultyScoreMetric(
+            generated_score=4.5,
+            target_score=5.0,
+            percentage_of_target=90.0,
+        )
+
+        assert metric.to_numeric_score() == 90.0
+
+    def test_to_numeric_score_when_very_different(self) -> None:
+        metric = _requirements_compliance.DifficultyScoreMetric(
+            generated_score=2.0,
+            target_score=5.0,
+            percentage_of_target=40.0,
+        )
+
+        score = metric.to_numeric_score()
+        assert score == 40.0
+
+
+class TestMuscleGroupCoverageMetricScoring:
+    def test_to_numeric_score_when_at_ideal_center(self) -> None:
+        metric = _requirements_compliance.MuscleGroupCoverageMetric(
+            percentage_targeting_required_groups=80.0,
+            required_groups=[exercises.MuscleGroup.CORE],
+            groups_in_plan=[exercises.MuscleGroup.CORE],
+        )
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_at_ideal_lower_bound(self) -> None:
+        metric = _requirements_compliance.MuscleGroupCoverageMetric(
+            percentage_targeting_required_groups=70.0,
+            required_groups=[exercises.MuscleGroup.CORE],
+            groups_in_plan=[exercises.MuscleGroup.CORE],
+        )
+
+        assert metric.to_numeric_score() == 90.0
+
+    def test_to_numeric_score_when_at_ideal_upper_bound(self) -> None:
+        metric = _requirements_compliance.MuscleGroupCoverageMetric(
+            percentage_targeting_required_groups=90.0,
+            required_groups=[exercises.MuscleGroup.CORE],
+            groups_in_plan=[exercises.MuscleGroup.CORE],
+        )
+
+        assert metric.to_numeric_score() == 90.0
+
+    def test_to_numeric_score_when_below_ideal_range(self) -> None:
+        metric = _requirements_compliance.MuscleGroupCoverageMetric(
+            percentage_targeting_required_groups=60.0,
+            required_groups=[exercises.MuscleGroup.CORE],
+            groups_in_plan=[exercises.MuscleGroup.CORE],
+        )
+
+        assert metric.to_numeric_score() == 50.0
+
+    def test_to_numeric_score_when_above_ideal_range(self) -> None:
+        metric = _requirements_compliance.MuscleGroupCoverageMetric(
+            percentage_targeting_required_groups=100.0,
+            required_groups=[exercises.MuscleGroup.CORE],
+            groups_in_plan=[exercises.MuscleGroup.CORE],
+        )
+
+        assert metric.to_numeric_score() == 50.0
+
+
+class TestEquipmentUtilizationMetricScoring:
+    def test_to_numeric_score_when_fully_utilized(self) -> None:
+        metric = _requirements_compliance.EquipmentUtilizationMetric(
+            percentage_utilized=100.0,
+            available_equipment=[exercises.Equipment.BALL],
+            used_equipment=[exercises.Equipment.BALL],
+        )
+
+        assert metric.to_numeric_score() == 100.0
+
+    def test_to_numeric_score_when_partially_utilized(self) -> None:
+        metric = _requirements_compliance.EquipmentUtilizationMetric(
+            percentage_utilized=50.0,
+            available_equipment=[exercises.Equipment.BALL],
+            used_equipment=[],
+        )
+
+        assert metric.to_numeric_score() == 50.0
