@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from .. import _generation
-from . import _base, _requirements_compliance, _validity
+from . import _base, _requirements_compliance, _structural_quality, _validity
 
 
 def evaluate_generated_lesson_plan(
@@ -20,8 +20,15 @@ def evaluate_generated_lesson_plan(
         _requirements_compliance.DurationCompliance(),
         _requirements_compliance.DifficultyScore(),
         _requirements_compliance.MuscleGroupCoverage(),
-        _requirements_compliance.SectionBalance(),
         _requirements_compliance.EquipmentUtilization(),
+        # Structural quality.
+        _structural_quality.SectionBalance(),
+        _structural_quality.TransitionQuality(),
+        _structural_quality.ProgressiveDifficulty(),
+        _structural_quality.VariantOrderingCompliance(),
+        _structural_quality.EquipmentConsistencyCompliance(),
+        _structural_quality.MuscleGroupFocusCompliance(),
+        _structural_quality.StartingPositionConsistencyCompliance(),
     ]
 
     evaluations: list[_base.Evaluation] = []

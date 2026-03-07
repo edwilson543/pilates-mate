@@ -14,6 +14,7 @@ from .. import _generation, _repository
 class EvaluationCategory(enum.StrEnum):
     VALIDATION = "VALIDATION"
     REQUIREMENTS_COMPLIANCE = "REQUIREMENTS_COMPLIANCE"
+    STRUCTURAL_QUALITY = "STRUCTURAL_QUALITY"
 
 
 class Metric(abc.ABC):

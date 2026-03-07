@@ -16,9 +16,8 @@ from ._requirements_compliance import (
     MuscleGroupCoverage,
     MuscleGroupCoverageMetric,
     PercentageMetric,
-    SectionBalance,
-    SectionBalanceMetric,
 )
+from ._structural_quality import SectionBalance, SectionBalanceMetric
 from ._validity import (
     EquipmentValidity,
     EquipmentValidityMetric,
