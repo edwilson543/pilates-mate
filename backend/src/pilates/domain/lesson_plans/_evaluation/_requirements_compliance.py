@@ -169,7 +169,9 @@ class MuscleGroupCoverage(_base.Evaluator[MuscleGroupCoverageMetric]):
     name = "Muscle group coverage"
     category = _base.EvaluationCategory.REQUIREMENTS_COMPLIANCE
     description = """Percentage of exercise sets whose primary muscle group matches requirements.
-- Should be high (e.g., >70%) while allowing complementary exercises.
+- This should be in the range 70-90%.
+- A score of less than 70% means the wrong muscle groups are being targeted too much.
+- A score of greater than 90% means the class is not varied enough
 """
 
     def evaluate(
@@ -331,7 +333,8 @@ class EquipmentUtilization(_base.Evaluator[EquipmentUtilizationMetric]):
     name = "Equipment utilization"
     category = _base.EvaluationCategory.REQUIREMENTS_COMPLIANCE
     description = """Percentage of available equipment actually used in the plan.
-- Higher is better for equipment variety, but 100% is not required.
+- If just one or two pieces of equipment are available, this should be 100%.
+- If more than two pieces of equipment are available, this can be less than 100%.
 """
 
     def evaluate(
