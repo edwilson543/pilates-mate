@@ -168,6 +168,7 @@ Run the tests using `make test`.
 Tests are split into the following categories:
 - Unit tests, for testing small pieces of functionality in isolation (`tests/unit/`)
 - Functional tests, for testing interfaces into the code, such as FastAPI endpoints (`tests/functional/`)
+- Project tests, for testing aspects of the project other than source code (`tests/project/`)
 
 ### Unit tests
 - Unit tests must live in a module in `tests/unit` mirroring the application module
@@ -203,6 +204,11 @@ Tests are split into the following categories:
   - One test for an application error (e.g. invalid creationg parameters, 400)
 - Functional tests should also be split into (setup / execution / assertion) blocks, however each
   functional test can have multiple series of such blocks
+
+### Project tests
+- Project tests are miscellaneous tests that act as linting rules to enforce coding practices
+- For example, `test_project_structure.py` ensures all unit test modules mirror a module in 
+  the source code
 
 ### Test factories
 Use test factories to generate fake data during test setup.
