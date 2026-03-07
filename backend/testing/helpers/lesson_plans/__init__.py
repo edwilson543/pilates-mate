@@ -1,4 +1,5 @@
 from ._factories import (
+    Evaluation,
     ExerciseSequence,
     ExerciseSet,
     GeneratedExercise,

@@ -137,3 +137,18 @@ class LessonPlanRequirements(factory.Factory):
     example_lesson_lan_ids = factory.ListFactory()
     user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
     available_equipment = factory.LazyFunction(lambda: [exercises.Equipment.BALL])
+
+
+class Evaluation(factory.Factory):
+    class Meta:
+        model = lesson_plans.Evaluation
+
+    name = factory.Sequence(lambda n: f"Evaluation-{n}")
+    category = lesson_plans.EvaluationCategory.VALIDATION
+    description = factory.Sequence(lambda n: f"Description-{n}")
+    outcome = factory.LazyFunction(
+        lambda: lesson_plans.ExerciseValidityMetric(
+            percentage_of_valid_exercises=100.0,
+            invalid_exercises=[],
+        )
+    )

@@ -35,6 +35,23 @@ class Metric(abc.ABC):
         """
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def to_numeric_score(self) -> float:
+        """
+        Convert this metric to a normalized numeric score.
+
+        Returns a float where:
+        - 0.0 represents worst possible performance
+        - 100.0 represents ideal performance
+        - Values can exceed 100.0 if applicable
+
+        Each metric type implements its own semantics:
+        - Higher is better (validity, most compliance)
+        - Lower is better (transition rate)
+        - Closer to target (duration, difficulty, muscle groups)
+        """
+        raise NotImplementedError
+
 
 @attrs.frozen
 class Evaluation:
@@ -100,6 +117,50 @@ class GeneratedLessonPlanEvaluation:
             directory="evaluation",
             filename="lesson-plan-evaluation.jinja",
             variables={"evaluations_by_category": evaluations_by_category},
+        )
+
+    def to_numeric_score(self) -> float:
+        """
+        Calculate aggregate numeric score for optimization tracking.
+
+        Strategy:
+        1. If any validation metric fails (< 100%), apply heavy penalty
+        2. Otherwise, calculate weighted average by category:
+           - Validation: 40% weight
+           - Requirements: 30% weight
+           - Structural: 30% weight
+        """
+        validation_scores = []
+        requirements_scores = []
+        structural_scores = []
+
+        for evaluation in self.evaluations:
+            metric_score = evaluation.outcome.to_numeric_score()
+
+            if evaluation.category == EvaluationCategory.VALIDATION:
+                validation_scores.append(metric_score)
+            elif evaluation.category == EvaluationCategory.REQUIREMENTS_COMPLIANCE:
+                requirements_scores.append(metric_score)
+            elif evaluation.category == EvaluationCategory.STRUCTURAL_QUALITY:
+                structural_scores.append(metric_score)
+
+        validation_avg = sum(validation_scores) / len(validation_scores)
+        if validation_avg < 100.0:
+            return validation_avg * 0.5
+
+        requirements_avg = (
+            sum(requirements_scores) / len(requirements_scores)
+            if requirements_scores
+            else 100.0
+        )
+        structural_avg = (
+            sum(structural_scores) / len(structural_scores)
+            if structural_scores
+            else 100.0
+        )
+
+        return (
+            (validation_avg * 0.4) + (requirements_avg * 0.3) + (structural_avg * 0.3)
         )
 
 

@@ -10,7 +10,7 @@ from . import _base
 
 @attrs.frozen
 class PercentageMetric(_base.Metric):
-    """Metric for simple percentage values."""
+    """Base class for percentage-based metrics. Do not use directly."""
 
     value: float
 
@@ -26,7 +26,51 @@ class PercentageMetric(_base.Metric):
         return cls(value=round(mean_value, 3))
 
 
-class DurationCompliance(_base.Evaluator[PercentageMetric]):
+@attrs.frozen
+class DurationComplianceMetric(PercentageMetric):
+    """Duration compliance: 90-110% ideal, 100% perfect."""
+
+    def to_numeric_score(self) -> float:
+        distance = abs(self.value - 100.0)
+        if distance <= 10.0:
+            return 100.0 - (distance * 5.0)
+        else:
+            return max(0.0, 50.0 - ((distance - 10.0) * 2.0))
+
+
+@attrs.frozen
+class VariantOrderingComplianceMetric(PercentageMetric):
+    """Variant ordering compliance: higher is better."""
+
+    def to_numeric_score(self) -> float:
+        return self.value
+
+
+@attrs.frozen
+class EquipmentConsistencyComplianceMetric(PercentageMetric):
+    """Equipment consistency: higher is better."""
+
+    def to_numeric_score(self) -> float:
+        return self.value
+
+
+@attrs.frozen
+class MuscleGroupFocusComplianceMetric(PercentageMetric):
+    """Muscle group focus: higher is better."""
+
+    def to_numeric_score(self) -> float:
+        return self.value
+
+
+@attrs.frozen
+class StartingPositionConsistencyComplianceMetric(PercentageMetric):
+    """Starting position consistency: higher is better."""
+
+    def to_numeric_score(self) -> float:
+        return self.value
+
+
+class DurationCompliance(_base.Evaluator[DurationComplianceMetric]):
     name = "Target duration"
     category = _base.EvaluationCategory.REQUIREMENTS_COMPLIANCE
     description = """Comparison of the duration of the generated lesson plan relative to the required duration.
@@ -41,9 +85,9 @@ A duration in the range 90-110% is deemed acceptable.
         generated_plan: _generation.GeneratedLessonPlan,
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
-    ) -> PercentageMetric:
+    ) -> DurationComplianceMetric:
         ratio = generated_plan.duration_minutes / requirements.duration_minutes
-        return PercentageMetric(value=round(100 * ratio, 3))
+        return DurationComplianceMetric(value=round(100 * ratio, 3))
 
 
 @attrs.frozen
@@ -69,6 +113,10 @@ class DifficultyScoreMetric(_base.Metric):
             target_score=round(mean_target_score, 2),
             percentage_of_target=round(mean_percentage, 1),
         )
+
+    def to_numeric_score(self) -> float:
+        distance = abs(self.percentage_of_target - 100.0)
+        return max(0.0, 100.0 - distance)
 
 
 class DifficultyScore(_base.Evaluator[DifficultyScoreMetric]):
@@ -164,6 +212,16 @@ class MuscleGroupCoverageMetric(_base.Metric):
             groups_in_plan=sorted(all_groups),
         )
 
+    def to_numeric_score(self) -> float:
+        pct = self.percentage_targeting_required_groups
+        if 70.0 <= pct <= 90.0:
+            return 100.0 - abs(pct - 80.0)
+        else:
+            if pct < 70.0:
+                return max(0.0, 70.0 - (70.0 - pct) * 2.0)
+            else:
+                return max(0.0, 70.0 - (pct - 90.0) * 2.0)
+
 
 class MuscleGroupCoverage(_base.Evaluator[MuscleGroupCoverageMetric]):
     name = "Muscle group coverage"
@@ -239,6 +297,9 @@ class EquipmentUtilizationMetric(_base.Metric):
             available_equipment=available_equipment,
             used_equipment=sorted(all_used),
         )
+
+    def to_numeric_score(self) -> float:
+        return self.percentage_utilized
 
 
 class EquipmentUtilization(_base.Evaluator[EquipmentUtilizationMetric]):

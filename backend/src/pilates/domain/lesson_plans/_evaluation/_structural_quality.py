@@ -44,6 +44,9 @@ class SectionBalanceMetric(_base.Metric):
             correlation_coefficient=round(mean_correlation, 2),
         )
 
+    def to_numeric_score(self) -> float:
+        return (self.correlation_coefficient + 1.0) * 50.0
+
 
 class SectionBalance(_base.Evaluator[SectionBalanceMetric]):
     name = "Section balance"
@@ -125,6 +128,9 @@ class TransitionQualityMetric(_base.Metric):
             position_changes=position_changes_sum,
             transition_rate=round(mean_transition_rate, 1),
         )
+
+    def to_numeric_score(self) -> float:
+        return max(0.0, 100.0 - self.transition_rate)
 
 
 class TransitionQuality(_base.Evaluator[TransitionQualityMetric]):
@@ -223,6 +229,12 @@ class ProgressiveDifficultyMetric(_base.Metric):
             regression_count=round(mean_regression_count),
         )
 
+    def to_numeric_score(self) -> float:
+        if self.is_progressive:
+            return max(50.0, 100.0 - (self.regression_count * 5.0))
+        else:
+            return max(0.0, 50.0 - (self.regression_count * 5.0))
+
 
 class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
     name = "Progressive difficulty"
@@ -291,7 +303,7 @@ class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
 
 
 class VariantOrderingCompliance(
-    _base.Evaluator[_requirements_compliance.PercentageMetric]
+    _base.Evaluator[_requirements_compliance.VariantOrderingComplianceMetric]
 ):
     name = "Variant ordering compliance"
     category = _base.EvaluationCategory.STRUCTURAL_QUALITY
@@ -306,7 +318,7 @@ class VariantOrderingCompliance(
         generated_plan: _generation.GeneratedLessonPlan,
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
-    ) -> _requirements_compliance.PercentageMetric:
+    ) -> _requirements_compliance.VariantOrderingComplianceMetric:
         compliant_count = 0
         total_sequences = 0
 
@@ -338,11 +350,13 @@ class VariantOrderingCompliance(
         else:
             percentage = round(100 * compliant_count / total_sequences, 1)
 
-        return _requirements_compliance.PercentageMetric(value=percentage)
+        return _requirements_compliance.VariantOrderingComplianceMetric(
+            value=percentage
+        )
 
 
 class EquipmentConsistencyCompliance(
-    _base.Evaluator[_requirements_compliance.PercentageMetric]
+    _base.Evaluator[_requirements_compliance.EquipmentConsistencyComplianceMetric]
 ):
     name = "Equipment consistency compliance"
     category = _base.EvaluationCategory.STRUCTURAL_QUALITY
@@ -356,7 +370,7 @@ class EquipmentConsistencyCompliance(
         generated_plan: _generation.GeneratedLessonPlan,
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
-    ) -> _requirements_compliance.PercentageMetric:
+    ) -> _requirements_compliance.EquipmentConsistencyComplianceMetric:
         compliant_count = 0
         total_sequences = 0
 
@@ -383,11 +397,13 @@ class EquipmentConsistencyCompliance(
         else:
             percentage = round(100 * compliant_count / total_sequences, 1)
 
-        return _requirements_compliance.PercentageMetric(value=percentage)
+        return _requirements_compliance.EquipmentConsistencyComplianceMetric(
+            value=percentage
+        )
 
 
 class MuscleGroupFocusCompliance(
-    _base.Evaluator[_requirements_compliance.PercentageMetric]
+    _base.Evaluator[_requirements_compliance.MuscleGroupFocusComplianceMetric]
 ):
     name = "Muscle group focus compliance"
     category = _base.EvaluationCategory.STRUCTURAL_QUALITY
@@ -401,7 +417,7 @@ class MuscleGroupFocusCompliance(
         generated_plan: _generation.GeneratedLessonPlan,
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
-    ) -> _requirements_compliance.PercentageMetric:
+    ) -> _requirements_compliance.MuscleGroupFocusComplianceMetric:
         exercise_lookup = _base.build_exercise_lookup(deps.exercises_repo)
 
         compliant_count = 0
@@ -439,11 +455,15 @@ class MuscleGroupFocusCompliance(
         else:
             percentage = round(100 * compliant_count / total_sequences, 1)
 
-        return _requirements_compliance.PercentageMetric(value=percentage)
+        return _requirements_compliance.MuscleGroupFocusComplianceMetric(
+            value=percentage
+        )
 
 
 class StartingPositionConsistencyCompliance(
-    _base.Evaluator[_requirements_compliance.PercentageMetric]
+    _base.Evaluator[
+        _requirements_compliance.StartingPositionConsistencyComplianceMetric
+    ]
 ):
     name = "Starting position consistency compliance"
     category = _base.EvaluationCategory.STRUCTURAL_QUALITY
@@ -457,7 +477,7 @@ class StartingPositionConsistencyCompliance(
         generated_plan: _generation.GeneratedLessonPlan,
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
-    ) -> _requirements_compliance.PercentageMetric:
+    ) -> _requirements_compliance.StartingPositionConsistencyComplianceMetric:
         exercise_lookup = _base.build_exercise_lookup(deps.exercises_repo)
 
         compliant_count = 0
@@ -495,4 +515,6 @@ class StartingPositionConsistencyCompliance(
         else:
             percentage = round(100 * compliant_count / total_sequences, 1)
 
-        return _requirements_compliance.PercentageMetric(value=percentage)
+        return _requirements_compliance.StartingPositionConsistencyComplianceMetric(
+            value=percentage
+        )

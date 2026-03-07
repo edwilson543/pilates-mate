@@ -43,6 +43,12 @@ class ExerciseValidityMetric(_base.Metric):
             invalid_exercises=all_invalid,
         )
 
+    def to_numeric_score(self) -> float:
+        if self.percentage_of_valid_exercises == 100.0:
+            return 100.0
+        else:
+            return max(0.0, (self.percentage_of_valid_exercises - 90.0) * 10.0)
+
 
 class ExerciseValidity(_base.Evaluator[ExerciseValidityMetric]):
     name = "Exercise validity"
@@ -116,6 +122,12 @@ class EquipmentValidityMetric(_base.Metric):
             percentage_of_valid_equipment=round(mean_percentage, 1),
             invalid_equipment=sorted(all_invalid),
         )
+
+    def to_numeric_score(self) -> float:
+        if self.percentage_of_valid_equipment == 100.0:
+            return 100.0
+        else:
+            return max(0.0, (self.percentage_of_valid_equipment - 90.0) * 10.0)
 
 
 class EquipmentValidity(_base.Evaluator[EquipmentValidityMetric]):
@@ -196,6 +208,12 @@ class MovementVariantValidityMetric(_base.Metric):
             invalid_sets=all_invalid,
         )
 
+    def to_numeric_score(self) -> float:
+        if self.percentage_of_valid_variants == 100.0:
+            return 100.0
+        else:
+            return max(0.0, (self.percentage_of_valid_variants - 90.0) * 10.0)
+
 
 class MovementVariantValidity(_base.Evaluator[MovementVariantValidityMetric]):
     name = "Movement variant validity"
@@ -274,6 +292,12 @@ class EquipmentVariantValidityMetric(_base.Metric):
             percentage_of_valid_equipment_variants=round(mean_percentage, 1),
             invalid_sets=all_invalid,
         )
+
+    def to_numeric_score(self) -> float:
+        if self.percentage_of_valid_equipment_variants == 100.0:
+            return 100.0
+        else:
+            return max(0.0, (self.percentage_of_valid_equipment_variants - 90.0) * 10.0)
 
 
 class EquipmentVariantValidity(_base.Evaluator[EquipmentVariantValidityMetric]):

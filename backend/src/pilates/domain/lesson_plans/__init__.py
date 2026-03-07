@@ -1,7 +1,23 @@
 from ._evaluation import (
+    DifficultyScoreMetric,
+    DurationComplianceMetric,
+    EquipmentConsistencyComplianceMetric,
+    EquipmentUtilizationMetric,
+    EquipmentValidityMetric,
+    EquipmentVariantValidityMetric,
+    Evaluation,
     EvaluationCategory,
     EvaluationDeps,
+    ExerciseValidityMetric,
     GeneratedLessonPlanEvaluation,
+    MovementVariantValidityMetric,
+    MuscleGroupCoverageMetric,
+    MuscleGroupFocusComplianceMetric,
+    ProgressiveDifficultyMetric,
+    SectionBalanceMetric,
+    StartingPositionConsistencyComplianceMetric,
+    TransitionQualityMetric,
+    VariantOrderingComplianceMetric,
     evaluate_system_prompt,
 )
 from ._generation import (
