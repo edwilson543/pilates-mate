@@ -1,4 +1,8 @@
-from ._evaluation import evaluate_generated_lesson_plan
+from ._evaluation import (
+    EvaluationDeps,
+    GeneratedLessonPlanEvaluation,
+    evaluate_generated_lesson_plan,
+)
 from ._generation import (
     GeneratedExercise,
     GeneratedExerciseSequence,

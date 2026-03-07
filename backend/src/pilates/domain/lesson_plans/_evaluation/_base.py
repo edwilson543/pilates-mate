@@ -24,6 +24,16 @@ class Metric(abc.ABC):
         """Render this metric as a human-readable string."""
         raise NotImplementedError
 
+    @classmethod
+    @abc.abstractmethod
+    def aggregate(cls, metrics: list[typing.Self]) -> typing.Self:
+        """
+        Aggregate multiple metrics of this type into a single metric.
+
+        :raises ValueError: If the metrics list is empty.
+        """
+        raise NotImplementedError
+
 
 @attrs.frozen
 class Evaluation:
@@ -36,6 +46,47 @@ class Evaluation:
 @attrs.frozen
 class GeneratedLessonPlanEvaluation:
     evaluations: list[Evaluation]
+
+    @classmethod
+    def aggregate(cls, evaluations: list[typing.Self]) -> typing.Self:
+        """
+        Aggregate multiple evaluations by calculating the mean of their metrics.
+
+        This is mathematically invalid for some metrics, but provides a good enough measure.
+
+        :raises ValueError: If the evaluations list is empty.
+        """
+        if not evaluations:
+            raise ValueError("Cannot calculate mean of empty evaluations list")
+
+        # Group evaluations by name (each name corresponds to one evaluator type).
+        evaluations_by_name: dict[str, list[Evaluation]] = {}
+        for evaluation in evaluations:
+            for single_evaluation in evaluation.evaluations:
+                if single_evaluation.name not in evaluations_by_name:
+                    evaluations_by_name[single_evaluation.name] = []
+                evaluations_by_name[single_evaluation.name].append(single_evaluation)
+
+        # Aggregate each group of evaluations.
+        aggregated_evaluations: list[Evaluation] = []
+        for name, evaluation_group in evaluations_by_name.items():
+            # Extract the outcome metrics from each evaluation.
+            outcomes = [evaluation.outcome for evaluation in evaluation_group]
+
+            # Get the metric class and call its aggregate method.
+            metric_class = type(outcomes[0])
+            aggregated_metric = metric_class.aggregate(outcomes)
+
+            # Create a new evaluation with the aggregated metric.
+            aggregated_evaluation = Evaluation(
+                name=evaluation_group[0].name,
+                category=evaluation_group[0].category,
+                description=evaluation_group[0].description,
+                outcome=aggregated_metric,
+            )
+            aggregated_evaluations.append(aggregated_evaluation)
+
+        return cls(evaluations=aggregated_evaluations)
 
     def render(self) -> str:
         evaluations_by_category: dict[EvaluationCategory, list[Evaluation]] = {
@@ -78,7 +129,9 @@ class Evaluator[MetricT](abc.ABC):
     ) -> MetricT:
         raise NotImplementedError
 
+
 # Helpers.
+
 
 def build_exercise_lookup(
     exercises_repo: exercises.Repository,

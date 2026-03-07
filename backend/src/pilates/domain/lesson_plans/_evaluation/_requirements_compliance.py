@@ -17,6 +17,14 @@ class PercentageMetric(_base.Metric):
     def render(self) -> str:
         return f"{self.value}%"
 
+    @classmethod
+    def aggregate(cls, metrics: list[PercentageMetric]) -> PercentageMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_value = sum(m.value for m in metrics) / len(metrics)
+        return cls(value=round(mean_value, 3))
+
 
 class DurationCompliance(_base.Evaluator[PercentageMetric]):
     name = "Target duration"
@@ -46,6 +54,21 @@ class DifficultyScoreMetric(_base.Metric):
 
     def render(self) -> str:
         return f"{self.percentage_of_target}% (generated: {self.generated_score:.2f}, target: {self.target_score:.2f})"
+
+    @classmethod
+    def aggregate(cls, metrics: list[DifficultyScoreMetric]) -> DifficultyScoreMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_generated_score = sum(m.generated_score for m in metrics) / len(metrics)
+        mean_target_score = sum(m.target_score for m in metrics) / len(metrics)
+        mean_percentage = sum(m.percentage_of_target for m in metrics) / len(metrics)
+
+        return cls(
+            generated_score=round(mean_generated_score, 2),
+            target_score=round(mean_target_score, 2),
+            percentage_of_target=round(mean_percentage, 1),
+        )
 
 
 class DifficultyScore(_base.Evaluator[DifficultyScoreMetric]):
@@ -116,6 +139,31 @@ class MuscleGroupCoverageMetric(_base.Metric):
     def render(self) -> str:
         return f"{self.percentage_targeting_required_groups}% (required: {self.required_groups}, in plan: {self.groups_in_plan})"
 
+    @classmethod
+    def aggregate(
+        cls, metrics: list[MuscleGroupCoverageMetric]
+    ) -> MuscleGroupCoverageMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_percentage = sum(
+            m.percentage_targeting_required_groups for m in metrics
+        ) / len(metrics)
+
+        # Required groups should be the same across all metrics.
+        required_groups = metrics[0].required_groups
+
+        # Collect union of all groups seen across runs.
+        all_groups = set()
+        for metric in metrics:
+            all_groups.update(metric.groups_in_plan)
+
+        return cls(
+            percentage_targeting_required_groups=round(mean_percentage, 1),
+            required_groups=required_groups,
+            groups_in_plan=sorted(all_groups),
+        )
+
 
 class MuscleGroupCoverage(_base.Evaluator[MuscleGroupCoverageMetric]):
     name = "Muscle group coverage"
@@ -171,6 +219,27 @@ class SectionBalanceMetric(_base.Metric):
             f"(warm-up: {self.warm_up_percentage:.1f}%, "
             f"main: {self.main_session_percentage:.1f}%, "
             f"cool-down: {self.cool_down_percentage:.1f}%)"
+        )
+
+    @classmethod
+    def aggregate(cls, metrics: list[SectionBalanceMetric]) -> SectionBalanceMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_warm_up = sum(m.warm_up_percentage for m in metrics) / len(metrics)
+        mean_main_session = sum(m.main_session_percentage for m in metrics) / len(
+            metrics
+        )
+        mean_cool_down = sum(m.cool_down_percentage for m in metrics) / len(metrics)
+        mean_correlation = sum(m.correlation_coefficient for m in metrics) / len(
+            metrics
+        )
+
+        return cls(
+            warm_up_percentage=round(mean_warm_up, 1),
+            main_session_percentage=round(mean_main_session, 1),
+            cool_down_percentage=round(mean_cool_down, 1),
+            correlation_coefficient=round(mean_correlation, 2),
         )
 
 
@@ -233,6 +302,29 @@ class EquipmentUtilizationMetric(_base.Metric):
 
     def render(self) -> str:
         return f"{self.percentage_utilized}% (available: {self.available_equipment}, used: {self.used_equipment})"
+
+    @classmethod
+    def aggregate(
+        cls, metrics: list[EquipmentUtilizationMetric]
+    ) -> EquipmentUtilizationMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_percentage = sum(m.percentage_utilized for m in metrics) / len(metrics)
+
+        # Available equipment should be the same across all metrics.
+        available_equipment = metrics[0].available_equipment
+
+        # Collect union of all equipment used across runs.
+        all_used = set()
+        for metric in metrics:
+            all_used.update(metric.used_equipment)
+
+        return cls(
+            percentage_utilized=round(mean_percentage, 1),
+            available_equipment=available_equipment,
+            used_equipment=sorted(all_used),
+        )
 
 
 class EquipmentUtilization(_base.Evaluator[EquipmentUtilizationMetric]):

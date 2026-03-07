@@ -19,6 +19,30 @@ class ExerciseValidityMetric(_base.Metric):
         invalid_names = [exercise.name for exercise in self.invalid_exercises]
         return f"{self.percentage_of_valid_exercises}% ({len(self.invalid_exercises)} invalid exercises: {invalid_names})"
 
+    @classmethod
+    def aggregate(cls, metrics: list[ExerciseValidityMetric]) -> ExerciseValidityMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_percentage = sum(m.percentage_of_valid_exercises for m in metrics) / len(
+            metrics
+        )
+
+        # Collect all unique invalid exercises across all runs.
+        seen_invalid = set()
+        all_invalid = []
+        for metric in metrics:
+            for exercise in metric.invalid_exercises:
+                key = (exercise.id, exercise.name)
+                if key not in seen_invalid:
+                    seen_invalid.add(key)
+                    all_invalid.append(exercise)
+
+        return cls(
+            percentage_of_valid_exercises=round(mean_percentage, 1),
+            invalid_exercises=all_invalid,
+        )
+
 
 class ExerciseValidity(_base.Evaluator[ExerciseValidityMetric]):
     name = "Exercise validity"
@@ -71,6 +95,27 @@ class EquipmentValidityMetric(_base.Metric):
         if not self.invalid_equipment:
             return f"{self.percentage_of_valid_equipment}%"
         return f"{self.percentage_of_valid_equipment}% ({len(self.invalid_equipment)} invalid equipment: {self.invalid_equipment})"
+
+    @classmethod
+    def aggregate(
+        cls, metrics: list[EquipmentValidityMetric]
+    ) -> EquipmentValidityMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_percentage = sum(m.percentage_of_valid_equipment for m in metrics) / len(
+            metrics
+        )
+
+        # Collect unique invalid equipment across all runs.
+        all_invalid = set()
+        for metric in metrics:
+            all_invalid.update(metric.invalid_equipment)
+
+        return cls(
+            percentage_of_valid_equipment=round(mean_percentage, 1),
+            invalid_equipment=sorted(all_invalid),
+        )
 
 
 class EquipmentValidity(_base.Evaluator[EquipmentValidityMetric]):
@@ -125,6 +170,32 @@ class MovementVariantValidityMetric(_base.Metric):
             return f"{self.percentage_of_valid_variants}%"
         return f"{self.percentage_of_valid_variants}% ({len(self.invalid_sets)} invalid movement variants)"
 
+    @classmethod
+    def aggregate(
+        cls, metrics: list[MovementVariantValidityMetric]
+    ) -> MovementVariantValidityMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_percentage = sum(m.percentage_of_valid_variants for m in metrics) / len(
+            metrics
+        )
+
+        # Collect unique invalid sets across all runs.
+        seen_invalid = set()
+        all_invalid = []
+        for metric in metrics:
+            for exercise, variant in metric.invalid_sets:
+                key = (exercise.id, exercise.name, variant)
+                if key not in seen_invalid:
+                    seen_invalid.add(key)
+                    all_invalid.append((exercise, variant))
+
+        return cls(
+            percentage_of_valid_variants=round(mean_percentage, 1),
+            invalid_sets=all_invalid,
+        )
+
 
 class MovementVariantValidity(_base.Evaluator[MovementVariantValidityMetric]):
     name = "Movement variant validity"
@@ -177,6 +248,32 @@ class EquipmentVariantValidityMetric(_base.Metric):
         if not self.invalid_sets:
             return f"{self.percentage_of_valid_equipment_variants}%"
         return f"{self.percentage_of_valid_equipment_variants}% ({len(self.invalid_sets)} invalid equipment variants)"
+
+    @classmethod
+    def aggregate(
+        cls, metrics: list[EquipmentVariantValidityMetric]
+    ) -> EquipmentVariantValidityMetric:
+        if not metrics:
+            raise ValueError("Cannot aggregate empty metrics list")
+
+        mean_percentage = sum(
+            m.percentage_of_valid_equipment_variants for m in metrics
+        ) / len(metrics)
+
+        # Collect unique invalid sets across all runs.
+        seen_invalid = set()
+        all_invalid = []
+        for metric in metrics:
+            for exercise, equipment_list in metric.invalid_sets:
+                key = (exercise.id, exercise.name, tuple(sorted(equipment_list)))
+                if key not in seen_invalid:
+                    seen_invalid.add(key)
+                    all_invalid.append((exercise, equipment_list))
+
+        return cls(
+            percentage_of_valid_equipment_variants=round(mean_percentage, 1),
+            invalid_sets=all_invalid,
+        )
 
 
 class EquipmentVariantValidity(_base.Evaluator[EquipmentVariantValidityMetric]):
