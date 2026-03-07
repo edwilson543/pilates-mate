@@ -15,5 +15,5 @@ def get_evaluation_deps() -> lesson_plans.EvaluationDeps:
     return lesson_plans.EvaluationDeps(
         completions_client=get_completion_client(),
         lesson_plan_repo=uow.lesson_plans,
-        exercises_repo=uow.exercises
+        exercises_repo=uow.exercises,
     )
