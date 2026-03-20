@@ -1,3 +1,6 @@
+import json
+import pathlib
+
 import click
 
 from pilates import config
@@ -20,4 +23,25 @@ async def evaluate_prompt(*, version: str) -> None:
     deps = config.get_evaluation_deps()
     result = await lesson_plans.evaluate_system_prompt(version=version, deps=deps)
 
-    click.echo(result.render())
+    output_dir = _get_output_dir(version)
+
+    with open(output_dir / "benchmark.md", "w") as f:
+        f.write(result.render())
+
+    with open(output_dir / "benchmark.json", "w") as f:
+        json.dump(result.to_dict(), f, indent=2)
+
+    with open(output_dir / "rendered.md", "w") as f:
+        f.write(lesson_plans.render_sample_system_prompt(version=version, deps=deps))
+
+    click.echo(f"Evaluation saved to {output_dir}")
+
+
+def _get_output_dir(version: str) -> pathlib.Path:
+    return (
+        pathlib.Path(__file__).parents[2]
+        / "domain"
+        / "templates"
+        / "lesson-planning"
+        / version
+    )

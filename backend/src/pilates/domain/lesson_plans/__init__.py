@@ -4,6 +4,7 @@ from ._evaluation import (
     EvaluationDeps,
     GeneratedLessonPlanEvaluation,
     evaluate_system_prompt,
+    render_sample_system_prompt,
 )
 from ._generation import (
     GeneratedExercise,

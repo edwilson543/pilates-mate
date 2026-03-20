@@ -6,9 +6,14 @@ install:
 	uv pip install -e .
 
 # Application.
+
 .PHONY:api
 api:
 	uv run uvicorn pilates.interfaces.api.app:app --port=8000
+
+.PHONY:eval
+eval:
+	uv run pilates evaluate-prompt
 
 # Static analysis.
 

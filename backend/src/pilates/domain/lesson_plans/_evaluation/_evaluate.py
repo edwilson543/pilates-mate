@@ -104,6 +104,21 @@ class GeneratedLessonPlanEvaluation:
             + means.get(_metrics.EvaluationCategory.STRUCTURAL_QUALITY, 0) * 0.3
         )
 
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {
+            "numeric_score": self.to_numeric_score(),
+            "evaluations": [
+                {
+                    "name": evaluation.name,
+                    "category": str(evaluation.category),
+                    "description": evaluation.description,
+                    "numeric_score": evaluation.outcome.to_numeric_score(),
+                    "outcome": evaluation.outcome.render(),
+                }
+                for evaluation in self.evaluations
+            ],
+        }
+
 
 async def evaluate_system_prompt(
     *, version: str, deps: _metrics.EvaluationDeps
@@ -128,19 +143,13 @@ async def evaluate_system_prompt(
     return GeneratedLessonPlanEvaluation.aggregate(evaluations)
 
 
-async def _generate_and_evaluate(
-    system_prompt: str,
-    requirements: _generation.LessonPlanRequirements,
-    deps: _metrics.EvaluationDeps,
-) -> GeneratedLessonPlanEvaluation:
-    generated_plan = await _generation.generate_lesson_plan(
-        requirements=requirements,
-        client=deps.completions_client,
-        system_prompt=system_prompt,
-    )
-
-    return evaluate_generated_lesson_plan(
-        generated_plan=generated_plan, requirements=requirements, deps=deps
+def render_sample_system_prompt(*, version: str, deps: _metrics.EvaluationDeps) -> str:
+    requirements = _constants.get_evaluation_requirements()[0]
+    return _generation.get_system_prompt(
+        requirements,
+        deps.lesson_plan_repo,
+        deps.exercises_repo,
+        version=version,
     )
 
 
