@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import collections
 import typing
 
 import attrs
@@ -80,48 +81,27 @@ class GeneratedLessonPlanEvaluation:
     def to_numeric_score(self) -> float:
         """
         Calculate aggregate numeric score for optimization tracking.
-
-        Strategy:
-        1. If any validation metric fails (< 100%), apply heavy penalty
-        2. Otherwise, calculate weighted average by category:
-           - Validation: 40% weight
-           - Requirements: 30% weight
-           - Structural: 30% weight
         """
-        validation_scores = []
-        requirements_scores = []
-        structural_scores = []
-
+        evaluations_by_category: collections.defaultdict[
+            _metrics.EvaluationCategory, list[Evaluation]
+        ] = collections.defaultdict(list)
         for evaluation in self.evaluations:
-            metric_score = evaluation.outcome.to_numeric_score()
+            evaluations_by_category[evaluation.category].append(evaluation)
 
-            if evaluation.category == _metrics.EvaluationCategory.VALIDATION:
-                validation_scores.append(metric_score)
-            elif (
-                evaluation.category
-                == _metrics.EvaluationCategory.REQUIREMENTS_COMPLIANCE
-            ):
-                requirements_scores.append(metric_score)
-            elif evaluation.category == _metrics.EvaluationCategory.STRUCTURAL_QUALITY:
-                structural_scores.append(metric_score)
+        def _mean(evals: list[Evaluation]) -> float:
+            if not evals:
+                return 0
+            return sum(eval.outcome.to_numeric_score() for eval in evals) / len(evals)
 
-        validation_avg = sum(validation_scores) / len(validation_scores)
-        if validation_avg < 100.0:
-            return validation_avg * 0.5
-
-        requirements_avg = (
-            sum(requirements_scores) / len(requirements_scores)
-            if requirements_scores
-            else 100.0
-        )
-        structural_avg = (
-            sum(structural_scores) / len(structural_scores)
-            if structural_scores
-            else 100.0
-        )
+        means = {
+            category: _mean(evals)
+            for category, evals in evaluations_by_category.items()
+        }
 
         return (
-            (validation_avg * 0.4) + (requirements_avg * 0.3) + (structural_avg * 0.3)
+            means.get(_metrics.EvaluationCategory.VALIDATION, 0) * 0.4
+            + means.get(_metrics.EvaluationCategory.REQUIREMENTS_COMPLIANCE, 0) * 0.3
+            + means.get(_metrics.EvaluationCategory.STRUCTURAL_QUALITY, 0) * 0.3
         )
 
 

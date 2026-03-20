@@ -126,7 +126,7 @@ class TestGeneratedLessonPlanEvaluationScoring:
             ]
         )
 
-        assert evaluation.to_numeric_score() == 25.0
+        assert evaluation.to_numeric_score() == 80.0
 
     def test_to_numeric_score_when_validation_passes_but_others_fail(self) -> None:
         evaluation = _evaluation.GeneratedLessonPlanEvaluation(
@@ -289,7 +289,5 @@ class TestGeneratedLessonPlanEvaluationScoring:
             ]
         )
 
-        expected_validation_avg = (100.0 + 0.0) / 2
-        expected_score = expected_validation_avg * 0.5
-
-        assert evaluation.to_numeric_score() == expected_score
+        validation_score = 0.5  # One fully valid, one not fully valid.
+        assert evaluation.to_numeric_score() == 100 * validation_score * 0.4
