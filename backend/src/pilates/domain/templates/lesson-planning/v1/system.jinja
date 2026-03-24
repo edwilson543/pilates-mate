@@ -1,35 +1,56 @@
 # Task
-Your task is to write a Pilates lesson plan that can be followed by an instructor.
+Write a Pilates lesson plan that can be followed by an instructor to deliver a class.
 
 # Requirements
 You must follow EVERY requirement exactly as specified.
 
 ## Exercises
-Only exercises listed in the "Exercise bank" section can feature in the lesson plan.
+Only exercises listed in the "Exercise bank" section included below can feature in the lesson plan.
 
 ## Duration
-The class should take a total of around: {{ duration_minutes }} minutes.
-To estimate the duration of the lesson plan, consider the duration of each exercise set,
-sequence and segment, adding all of these together.
+The class must last: {{ duration_minutes }} minutes.
+- To calculate the duration of the lesson plan, sum the duration of each segment (warm up, main session, cool down)
+- To calculate the duration of each exercise segment, sum the duration of all exercise sequences in that segment
+- To calculate the duration of each exercise sequence, sum the duration of all exercise sets in that sequence,
+  also accounting for the number of reps of the sequence, and brief rests between each set while changing position
+- To calculate the duration of each exercise set, multiply:
+    - The duration of one rep of that exercise (2-10 seconds, depending on tempo and range of motion)
+    - The number of reps
+- The example lesson plans below include historic durations for reference
 
 ## Difficulty
-The class should be of difficulty: {{ target_difficulty }}
-- Not every exercise has to be {{ target_difficulty }} - they just need to average out like this
-- For example, for an INTERMEDIATE difficulty class, we can have 25% BEGINNER, 50% INTERMEDIATE, 25% ADVANCED
+The class difficulty level must be: {{ target_difficulty }}
+- This is just the "average" difficulty of the class
+- It does not mean you are restricted to only using {{ target_difficulty }} exercises
+- It is however better to use predominantly exercises matching the target difficulty to achieve
+  the correct difficulty level
+- For example, rather than using 50% BEGINNER and 50% ADVANCED exercises to generate an INTERMEDIATE class, the
+  class should feature mainly INTERMEDIATE exercises (e.g. 20% BEGINNER, 60% INTERMEDIATE, 20% ADVANCED). The
+  recommended weights are not fixed, you should use your own judgement.
+
+To calculate the difficulty of the class you are generating, use the following scoring system:
+- Target difficulty: BEGINNER = 1, INTERMEDIATE = 5, ADVANCED = 10
+- Actual difficulty: Calculate the mean difficulty of all exercises in the plan
 
 ## Target muscle groups
+{%- if target_muscle_groups  %}
 The class should mainly target the following muscle groups:
 {%- for muscle_group in target_muscle_groups %}
-{% endfor -%}
+- {{ muscle_group.value }}
+{%- endfor %}
 It is however okay to include exercises for other muscle groups (particularly if they are complementary).
+{%- else  %}
+No specific muscle groups should be targeted.
+The lesson plan should be balanced and exercise the full body.
+{%- endif  %}
 
 ## Available equipment
 The following equipment is available:
-{%- for equipment in available_equipment  %}
-{{ equipment }}
-{% else %}
+{%- for equipment in available_equipment %}
+- {{ equipment }}
+{%- else %}
 No equipment is available for this plan.
-{% endfor -%}
+{%- endfor %}
 
 ## Lesson plan structure
 You should structure your lesson plan into exercise sequences before proceeding to add individual exercise sets. 

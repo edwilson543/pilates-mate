@@ -1,12 +1,12 @@
 {
-  "numeric_score": 89.33795714285714,
+  "numeric_score": 90.21413214285714,
   "evaluations": [
     {
       "name": "Exercise validity",
       "category": "VALIDATION",
       "description": "Evaluation of whether the exercises included in the generated plan actually exist in the exercise bank.\n- 100% of exercises should be valid.\n- Any invalid exercises will be listed.\nNote that if the same invalid exercises appears multiple times in the plan, this metric penalises it every\ntime it is used.\n",
-      "numeric_score": 100.0,
-      "outcome": "100.0%"
+      "numeric_score": 97.99999999999997,
+      "outcome": "99.8% (1 invalid exercises: Plank to heels to downward dog to upward dog flow (41))"
     },
     {
       "name": "Equipment validity",
@@ -33,22 +33,22 @@
       "name": "Target duration",
       "category": "REQUIREMENTS_COMPLIANCE",
       "description": "Comparison of the duration of the generated lesson plan relative to the required duration.\n- If this is 100%, then the generated lesson plan is the ideal duration.\n- If this is less than 100%, then the generated lesson plan is too short.\n- If this is greater than 100%, then the generated lesson plan is too long.\nA duration in the range 90-110% is deemed acceptable.\n",
-      "numeric_score": 89.11999999999999,
-      "outcome": "97.824%"
+      "numeric_score": 95.045,
+      "outcome": "99.009%"
     },
     {
       "name": "Difficulty score",
       "category": "REQUIREMENTS_COMPLIANCE",
       "description": "Compares the difficulty distribution of the generated plan against target difficulty.\n- Uses scoring: Beginner=1, Intermediate=5, Advanced=10.\n- 100% means perfect match, <100% means easier, >100% means harder.\n",
-      "numeric_score": 69.5,
-      "outcome": "130.5% (generated: 3.80, target: 5.33)"
+      "numeric_score": 95.8,
+      "outcome": "95.8% (generated: 3.56, target: 5.33)"
     },
     {
       "name": "Muscle group coverage",
       "category": "REQUIREMENTS_COMPLIANCE",
       "description": "Percentage of exercise sets whose primary muscle group matches requirements.\n- This should be in the range 70-90%.\n- A score of less than 70% means the wrong muscle groups are being targeted too much.\n- A score of greater than 90% means the class is not varied enough\n",
-      "numeric_score": 92.6,
-      "outcome": "72.6% (required: [<MuscleGroup.CHEST: 'CHEST'>, <MuscleGroup.CORE: 'CORE'>, <MuscleGroup.GLUTES: 'GLUTES'>, <MuscleGroup.HIP_FLEXORS: 'HIP_FLEXORS'>, <MuscleGroup.INNER_THIGHS: 'INNER_THIGHS'>, <MuscleGroup.TRICEPS: 'TRICEPS'>], in plan: [<MuscleGroup.BACK_EXTENSORS: 'BACK_EXTENSORS'>, <MuscleGroup.CORE: 'CORE'>, <MuscleGroup.GLUTES: 'GLUTES'>, <MuscleGroup.HAMSTRINGS: 'HAMSTRINGS'>, <MuscleGroup.INNER_THIGHS: 'INNER_THIGHS'>, <MuscleGroup.OBLIQUES: 'OBLIQUES'>, <MuscleGroup.SHOULDERS: 'SHOULDERS'>])"
+      "numeric_score": 90.3,
+      "outcome": "70.3% (required: [<MuscleGroup.CHEST: 'CHEST'>, <MuscleGroup.CORE: 'CORE'>, <MuscleGroup.GLUTES: 'GLUTES'>, <MuscleGroup.HIP_FLEXORS: 'HIP_FLEXORS'>, <MuscleGroup.INNER_THIGHS: 'INNER_THIGHS'>, <MuscleGroup.TRICEPS: 'TRICEPS'>], in plan: [<MuscleGroup.BACK_EXTENSORS: 'BACK_EXTENSORS'>, <MuscleGroup.CORE: 'CORE'>, <MuscleGroup.GLUTES: 'GLUTES'>, <MuscleGroup.HAMSTRINGS: 'HAMSTRINGS'>, <MuscleGroup.HIP_FLEXORS: 'HIP_FLEXORS'>, <MuscleGroup.INNER_THIGHS: 'INNER_THIGHS'>, <MuscleGroup.OBLIQUES: 'OBLIQUES'>, <MuscleGroup.SHOULDERS: 'SHOULDERS'>])"
     },
     {
       "name": "Equipment utilization",
@@ -62,49 +62,49 @@
       "category": "STRUCTURAL_QUALITY",
       "description": "Evaluates time distribution across lesson plan sections.\n- Ideal: warm-up 10%, main session 80%, cool-down 10%.\n- Correlation coefficient shows alignment (1.0 = perfect).\n",
       "numeric_score": 100.0,
-      "outcome": "Correlation: 1.00 (warm-up: 14.7%, main: 71.4%, cool-down: 13.9%)"
+      "outcome": "Correlation: 1.00 (warm-up: 14.0%, main: 73.3%, cool-down: 12.7%)"
     },
     {
       "name": "Transition quality",
       "category": "STRUCTURAL_QUALITY",
       "description": "Measures smoothness of flow by counting position changes between sequences.\n- Lower percentages are better (fewer position changes = smoother flow).\n- Position changes are counted between consecutive sequences across all sections.\n",
-      "numeric_score": 19.5,
-      "outcome": "80.5% (70/87 transitions require position change)"
+      "numeric_score": 21.200000000000003,
+      "outcome": "78.8% (63/80 transitions require position change)"
     },
     {
       "name": "Progressive difficulty",
       "category": "STRUCTURAL_QUALITY",
       "description": "Measures whether difficulty increases through the main session.\n- Sequences should get gradually harder during the class.\n- Regression count shows how many times difficulty drops significantly.\n",
       "numeric_score": 95.0,
-      "outcome": "Progressive: Yes (regressions: 1, trajectory: [4.64, 4.22, 4.47, 5.83, 3.53, 5.82, 7.50, 4.98])"
+      "outcome": "Progressive: Yes (regressions: 1, trajectory: [3.92, 3.86, 4.67, 4.20, 3.35, 4.07])"
     },
     {
       "name": "Variant ordering compliance",
       "category": "STRUCTURAL_QUALITY",
       "description": "Checks that sequences follow proper variant ordering rules.\n- First set in a sequence should use STANDARD variant.\n- PULSE/HOLD variants should only appear at sequence ends (last set).\n- Returns percentage of sequences following these rules.\n",
-      "numeric_score": 96.842,
-      "outcome": "96.842%"
+      "numeric_score": 97.917,
+      "outcome": "97.917%"
     },
     {
       "name": "Equipment consistency compliance",
       "category": "STRUCTURAL_QUALITY",
       "description": "Checks that equipment usage is consistent within each sequence.\n- All sets in a sequence should use the same equipment (or none).\n- Returns percentage of sequences with consistent equipment usage.\n",
-      "numeric_score": 97.883,
-      "outcome": "97.883%"
+      "numeric_score": 86.217,
+      "outcome": "86.217%"
     },
     {
       "name": "Muscle group focus compliance",
       "category": "STRUCTURAL_QUALITY",
       "description": "Checks that muscle group focus is consistent within each sequence.\n- All sets in a sequence should target the same primary muscle group.\n- Returns percentage of sequences with consistent muscle group focus.\n",
-      "numeric_score": 32.367,
-      "outcome": "32.367%"
+      "numeric_score": 12.267,
+      "outcome": "12.267%"
     },
     {
       "name": "Starting position consistency compliance",
       "category": "STRUCTURAL_QUALITY",
       "description": "Checks that starting position is consistent within each sequence.\n- All exercises in a sequence should share the same starting position.\n- Returns percentage of sequences with consistent starting position.\n",
-      "numeric_score": 94.992,
-      "outcome": "94.992%"
+      "numeric_score": 96.725,
+      "outcome": "96.725%"
     }
   ]
 }

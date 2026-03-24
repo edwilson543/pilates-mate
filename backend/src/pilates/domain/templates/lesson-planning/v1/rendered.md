@@ -1,34 +1,51 @@
 # Task
-Your task is to write a Pilates lesson plan that can be followed by an instructor.
+Write a Pilates lesson plan that can be followed by an instructor to deliver a class.
 
 # Requirements
 You must follow EVERY requirement exactly as specified.
 
 ## Exercises
-Only exercises listed in the "Exercise bank" section can feature in the lesson plan.
+Only exercises listed in the "Exercise bank" section included below can feature in the lesson plan.
 
 ## Duration
-The class should take a total of around: 45 minutes.
-To estimate the duration of the lesson plan, consider the duration of each exercise set,
-sequence and segment, adding all of these together.
+The class must last: 45 minutes.
+- To calculate the duration of the lesson plan, sum the duration of each segment (warm up, main session, cool down)
+- To calculate the duration of each exercise segment, sum the duration of all exercise sequences in that segment
+- To calculate the duration of each exercise sequence, sum the duration of all exercise sets in that sequence,
+  also accounting for the number of reps of the sequence, and brief rests between each set while changing position
+- To calculate the duration of each exercise set, multiply:
+    - The duration of one rep of that exercise (2-10 seconds, depending on tempo and range of motion)
+    - The number of reps
+- The example lesson plans below include historic durations for reference
 
 ## Difficulty
-The class should be of difficulty: BEGINNER
-- Not every exercise has to be BEGINNER - they just need to average out like this
-- For example, for an INTERMEDIATE difficulty class, we can have 25% BEGINNER, 50% INTERMEDIATE, 25% ADVANCED
+The class difficulty level must be: BEGINNER
+- This is just the "average" difficulty of the class
+- It does not mean you are restricted to only using BEGINNER exercises
+- It is however better to use predominantly exercises matching the target difficulty to achieve
+  the correct difficulty level
+- For example, rather than using 50% BEGINNER and 50% ADVANCED exercises to generate an INTERMEDIATE class, the
+  class should feature mainly INTERMEDIATE exercises (e.g. 20% BEGINNER, 60% INTERMEDIATE, 20% ADVANCED). The
+  recommended weights are not fixed, you should use your own judgement.
+
+To calculate the difficulty of the class you are generating, use the following scoring system:
+- Target difficulty: BEGINNER = 1, INTERMEDIATE = 5, ADVANCED = 10
+- Actual difficulty: Calculate the mean difficulty of all exercises in the plan
 
 ## Target muscle groups
 The class should mainly target the following muscle groups:
-
-
-
-
-
+- GLUTES
+- CORE
+- HIP_FLEXORS
+- INNER_THIGHS
+- CHEST
+- TRICEPS
 It is however okay to include exercises for other muscle groups (particularly if they are complementary).
 
 ## Available equipment
 The following equipment is available:
 No equipment is available for this plan.
+
 ## Lesson plan structure
 You should structure your lesson plan into exercise sequences before proceeding to add individual exercise sets. 
 
@@ -73,7 +90,7 @@ Where each sequence is denoted as:
 
 # "Gold standard" lesson plans
 
-## Example lesson plan (ID: 1
+## Example lesson plan (ID: 1)
 Name: Balanced Glutes & Core Focus (45 min)
 Description: 45-minute class targeting glutes and core with side-lying work and plank variations. Flow: sitting prep → lying core → side lying glutes (both sides) → plank obliques → standing glutes → sitting core → lying core → cool down.
 
@@ -174,7 +191,7 @@ Notes: 3 minutes cool down. Focus on lengthening and releasing.
 - Figure of 4 stretch (1 reps)
 - Seated arm raises with breath (3 reps)
 
-## Example lesson plan (ID: 2
+## Example lesson plan (ID: 2)
 Name: Full Body Flow with Lunges (45 min)
 Description: 45-minute balanced flow alternating between standing lunges, all-fours glutes, side-lying and supine core. Flow: standing prep → lying glutes & core → side lying glutes (both sides) → all fours core & glutes (both sides) → standing lunges (both sides) → plank core → sitting core → lying core → cool down.
 
@@ -295,7 +312,7 @@ Notes: 2 minutes cool down.
 - Figure of 4 stretch (1 reps)
 - Seated arm raises with breath (3 reps)
 
-## Example lesson plan (ID: 3
+## Example lesson plan (ID: 3)
 Name: All-Fours & Ball Work (45 min)
 Description: 45-minute class emphasizing all-fours glute work with ball, kneeling obliques, and supine bridges. Flow: standing prep with table top → all fours core, glutes & arms with ball → kneeling core & glutes → lying glutes & core with ball → cool down.
 
