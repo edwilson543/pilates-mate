@@ -36,7 +36,7 @@ class TestEvaluateGeneratedLessonPlan:
         assert "## Difficulty score" in summary
         assert "## Muscle group coverage" in summary
         assert "## Section balance" in summary
-        assert "## Equipment utilization" in summary
+        assert "## Equipment utilisation" in summary
 
 
 class TestAggregate:
@@ -163,7 +163,7 @@ class TestGeneratedLessonPlanEvaluationScoring:
         )
 
         score = evaluation.to_numeric_score()
-        assert 30.0 < score < 50.0
+        assert score == 64.0
 
     def test_to_numeric_score_with_weighted_categories(self) -> None:
         evaluation = _evaluation.GeneratedLessonPlanEvaluation(

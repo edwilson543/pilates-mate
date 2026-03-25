@@ -169,7 +169,7 @@ def evaluate_generated_lesson_plan(
         _metrics.DurationCompliance(),
         _metrics.DifficultyScore(),
         _metrics.MuscleGroupCoverage(),
-        _metrics.EquipmentUtilization(),
+        _metrics.EquipmentUtilisation(),
         # Structural quality.
         _metrics.SectionBalance(),
         _metrics.TransitionQuality(),

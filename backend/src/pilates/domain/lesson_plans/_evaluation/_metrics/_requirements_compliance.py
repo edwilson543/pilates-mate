@@ -1,21 +1,28 @@
 from __future__ import annotations
 
+import typing
+
 import attrs
 
 from pilates.domain import exercises
 from pilates.domain.lesson_plans import _generation
 
-from . import _base
+from . import _base, _helpers
 
 
 @attrs.frozen
 class PercentageMetric(_base.Metric):
-    """Base class for percentage-based metrics. Do not use directly."""
+    """
+    Base class for percentage-based metrics.
+    """
 
     value: float
 
     def render(self) -> str:
         return f"{self.value}%"
+
+    def to_numeric_score(self) -> float:
+        return self.value
 
     @classmethod
     def _aggregate(cls, metrics: list[PercentageMetric]) -> PercentageMetric:
@@ -23,16 +30,7 @@ class PercentageMetric(_base.Metric):
         return cls(value=round(mean_value, 3))
 
 
-@attrs.frozen
-class DurationComplianceMetric(PercentageMetric):
-    """Duration compliance: 90-110% ideal, 100% perfect."""
-
-    def to_numeric_score(self) -> float:
-        distance = abs(self.value - 100.0)
-        if distance <= 10.0:
-            return 100.0 - (distance * 5.0)
-        else:
-            return max(0.0, 50.0 - ((distance - 10.0) * 2.0))
+class DurationComplianceMetric(PercentageMetric): ...
 
 
 class DurationCompliance(_base.Evaluator[DurationComplianceMetric]):
@@ -62,23 +60,22 @@ class DifficultyScoreMetric(_base.Metric):
     percentage_of_target: float
 
     def render(self) -> str:
-        return f"{self.percentage_of_target}% (generated: {self.generated_score:.2f}, target: {self.target_score:.2f})"
+        return f"{self.percentage_of_target}% (generated: {self.generated_score}, target: {self.target_score})"
 
     @classmethod
     def _aggregate(cls, metrics: list[DifficultyScoreMetric]) -> DifficultyScoreMetric:
         mean_generated_score = sum(m.generated_score for m in metrics) / len(metrics)
         mean_target_score = sum(m.target_score for m in metrics) / len(metrics)
-        mean_percentage = sum(m.percentage_of_target for m in metrics) / len(metrics)
+        percentage = 100 * mean_generated_score / mean_target_score
 
         return cls(
             generated_score=round(mean_generated_score, 2),
             target_score=round(mean_target_score, 2),
-            percentage_of_target=round(mean_percentage, 1),
+            percentage_of_target=round(percentage, 1),
         )
 
     def to_numeric_score(self) -> float:
-        distance = abs(self.percentage_of_target - 100.0)
-        return max(0.0, 100.0 - distance)
+        return self.percentage_of_target
 
 
 class DifficultyScore(_base.Evaluator[DifficultyScoreMetric]):
@@ -95,97 +92,85 @@ class DifficultyScore(_base.Evaluator[DifficultyScoreMetric]):
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> DifficultyScoreMetric:
-        difficulty_scores = {
-            exercises.Difficulty.BEGINNER: 1,
-            exercises.Difficulty.INTERMEDIATE: 5,
-            exercises.Difficulty.ADVANCED: 10,
-        }
-
-        exercise_lookup = deps.build_exercise_lookup()
-
-        total_weighted_difficulty = 0.0
-        total_duration = 0.0
-
-        for set_item in generated_plan.sets:
-            exercise = exercise_lookup.get(set_item.exercise.id)
-            if exercise is None:
-                continue
-
-            weighted_duration = set_item.duration_seconds
-            for sequence in generated_plan.sequences:
-                if set_item in sequence.sets:
-                    weighted_duration *= sequence.reps
-                    break
-
-            difficulty_score = difficulty_scores[exercise.difficulty]
-            total_weighted_difficulty += difficulty_score * weighted_duration
-            total_duration += weighted_duration
-
-        if total_duration == 0:
-            generated_score = 0.0
-        else:
-            generated_score = total_weighted_difficulty / total_duration
-
-        target_score = float(difficulty_scores[requirements.target_difficulty])
-
-        if target_score == 0:
-            percentage = 100.0
-        else:
-            percentage = round(100 * generated_score / target_score, 1)
+        generated_score = self._get_difficulty_score_for_generated_plan(
+            generated_plan, deps
+        )
+        target_score = _helpers.difficulty_score(requirements.target_difficulty)
+        percentage = 100 * generated_score / target_score
 
         return DifficultyScoreMetric(
-            generated_score=generated_score,
-            target_score=target_score,
-            percentage_of_target=percentage,
+            generated_score=round(generated_score, 2),
+            target_score=round(target_score, 2),
+            percentage_of_target=round(percentage, 1),
         )
+
+    def _get_difficulty_score_for_generated_plan(
+        self,
+        generated_plan: _generation.GeneratedLessonPlan,
+        deps: _base.EvaluationDeps,
+    ) -> float:
+        """
+        Multiply the difficulty score of each exercise by the percent of the plan spent doing that exercise.
+        """
+        exercise_lookup = deps.build_exercise_lookup()
+        total_weighted_difficulty = 0.0
+
+        for exercise_sequence in generated_plan.sequences:
+            for exercise_set in exercise_sequence.sets:
+                if not (exercise := exercise_lookup.get(exercise_set.exercise.id)):
+                    continue
+
+                difficulty_score = _helpers.difficulty_score(exercise.difficulty)
+                duration_seconds = (
+                    exercise_set.duration_seconds * exercise_sequence.reps
+                )
+
+                percent_plan_spent_doing_exercise = (
+                    duration_seconds / generated_plan.duration_seconds
+                )
+
+                total_weighted_difficulty += (
+                    difficulty_score * percent_plan_spent_doing_exercise
+                )
+
+        return total_weighted_difficulty
 
 
 @attrs.frozen
 class MuscleGroupCoverageMetric(_base.Metric):
-    percentage_targeting_required_groups: float
+    percentage_focused: float
     required_groups: list[exercises.MuscleGroup]
     groups_in_plan: list[exercises.MuscleGroup]
 
     def render(self) -> str:
-        return f"{self.percentage_targeting_required_groups}% (required: {self.required_groups}, in plan: {self.groups_in_plan})"
+        return f"Percent reps targeting muscle groups: {self.percentage_focused}% (required: {self.required_groups}, in plan: {self.groups_in_plan})"
 
     @classmethod
     def _aggregate(
         cls, metrics: list[MuscleGroupCoverageMetric]
     ) -> MuscleGroupCoverageMetric:
-        mean_percentage = sum(
-            m.percentage_targeting_required_groups for m in metrics
-        ) / len(metrics)
-
-        # Required groups should be the same across all metrics.
-        required_groups = metrics[0].required_groups
-
-        # Collect union of all groups seen across runs.
-        all_groups = set()
-        for metric in metrics:
-            all_groups.update(metric.groups_in_plan)
+        mean_percentage = sum(m.percentage_focused for m in metrics) / len(metrics)
+        required_groups = {
+            group for metric in metrics for group in metric.required_groups
+        }
+        groups_in_plan = {
+            group for metric in metrics for group in metric.groups_in_plan
+        }
 
         return cls(
-            percentage_targeting_required_groups=round(mean_percentage, 1),
-            required_groups=required_groups,
-            groups_in_plan=sorted(all_groups),
+            percentage_focused=round(mean_percentage, 1),
+            required_groups=sorted(required_groups),
+            groups_in_plan=sorted(groups_in_plan),
         )
 
     def to_numeric_score(self) -> float:
-        pct = self.percentage_targeting_required_groups
-        if 70.0 <= pct <= 90.0:
-            return 100.0 - abs(pct - 80.0)
-        else:
-            if pct < 70.0:
-                return max(0.0, 70.0 - (70.0 - pct) * 2.0)
-            else:
-                return max(0.0, 70.0 - (pct - 90.0) * 2.0)
+        return self.percentage_focused
 
 
 class MuscleGroupCoverage(_base.Evaluator[MuscleGroupCoverageMetric]):
     name = "Muscle group coverage"
     category = _base.EvaluationCategory.REQUIREMENTS_COMPLIANCE
-    description = """Percentage of exercise sets whose primary muscle group matches requirements.
+    description = """Percentage of exercise reps whose primary muscle group matches requirements.
 - This should be in the range 70-90%.
 - A score of less than 70% means the wrong muscle groups are being targeted too much.
 - A score of greater than 90% means the class is not varied enough
@@ -198,47 +183,43 @@ class MuscleGroupCoverage(_base.Evaluator[MuscleGroupCoverageMetric]):
         deps: _base.EvaluationDeps,
     ) -> MuscleGroupCoverageMetric:
         exercise_lookup = deps.build_exercise_lookup()
-        required_groups_set = set(requirements.target_muscle_groups)
 
-        matching_count = 0
-        groups_in_plan_set = set()
+        targeted_reps = 0
+        targeted_groups: set[exercises.MuscleGroup] = set()
 
-        for set_item in generated_plan.sets:
-            exercise = exercise_lookup.get(set_item.exercise.id)
-            if exercise is None:
-                continue
+        for exercise_sequence in generated_plan.sequences:
+            for exercise_set in exercise_sequence.sets:
+                if not (exercise := exercise_lookup.get(exercise_set.exercise.id)):
+                    continue
 
-            groups_in_plan_set.add(exercise.primary_muscle_group)
-            if exercise.primary_muscle_group in required_groups_set:
-                matching_count += 1
+                if exercise.primary_muscle_group in requirements.target_muscle_groups:
+                    targeted_reps += exercise_set.reps * exercise_sequence.reps
 
-        total_count = len(generated_plan.sets)
-        if total_count == 0:
-            percentage = 0.0
-        else:
-            percentage = round(100 * matching_count / total_count, 1)
+                targeted_groups.add(exercise.primary_muscle_group)
+
+        percentage = 100 * targeted_reps / generated_plan.total_reps
 
         return MuscleGroupCoverageMetric(
-            percentage_targeting_required_groups=percentage,
+            percentage_focused=round(percentage, 1),
             required_groups=sorted(requirements.target_muscle_groups),
-            groups_in_plan=sorted(groups_in_plan_set),
+            groups_in_plan=sorted(targeted_groups),
         )
 
 
 @attrs.frozen
-class EquipmentUtilizationMetric(_base.Metric):
-    percentage_utilized: float
+class EquipmentUtilisationMetric(_base.Metric):
+    percentage_utilised: float
     available_equipment: list[exercises.Equipment]
     used_equipment: list[exercises.Equipment]
 
     def render(self) -> str:
-        return f"{self.percentage_utilized}% (available: {self.available_equipment}, used: {self.used_equipment})"
+        return f"{self.percentage_utilised}% (available: {self.available_equipment}, used: {self.used_equipment})"
 
     @classmethod
     def _aggregate(
-        cls, metrics: list[EquipmentUtilizationMetric]
-    ) -> EquipmentUtilizationMetric:
-        mean_percentage = sum(m.percentage_utilized for m in metrics) / len(metrics)
+        cls, metrics: list[EquipmentUtilisationMetric]
+    ) -> EquipmentUtilisationMetric:
+        mean_percentage = sum(m.percentage_utilised for m in metrics) / len(metrics)
 
         # Available equipment should be the same across all metrics.
         available_equipment = metrics[0].available_equipment
@@ -249,17 +230,21 @@ class EquipmentUtilizationMetric(_base.Metric):
             all_used.update(metric.used_equipment)
 
         return cls(
-            percentage_utilized=round(mean_percentage, 1),
+            percentage_utilised=round(mean_percentage, 1),
             available_equipment=available_equipment,
             used_equipment=sorted(all_used),
         )
 
     def to_numeric_score(self) -> float:
-        return self.percentage_utilized
+        return self.percentage_utilised
+
+    @classmethod
+    def no_available_equipment(cls) -> typing.Self:
+        return cls(percentage_utilised=100.0, available_equipment=[], used_equipment=[])
 
 
-class EquipmentUtilization(_base.Evaluator[EquipmentUtilizationMetric]):
-    name = "Equipment utilization"
+class EquipmentUtilisation(_base.Evaluator[EquipmentUtilisationMetric]):
+    name = "Equipment utilisation"
     category = _base.EvaluationCategory.REQUIREMENTS_COMPLIANCE
     description = """Percentage of available equipment actually used in the plan.
 - If just one or two pieces of equipment are available, this should be 100%.
@@ -271,24 +256,21 @@ class EquipmentUtilization(_base.Evaluator[EquipmentUtilizationMetric]):
         generated_plan: _generation.GeneratedLessonPlan,
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
-    ) -> EquipmentUtilizationMetric:
-        available_equipment = requirements.available_equipment
-        used_equipment_set = set()
+    ) -> EquipmentUtilisationMetric:
+        if not requirements.available_equipment:
+            return EquipmentUtilisationMetric.no_available_equipment()
 
-        for set_item in generated_plan.sets:
-            for equipment in set_item.equipment_variant:
-                used_equipment_set.add(equipment)
+        used_equipment = {
+            equipment
+            for exercise_set in generated_plan.sets
+            for equipment in exercise_set.equipment_variant
+        }
+        percentage_used = (
+            100 * len(used_equipment) / len(requirements.available_equipment)
+        )
 
-        if not available_equipment:
-            percentage = 100.0
-        else:
-            used_count = len(
-                [eq for eq in available_equipment if eq in used_equipment_set]
-            )
-            percentage = round(100 * used_count / len(available_equipment), 1)
-
-        return EquipmentUtilizationMetric(
-            percentage_utilized=percentage,
-            available_equipment=sorted(available_equipment),
-            used_equipment=sorted(used_equipment_set),
+        return EquipmentUtilisationMetric(
+            percentage_utilised=round(percentage_used, 1),
+            available_equipment=sorted(requirements.available_equipment),
+            used_equipment=sorted(used_equipment),
         )

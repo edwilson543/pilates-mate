@@ -2,7 +2,7 @@ from ._base import EvaluationCategory, EvaluationDeps
 from ._requirements_compliance import (
     DifficultyScore,
     DurationCompliance,
-    EquipmentUtilization,
+    EquipmentUtilisation,
     MuscleGroupCoverage,
 )
 from ._structural_quality import (

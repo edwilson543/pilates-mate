@@ -17,10 +17,10 @@ class SectionBalanceMetric(_base.Metric):
 
     def render(self) -> str:
         return (
-            f"Correlation: {self.correlation_coefficient:.2f} "
-            f"(warm-up: {self.warm_up_percentage:.1f}%, "
-            f"main: {self.main_session_percentage:.1f}%, "
-            f"cool-down: {self.cool_down_percentage:.1f}%)"
+            f"Correlation: {self.correlation_coefficient} "
+            f"(warm-up: {self.warm_up_percentage}%, "
+            f"main: {self.main_session_percentage}%, "
+            f"cool-down: {self.cool_down_percentage}%)"
         )
 
     @classmethod
@@ -38,7 +38,7 @@ class SectionBalanceMetric(_base.Metric):
             warm_up_percentage=round(mean_warm_up, 1),
             main_session_percentage=round(mean_main_session, 1),
             cool_down_percentage=round(mean_cool_down, 1),
-            correlation_coefficient=round(mean_correlation, 2),
+            correlation_coefficient=round(mean_correlation, 3),
         )
 
     def to_numeric_score(self) -> float:
@@ -59,21 +59,9 @@ class SectionBalance(_base.Evaluator[SectionBalanceMetric]):
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> SectionBalanceMetric:
-        warm_up_duration = sum(
-            set.duration_seconds * sequence.reps
-            for sequence in generated_plan.warm_up
-            for set in sequence.sets
-        )
-        main_session_duration = sum(
-            set.duration_seconds * sequence.reps
-            for sequence in generated_plan.main_session
-            for set in sequence.sets
-        )
-        cool_down_duration = sum(
-            set.duration_seconds * sequence.reps
-            for sequence in generated_plan.cool_down
-            for set in sequence.sets
-        )
+        warm_up_duration = generated_plan.warm_up_duration_seconds
+        main_session_duration = generated_plan.main_session_duration_seconds
+        cool_down_duration = generated_plan.cool_down_duration_seconds
 
         total_duration = warm_up_duration + main_session_duration + cool_down_duration
 
@@ -221,10 +209,7 @@ class ProgressiveDifficultyMetric(_base.Metric):
         )
 
     def to_numeric_score(self) -> float:
-        if self.is_progressive:
-            return max(50.0, 100.0 - (self.regression_count * 5.0))
-        else:
-            return max(0.0, 50.0 - (self.regression_count * 5.0))
+        return 100.0 if self.is_progressive else 0.0
 
 
 class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
@@ -243,12 +228,6 @@ class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> ProgressiveDifficultyMetric:
-        difficulty_scores = {
-            exercises.Difficulty.BEGINNER: 1,
-            exercises.Difficulty.INTERMEDIATE: 5,
-            exercises.Difficulty.ADVANCED: 10,
-        }
-
         exercise_lookup = deps.build_exercise_lookup()
 
         difficulty_trajectory = []
@@ -261,9 +240,9 @@ class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
                 if exercise is None:
                     continue
 
-                difficulty_score = difficulty_scores[exercise.difficulty]
                 total_weighted_difficulty += (
-                    difficulty_score * set_item.duration_seconds
+                    _helpers.difficulty_score(exercise.difficulty)
+                    * set_item.duration_seconds
                 )
                 total_duration += set_item.duration_seconds
 
@@ -293,12 +272,7 @@ class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
         )
 
 
-@attrs.frozen
-class VariantOrderingComplianceMetric(_requirements_compliance.PercentageMetric):
-    """Variant ordering compliance: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
+class VariantOrderingComplianceMetric(_requirements_compliance.PercentageMetric): ...
 
 
 class VariantOrderingCompliance(_base.Evaluator[VariantOrderingComplianceMetric]):
@@ -350,12 +324,9 @@ class VariantOrderingCompliance(_base.Evaluator[VariantOrderingComplianceMetric]
         return VariantOrderingComplianceMetric(value=percentage)
 
 
-@attrs.frozen
-class EquipmentConsistencyComplianceMetric(_requirements_compliance.PercentageMetric):
-    """Equipment consistency: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
+class EquipmentConsistencyComplianceMetric(
+    _requirements_compliance.PercentageMetric
+): ...
 
 
 class EquipmentConsistencyCompliance(
@@ -403,12 +374,7 @@ class EquipmentConsistencyCompliance(
         return EquipmentConsistencyComplianceMetric(value=percentage)
 
 
-@attrs.frozen
-class MuscleGroupFocusComplianceMetric(_requirements_compliance.PercentageMetric):
-    """Muscle group focus: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
+class MuscleGroupFocusComplianceMetric(_requirements_compliance.PercentageMetric): ...
 
 
 class MuscleGroupFocusCompliance(_base.Evaluator[MuscleGroupFocusComplianceMetric]):
@@ -465,14 +431,9 @@ class MuscleGroupFocusCompliance(_base.Evaluator[MuscleGroupFocusComplianceMetri
         return MuscleGroupFocusComplianceMetric(value=percentage)
 
 
-@attrs.frozen
 class StartingPositionConsistencyComplianceMetric(
     _requirements_compliance.PercentageMetric
-):
-    """Starting position consistency: higher is better."""
-
-    def to_numeric_score(self) -> float:
-        return self.value
+): ...
 
 
 class StartingPositionConsistencyCompliance(

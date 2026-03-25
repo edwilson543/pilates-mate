@@ -1,3 +1,18 @@
+from pilates.domain import exercises
+
+
+def difficulty_score(difficulty: exercises.Difficulty) -> int:
+    return {
+        exercises.Difficulty.BEGINNER: 1,
+        exercises.Difficulty.INTERMEDIATE: 5,
+        exercises.Difficulty.ADVANCED: 10,
+    }[difficulty]
+
+
+def progressive_difficulty_score(is_progressive: bool) -> float:
+    return 100.0 if is_progressive else 0.0
+
+
 def correlation_coefficient(
     actual: list[float],
     ideal: list[float],

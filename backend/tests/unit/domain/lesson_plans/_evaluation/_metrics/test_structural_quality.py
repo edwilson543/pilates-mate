@@ -115,7 +115,7 @@ class TestTransitionQualityMetricScoring:
 
 
 class TestProgressiveDifficultyMetricScoring:
-    def test_to_numeric_score_when_progressive_with_no_regressions(self) -> None:
+    def test_to_numeric_score_when_progressive(self) -> None:
         metric = _structural_quality.ProgressiveDifficultyMetric(
             difficulty_trajectory=[1.0, 2.0, 3.0, 4.0],
             is_progressive=True,
@@ -124,38 +124,11 @@ class TestProgressiveDifficultyMetricScoring:
 
         assert metric.to_numeric_score() == 100.0
 
-    def test_to_numeric_score_when_progressive_with_some_regressions(self) -> None:
-        metric = _structural_quality.ProgressiveDifficultyMetric(
-            difficulty_trajectory=[1.0, 3.0, 2.0, 4.0],
-            is_progressive=True,
-            regression_count=1,
-        )
-
-        assert metric.to_numeric_score() == 95.0
-
-    def test_to_numeric_score_when_not_progressive_with_no_regressions(self) -> None:
-        metric = _structural_quality.ProgressiveDifficultyMetric(
-            difficulty_trajectory=[2.0, 2.0, 2.0, 2.0],
-            is_progressive=False,
-            regression_count=0,
-        )
-
-        assert metric.to_numeric_score() == 50.0
-
-    def test_to_numeric_score_when_not_progressive_with_many_regressions(self) -> None:
+    def test_to_numeric_score_when_not_progressive(self) -> None:
         metric = _structural_quality.ProgressiveDifficultyMetric(
             difficulty_trajectory=[4.0, 3.0, 2.0, 1.0],
             is_progressive=False,
             regression_count=3,
-        )
-
-        assert metric.to_numeric_score() == 35.0
-
-    def test_to_numeric_score_when_very_poor(self) -> None:
-        metric = _structural_quality.ProgressiveDifficultyMetric(
-            difficulty_trajectory=[5.0, 1.0, 1.0, 1.0],
-            is_progressive=False,
-            regression_count=10,
         )
 
         assert metric.to_numeric_score() == 0.0

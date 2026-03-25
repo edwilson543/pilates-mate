@@ -50,7 +50,7 @@ class TestDifficultyScore:
         )
         sequence = lesson_plan_helpers.GeneratedExerciseSequence(sets=[set], reps=10)
         generated_plan = lesson_plan_helpers.GeneratedLessonPlan.build(
-            warm_up=[sequence]
+            warm_up=[sequence], main_session=[], cool_down=[]
         )
         deps = get_evaluation_deps(exercises=[beginner_exercise])
 
@@ -78,7 +78,7 @@ class TestDifficultyScore:
         )
         sequence = lesson_plan_helpers.GeneratedExerciseSequence(sets=[set], reps=10)
         generated_plan = lesson_plan_helpers.GeneratedLessonPlan.build(
-            warm_up=[sequence]
+            warm_up=[], main_session=[sequence], cool_down=[]
         )
         deps = get_evaluation_deps(exercises=[beginner_exercise])
 
@@ -106,7 +106,7 @@ class TestDifficultyScore:
         )
         sequence = lesson_plan_helpers.GeneratedExerciseSequence(sets=[set], reps=10)
         generated_plan = lesson_plan_helpers.GeneratedLessonPlan.build(
-            warm_up=[sequence]
+            warm_up=[], main_session=[], cool_down=[sequence]
         )
         deps = get_evaluation_deps(exercises=[advanced_exercise])
 
@@ -121,80 +121,58 @@ class TestDifficultyScore:
 
 
 class TestMuscleGroupCoverage:
-    def test_high_coverage_when_most_exercises_target_required_groups(self):
+    @pytest.mark.parametrize(
+        "target_muscle_group,expected_percentage",
+        [
+            (exercises.MuscleGroup.CORE, 70.0),
+            (exercises.MuscleGroup.GLUTES, 30.0),
+            (exercises.MuscleGroup.INNER_THIGHS, 0.0),
+        ],
+    )
+    def test_gets_expected_percentage_for_target_muscle_group(
+        self, target_muscle_group: exercises.MuscleGroup, expected_percentage: float
+    ):
         core_exercise = exercises_helpers.Exercise.build(
             id=1, primary_muscle_group=exercises.MuscleGroup.CORE
         )
         glutes_exercise = exercises_helpers.Exercise.build(
             id=2, primary_muscle_group=exercises.MuscleGroup.GLUTES
         )
-        requirements = lesson_plan_helpers.LessonPlanRequirements.build(
-            target_muscle_groups=[exercises.MuscleGroup.CORE]
-        )
         core_gen = lesson_plan_helpers.GeneratedExercise(id=1, name=core_exercise.name)
         glutes_gen = lesson_plan_helpers.GeneratedExercise(
             id=2, name=glutes_exercise.name
         )
-        core_set = lesson_plan_helpers.GeneratedExerciseSet(exercise=core_gen)
-        glutes_set = lesson_plan_helpers.GeneratedExerciseSet(exercise=glutes_gen)
-        sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[core_set, core_set, glutes_set]
+        core_set = lesson_plan_helpers.GeneratedExerciseSet(exercise=core_gen, reps=10)
+        glutes_set = lesson_plan_helpers.GeneratedExerciseSet(
+            exercise=glutes_gen, reps=10
+        )
+        warm_up = lesson_plan_helpers.GeneratedExerciseSequence(sets=[core_set], reps=4)
+        main_session = lesson_plan_helpers.GeneratedExerciseSequence(
+            sets=[core_set, glutes_set], reps=3
         )
         generated_plan = lesson_plan_helpers.GeneratedLessonPlan.build(
-            warm_up=[sequence], main_session=[], cool_down=[]
+            warm_up=[warm_up], main_session=[main_session], cool_down=[]
         )
         deps = get_evaluation_deps(exercises=[core_exercise, glutes_exercise])
 
         evaluator = _requirements_compliance.MuscleGroupCoverage()
-        result = evaluator.evaluate(
-            generated_plan=generated_plan, requirements=requirements, deps=deps
-        )
 
-        assert result.percentage_targeting_required_groups == 66.7
-        assert result.required_groups == [exercises.MuscleGroup.CORE]
-        assert set(result.groups_in_plan) == {
-            exercises.MuscleGroup.CORE,
-            exercises.MuscleGroup.GLUTES,
-        }
-
-    def test_low_coverage_when_few_exercises_match(self):
-        core_exercise = exercises_helpers.Exercise.build(
-            id=1, primary_muscle_group=exercises.MuscleGroup.CORE
-        )
-        glutes_exercise = exercises_helpers.Exercise.build(
-            id=2, primary_muscle_group=exercises.MuscleGroup.GLUTES
-        )
         requirements = lesson_plan_helpers.LessonPlanRequirements.build(
-            target_muscle_groups=[exercises.MuscleGroup.GLUTES]
+            target_muscle_groups=[target_muscle_group]
         )
-        core_gen = lesson_plan_helpers.GeneratedExercise(id=1, name=core_exercise.name)
-        glutes_gen = lesson_plan_helpers.GeneratedExercise(
-            id=2, name=glutes_exercise.name
-        )
-        core_set = lesson_plan_helpers.GeneratedExerciseSet(exercise=core_gen)
-        glutes_set = lesson_plan_helpers.GeneratedExerciseSet(exercise=glutes_gen)
-        sequence = lesson_plan_helpers.GeneratedExerciseSequence(
-            sets=[core_set, core_set, glutes_set]
-        )
-        generated_plan = lesson_plan_helpers.GeneratedLessonPlan.build(
-            warm_up=[sequence], main_session=[], cool_down=[]
-        )
-        deps = get_evaluation_deps(exercises=[core_exercise, glutes_exercise])
-
-        evaluator = _requirements_compliance.MuscleGroupCoverage()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
 
-        assert result.percentage_targeting_required_groups == 33.3
-        assert result.required_groups == [exercises.MuscleGroup.GLUTES]
+        assert result.percentage_focused == expected_percentage
+        assert result.required_groups == [target_muscle_group]
         assert set(result.groups_in_plan) == {
             exercises.MuscleGroup.CORE,
             exercises.MuscleGroup.GLUTES,
         }
 
 
-class TestEquipmentUtilization:
+class TestEquipmentUtilisation:
     def test_high_utilization_when_most_equipment_used(self):
         requirements = lesson_plan_helpers.LessonPlanRequirements.build(
             available_equipment=[exercises.Equipment.BALL, exercises.Equipment.BAND]
@@ -213,12 +191,12 @@ class TestEquipmentUtilization:
         )
         deps = get_evaluation_deps()
 
-        evaluator = _requirements_compliance.EquipmentUtilization()
+        evaluator = _requirements_compliance.EquipmentUtilisation()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
 
-        assert result.percentage_utilized == 100.0
+        assert result.percentage_utilised == 100.0
         assert set(result.available_equipment) == {
             exercises.Equipment.BALL,
             exercises.Equipment.BAND,
@@ -245,45 +223,13 @@ class TestEquipmentUtilization:
         )
         deps = get_evaluation_deps()
 
-        evaluator = _requirements_compliance.EquipmentUtilization()
+        evaluator = _requirements_compliance.EquipmentUtilisation()
         result = evaluator.evaluate(
             generated_plan=generated_plan, requirements=requirements, deps=deps
         )
 
-        assert result.percentage_utilized == 33.3
+        assert result.percentage_utilised == 33.3
         assert result.used_equipment == [exercises.Equipment.BALL]
-
-
-class TestDurationComplianceMetricScoring:
-    def test_to_numeric_score_when_perfect(self) -> None:
-        metric = _requirements_compliance.DurationComplianceMetric(value=100.0)
-
-        assert metric.to_numeric_score() == 100.0
-
-    def test_to_numeric_score_when_within_ideal_range_lower(self) -> None:
-        metric = _requirements_compliance.DurationComplianceMetric(value=95.0)
-
-        assert metric.to_numeric_score() == 75.0
-
-    def test_to_numeric_score_when_within_ideal_range_upper(self) -> None:
-        metric = _requirements_compliance.DurationComplianceMetric(value=105.0)
-
-        assert metric.to_numeric_score() == 75.0
-
-    def test_to_numeric_score_when_at_acceptable_boundary(self) -> None:
-        metric = _requirements_compliance.DurationComplianceMetric(value=90.0)
-
-        assert metric.to_numeric_score() == 50.0
-
-    def test_to_numeric_score_when_outside_acceptable_range(self) -> None:
-        metric = _requirements_compliance.DurationComplianceMetric(value=80.0)
-
-        assert metric.to_numeric_score() == 30.0
-
-    def test_to_numeric_score_when_very_poor(self) -> None:
-        metric = _requirements_compliance.DurationComplianceMetric(value=60.0)
-
-        assert metric.to_numeric_score() == 0.0
 
 
 class TestDifficultyScoreMetricScoring:
@@ -316,66 +262,19 @@ class TestDifficultyScoreMetricScoring:
         assert score == 40.0
 
 
-class TestMuscleGroupCoverageMetricScoring:
-    def test_to_numeric_score_when_at_ideal_center(self) -> None:
-        metric = _requirements_compliance.MuscleGroupCoverageMetric(
-            percentage_targeting_required_groups=80.0,
-            required_groups=[exercises.MuscleGroup.CORE],
-            groups_in_plan=[exercises.MuscleGroup.CORE],
-        )
-
-        assert metric.to_numeric_score() == 100.0
-
-    def test_to_numeric_score_when_at_ideal_lower_bound(self) -> None:
-        metric = _requirements_compliance.MuscleGroupCoverageMetric(
-            percentage_targeting_required_groups=70.0,
-            required_groups=[exercises.MuscleGroup.CORE],
-            groups_in_plan=[exercises.MuscleGroup.CORE],
-        )
-
-        assert metric.to_numeric_score() == 90.0
-
-    def test_to_numeric_score_when_at_ideal_upper_bound(self) -> None:
-        metric = _requirements_compliance.MuscleGroupCoverageMetric(
-            percentage_targeting_required_groups=90.0,
-            required_groups=[exercises.MuscleGroup.CORE],
-            groups_in_plan=[exercises.MuscleGroup.CORE],
-        )
-
-        assert metric.to_numeric_score() == 90.0
-
-    def test_to_numeric_score_when_below_ideal_range(self) -> None:
-        metric = _requirements_compliance.MuscleGroupCoverageMetric(
-            percentage_targeting_required_groups=60.0,
-            required_groups=[exercises.MuscleGroup.CORE],
-            groups_in_plan=[exercises.MuscleGroup.CORE],
-        )
-
-        assert metric.to_numeric_score() == 50.0
-
-    def test_to_numeric_score_when_above_ideal_range(self) -> None:
-        metric = _requirements_compliance.MuscleGroupCoverageMetric(
-            percentage_targeting_required_groups=100.0,
-            required_groups=[exercises.MuscleGroup.CORE],
-            groups_in_plan=[exercises.MuscleGroup.CORE],
-        )
-
-        assert metric.to_numeric_score() == 50.0
-
-
-class TestEquipmentUtilizationMetricScoring:
-    def test_to_numeric_score_when_fully_utilized(self) -> None:
-        metric = _requirements_compliance.EquipmentUtilizationMetric(
-            percentage_utilized=100.0,
+class TestEquipmentUtilisationMetricScoring:
+    def test_to_numeric_score_when_fully_utilised(self) -> None:
+        metric = _requirements_compliance.EquipmentUtilisationMetric(
+            percentage_utilised=100.0,
             available_equipment=[exercises.Equipment.BALL],
             used_equipment=[exercises.Equipment.BALL],
         )
 
         assert metric.to_numeric_score() == 100.0
 
-    def test_to_numeric_score_when_partially_utilized(self) -> None:
-        metric = _requirements_compliance.EquipmentUtilizationMetric(
-            percentage_utilized=50.0,
+    def test_to_numeric_score_when_partially_utilised(self) -> None:
+        metric = _requirements_compliance.EquipmentUtilisationMetric(
+            percentage_utilised=50.0,
             available_equipment=[exercises.Equipment.BALL],
             used_equipment=[],
         )
