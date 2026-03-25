@@ -31,8 +31,13 @@ class EvaluationCategory(enum.StrEnum):
     STRUCTURAL_QUALITY = "STRUCTURAL_QUALITY"
 
 
+class UnableToAggregateEmptyMetricList(Exception): ...
+
+
 class Metric(abc.ABC):
-    """Base class for all evaluation metrics."""
+    """
+    Base class for all evaluation metrics.
+    """
 
     @abc.abstractmethod
     def render(self) -> str:
@@ -40,13 +45,19 @@ class Metric(abc.ABC):
         raise NotImplementedError
 
     @classmethod
-    @abc.abstractmethod
     def aggregate(cls, metrics: list[typing.Self]) -> typing.Self:
         """
         Aggregate multiple metrics of this type into a single metric.
 
-        :raises ValueError: If the metrics list is empty.
+        :raises UnableToAggregateEmptyMetricList: If the metrics list is empty.
         """
+        if not metrics:
+            raise UnableToAggregateEmptyMetricList()
+        return cls._aggregate(metrics)
+
+    @classmethod
+    @abc.abstractmethod
+    def _aggregate(cls, metrics: list[typing.Self]) -> typing.Self:
         raise NotImplementedError
 
     @abc.abstractmethod

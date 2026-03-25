@@ -24,10 +24,7 @@ class SectionBalanceMetric(_base.Metric):
         )
 
     @classmethod
-    def aggregate(cls, metrics: list[SectionBalanceMetric]) -> SectionBalanceMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
+    def _aggregate(cls, metrics: list[SectionBalanceMetric]) -> SectionBalanceMetric:
         mean_warm_up = sum(m.warm_up_percentage for m in metrics) / len(metrics)
         mean_main_session = sum(m.main_session_percentage for m in metrics) / len(
             metrics
@@ -109,12 +106,9 @@ class TransitionQualityMetric(_base.Metric):
         return f"{self.transition_rate}% ({self.position_changes}/{self.total_transitions} transitions require position change)"
 
     @classmethod
-    def aggregate(
+    def _aggregate(
         cls, metrics: list[TransitionQualityMetric]
     ) -> TransitionQualityMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
         total_transitions_sum = sum(m.total_transitions for m in metrics)
         position_changes_sum = sum(m.position_changes for m in metrics)
 
@@ -199,12 +193,9 @@ class ProgressiveDifficultyMetric(_base.Metric):
         return f"Progressive: {progressive_status} (regressions: {self.regression_count}, trajectory: [{trajectory_str}])"
 
     @classmethod
-    def aggregate(
+    def _aggregate(
         cls, metrics: list[ProgressiveDifficultyMetric]
     ) -> ProgressiveDifficultyMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
         # Calculate mean trajectory across all metrics.
         max_length = max(len(m.difficulty_trajectory) for m in metrics)
         mean_trajectory = []

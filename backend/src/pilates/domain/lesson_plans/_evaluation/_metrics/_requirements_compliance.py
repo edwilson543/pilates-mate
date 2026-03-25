@@ -18,10 +18,7 @@ class PercentageMetric(_base.Metric):
         return f"{self.value}%"
 
     @classmethod
-    def aggregate(cls, metrics: list[PercentageMetric]) -> PercentageMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
+    def _aggregate(cls, metrics: list[PercentageMetric]) -> PercentageMetric:
         mean_value = sum(m.value for m in metrics) / len(metrics)
         return cls(value=round(mean_value, 3))
 
@@ -68,10 +65,7 @@ class DifficultyScoreMetric(_base.Metric):
         return f"{self.percentage_of_target}% (generated: {self.generated_score:.2f}, target: {self.target_score:.2f})"
 
     @classmethod
-    def aggregate(cls, metrics: list[DifficultyScoreMetric]) -> DifficultyScoreMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
+    def _aggregate(cls, metrics: list[DifficultyScoreMetric]) -> DifficultyScoreMetric:
         mean_generated_score = sum(m.generated_score for m in metrics) / len(metrics)
         mean_target_score = sum(m.target_score for m in metrics) / len(metrics)
         mean_percentage = sum(m.percentage_of_target for m in metrics) / len(metrics)
@@ -156,12 +150,9 @@ class MuscleGroupCoverageMetric(_base.Metric):
         return f"{self.percentage_targeting_required_groups}% (required: {self.required_groups}, in plan: {self.groups_in_plan})"
 
     @classmethod
-    def aggregate(
+    def _aggregate(
         cls, metrics: list[MuscleGroupCoverageMetric]
     ) -> MuscleGroupCoverageMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
         mean_percentage = sum(
             m.percentage_targeting_required_groups for m in metrics
         ) / len(metrics)
@@ -244,12 +235,9 @@ class EquipmentUtilizationMetric(_base.Metric):
         return f"{self.percentage_utilized}% (available: {self.available_equipment}, used: {self.used_equipment})"
 
     @classmethod
-    def aggregate(
+    def _aggregate(
         cls, metrics: list[EquipmentUtilizationMetric]
     ) -> EquipmentUtilizationMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
         mean_percentage = sum(m.percentage_utilized for m in metrics) / len(metrics)
 
         # Available equipment should be the same across all metrics.

@@ -5,13 +5,13 @@ SRC = pathlib.Path(__file__).parents[2] / "src" / "pilates"
 TESTS = pathlib.Path(__file__).parents[1]
 
 
-def test_unit_test_package_mirrors_project_structure():
+def test_unit_test_package_mirrors_project_structure() -> None:
     invalid_test_filepaths = _get_invalid_test_filepaths(TESTS / "unit")
 
     assert not invalid_test_filepaths, "\n".join(str(p) for p in invalid_test_filepaths)
 
 
-def test_no_tests_files_present_in_source_code():
+def test_no_tests_files_present_in_source_code() -> None:
     test_files_in_source_code: list[pathlib.Path] = []
 
     for path in SRC.rglob("*"):

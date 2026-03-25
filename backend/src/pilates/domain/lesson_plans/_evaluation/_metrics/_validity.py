@@ -22,10 +22,9 @@ class ExerciseValidityMetric(_base.Metric):
         return f"{self.percentage_of_valid_exercises}% ({len(self.invalid_exercises)} invalid exercises: {invalids})"
 
     @classmethod
-    def aggregate(cls, metrics: list[ExerciseValidityMetric]) -> ExerciseValidityMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
+    def _aggregate(
+        cls, metrics: list[ExerciseValidityMetric]
+    ) -> ExerciseValidityMetric:
         mean_percentage = sum(m.percentage_of_valid_exercises for m in metrics) / len(
             metrics
         )
@@ -105,12 +104,9 @@ class EquipmentValidityMetric(_base.Metric):
         return f"{self.percentage_of_valid_equipment}% ({len(self.invalid_equipment)} invalid equipment: {self.invalid_equipment})"
 
     @classmethod
-    def aggregate(
+    def _aggregate(
         cls, metrics: list[EquipmentValidityMetric]
     ) -> EquipmentValidityMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
         mean_percentage = sum(m.percentage_of_valid_equipment for m in metrics) / len(
             metrics
         )
@@ -185,12 +181,9 @@ class MovementVariantValidityMetric(_base.Metric):
         return f"{self.percentage_of_valid_variants}% ({len(self.invalid_sets)} invalid movement variants)"
 
     @classmethod
-    def aggregate(
+    def _aggregate(
         cls, metrics: list[MovementVariantValidityMetric]
     ) -> MovementVariantValidityMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
         mean_percentage = sum(m.percentage_of_valid_variants for m in metrics) / len(
             metrics
         )
@@ -270,12 +263,9 @@ class EquipmentVariantValidityMetric(_base.Metric):
         return f"{self.percentage_of_valid_equipment_variants}% ({len(self.invalid_sets)} invalid equipment variants)"
 
     @classmethod
-    def aggregate(
+    def _aggregate(
         cls, metrics: list[EquipmentVariantValidityMetric]
     ) -> EquipmentVariantValidityMetric:
-        if not metrics:
-            raise ValueError("Cannot aggregate empty metrics list")
-
         mean_percentage = sum(
             m.percentage_of_valid_equipment_variants for m in metrics
         ) / len(metrics)
