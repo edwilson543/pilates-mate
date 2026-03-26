@@ -1,4 +1,21 @@
-from ._generation import render_system_prompt
+from ._evaluation import (
+    Evaluation,
+    EvaluationCategory,
+    EvaluationDeps,
+    GeneratedLessonPlanEvaluation,
+    evaluate_system_prompt,
+    render_sample_system_prompt,
+)
+from ._generation import (
+    GeneratedExercise,
+    GeneratedExerciseSequence,
+    GeneratedExerciseSet,
+    GeneratedLessonPlan,
+    LessonPlanRequirements,
+    UnableToGenerateLessonPlan,
+    generate_lesson_plan,
+    get_system_prompt,
+)
 from ._models import ExerciseSequence, ExerciseSet, LessonPlan, LessonPlanSection
 from ._repository import (
     LessonPlanDoesNotExist,

@@ -651,6 +651,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "attrs" },
+    { name = "click" },
     { name = "factory-boy" },
     { name = "fastapi", extra = ["standard"] },
     { name = "jinja2" },
@@ -669,6 +670,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "attrs", specifier = ">=25.4.0" },
+    { name = "click", specifier = ">=8.1.0" },
     { name = "factory-boy", specifier = ">=3.3.3" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.128.6" },
     { name = "jinja2", specifier = ">=3.1.6" },

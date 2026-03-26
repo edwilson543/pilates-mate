@@ -1,0 +1,8 @@
+{%- for category, evaluations in evaluations_by_category.items() %}
+# {{ category|replace("_"," ")|capitalize }}
+{%- for evaluation in evaluations %}
+## {{ evaluation.name }}
+{{ evaluation.description }}
+**Outcome:** {{ evaluation.outcome.render() }}
+{% endfor -%}
+{% endfor -%}

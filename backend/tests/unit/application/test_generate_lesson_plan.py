@@ -3,6 +3,7 @@ import datetime as dt
 import pytest
 
 from pilates.application import generate_lesson_plan
+from pilates.domain import lesson_plans
 from testing.helpers import exercises as exercise_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
 from testing.helpers import unit_of_work as unit_of_work_helpers
@@ -19,7 +20,7 @@ class TestGenerateLessonPlan:
         exercise2 = exercise_helpers.Exercise.insert(uow)
         exercise3 = exercise_helpers.Exercise.insert(uow)
 
-        fake_completion = generate_lesson_plan._GeneratedLessonPlan(
+        fake_completion = lesson_plans.GeneratedLessonPlan(
             name="Morning Flow",
             description="A refreshing morning Pilates session",
             warm_up=[
@@ -27,7 +28,7 @@ class TestGenerateLessonPlan:
                     n_sets=1,
                     sets=[
                         lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=generate_lesson_plan._GeneratedExercise(
+                            exercise=lesson_plan_helpers.GeneratedExercise(
                                 id=exercise1.id, name=exercise1.name
                             )
                         )
@@ -39,7 +40,7 @@ class TestGenerateLessonPlan:
                     n_sets=1,
                     sets=[
                         lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=generate_lesson_plan._GeneratedExercise(
+                            exercise=lesson_plan_helpers.GeneratedExercise(
                                 id=exercise2.id, name=exercise2.name
                             )
                         )
@@ -51,7 +52,7 @@ class TestGenerateLessonPlan:
                     n_sets=1,
                     sets=[
                         lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=generate_lesson_plan._GeneratedExercise(
+                            exercise=lesson_plan_helpers.GeneratedExercise(
                                 id=exercise3.id, name=exercise3.name
                             )
                         )

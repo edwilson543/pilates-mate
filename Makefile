@@ -6,9 +6,13 @@ run:
 local_ci:
 	cd backend && make local_ci & cd frontend && make local_ci
 
+.PHONY: format
+format:
+	cd backend && make format & cd frontend && make format
+
 
 # Commands for running GitHub actions locally.
-actions_args=pull_request --env GITHUB_REF=refs/heads/definitely-not-main --container-architecture=linux/amd64
+actions_args=pull_request --env GITHUB_REF=refs/heads/definitely-not-main --container-architecture=linux/arm64
 
 .PHONY:ci
 ci:

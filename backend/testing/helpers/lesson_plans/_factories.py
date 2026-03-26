@@ -2,22 +2,29 @@ import datetime as dt
 
 import factory
 
-from pilates.application import generate_lesson_plan
 from pilates.domain import exercises, lesson_plans, unit_of_work
 from testing.helpers import exercises as exercise_helpers
 
 
 class GeneratedExercise(factory.Factory):
     class Meta:
-        model = generate_lesson_plan._GeneratedExercise
+        model = lesson_plans.GeneratedExercise
 
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: f"name-{n}")
 
+    @classmethod
+    def from_generated_exercise(
+        cls, exercise: lesson_plans.GeneratedExercise, **kwargs: object
+    ) -> exercises.Exercise:
+        return exercise_helpers.Exercise.build(
+            id=exercise.id, name=exercise.name, **kwargs
+        )
+
 
 class GeneratedExerciseSet(factory.Factory):
     class Meta:
-        model = generate_lesson_plan._GeneratedExerciseSet
+        model = lesson_plans.GeneratedExerciseSet
 
     exercise = factory.SubFactory(GeneratedExercise)
     reps = 10
@@ -28,7 +35,7 @@ class GeneratedExerciseSet(factory.Factory):
 
 class GeneratedExerciseSequence(factory.Factory):
     class Meta:
-        model = generate_lesson_plan._GeneratedExerciseSequence
+        model = lesson_plans.GeneratedExerciseSequence
         exclude = ("n_sets",)
 
     n_sets = 3
@@ -39,6 +46,17 @@ class GeneratedExerciseSequence(factory.Factory):
     name = factory.Sequence(lambda n: f"name-{n}")
     notes = factory.Sequence(lambda n: f"notes-{n}")
     reps = 1
+
+
+class GeneratedLessonPlan(factory.Factory):
+    class Meta:
+        model = lesson_plans.GeneratedLessonPlan
+
+    name = factory.Sequence(lambda n: f"name-{n}")
+    description = factory.Sequence(lambda n: f"description-{n}")
+    warm_up = factory.LazyFunction(lambda: [GeneratedExerciseSequence()])
+    main_session = factory.LazyFunction(lambda: [GeneratedExerciseSequence()])
+    cool_down = factory.LazyFunction(lambda: [GeneratedExerciseSequence()])
 
 
 class ExerciseSet(factory.Factory):
@@ -111,7 +129,7 @@ class LessonPlan(factory.Factory):
 
 class LessonPlanRequirements(factory.Factory):
     class Meta:
-        model = generate_lesson_plan.LessonPlanRequirements
+        model = lesson_plans.LessonPlanRequirements
 
     duration_minutes = 30
     target_difficulty = exercises.Difficulty.INTERMEDIATE
@@ -119,3 +137,13 @@ class LessonPlanRequirements(factory.Factory):
     example_lesson_lan_ids = factory.ListFactory()
     user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
     available_equipment = factory.LazyFunction(lambda: [exercises.Equipment.BALL])
+
+
+class Evaluation(factory.Factory):
+    class Meta:
+        model = lesson_plans.Evaluation
+
+    name = factory.Sequence(lambda n: f"Evaluation-{n}")
+    category = lesson_plans.EvaluationCategory.VALIDATION
+    description = factory.Sequence(lambda n: f"Description-{n}")
+    outcome = factory.LazyFunction(dict)

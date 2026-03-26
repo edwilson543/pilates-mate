@@ -1,4 +1,4 @@
-# Project Overview
+# Project overview
 
 This repository implements a webapp for generating Pilates lesson plans.
 

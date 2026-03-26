@@ -24,7 +24,9 @@ The backend follows a strict layered architecture.
 ### Interfaces layer
 The interfaces layer contains the entrypoints into the code.
 - The interfaces layer is implemented at `./src/pilates/interfaces/`
-- For now, the only interface is a FastAPI application, implemented at `./interfaces/api/`
+- There are two interfaces into the code:
+  - A FastAPI application, implemented at `./interfaces/api/`
+  - A Click CLI, implemented at `./interfaces/cli/`
 - Dependencies in the interfaces layer must be instantiated by calling into the config layer
 - The interfaces layer must never instantiate dependencies directly from the domain or data layers
 
@@ -166,6 +168,7 @@ Run the tests using `make test`.
 Tests are split into the following categories:
 - Unit tests, for testing small pieces of functionality in isolation (`tests/unit/`)
 - Functional tests, for testing interfaces into the code, such as FastAPI endpoints (`tests/functional/`)
+- Project tests, for testing aspects of the project other than source code (`tests/project/`)
 
 ### Unit tests
 - Unit tests must live in a module in `tests/unit` mirroring the application module
@@ -202,6 +205,11 @@ Tests are split into the following categories:
 - Functional tests should also be split into (setup / execution / assertion) blocks, however each
   functional test can have multiple series of such blocks
 
+### Project tests
+- Project tests are miscellaneous tests that act as linting rules to enforce coding practices
+- For example, `test_project_structure.py` ensures all unit test modules mirror a module in 
+  the source code
+
 ### Test factories
 Use test factories to generate fake data during test setup.
 - Test factories are implemented in `testing/helpers/` → `ExerciseFactory`, `LessonPlanFactory`
@@ -232,6 +240,7 @@ Use fake implementations to avoid interacting with external services.
 
 ### Other notes on tests
 - Tests for async code should use the `@pytest.mark.asyncio` pytest marker
+- Never add a docstring to tests. Instead, use an instructive name for the test function/method 
 
 # Linting
 After each commit, all linting checks should pass. 
