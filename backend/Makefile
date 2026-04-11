@@ -17,7 +17,7 @@ eval:
 
 # Static analysis.
 
-local_ci: lint test
+local_ci: lint test helm_test
 
 .PHONY:test
 test:
@@ -76,19 +76,19 @@ ecr_push: docker_image ecr_login
 # Helm (local).
 .PHONY:helm_render
 helm_render:
-	helm template application ./deployment/k8s/application/ --output-dir ./deployment/k8s/rendered -f ./deployment/k8s/application/values-local.yaml
+	helm template application ./deployment/helm/application/ --output-dir ./deployment/helm/rendered -f ./deployment/helm/application/values-local.yaml
 
 .PHONY:helm_install
 helm_install:
-	helm install application ./deployment/k8s/application/ --kube-context minikube --namespace pilates -f ./deployment/k8s/application/values-local.yaml
+	helm install application ./deployment/helm/application/ --kube-context minikube --namespace pilates -f ./deployment/helm/application/values-local.yaml
 
 .PHONY:helm_upgrade
 helm_upgrade:
-	helm upgrade --install application ./deployment/k8s/application/ --kube-context minikube --namespace pilates -f ./deployment/k8s/application/values-local.yaml
+	helm upgrade --install application ./deployment/helm/application/ --kube-context minikube --namespace pilates -f ./deployment/helm/application/values-local.yaml
 
 .PHONY:helm_test
 helm_test:
-	helm unittest ./deployment/k8s/application/
+	helm unittest ./deployment/helm/application/
 
 .PHONY:helm_list
 helm_list:

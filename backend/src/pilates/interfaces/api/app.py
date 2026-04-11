@@ -2,8 +2,8 @@ import fastapi
 from fastapi import responses as fastapi_responses
 from fastapi.middleware.cors import CORSMiddleware
 
-from pilates.interfaces.api import routers
 from pilates import version
+from pilates.interfaces.api import routers
 
 
 app = fastapi.FastAPI()

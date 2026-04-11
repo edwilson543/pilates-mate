@@ -24,4 +24,4 @@ TODO.prompts.txt
 **/.claude/plans/*
 
 # Backend
-backend/deployment/k8s/rendered/*
+backend/deployment/helm/rendered/*

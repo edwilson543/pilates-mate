@@ -75,6 +75,7 @@ layers = [
     "application",
     "data",
     "domain",
+    "version",
 ]
 exhaustive = true
 

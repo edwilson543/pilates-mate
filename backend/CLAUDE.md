@@ -2,7 +2,8 @@ This directory contains the backend for the Pilates lesson planning application.
 The backend is implemented in Python, and served via a FastAPI application.
 
 # Deployment
-The backend deployment configuration is implemented in `./deployment`.
+The backend deployment configuration is implemented in `./deployment`, which includes
+the application Helm chart, `entrypoint.sh` script and `version.sh` script.
 When relevant, please review the `./deployment/CLAUDE.md` file for more details.
 
 # Project structure

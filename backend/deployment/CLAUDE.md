@@ -8,7 +8,7 @@ which runs on a Kubernetes cluster hosted on AWS.
 
 # Kubernetes
 Kubernetes configuration is generated and managed by Helm.
-The Helm chart lives at `./k8s/application/`.
+The Helm chart lives at `./helm/application/`.
 
 ## Helm chart
 
@@ -36,28 +36,12 @@ Common `helm` commands are pre-written in `../Makefile`:
 
 ## Helm tests
 
-Tests are implemented using the `helm-unittest` plugin and live in `./k8s/application/tests/`. Run them with:
+Tests are implemented using the `helm-unittest` plugin and live in `./helm/application/tests/`. Run them with:
 ```
 make helm_test
 ```
 
 To regenerate snapshots after intentional template changes:
 ```
-helm unittest --update-snapshot ./deployment/k8s/application/
+helm unittest --update-snapshot ./deployment/helm/application/
 ```
-
-# Infrastructure
-The application is deployed on AWS infrastructure and managed by Terraform.                                                                                                      
-
-## Terraform structure                                                                                                                                                           
-The Terraform code for the backend lives in `./terraform`.                                                                                                                       
-At root, the package is organised into:                                                                                                                                          
-- Workspaces:                                                                                                                                                                    
-  - Each workspace represents an isolated deployment environment                                                                                                                 
-  - Each workspace's Terraform state is therefore tracked independently                                                                                                          
-  - For example `./terraform/workspaces/prod` contains the production deployment environment                                                                                     
-- Modules:                                                                                                                                                                       
-  - These contain re-usable collections of Terraform configuration files                                                                                                         
-  - For example `./terraform/modules/eks` contains the configuration files for deploying an EKS cluster
-
-TODO: document the AWS services used, Terraform conventions, and the apply pipeline.
