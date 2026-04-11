@@ -38,16 +38,18 @@ podAnnotations: {}
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
@@ -76,13 +78,31 @@ api:
       path: /health
       port: http
 
+  # Pod disruption budget for the API deployment.
+  # Note: setting minAvailable >= replicaCount will block voluntary evictions entirely.
+  # Docs: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+  # Non-sensitive environment variables injected via a ConfigMap.
+  environment: {}
+    # EXAMPLE_VAR: "example-value"
+
+  # Secret environment variables injected via a Kubernetes Secret.
+  # Values are base64 encoded automatically by the template.
+  # In production, use SOPS or an external secrets operator to avoid storing
+  # plaintext secrets in version control.
+  secrets: {}
+    # SECRET_KEY: "changeme"
+
 
 # -- Expose the service via gateway-api HTTPRoute
 # Requires Gateway API resources and suitable controller installed within the cluster
 # (see: https://gateway-api.sigs.k8s.io/guides/)
 httpRoute:
   # HTTPRoute enabled.
-  enabled: false
+  enabled: true
   # HTTPRoute annotations.
   annotations: {}
   # Which Gateways this Route is attached to.
@@ -146,3 +166,13 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Spread pods across zones and nodes for resilience when running multiple replicas.
+# Docs: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: topology.kubernetes.io/zone
+    whenUnsatisfiable: ScheduleAnyway
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: ScheduleAnyway

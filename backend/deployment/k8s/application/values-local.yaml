@@ -5,3 +5,10 @@ image:
   pullPolicy: Never
 
 imagePullSecrets: []
+
+api:
+  podDisruptionBudget:
+    enabled: false
+
+httpRoute:
+  enabled: false
