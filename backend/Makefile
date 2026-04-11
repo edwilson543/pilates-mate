@@ -42,3 +42,52 @@ check:
 .PHONY:lint_imports
 lint_imports:
 	uv run lint-imports
+
+# Docker.
+
+app_version = $(shell bash deployment/version.sh)
+docker_tag = $(shell echo $(app_version) | sed 's/+/-/')
+
+docker_server: docker_image docker_run
+
+.PHONY:docker_run
+docker_run:
+	docker container rm pilates -v || true
+	docker container run -p 8000:8000 --name=pilates pilates:latest api
+
+.PHONY:docker_image
+docker_image:
+	docker image build . -t pilates:latest -t pilates:$(docker_tag) --build-arg="APP_VERSION=$(app_version)"
+
+# Helm (local).
+.PHONY:helm_render
+helm_render:
+	helm template application ./deployment/k8s/application/ --output-dir ./deployment/k8s/rendered -f ./deployment/k8s/application/values-local.yaml
+
+.PHONY:helm_install
+helm_install:
+	helm install application ./deployment/k8s/application/ --kube-context minikube --namespace pilates -f ./deployment/k8s/application/values-local.yaml
+
+.PHONY:helm_upgrade
+helm_upgrade:
+	helm upgrade --install application ./deployment/k8s/application/ --kube-context minikube --namespace pilates -f ./deployment/k8s/application/values-local.yaml
+
+.PHONY:helm_list
+helm_list:
+	helm list -A --kube-context minikube --namespace default
+
+# K8s (local).
+.PHONY:k8s_docker_image
+k8s_docker_image:
+	eval $(minikube docker-env)
+	${MAKE} docker_image
+
+.PHONY:k8s_pf
+k8s_pf:
+	kubectl port-forward service/application-pilates 8000:80 --context=minikube --namespace=pilates
+
+# Deployment.
+
+.PHONY:version
+version:
+	bash ./deployment/version.sh

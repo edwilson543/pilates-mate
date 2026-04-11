@@ -1,7 +1,9 @@
 import fastapi
+from fastapi import responses as fastapi_responses
 from fastapi.middleware.cors import CORSMiddleware
 
 from pilates.interfaces.api import routers
+from pilates import version
 
 
 app = fastapi.FastAPI()
@@ -19,3 +21,10 @@ app.include_router(routers.exercises_router, prefix="/exercises", tags=["exercis
 app.include_router(
     routers.lesson_plans_router, prefix="/lesson-plans", tags=["lesson-plans"]
 )
+
+
+@app.get("/health")
+def health_check() -> fastapi_responses.JSONResponse:
+    return fastapi_responses.JSONResponse(
+        status_code=200, content={"version": version.__version__}
+    )

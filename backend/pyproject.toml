@@ -1,11 +1,11 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
 
-[tool.hatch.packages.find]
+[tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.hatch.dynamic]
+[tool.setuptools.dynamic]
 version = { attr = "pilates.version.__version__" }
 
 [project]
