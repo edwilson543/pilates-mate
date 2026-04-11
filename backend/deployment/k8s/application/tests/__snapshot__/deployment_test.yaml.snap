@@ -1,0 +1,61 @@
+should render the deployment with default values:
+  1: |
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: pilates
+    template:
+      metadata:
+        annotations: null
+        labels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: pilates
+          app.kubernetes.io/version: 1.16.0
+          helm.sh/chart: pilates-0.1.0
+      spec:
+        containers:
+          - args:
+              - api
+            image: 127624060144.dkr.ecr.eu-west-2.amazonaws.com/pilates:latest
+            imagePullPolicy: IfNotPresent
+            livenessProbe:
+              httpGet:
+                path: /health
+                port: http
+            name: pilates
+            ports:
+              - containerPort: 8000
+                name: http
+                protocol: TCP
+            readinessProbe:
+              httpGet:
+                path: /health
+                port: http
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+              runAsNonRoot: true
+              runAsUser: 1000
+        securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+        serviceAccountName: RELEASE-NAME-pilates
+        topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/instance: RELEASE-NAME
+                app.kubernetes.io/name: pilates
+            maxSkew: 1
+            topologyKey: topology.kubernetes.io/zone
+            whenUnsatisfiable: ScheduleAnyway
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/instance: RELEASE-NAME
+                app.kubernetes.io/name: pilates
+            maxSkew: 1
+            topologyKey: kubernetes.io/hostname
+            whenUnsatisfiable: ScheduleAnyway

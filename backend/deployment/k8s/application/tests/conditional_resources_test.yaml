@@ -1,0 +1,67 @@
+suite: test conditional resources
+tests:
+  # PDB
+  - it: should render the PDB with default values
+    templates:
+      - templates/api/pdb.yaml
+    asserts:
+      - isKind:
+          of: PodDisruptionBudget
+      - matchSnapshot:
+          path: spec
+
+  - it: should not render the PDB when disabled
+    templates:
+      - templates/api/pdb.yaml
+    set:
+      api:
+        podDisruptionBudget:
+          enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  # ConfigMap
+  - it: should not render the ConfigMap by default
+    templates:
+      - templates/api/configmap.yaml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render the ConfigMap when environment variables are set
+    templates:
+      - templates/api/configmap.yaml
+    set:
+      api:
+        environment:
+          FOO: bar
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - matchSnapshot:
+          path: data
+
+  # Secret
+  - it: should not render the Secret by default
+    templates:
+      - templates/api/secret.yaml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render the Secret when secrets are set
+    templates:
+      - templates/api/secret.yaml
+    set:
+      api:
+        secrets:
+          SECRET_KEY: changeme
+    asserts:
+      - isKind:
+          of: Secret
+      - equal:
+          path: type
+          value: Opaque
+      - matchSnapshot:
+          path: data

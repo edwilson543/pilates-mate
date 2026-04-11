@@ -1,0 +1,13 @@
+should render the ConfigMap when environment variables are set:
+  1: |
+    FOO: bar
+should render the PDB with default values:
+  1: |
+    minAvailable: 1
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: pilates
+should render the Secret when secrets are set:
+  1: |
+    SECRET_KEY: Y2hhbmdlbWU=

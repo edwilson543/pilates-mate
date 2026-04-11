@@ -86,6 +86,10 @@ helm_install:
 helm_upgrade:
 	helm upgrade --install application ./deployment/k8s/application/ --kube-context minikube --namespace pilates -f ./deployment/k8s/application/values-local.yaml
 
+.PHONY:helm_test
+helm_test:
+	helm unittest ./deployment/k8s/application/
+
 .PHONY:helm_list
 helm_list:
 	helm list -A --kube-context minikube --namespace default
