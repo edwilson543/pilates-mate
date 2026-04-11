@@ -1,0 +1,7 @@
+image:
+  # Allow using a local dev image.
+  repository: "pilates"
+  tag: "latest"
+  pullPolicy: Never
+
+imagePullSecrets: []

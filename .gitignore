@@ -22,3 +22,6 @@ TODO.prompts.txt
 # Claude
 **/.claude/*.local.*
 **/.claude/plans/*
+
+# Backend
+backend/deployment/k8s/rendered/*
