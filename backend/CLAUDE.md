@@ -1,6 +1,10 @@
 This directory contains the backend for the Pilates lesson planning application.
 The backend is implemented in Python, and served via a FastAPI application.
 
+# Deployment
+The backend deployment configuration is implemented in `./deployment`.
+When relevant, please review the `./deployment/CLAUDE.md` file for more details.
+
 # Project structure
 The project is split into three main packages:
 - Source code for the application, implemented in `./src/pilates/`
