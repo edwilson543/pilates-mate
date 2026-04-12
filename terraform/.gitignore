@@ -1,0 +1,20 @@
+# Provider downloads and cached module sources.
+**/.terraform/
+
+# Local state files (not committed — state is managed locally).
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Plan output files.
+*tfplan*
+
+# Crash logs.
+crash.log
+crash.*.log
+
+# Override files (local developer customisations, not for VCS).
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
