@@ -22,14 +22,15 @@ The chart deploys the following resources:
 - `serviceaccount.yaml` - service account for the API pods
 - `httproute.yaml` - Gateway API HTTPRoute for external traffic (enabled by default, disabled locally)
 
-Configuration is split across two values files:
-- `values.yaml` - production defaults
-- `values-local.yaml` - overrides for local development (disables HTTPRoute and PDB, uses a locally built image)
+Configuration is split across three values files:
+- `values.yaml` - common values for all installations (auto-loaded by Helm)
+- `values-local.yaml` - overrides for local development (uses a locally built image with `pullPolicy: Never`)
+- `values-prod.yaml` - production values (ECR image, HPA, PDB, HTTPRoute, topology constraints)
 
 ## Useful Makefile commands
 
 Common `helm` commands are pre-written in `../Makefile`:
-- `helm_render` - render templates locally using `values-local.yaml`
+- `helm_render` - render templates locally using `values.yaml` and `values-local.yaml`
 - `helm_install` - install the chart to a local minikube cluster
 - `helm_upgrade` - upgrade (or install) the chart on minikube
 - `helm_test` - run the helm-unittest test suite

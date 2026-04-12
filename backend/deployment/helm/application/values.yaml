@@ -1,17 +1,20 @@
 # Default values for application.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+#
+# This file contains values common to all installations.
+# Environment-specific overrides live in values-local.yaml and values-prod.yaml.
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  repository: "127624060144.dkr.ecr.eu-west-2.amazonaws.com/pilates"
+  repository: ""
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
@@ -63,9 +66,9 @@ api:
   # Horizontal pod autoscaling values.
   # Docs: https://kubernetes.io/docs/concepts/workloads/autoscaling/
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
-    maxReplicas: 5
+    maxReplicas: 1
     targetCPUUtilizationPercentage: 80
   # Liveness and readiness probe values.
   # Docs: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
@@ -82,7 +85,7 @@ api:
   # Note: setting minAvailable >= replicaCount will block voluntary evictions entirely.
   # Docs: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
   podDisruptionBudget:
-    enabled: true
+    enabled: false
     minAvailable: 1
 
   # Non-sensitive environment variables injected via a ConfigMap.
@@ -102,38 +105,15 @@ api:
 # (see: https://gateway-api.sigs.k8s.io/guides/)
 httpRoute:
   # HTTPRoute enabled.
-  enabled: true
+  enabled: false
   # HTTPRoute annotations.
   annotations: {}
   # Which Gateways this Route is attached to.
-  parentRefs:
-  - name: gateway
-    sectionName: http
-    # namespace: default
+  parentRefs: []
   # Hostnames matching HTTP header.
-  hostnames:
-  - chart-example.local
+  hostnames: []
   # List of rules and filters applied.
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /headers
-  #   filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #       - name: My-Overwrite-Header
-  #         value: this-is-the-only-value
-  #       remove:
-  #       - User-Agent
-  # - matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /echo
-  #     headers:
-  #     - name: version
-  #       value: v2
+  rules: []
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -169,10 +149,4 @@ affinity: {}
 
 # Spread pods across zones and nodes for resilience when running multiple replicas.
 # Docs: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
-topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: topology.kubernetes.io/zone
-    whenUnsatisfiable: ScheduleAnyway
-  - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
-    whenUnsatisfiable: ScheduleAnyway
+topologySpreadConstraints: []

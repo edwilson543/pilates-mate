@@ -4,6 +4,10 @@ tests:
   - it: should render the PDB with default values
     templates:
       - templates/api/pdb.yaml
+    set:
+      api:
+        podDisruptionBudget:
+          enabled: true
     asserts:
       - isKind:
           of: PodDisruptionBudget
