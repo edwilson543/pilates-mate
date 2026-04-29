@@ -17,7 +17,7 @@ eval:
 
 # Static analysis.
 
-local_ci: lint test helm_test
+local_ci: lint test
 
 .PHONY:test
 test:
@@ -80,37 +80,6 @@ ecr_push: docker_image_ecr ecr_login
 .PHONY:dc_up
 dc_up:
 	docker-compose up
-
-# Helm (local).
-.PHONY:helm_render
-helm_render:
-	helm template application ./deployment/helm/application/ --output-dir ./deployment/helm/rendered -f ./deployment/helm/application/values-local.yaml
-
-.PHONY:helm_install
-helm_install:
-	helm install application ./deployment/helm/application/ --kube-context minikube --namespace pilates -f ./deployment/helm/application/values-local.yaml
-
-.PHONY:helm_upgrade
-helm_upgrade:
-	helm upgrade --install application ./deployment/helm/application/ --kube-context minikube --namespace pilates -f ./deployment/helm/application/values-local.yaml
-
-.PHONY:helm_test
-helm_test:
-	helm unittest ./deployment/helm/application/
-
-.PHONY:helm_list
-helm_list:
-	helm list -A --kube-context minikube --namespace default
-
-# K8s (local).
-.PHONY:k8s_docker_image
-k8s_docker_image:
-	eval $(minikube docker-env)
-	${MAKE} docker_image
-
-.PHONY:k8s_pf
-k8s_pf:
-	kubectl port-forward service/application-pilates 8000:80 --context=minikube --namespace=pilates
 
 # Deployment.
 

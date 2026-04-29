@@ -1,17 +1,17 @@
 module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+  source = "terraform-aws-modules/ec2-instance/aws"
 
-  name = "pilates-gpt"
-  instance_type = "t3.micro"
+  name              = "pilates-gpt"
+  instance_type     = "t3.micro"
   ami_ssm_parameter = "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id"
 
-  key_name      = "pilates-gpt-ec2"
+  key_name                    = "pilates-gpt-ec2"
   associate_public_ip_address = true
-  vpc_security_group_ids = [aws_security_group.api_security_group.id]
-  subnet_id = var.subnet_id
-  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+  vpc_security_group_ids      = [aws_security_group.api_security_group.id]
+  subnet_id                   = var.subnet_id
+  iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
 
-  monitoring    = true
+  monitoring = true
 
   tags = {
     Terraform   = "true"

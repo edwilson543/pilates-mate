@@ -24,9 +24,9 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 # Give the EC2 instance ECR read access.
 data "aws_iam_policy_document" "ecr_access" {
   statement {
-    effect = "Allow"
-    actions = ["ecr:GetAuthorizationToken"]
-    resources = ["*"]  # This action is account-level, can't be scoped further
+    effect    = "Allow"
+    actions   = ["ecr:GetAuthorizationToken"]
+    resources = ["*"] # This action is account-level, can't be scoped further
   }
 
   statement {

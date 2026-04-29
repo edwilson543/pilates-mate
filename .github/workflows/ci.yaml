@@ -74,23 +74,6 @@ jobs:
 #      - name: Test
 #        run: make test
 
-  helm:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Helm
-        uses: azure/setup-helm@v4
-
-      - name: Install helm-unittest plugin
-        run: helm plugin install https://github.com/helm-unittest/helm-unittest.git --verify=false
-
-      - name: Run Helm tests
-        run: make helm_test
-
   terraform:
     runs-on: ubuntu-latest
     defaults:
