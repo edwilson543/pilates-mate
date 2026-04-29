@@ -69,7 +69,7 @@ ecr_login:
 ecr_push: ecr_login
 	docker image build . -t pilates:latest -t pilates:$(docker_tag) --build-arg="APP_VERSION=$(app_version)" --platform=linux/amd64
 	docker push $(ecr_repo):latest
-	echo 'Pushed Docker image to ECR with tag:' $(docker_tag)
+	echo 'Pushed Docker image to ECR with tag: latest'
 
 .PHONY:dc_up
 dc_up:
