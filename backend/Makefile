@@ -61,19 +61,13 @@ docker_run:
 docker_image:
 	docker image build . -t pilates:latest -t pilates:$(docker_tag) --build-arg="APP_VERSION=$(app_version)"
 
-.PHONY:docker_image_ecr
-docker_image_ecr:
-	docker image build . -t pilates:latest -t pilates:$(docker_tag) --build-arg="APP_VERSION=$(app_version)" --platform=linux/amd64
-
 .PHONY:ecr_login
 ecr_login:
 	aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin $(ecr_registry)
 
 .PHONY:ecr_push
-ecr_push: docker_image_ecr ecr_login
-	docker image tag pilates:$(docker_tag) $(ecr_repo):$(docker_tag)
-	docker image tag pilates:latest $(ecr_repo):latest
-	docker push $(ecr_repo):$(docker_tag)
+ecr_push: ecr_login
+	docker image build . -t pilates:latest -t pilates:$(docker_tag) --build-arg="APP_VERSION=$(app_version)" --platform=linux/amd64
 	docker push $(ecr_repo):latest
 	echo 'Pushed Docker image to ECR with tag:' $(docker_tag)
 
