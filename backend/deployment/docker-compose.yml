@@ -1,0 +1,22 @@
+services:
+  pilates:
+    image: 127624060144.dkr.ecr.eu-west-2.amazonaws.com/pilates:latest
+    command: api
+    expose:
+      - "8000"
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - pilates
+
+volumes:
+  caddy_data:
+  caddy_config:

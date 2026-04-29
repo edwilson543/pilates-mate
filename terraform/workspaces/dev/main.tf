@@ -55,3 +55,17 @@ resource "aws_key_pair" "my_key" {
   key_name   = "pilates-gpt-ec2"
   public_key = file("~/.ssh/pilates-gpt-ec2.pub")
 }
+
+resource "aws_eip" "api" {
+  domain = "vpc"
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
+
+resource "aws_eip_association" "api" {
+  instance_id   = module.ec2_instance.id
+  allocation_id = aws_eip.api.id
+}

@@ -1,0 +1,3 @@
+api.thepilatesplanner.org {
+    reverse_proxy pilates:8000
+}
