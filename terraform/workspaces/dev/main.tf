@@ -51,7 +51,7 @@ resource "aws_security_group" "api_security_group" {
   }
 }
 
-resource "aws_key_pair" "my_key" {
+resource "aws_key_pair" "pilates_gpt_ec2_key" {
   key_name   = "pilates-gpt-ec2"
   public_key = file("~/.ssh/pilates-gpt-ec2.pub")
 }
