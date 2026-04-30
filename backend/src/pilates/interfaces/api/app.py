@@ -1,12 +1,22 @@
+import contextlib
+import typing
+
 import fastapi
 from fastapi import responses as fastapi_responses
 from fastapi.middleware.cors import CORSMiddleware
 
-from pilates import version
+from pilates import config, version
 from pilates.interfaces.api import routers
 
 
-app = fastapi.FastAPI()
+@contextlib.asynccontextmanager
+async def lifespan(app: fastapi.FastAPI) -> typing.AsyncIterator[None]:
+    settings = config.Settings()
+    app.state.settings = settings
+    yield
+
+
+app = fastapi.FastAPI(lifespan=lifespan)
 
 # Configure CORS to allow frontend requests
 app.add_middleware(

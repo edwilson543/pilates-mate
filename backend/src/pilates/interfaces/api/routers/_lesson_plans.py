@@ -6,7 +6,7 @@ import pydantic
 from pilates import config
 from pilates.application import generate_lesson_plan
 from pilates.domain import exercises, lesson_plans
-from pilates.interfaces.api import schemas
+from pilates.interfaces.api import dependencies, schemas
 
 
 router = fastapi.APIRouter()
@@ -47,8 +47,9 @@ class GenerateLessonPlanResponse(pydantic.BaseModel):
 @router.post("/", status_code=201)
 async def generate_lesson_plan_(
     request: typing.Annotated[GenerateLessonPlanRequest, fastapi.Body()],
+    settings: dependencies.SettingsT,
 ) -> GenerateLessonPlanResponse:
-    client = config.get_completion_client()
+    client = config.get_completion_client(settings)
     uow = config.get_unit_of_work()
     lesson_plan = await generate_lesson_plan.generate_lesson_plan(
         requirements=request.requirements, client=client, uow=uow
