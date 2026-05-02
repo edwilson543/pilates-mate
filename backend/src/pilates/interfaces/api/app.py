@@ -29,9 +29,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(routers.exercises_router, prefix="/exercises", tags=["exercises"])
 app.include_router(
-    routers.lesson_plans_router, prefix="/lesson-plans", tags=["lesson-plans"]
+    routers.auth_router,
+    prefix="/auth",
+    tags=["auth"],
+)
+app.include_router(
+    routers.exercises_router,
+    prefix="/exercises",
+    tags=["exercises"],
+)
+app.include_router(
+    routers.lesson_plans_router,
+    prefix="/lesson-plans",
+    tags=["lesson-plans"],
 )
 
 

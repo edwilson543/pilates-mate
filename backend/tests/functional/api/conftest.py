@@ -9,9 +9,14 @@ from pilates.interfaces.api import app
 from testing.helpers import unit_of_work as unit_of_work_helpers
 
 
+class _APIClient(testclient.TestClient):
+    def set_auth_token(self, token: str) -> None:
+        self._headers.update({"Authorization": f"Bearer {token}"})
+
+
 @pytest.fixture()
-def api_client(unit_of_work) -> testclient.TestClient:
-    return testclient.TestClient(app.app)
+def api_client(unit_of_work) -> _APIClient:
+    return _APIClient(app.app)
 
 
 @pytest.fixture()
