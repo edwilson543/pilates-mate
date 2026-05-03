@@ -35,5 +35,5 @@ Restart the Docker containers:
 ```bash
 aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 127624060144.dkr.ecr.eu-west-2.amazonaws.com
 docker pull 127624060144.dkr.ecr.eu-west-2.amazonaws.com/pilates:latest
-docker-compose --env-file=.env up -d
+docker-compose up -d
 ```

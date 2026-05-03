@@ -5,6 +5,8 @@ services:
     command: api
     expose:
       - "8000"
+    env_file:
+      - .env
 
   caddy:
     image: caddy:2
