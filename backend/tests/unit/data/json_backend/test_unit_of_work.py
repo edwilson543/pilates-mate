@@ -1,8 +1,12 @@
-from pilates import config
+from importlib import resources
+
+from pilates.data.json_backend import _unit_of_work
 
 
 def test_database_can_be_deserialized():
-    real_unit_of_work = config.get_unit_of_work()
+    database_file_ref = resources.files(_unit_of_work) / "database.json"
+    with resources.as_file(database_file_ref) as database_file:
+        json_uow = _unit_of_work.JSONUnitOfWork(database_file)
 
-    assert real_unit_of_work.exercises.get_exercises() is not None
-    assert real_unit_of_work.lesson_plans.get_lesson_plans() is not None
+    assert json_uow.exercises.get_exercises() is not None
+    assert json_uow.lesson_plans.get_lesson_plans() is not None

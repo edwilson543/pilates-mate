@@ -48,9 +48,9 @@ class GenerateLessonPlanResponse(pydantic.BaseModel):
 async def generate_lesson_plan_(
     request: typing.Annotated[GenerateLessonPlanRequest, fastapi.Body()],
     settings: dependencies.SettingsT,
+    uow: dependencies.UnitOfWorkT,
 ) -> GenerateLessonPlanResponse:
     client = config.get_completion_client(settings)
-    uow = config.get_unit_of_work()
     lesson_plan = await generate_lesson_plan.generate_lesson_plan(
         requirements=request.requirements, client=client, uow=uow
     )
@@ -63,8 +63,7 @@ async def generate_lesson_plan_(
 
 
 @router.get("/")
-async def get_lesson_plans() -> list[schemas.LessonPlan]:
-    uow = config.get_unit_of_work()
+async def get_lesson_plans(uow: dependencies.UnitOfWorkT) -> list[schemas.LessonPlan]:
     all_plans = uow.lesson_plans.get_lesson_plans()
     all_exercises = uow.exercises.get_exercises()
     exercises_by_id = {ex.id: ex for ex in all_exercises}
@@ -75,8 +74,9 @@ async def get_lesson_plans() -> list[schemas.LessonPlan]:
 
 
 @router.get("/{lesson_plan_id}")
-async def get_lesson_plan(lesson_plan_id: int) -> schemas.LessonPlan:
-    uow = config.get_unit_of_work()
+async def get_lesson_plan(
+    lesson_plan_id: int, uow: dependencies.UnitOfWorkT
+) -> schemas.LessonPlan:
     try:
         lesson_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
         all_exercises = uow.exercises.get_exercises()
@@ -89,8 +89,9 @@ async def get_lesson_plan(lesson_plan_id: int) -> schemas.LessonPlan:
 
 
 @router.delete("/{lesson_plan_id}", status_code=204)
-async def delete_lesson_plan(lesson_plan_id: int) -> None:
-    uow = config.get_unit_of_work()
+async def delete_lesson_plan(
+    lesson_plan_id: int, uow: dependencies.UnitOfWorkT
+) -> None:
     try:
         uow.lesson_plans.delete_lesson_plan(lesson_plan_id)
     except lesson_plans.LessonPlanDoesNotExist:
@@ -120,8 +121,8 @@ class UpdateExerciseSetRequest(pydantic.BaseModel):
 async def add_set_to_sequence(
     sequence_id: int,
     request: typing.Annotated[AddSetToSequenceRequest, fastapi.Body()],
+    uow: dependencies.UnitOfWorkT,
 ) -> AddSetToSequenceResponse:
-    uow = config.get_unit_of_work()
     try:
         set_id = uow.lesson_plans.add_set_to_sequence(
             sequence_id=sequence_id,
@@ -145,8 +146,8 @@ async def update_exercise_set(
     sequence_id: int,
     set_id: int,
     request: typing.Annotated[UpdateExerciseSetRequest, fastapi.Body()],
+    uow: dependencies.UnitOfWorkT,
 ) -> None:
-    uow = config.get_unit_of_work()
     try:
         uow.lesson_plans.update_exercise_set(
             id=set_id,
@@ -161,10 +162,8 @@ async def update_exercise_set(
 
 @router.delete("/sequences/{sequence_id}/sets/{set_id}", status_code=204)
 async def delete_exercise_set(
-    sequence_id: int,
-    set_id: int,
+    sequence_id: int, set_id: int, uow: dependencies.UnitOfWorkT
 ) -> None:
-    uow = config.get_unit_of_work()
     try:
         uow.lesson_plans.delete_exercise_set(set_id)
     except lesson_plans.SetDoesNotExist:
@@ -192,8 +191,8 @@ class UpdateExerciseSequenceRequest(pydantic.BaseModel):
 async def add_sequence_to_section(
     lesson_plan_id: int,
     request: typing.Annotated[AddSequenceToSectionRequest, fastapi.Body()],
+    uow: dependencies.UnitOfWorkT,
 ) -> AddSequenceToSectionResponse:
-    uow = config.get_unit_of_work()
     try:
         sequence_id = uow.lesson_plans.add_sequence_to_section(
             lesson_plan_id=lesson_plan_id,
@@ -211,8 +210,8 @@ async def add_sequence_to_section(
 async def update_exercise_sequence(
     sequence_id: int,
     request: typing.Annotated[UpdateExerciseSequenceRequest, fastapi.Body()],
+    uow: dependencies.UnitOfWorkT,
 ) -> None:
-    uow = config.get_unit_of_work()
     try:
         uow.lesson_plans.update_exercise_sequence(
             id=sequence_id,
@@ -225,8 +224,9 @@ async def update_exercise_sequence(
 
 
 @router.delete("/sequences/{sequence_id}", status_code=204)
-async def delete_exercise_sequence(sequence_id: int) -> None:
-    uow = config.get_unit_of_work()
+async def delete_exercise_sequence(
+    sequence_id: int, uow: dependencies.UnitOfWorkT
+) -> None:
     try:
         uow.lesson_plans.delete_exercise_sequence(sequence_id)
     except lesson_plans.SequenceDoesNotExist:

@@ -3,9 +3,8 @@ import typing
 import fastapi
 import pydantic
 
-from pilates import config
 from pilates.domain import exercises
-from pilates.interfaces.api import schemas
+from pilates.interfaces.api import dependencies, schemas
 
 
 router = fastapi.APIRouter()
@@ -40,8 +39,8 @@ class UpdateExerciseRequest(pydantic.BaseModel):
 @router.post("/", status_code=201)
 async def create_exercise(
     request: typing.Annotated[CreateExerciseRequest, fastapi.Body()],
+    uow: dependencies.UnitOfWorkT,
 ) -> CreateExerciseResponse:
-    uow = config.get_unit_of_work()
     exercise_id = uow.exercises.create_exercise(
         name=request.name,
         description=request.description,
@@ -56,15 +55,15 @@ async def create_exercise(
 
 
 @router.get("/")
-async def get_exercises() -> list[schemas.Exercise]:
-    uow = config.get_unit_of_work()
+async def get_exercises(uow: dependencies.UnitOfWorkT) -> list[schemas.Exercise]:
     all_exercises = uow.exercises.get_exercises()
     return [schemas.Exercise.from_domain(exercise) for exercise in all_exercises]
 
 
 @router.get("/{exercise_id}")
-async def get_exercise(exercise_id: int) -> schemas.Exercise:
-    uow = config.get_unit_of_work()
+async def get_exercise(
+    exercise_id: int, uow: dependencies.UnitOfWorkT
+) -> schemas.Exercise:
     try:
         domain_exercise = uow.exercises.get_exercise(exercise_id)
         return schemas.Exercise.from_domain(obj=domain_exercise)
@@ -76,8 +75,8 @@ async def get_exercise(exercise_id: int) -> schemas.Exercise:
 async def update_exercise(
     exercise_id: int,
     request: typing.Annotated[UpdateExerciseRequest, fastapi.Body()],
+    uow: dependencies.UnitOfWorkT,
 ) -> None:
-    uow = config.get_unit_of_work()
     try:
         uow.exercises.update_exercise(
             id=exercise_id,

@@ -6,7 +6,7 @@ from . import _exercises, _lesson_plans, _users
 
 
 class JSONUnitOfWork(unit_of_work.UnitOfWork):
-    def __init__(self, database_file: pathlib.Path | None = None) -> None:
+    def __init__(self, database_file: pathlib.Path) -> None:
         database_file = database_file or pathlib.Path(__file__).parent / "database.json"
 
         self.exercises = _exercises.JSONRepository(database_file=database_file)

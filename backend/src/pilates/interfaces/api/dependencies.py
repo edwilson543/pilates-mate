@@ -4,7 +4,7 @@ import fastapi
 from fastapi import security
 
 from pilates import config
-from pilates.domain import users
+from pilates.domain import unit_of_work, users
 from pilates.interfaces.api import errors
 
 
@@ -13,6 +13,15 @@ def get_settings(request: fastapi.Request) -> config.Settings:
 
 
 SettingsT = typing.Annotated[config.Settings, fastapi.Depends(get_settings)]
+
+
+def get_unit_of_work(settings: SettingsT) -> unit_of_work.UnitOfWork:
+    return config.get_unit_of_work(settings)
+
+
+UnitOfWorkT = typing.Annotated[
+    unit_of_work.UnitOfWork, fastapi.Depends(get_unit_of_work)
+]
 
 
 oauth2_scheme = security.OAuth2PasswordBearer(tokenUrl="auth/token")
