@@ -11,8 +11,9 @@ CURRENT_TIME = dt.datetime(2026, 5, 2)
 
 @time_machine.travel(CURRENT_TIME)
 def test_registered_user_can_login_to_obtain_token(api_client, unit_of_work):
+    email = "ed@gmail.com"
     password = "qwerty123"
-    user = user_helpers.User.insert(unit_of_work, password=password)
+    user = user_helpers.User.insert(unit_of_work, email=email, password=password)
 
     payload = {"username": user.email, "password": password}
     # Note we use `data` not `json`, since the credentials must be form encoded.
@@ -20,7 +21,7 @@ def test_registered_user_can_login_to_obtain_token(api_client, unit_of_work):
 
     assert login_response.status_code == 200
     assert login_response.json() == {
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlLTBAZ21haWwuY29tIiwiZXhwIjoxNzc3NjgxODAwLjB9.Zs4IcyacQnValFk7rgEWWz1DIsP9iXAtUreVYSfN5JE",
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMH0.99fvaIPannd45cq0je9XGG7O1iUG5LQ57x9hxTSVGzE",
         "token_type": "bearer",
     }
 
@@ -60,15 +61,16 @@ def test_not_authorized_when_unregistered_user_attempts_login(api_client, unit_o
 
 @time_machine.travel(CURRENT_TIME)
 def test_not_authorized_when_token_has_expired(api_client, unit_of_work):
+    email = "ed@gmail.com"
     password = "some-password"
-    user = user_helpers.User.insert(unit_of_work, password=password)
+    user = user_helpers.User.insert(unit_of_work, email=email, password=password)
 
     payload = {"username": user.email, "password": password}
     login_response = api_client.post("auth/token", data=payload)
 
     assert login_response.status_code == 200
     assert login_response.json() == {
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlLTFAZ21haWwuY29tIiwiZXhwIjoxNzc3NjgxODAwLjB9.kk_ydDC6NSCm1C_F1lSBwAfZjEW46RgUavYlVhKbK1k",
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMH0.99fvaIPannd45cq0je9XGG7O1iUG5LQ57x9hxTSVGzE",
         "token_type": "bearer",
     }
 
