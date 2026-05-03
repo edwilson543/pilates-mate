@@ -24,6 +24,7 @@ class JSONRepositoryMixin:
         data: dict[str, list] = {
             "lesson_plans": [],
             "exercises": [],
+            "users": [],
         }
 
         with open(self.database_file, "x") as f:

@@ -90,6 +90,7 @@ layers = [
     "unit_of_work",
     "lesson_plans",
     "exercises",
+    "users",
     "templates | vendors",
 ]
 exhaustive = true
