@@ -8,28 +8,28 @@ from pilates.domain import unit_of_work, users
 from pilates.interfaces.api import errors
 
 
-def get_settings(request: fastapi.Request) -> config.Settings:
+def _get_settings(request: fastapi.Request) -> config.Settings:
     return request.app.state.settings
 
 
-SettingsT = typing.Annotated[config.Settings, fastapi.Depends(get_settings)]
+SettingsT = typing.Annotated[config.Settings, fastapi.Depends(_get_settings)]
 
 
-def get_unit_of_work(settings: SettingsT) -> unit_of_work.UnitOfWork:
+def _get_unit_of_work(settings: SettingsT) -> unit_of_work.UnitOfWork:
     return config.get_unit_of_work(settings)
 
 
 UnitOfWorkT = typing.Annotated[
-    unit_of_work.UnitOfWork, fastapi.Depends(get_unit_of_work)
+    unit_of_work.UnitOfWork, fastapi.Depends(_get_unit_of_work)
 ]
 
 
-oauth2_scheme = security.OAuth2PasswordBearer(tokenUrl="auth/token")
+_oauth2_scheme = security.OAuth2PasswordBearer(tokenUrl="auth/token")
 
 
-async def get_current_user(
+async def _get_current_user(
     settings: SettingsT,
-    token: typing.Annotated[str, fastapi.Depends(oauth2_scheme)],
+    token: typing.Annotated[str, fastapi.Depends(_oauth2_scheme)],
 ) -> users.User:
     auth_service = config.get_auth_service(settings=settings)
     try:
@@ -42,4 +42,4 @@ async def get_current_user(
     return user
 
 
-UserT = typing.Annotated[users.User, fastapi.Depends(get_current_user)]
+UserT = typing.Annotated[users.User, fastapi.Depends(_get_current_user)]
