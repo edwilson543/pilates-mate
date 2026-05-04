@@ -35,7 +35,8 @@ The interfaces layer contains the entrypoints into the code.
 - Dependencies in the interfaces layer must be instantiated by calling into the config layer
 - The interfaces layer must never instantiate dependencies directly from the domain or data layers
 
-#### API routes
+#### API
+##### Routes
 API routes are implemented as FastAPI routers in `./interfaces/api/routers/`
 - All routers must be `async`
 - Request and response models for specific endpoints are defined inline within router modules
@@ -44,7 +45,7 @@ API routes are implemented as FastAPI routers in `./interfaces/api/routers/`
 - Routers interact with the config layer to obtain dependencies (e.g., `config.get_unit_of_work()`)
 - Domain exceptions should be caught and converted to appropriate HTTP responses using `fastapi.HTTPException`
 
-#### API schemas
+##### Schemas
 The API layer uses separate schema models to decouple API contracts from domain models
 - Schema models are defined in `./interfaces/api/schemas.py`
 - Each schema provides a `from_domain()` class method to convert domain objects to API format
@@ -54,11 +55,20 @@ The API layer uses separate schema models to decouple API contracts from domain 
   - Transforming data for presentation purposes
 - Schemas are primarily used for GET endpoint responses to provide richer data structures to API consumers
 
+##### Authentication
+The API implements the OAuth2.0 authentication protocol using JWT bearer tokens.
+The authentication flow is as follows:
+- API clients (i.e. the frontend application) submit a username and password to the `/auth/token` endpoint
+- The backend verifies the username and password and issues a JWT in response
+- The frontend then submits this JWT as a header in subsequent requests: `Authorization: Bearer ${token}`
+- When the token expires, the client must acquire a new token
+
 ### Config layer
 The config layer is responsible for instantiating the correct implementations of ABCs declared in the domain.
-- The config layer is implemented at `./src/pilates/config.py`
-- Each public function in `config.py` takes the form `get_xyz()`, and returns the instantiated concrete implementation
-  of an abstract base class declared in the domain.
+- The config layer is implemented at `./src/pilates/config.py`, and has two core sets of components:
+  - The `Settings` class, which reads environment variables into Python primitives, such as vendor API keys
+  - Public functions that return concrete implementations of abstract base classes defined in the domain, for
+    example, `get_unit_of_work(settings: Settings)`
 - Instantiations retrieved from the config can be used in two ways:
   - Injected into use cases defined in the application layer. For example, the `generate_lesson_plan` use case
     requires a `CompletionClient` implementation so that it can call a third-party vendor
@@ -69,7 +79,7 @@ The config layer is responsible for instantiating the correct implementations of
 
 ### Application layer
 The application layer is responsible for orchestrating domain logic.
-- The application layer is implemented at `./src/pilages/application/`
+- The application layer is implemented at `./src/pilates/application/`
 - The application consists of "use cases" which orchestrate domain logic into a particular business use case
 - For example `generate_lesson_plan.py` contains a function `generate_lesson_plan`, which orchestrates 
   pilates lesson plan modelling, persistence logic and LLM completion logic to generate a lesson plan
