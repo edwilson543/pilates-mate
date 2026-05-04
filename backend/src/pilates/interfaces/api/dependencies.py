@@ -33,7 +33,7 @@ async def _get_current_user(
 ) -> users.User:
     auth_service = config.get_auth_service(settings=settings)
     try:
-        user = auth_service.get_user_if_token_valid(token=token)
+        user = auth_service.get_user_if_access_token_is_valid(token=token)
     except users.TokenExpired as exc:
         raise errors.not_authorized_error("Token expired.") from exc
     except users.InvalidToken as exc:

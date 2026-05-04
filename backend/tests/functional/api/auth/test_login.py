@@ -10,7 +10,7 @@ from testing.helpers import users as user_helpers
 CURRENT_TIME = dt.datetime(2026, 5, 2, tzinfo=utils.timezone())
 
 
-@time_machine.travel(CURRENT_TIME)
+@time_machine.travel(CURRENT_TIME, tick=False)
 def test_registered_user_can_login_to_obtain_token(api_client, unit_of_work):
     email = "ed@gmail.com"
     password = "qwerty123"
@@ -22,13 +22,14 @@ def test_registered_user_can_login_to_obtain_token(api_client, unit_of_work):
 
     assert login_response.status_code == 200
     assert login_response.json() == {
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMH0.99fvaIPannd45cq0je9XGG7O1iUG5LQ57x9hxTSVGzE",
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMCwidG9rZW5fdHlwZSI6IkFDQ0VTUyJ9.TCHPoMIFx8oYvdozZq_RK89Et7qrbrcU1gh-lj6taic",
+        "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3NzgyODQ4MDAuMCwidG9rZW5fdHlwZSI6IlJFRlJFU0gifQ.nxHmR67xrbrzJfxT5LbA3HldNal0XAcFjhMRI1mhUyU",
         "token_type": "bearer",
     }
 
     # TODO! this is just temporary to test an authenticated route
-    auth_token = login_response.json()["access_token"]
-    api_client.set_auth_token(auth_token)
+    access_token = login_response.json()["access_token"]
+    api_client.set_auth_token(access_token)
 
     items_response = api_client.get("/auth/items")
 
@@ -60,7 +61,7 @@ def test_not_authorized_when_unregistered_user_attempts_login(api_client, unit_o
     assert response.json() == {"detail": "Invalid username or password."}
 
 
-@time_machine.travel(CURRENT_TIME)
+@time_machine.travel(CURRENT_TIME, tick=False)
 def test_not_authorized_when_token_has_expired(api_client, unit_of_work):
     email = "ed@gmail.com"
     password = "some-password"
@@ -71,14 +72,14 @@ def test_not_authorized_when_token_has_expired(api_client, unit_of_work):
 
     assert login_response.status_code == 200
     assert login_response.json() == {
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMH0.99fvaIPannd45cq0je9XGG7O1iUG5LQ57x9hxTSVGzE",
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMCwidG9rZW5fdHlwZSI6IkFDQ0VTUyJ9.TCHPoMIFx8oYvdozZq_RK89Et7qrbrcU1gh-lj6taic",
+        "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3NzgyODQ4MDAuMCwidG9rZW5fdHlwZSI6IlJFRlJFU0gifQ.nxHmR67xrbrzJfxT5LbA3HldNal0XAcFjhMRI1mhUyU",
         "token_type": "bearer",
     }
+    access_token = login_response.json()["access_token"]
+    api_client.set_auth_token(access_token)
 
-    auth_token = login_response.json()["access_token"]
-    api_client.set_auth_token(auth_token)
-
-    token_expires_in = api_client.app_settings.auth_jwt_expiry_minutes
+    token_expires_in = api_client.app_settings.auth_access_token_expiry_minutes
     after_token_expires = CURRENT_TIME + dt.timedelta(minutes=token_expires_in + 30)
     with time_machine.travel(after_token_expires):
         items_response = api_client.get("/auth/items")

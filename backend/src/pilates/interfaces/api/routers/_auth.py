@@ -14,6 +14,7 @@ router = fastapi.APIRouter()
 
 class TokenResponse(pydantic.BaseModel):
     access_token: str
+    refresh_token: str
     token_type: str
 
 
@@ -27,13 +28,40 @@ async def login(
     auth_service = config.get_auth_service(settings=settings)
 
     try:
-        token = auth_service.get_token_if_password_valid(
+        tokens = auth_service.issue_access_and_refresh_token_from_credentials(
             email=credentials.username, password=credentials.password
         )
     except users.InvalidCredentials as exc:
         raise errors.not_authorized_error("Invalid username or password.") from exc
 
-    return TokenResponse(access_token=token, token_type="bearer")
+    return TokenResponse(
+        access_token=tokens.access_token,
+        refresh_token=tokens.refresh_token,
+        token_type="bearer",
+    )
+
+
+@router.post("/token/refresh")
+async def refresh_access_token(
+    settings: dependencies.SettingsT,
+    refresh_token: typing.Annotated[str, fastapi.Body(embed=True)],
+) -> TokenResponse:
+    auth_service = config.get_auth_service(settings=settings)
+
+    try:
+        access_token = auth_service.issue_access_token_from_refresh_token(
+            refresh_token=refresh_token
+        )
+    except users.TokenExpired as exc:
+        raise errors.not_authorized_error("Refresh token has expired.") from exc
+    except users.InvalidToken as exc:
+        raise errors.not_authorized_error("Invalid refresh token.") from exc
+
+    return TokenResponse(
+        access_token=access_token,
+        refresh_token=refresh_token,
+        token_type="bearer",
+    )
 
 
 # Items.

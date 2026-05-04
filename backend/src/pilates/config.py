@@ -17,7 +17,8 @@ class Settings(pydantic_settings.BaseSettings):
     # Auth.
     auth_secret_key: str = ""
     auth_jwt_algorithm: str = "HS256"
-    auth_jwt_expiry_minutes: int = 30
+    auth_access_token_expiry_minutes: int = 30
+    auth_refresh_token_expiry_minutes: int = 60 * 24 * 7  # 1 week.
 
     # Persistence.
     json_database_file: str = ""
@@ -29,7 +30,8 @@ def get_auth_service(settings: Settings) -> users.AuthService:
         repo=uow.users,
         secret_key=settings.auth_secret_key,
         algorithm=settings.auth_jwt_algorithm,
-        jwt_expiry_minutes=settings.auth_jwt_expiry_minutes,
+        access_token_expiry_minutes=settings.auth_access_token_expiry_minutes,
+        refresh_token_expiry_minutes=settings.auth_refresh_token_expiry_minutes,
     )
 
 
