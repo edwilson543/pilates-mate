@@ -76,13 +76,10 @@ name = "Top level layers"
 type = "layers"
 containers = "pilates"
 layers = [
-    "main",
     "interfaces",
-    "config",
-    "application",
-    "data",
+    "config | version",
+    "application | data",
     "domain",
-    "version",
 ]
 exhaustive = true
 

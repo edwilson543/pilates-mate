@@ -6,4 +6,4 @@ from ._auth import (
     TokenExpired,
 )
 from ._models import User
-from ._repository import Repository, UserDoesNotExist
+from ._repository import Repository, UserAlreadyExists, UserDoesNotExist

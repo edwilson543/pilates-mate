@@ -3,7 +3,7 @@ The backend is implemented in Python, and served via a FastAPI application.
 
 # Deployment
 The backend deployment configuration is implemented in `./deployment`, which includes
-the application Helm chart, `entrypoint.sh` script and `version.sh` script.
+the docker-compose file, the `entrypoint.sh` script and `version.sh` script.
 When relevant, please review the `./deployment/CLAUDE.md` file for more details.
 
 # Project structure
@@ -18,7 +18,8 @@ The project is split into three main packages:
 
 ## Architecture of the source code
 The backend follows a strict layered architecture.
-- The layering is: interfaces → config → application | data → domain
+- The layering is: interfaces → config | version → application | data → domain
+  - Other layers are trivial and can genera
 - Each layer has a separate responsibility, and can only import from the layers beneath it
 - The layering is enforced by `import-linter` (which is configured in `pyproject.toml`)
 - The objectives of the layered architecture are to:
@@ -42,8 +43,15 @@ API routes are implemented as FastAPI routers in `./interfaces/api/routers/`
 - Request and response models for specific endpoints are defined inline within router modules
   - Named with `Request` and `Response` suffixes (e.g., `GenerateLessonPlanRequest`)
   - Defined as Pydantic models inheriting from `pydantic.BaseModel`
-- Routers interact with the config layer to obtain dependencies (e.g., `config.get_unit_of_work()`)
+- Routers hook into the config layer via FastAPI dependencies (e.g., `settings: SettingsT` - see dependencies section below)
 - Domain exceptions should be caught and converted to appropriate HTTP responses using `fastapi.HTTPException`
+
+##### Dependencies
+The API leverages FastAPI's dependency injection mechanism, implemented in `./interfaces/api/dependencies.py`
+Each dependency is implemented as:
+- A private, parameterless function
+- A type annotation, that writes the boilerplate for compatibility with FastAPI dependency
+- For example, `SettingsT = typing.Annotated[config.Settings, fastapi.Depends(_get_settings)]`
 
 ##### Schemas
 The API layer uses separate schema models to decouple API contracts from domain models
@@ -62,6 +70,11 @@ The authentication flow is as follows:
 - The backend verifies the username and password and issues a JWT in response
 - The frontend then submits this JWT as a header in subsequent requests: `Authorization: Bearer ${token}`
 - When the token expires, the client must acquire a new token
+
+##### Lifespan
+- The FastAPI lifespan is used to load common resources once on application startup
+- For example, we instantiate the `Settings`, which reads all environment variables
+- The lifespan hook is implemented in `./src/pilates/interfaces/api/app.py`
 
 ### Config layer
 The config layer is responsible for instantiating the correct implementations of ABCs declared in the domain.
@@ -95,7 +108,8 @@ The data layer is responsible for persistence logic.
   - Implementations of the abstract repositories defined in the domain layer
   - Connection logic to local persistence technologies (for now, this is just a JSON file)
 - The unit of work pattern coordinates persistence operations across multiple repositories
-  - The `UnitOfWork` provides access to all repositories via attributes (e.g., `uow.exercises`, `uow.lesson_plans`)
+  - The variable `uow` is and should be used to refer to any instance of the `UnitOfWork` class
+  - The `UnitOfWork` provides access to all repositories via attributes (e.g., `uow.exercises`)
   - The `UnitOfWork` provides a `transaction()` async context manager for managing transactional boundaries
   - All persistence operations should go through the unit of work rather than instantiating repositories directly
 
@@ -112,8 +126,10 @@ The domain layer is responsible for modelling business logic.
     - For example, the `lesson_plans` domain includes a `Repository` interface for retrieving lesson plans
       from the relevant database (but abstracting the implementation details)
     - For example, the `vendors` domain includes a `CompletionClient` interface, for requesting vendor APIs
-    - Implementations of the ABC can be implemented either directly in the domain, or in the `data/` layer
-      in the case of repositories. Implementations must always be instantiated from the config layer.
+    - Implementations of the ABC should be implemented:
+      - Directly in the domain (e.g. the `AuthService` within the `users/` domain)
+      - In the Data layer, in the case of repositories (that abstract persistence)
+    - Implementations must always be instantiated from the config layer.
 - The domain layer also defines cross-cutting persistence patterns:
   - The `UnitOfWork` ABC coordinates persistence operations across repositories
   - It provides repository access via attributes and manages transactional boundaries
@@ -159,8 +175,10 @@ from testing.helpers import lesson_plans as lesson_plan_helpers
 #### Exception classes
 - For errors raised from the application and domain layer, define custom exception classes 
   rather than raising builtin or third-party exceptions
-- Exception classes should be decorated with `@attrs.frozen`
-- Metadata should be attached to the exception class as field on the `attrs` class
+- If metadata should be attached to the exception class to propagate information to calling code:
+  - Decorate the exception class with: `@attrs.frozen`
+  - Pass in the necessary attributes as instance attributes when instantiating the exception
+  - For example: `raise UserAlreadyExists(email=user.email)`
 
 
 ## Testing helpers
@@ -217,8 +235,9 @@ Tests are split into the following categories:
 - Functional tests should not cover every scenario, typically one test for each status code, for example:
   - One test for the happy path (e.g. object created successfully, 201)
   - One test for an application error (e.g. invalid creationg parameters, 400)
-- Functional tests should also be split into (setup / execution / assertion) blocks, however each
-  functional test can have multiple series of such blocks
+- Functional tests should also be split into (setup / execution / assertion) blocks
+- A single functional test can include multiple (execute, assert) blocks in series, however each test
+  should correspond to a single scenario
 
 ### Project tests
 - Project tests are miscellaneous tests that act as linting rules to enforce coding practices
