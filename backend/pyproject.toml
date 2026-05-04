@@ -93,6 +93,7 @@ layers = [
     "exercises",
     "users",
     "templates | vendors",
+    "utils"
 ]
 exhaustive = true
 

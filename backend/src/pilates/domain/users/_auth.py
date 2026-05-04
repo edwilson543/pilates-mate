@@ -6,6 +6,8 @@ import attrs
 import jwt
 import pwdlib
 
+from pilates.domain import utils
+
 from . import _models, _repository
 
 
@@ -65,7 +67,7 @@ class JWTAuthService(AuthService):
         ):
             raise InvalidCredentials
 
-        expires_at = dt.datetime.now() + dt.timedelta(minutes=self.jwt_expiry_minutes)
+        expires_at = utils.now() + dt.timedelta(minutes=self.jwt_expiry_minutes)
         unencoded_jwt = {"sub": email, "exp": expires_at.timestamp()}
         return jwt.encode(unencoded_jwt, key=self.secret_key, algorithm=self.algorithm)
 

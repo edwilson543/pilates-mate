@@ -2,11 +2,12 @@ import datetime as dt
 
 import time_machine
 
+from pilates.domain import utils
 from testing.helpers import users as user_helpers
 
 
 # Time is frozen so that the encoded JWTs are static.
-CURRENT_TIME = dt.datetime(2026, 5, 2)
+CURRENT_TIME = dt.datetime(2026, 5, 2, tzinfo=utils.timezone())
 
 
 @time_machine.travel(CURRENT_TIME)
