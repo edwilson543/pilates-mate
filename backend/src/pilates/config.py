@@ -24,8 +24,9 @@ class Settings(pydantic_settings.BaseSettings):
     json_database_file: str = ""
 
 
-def get_auth_service(settings: Settings) -> users.AuthService:
-    uow = get_unit_of_work(settings)
+def get_auth_service(
+    settings: Settings, uow: unit_of_work.UnitOfWork
+) -> users.AuthService:
     return users.JWTAuthService(
         repo=uow.users,
         secret_key=settings.auth_secret_key,

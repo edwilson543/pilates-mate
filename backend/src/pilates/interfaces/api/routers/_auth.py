@@ -4,7 +4,6 @@ import fastapi
 import pydantic
 from fastapi import security
 
-from pilates import config
 from pilates.domain import users
 from pilates.interfaces.api import dependencies, errors
 
@@ -20,13 +19,11 @@ class TokenResponse(pydantic.BaseModel):
 
 @router.post("/token")
 async def login(
-    settings: dependencies.SettingsT,
+    auth_service: dependencies.AuthServiceT,
     credentials: typing.Annotated[
         security.OAuth2PasswordRequestForm, fastapi.Depends()
     ],
 ) -> TokenResponse:
-    auth_service = config.get_auth_service(settings=settings)
-
     try:
         tokens = auth_service.issue_access_and_refresh_token_from_credentials(
             email=credentials.username, password=credentials.password
@@ -43,11 +40,9 @@ async def login(
 
 @router.post("/token/refresh")
 async def refresh_access_token(
-    settings: dependencies.SettingsT,
+    auth_service: dependencies.AuthServiceT,
     refresh_token: typing.Annotated[str, fastapi.Body(embed=True)],
 ) -> TokenResponse:
-    auth_service = config.get_auth_service(settings=settings)
-
     try:
         access_token = auth_service.issue_access_token_from_refresh_token(
             refresh_token=refresh_token

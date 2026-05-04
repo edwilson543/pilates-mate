@@ -29,9 +29,10 @@ _oauth2_scheme = security.OAuth2PasswordBearer(tokenUrl="auth/token")
 
 async def _get_current_user(
     settings: SettingsT,
+    uow: UnitOfWorkT,
     token: typing.Annotated[str, fastapi.Depends(_oauth2_scheme)],
 ) -> users.User:
-    auth_service = config.get_auth_service(settings=settings)
+    auth_service = config.get_auth_service(settings=settings, uow=uow)
     try:
         user = auth_service.get_user_if_access_token_is_valid(token=token)
     except users.TokenExpired as exc:
@@ -43,3 +44,10 @@ async def _get_current_user(
 
 
 UserT = typing.Annotated[users.User, fastapi.Depends(_get_current_user)]
+
+
+async def _get_auth_service(settings: SettingsT, uow: UnitOfWorkT) -> users.AuthService:
+    return config.get_auth_service(settings=settings, uow=uow)
+
+
+AuthServiceT = typing.Annotated[users.AuthService, fastapi.Depends(_get_auth_service)]
