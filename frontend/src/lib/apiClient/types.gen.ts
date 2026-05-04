@@ -67,6 +67,46 @@ export type AddSetToSequenceResponse = {
 };
 
 /**
+ * Body_login_auth_token_post
+ */
+export type BodyLoginAuthTokenPost = {
+  /**
+   * Grant Type
+   */
+  grant_type?: string | null;
+  /**
+   * Username
+   */
+  username: string;
+  /**
+   * Password
+   */
+  password: string;
+  /**
+   * Scope
+   */
+  scope?: string;
+  /**
+   * Client Id
+   */
+  client_id?: string | null;
+  /**
+   * Client Secret
+   */
+  client_secret?: string | null;
+};
+
+/**
+ * Body_refresh_access_token_auth_token_refresh_post
+ */
+export type BodyRefreshAccessTokenAuthTokenRefreshPost = {
+  /**
+   * Refresh Token
+   */
+  refresh_token: string;
+};
+
+/**
  * CreateExerciseRequest
  */
 export type CreateExerciseRequest = {
@@ -231,6 +271,20 @@ export type HttpValidationError = {
 };
 
 /**
+ * Item
+ */
+export type Item = {
+  /**
+   * User Id
+   */
+  user_id: number;
+  /**
+   * Details
+   */
+  details: string;
+};
+
+/**
  * LessonPlan
  */
 export type LessonPlan = {
@@ -331,6 +385,24 @@ export type StartingPosition =
   | "SIDE_KNEELING";
 
 /**
+ * TokenResponse
+ */
+export type TokenResponse = {
+  /**
+   * Access Token
+   */
+  access_token: string;
+  /**
+   * Refresh Token
+   */
+  refresh_token: string;
+  /**
+   * Token Type
+   */
+  token_type: string;
+};
+
+/**
  * UpdateExerciseRequest
  */
 export type UpdateExerciseRequest = {
@@ -420,6 +492,79 @@ export type ValidationError = {
     [key: string]: unknown;
   };
 };
+
+export type LoginAuthTokenPostData = {
+  body: BodyLoginAuthTokenPost;
+  path?: never;
+  query?: never;
+  url: "/auth/token";
+};
+
+export type LoginAuthTokenPostErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type LoginAuthTokenPostError =
+  LoginAuthTokenPostErrors[keyof LoginAuthTokenPostErrors];
+
+export type LoginAuthTokenPostResponses = {
+  /**
+   * Successful Response
+   */
+  200: TokenResponse;
+};
+
+export type LoginAuthTokenPostResponse =
+  LoginAuthTokenPostResponses[keyof LoginAuthTokenPostResponses];
+
+export type RefreshAccessTokenAuthTokenRefreshPostData = {
+  body: BodyRefreshAccessTokenAuthTokenRefreshPost;
+  path?: never;
+  query?: never;
+  url: "/auth/token/refresh";
+};
+
+export type RefreshAccessTokenAuthTokenRefreshPostErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type RefreshAccessTokenAuthTokenRefreshPostError =
+  RefreshAccessTokenAuthTokenRefreshPostErrors[keyof RefreshAccessTokenAuthTokenRefreshPostErrors];
+
+export type RefreshAccessTokenAuthTokenRefreshPostResponses = {
+  /**
+   * Successful Response
+   */
+  200: TokenResponse;
+};
+
+export type RefreshAccessTokenAuthTokenRefreshPostResponse =
+  RefreshAccessTokenAuthTokenRefreshPostResponses[keyof RefreshAccessTokenAuthTokenRefreshPostResponses];
+
+export type ReadItemsAuthItemsGetData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/auth/items";
+};
+
+export type ReadItemsAuthItemsGetResponses = {
+  /**
+   * Response Read Items Auth Items Get
+   *
+   * Successful Response
+   */
+  200: Array<Item>;
+};
+
+export type ReadItemsAuthItemsGetResponse =
+  ReadItemsAuthItemsGetResponses[keyof ReadItemsAuthItemsGetResponses];
 
 export type GetExercisesExercisesGetData = {
   body?: never;
@@ -847,3 +992,17 @@ export type UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponses = {
 
 export type UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponse =
   UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponses[keyof UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutResponses];
+
+export type HealthCheckHealthGetData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/health";
+};
+
+export type HealthCheckHealthGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
