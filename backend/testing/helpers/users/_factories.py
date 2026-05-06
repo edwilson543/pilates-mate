@@ -1,7 +1,6 @@
 import typing
 
 import factory
-import pwdlib
 
 from pilates.domain import unit_of_work, users
 
@@ -18,9 +17,7 @@ class User(factory.Factory):
 
     @factory.lazy_attribute
     def hashed_password(obj: typing.Self) -> str:
-        # TODO: Remove duplicate instantiation of password hasher.
-        hasher = pwdlib.PasswordHash.recommended()
-        return hasher.hash(password=str(obj.password))
+        return users.AuthService.hash_password(password=str(obj.password))
 
     @classmethod
     def insert(cls, uow: unit_of_work.UnitOfWork, **kwargs: object) -> users.User:

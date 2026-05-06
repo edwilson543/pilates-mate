@@ -37,6 +37,8 @@ class TokenType(enum.Enum):
 
 
 class AuthService(abc.ABC):
+    _HASHER: typing.ClassVar[pwdlib.PasswordHash] = pwdlib.PasswordHash.recommended()
+
     @abc.abstractmethod
     def issue_access_and_refresh_token_from_credentials(
         self, *, email: str, password: str
@@ -64,15 +66,13 @@ class AuthService(abc.ABC):
         """
         raise NotImplementedError
 
-    def hash_password(self, password: str) -> str:
-        return self._hasher.hash(password=password)
+    @classmethod
+    def hash_password(cls, *, password: str) -> str:
+        return cls._HASHER.hash(password=password)
 
-    def _verify_password(self, *, password: str, hashed_password: str) -> bool:
-        return self._hasher.verify(password, hash=hashed_password)
-
-    @functools.cached_property
-    def _hasher(self) -> pwdlib.PasswordHash:
-        return pwdlib.PasswordHash.recommended()
+    @classmethod
+    def _verify_password(cls, *, password: str, hashed_password: str) -> bool:
+        return cls._HASHER.verify(password, hash=hashed_password)
 
 
 @attrs.frozen
