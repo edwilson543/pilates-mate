@@ -32,7 +32,7 @@ def test_registered_user_can_login_to_obtain_token(api_client, unit_of_work):
     )
 
     access_token = login_response.json()["access_token"]
-    api_client.set_auth_token(access_token)
+    api_client.set_access_token(access_token)
 
     user_details = api_client.get("/auth/user")
 
@@ -76,7 +76,7 @@ def test_not_authorized_when_token_has_expired(api_client, unit_of_work):
     assert login_response.status_code == 200
 
     access_token = login_response.json()["access_token"]
-    api_client.set_auth_token(access_token)
+    api_client.set_access_token(access_token)
 
     token_expires_in = api_client.app_settings.auth_access_token_expiry_minutes
     after_token_expires = CURRENT_TIME + dt.timedelta(minutes=token_expires_in + 30)

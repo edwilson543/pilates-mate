@@ -43,7 +43,8 @@ async def _get_current_user(
     return user
 
 
-UserT = typing.Annotated[users.User, fastapi.Depends(_get_current_user)]
+UserDep = fastapi.Depends(_get_current_user)
+UserT = typing.Annotated[users.User, UserDep]
 
 
 async def _get_auth_service(settings: SettingsT, uow: UnitOfWorkT) -> users.AuthService:

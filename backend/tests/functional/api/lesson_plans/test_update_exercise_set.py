@@ -2,14 +2,14 @@ from pilates.domain import exercises
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
-def test_update_exercise_set_to_new_values(api_client, unit_of_work):
+def test_update_exercise_set_to_new_values(authenticated_api_client, unit_of_work):
     exercise_set = lesson_plan_helpers.ExerciseSet(
         reps=31, duration_seconds=30, movement_variant="HOLD"
     )
     sequence = lesson_plan_helpers.ExerciseSequence(sets=[exercise_set])
     lesson_plan_helpers.LessonPlan.insert(unit_of_work, main_session=[sequence])
 
-    response = api_client.put(
+    response = authenticated_api_client.put(
         f"/lesson-plans/sequences/{sequence.id}/sets/{exercise_set.id}",
         json={
             "reps": 10,
@@ -27,8 +27,8 @@ def test_update_exercise_set_to_new_values(api_client, unit_of_work):
     assert updated_set.movement_variant == exercises.MovementVariant.PULSE
 
 
-def test_response_not_found_when_updating_nonexistent_set(api_client):
-    response = api_client.put(
+def test_response_not_found_when_updating_nonexistent_set(authenticated_api_client):
+    response = authenticated_api_client.put(
         "/lesson-plans/sequences/999/sets/999",
         json={
             "reps": 10,

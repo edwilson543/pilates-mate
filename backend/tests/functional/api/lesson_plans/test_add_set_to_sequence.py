@@ -2,14 +2,14 @@ from testing.helpers import exercises as exercise_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
-def test_adds_exercise_set_to_existing_sequence(api_client, unit_of_work):
+def test_adds_exercise_set_to_existing_sequence(authenticated_api_client, unit_of_work):
     sequence = lesson_plan_helpers.ExerciseSequence(sets=[])
     lesson_plan = lesson_plan_helpers.LessonPlan.insert(
         unit_of_work, warm_up=[sequence]
     )
     exercise = exercise_helpers.Exercise.insert(unit_of_work)
 
-    response = api_client.post(
+    response = authenticated_api_client.post(
         f"/lesson-plans/sequences/{sequence.id}/sets",
         json={
             "exercise_id": exercise.id,

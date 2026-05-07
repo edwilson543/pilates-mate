@@ -6,12 +6,14 @@ from fastapi import responses as fastapi_responses
 from fastapi.middleware.cors import CORSMiddleware
 
 from pilates import config, version
-from pilates.interfaces.api import routers
+from pilates.interfaces.api import dependencies, routers
 
 
 @contextlib.asynccontextmanager
-async def lifespan(app: fastapi.FastAPI) -> typing.AsyncIterator[None]:
-    settings = config.Settings()
+async def lifespan(
+    app: fastapi.FastAPI, *, settings: config.Settings | None = None
+) -> typing.AsyncIterator[None]:
+    settings = settings or config.Settings()
     app.state.settings = settings
     yield
 
@@ -38,11 +40,13 @@ app.include_router(
     routers.exercises_router,
     prefix="/exercises",
     tags=["exercises"],
+    dependencies=[dependencies.UserDep],
 )
 app.include_router(
     routers.lesson_plans_router,
     prefix="/lesson-plans",
     tags=["lesson-plans"],
+    dependencies=[dependencies.UserDep],
 )
 
 

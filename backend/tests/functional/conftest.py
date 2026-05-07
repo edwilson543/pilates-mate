@@ -3,8 +3,14 @@ import typing
 
 import pytest
 
+from pilates import config
 from pilates.data import json_backend
 from testing.helpers import unit_of_work as unit_of_work_helpers
+
+
+@pytest.fixture(scope="session")
+def settings() -> typing.Generator[config.Settings, None, None]:
+    yield config.Settings()
 
 
 @pytest.fixture()
