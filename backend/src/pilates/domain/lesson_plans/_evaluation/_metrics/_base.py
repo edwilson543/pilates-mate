@@ -45,6 +45,7 @@ class Metric(abc.ABC):
         raise NotImplementedError
 
     @classmethod
+    @typing.final
     def aggregate(cls, metrics: list[typing.Self]) -> typing.Self:
         """
         Aggregate multiple metrics of this type into a single metric.
