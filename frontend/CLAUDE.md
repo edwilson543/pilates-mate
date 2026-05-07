@@ -147,12 +147,14 @@ To update the API client inline with changes made to the backend, see `## Making
 ## Authentication
 
 The frontend authenticates to the backend API by obtaining an access token (which is a JWT), and then submitting
-this in the `Authorization` header of subsequent requests. 
+this in the `Authorization` header of subsequent requests.
+
 - The access token is refreshed using a separate refresh token.
 - The access token and refresh token are both stored in local storage.
 
 Implementation:
-- Low-level token storage utilities are implemented in: `./src/lib/token-storage.ts` 
+
+- Low-level token storage utilities are implemented in: `./src/lib/token-storage.ts`
 - Higher-level authentication hooks/context are implemented in `./src/lib/auth-context.tsx`
 - The `api-config.ts` module uses the token storage library and to attach request interceptors that set the
   `Authorization` header on every request
