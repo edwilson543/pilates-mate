@@ -3,7 +3,7 @@
 import { PageHeader } from "@/components/common/page-header";
 import { use, useState } from "react";
 import { useLessonPlan } from "@/hooks/queries/useLessonPlan";
-import { ExerciseSequenceCard } from "@/app/lesson-plans/[id]/exercise-sequence-card";
+import { ExerciseSequenceCard } from "@/app/(authenticated)/lesson-plans/[id]/exercise-sequence-card";
 import {
   Accordion,
   AccordionContent,

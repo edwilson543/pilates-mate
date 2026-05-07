@@ -1,11 +1,15 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
 
-[tool.hatch.packages.find]
+[tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.hatch.dynamic]
+[tool.setuptools.package-data]
+# Ensure .jinja templates are included when the package is installed into the .venv!
+pilates = ["**/*.jinja"]
+
+[tool.setuptools.dynamic]
 version = { attr = "pilates.version.__version__" }
 
 [project]
@@ -22,7 +26,10 @@ dependencies = [
     "fastapi[standard]>=0.128.6",
     "jinja2>=3.1.6",
     "openai>=2.17.0",
+    "pwdlib[argon2]>=0.3.0",
+    "pyjwt>=2.12.1",
     "pytest-asyncio>=1.3.0",
+    "pytest-env>=1.6.0",
 ]
 
 [project.scripts]
@@ -34,6 +41,7 @@ dev = [
     "mypy>=1.18.2",
     "pytest>=9.0.2",
     "ruff>=0.14.3",
+    "time-machine>=3.2.0",
 ]
 
 # ----------
@@ -42,6 +50,9 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = "./src/pilates"
+
+[tool.pytest_env]
+env_files = ["./tests/.env.test"]
 
 [tool.mypy]
 ignore_missing_imports = true
@@ -69,11 +80,9 @@ name = "Top level layers"
 type = "layers"
 containers = "pilates"
 layers = [
-    "main",
     "interfaces",
-    "config",
-    "application",
-    "data",
+    "config | version",
+    "application | data",
     "domain",
 ]
 exhaustive = true
@@ -86,7 +95,9 @@ layers = [
     "unit_of_work",
     "lesson_plans",
     "exercises",
+    "users",
     "templates | vendors",
+    "utils"
 ]
 exhaustive = true
 

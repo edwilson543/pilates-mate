@@ -73,3 +73,27 @@ jobs:
       # TODO! write some tests...
 #      - name: Test
 #        run: make test
+
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: "1.8.x"
+
+      - name: Install tflint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: "v0.55.0"
+
+      - name: Install tflint plugins
+        run: tflint --init
+
+      - name: Lint
+        run: make lint

@@ -1,0 +1,26 @@
+services:
+  api:
+    image: 127624060144.dkr.ecr.eu-west-2.amazonaws.com/pilates:latest
+    container_name: api
+    command: api
+    expose:
+      - "8000"
+    env_file:
+      - .env
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+
+volumes:
+  caddy_data:
+  caddy_config:

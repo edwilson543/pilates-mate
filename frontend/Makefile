@@ -9,6 +9,10 @@ install:
 fe:
 	pnpm dev
 
+.PHONY:deploy
+deploy:
+	vercel --prod
+
 # Static analysis.
 
 local_ci: lint

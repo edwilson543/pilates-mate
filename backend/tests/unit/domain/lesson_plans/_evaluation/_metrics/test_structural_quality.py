@@ -54,32 +54,32 @@ class TestStartingPositionConsistencyComplianceMetricScoring:
 
 
 class TestSectionBalanceMetricScoring:
-    def test_to_numeric_score_when_perfect_correlation(self) -> None:
+    def test_to_numeric_score_when_perfectly_balanced(self) -> None:
         metric = _structural_quality.SectionBalanceMetric(
             warm_up_percentage=10.0,
             main_session_percentage=80.0,
             cool_down_percentage=10.0,
-            correlation_coefficient=1.0,
+            balance_score=100.0,
         )
 
         assert metric.to_numeric_score() == 100.0
 
-    def test_to_numeric_score_when_no_correlation(self) -> None:
+    def test_to_numeric_score_when_moderately_balanced(self) -> None:
         metric = _structural_quality.SectionBalanceMetric(
-            warm_up_percentage=33.0,
-            main_session_percentage=33.0,
-            cool_down_percentage=34.0,
-            correlation_coefficient=0.0,
+            warm_up_percentage=15.0,
+            main_session_percentage=70.0,
+            cool_down_percentage=15.0,
+            balance_score=50.0,
         )
 
         assert metric.to_numeric_score() == 50.0
 
-    def test_to_numeric_score_when_negative_correlation(self) -> None:
+    def test_to_numeric_score_when_unbalanced(self) -> None:
         metric = _structural_quality.SectionBalanceMetric(
-            warm_up_percentage=80.0,
-            main_session_percentage=10.0,
-            cool_down_percentage=10.0,
-            correlation_coefficient=-1.0,
+            warm_up_percentage=0.0,
+            main_session_percentage=100.0,
+            cool_down_percentage=0.0,
+            balance_score=0.0,
         )
 
         assert metric.to_numeric_score() == 0.0

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import collections.abc
+
 import attrs
 
 from pilates.domain import exercises
@@ -8,16 +10,35 @@ from pilates.domain.lesson_plans import _generation
 from . import _base, _helpers, _requirements_compliance
 
 
+def _percentage_compliant(
+    sequences: list[_generation.GeneratedExerciseSequence],
+    is_compliant: collections.abc.Callable[
+        [_generation.GeneratedExerciseSequence], bool
+    ],
+) -> float:
+    total = 0
+    compliant = 0
+    for sequence in sequences:
+        if not sequence.sets:
+            continue
+        total += 1
+        if is_compliant(sequence):
+            compliant += 1
+    if total == 0:
+        return 100.0
+    return round(100 * compliant / total, 1)
+
+
 @attrs.frozen
 class SectionBalanceMetric(_base.Metric):
     warm_up_percentage: float
     main_session_percentage: float
     cool_down_percentage: float
-    correlation_coefficient: float
+    balance_score: float
 
     def render(self) -> str:
         return (
-            f"Correlation: {self.correlation_coefficient} "
+            f"Balance score: {self.balance_score} "
             f"(warm-up: {self.warm_up_percentage}%, "
             f"main: {self.main_session_percentage}%, "
             f"cool-down: {self.cool_down_percentage}%)"
@@ -30,19 +51,17 @@ class SectionBalanceMetric(_base.Metric):
             metrics
         )
         mean_cool_down = sum(m.cool_down_percentage for m in metrics) / len(metrics)
-        mean_correlation = sum(m.correlation_coefficient for m in metrics) / len(
-            metrics
-        )
+        mean_balance_score = sum(m.balance_score for m in metrics) / len(metrics)
 
         return cls(
             warm_up_percentage=round(mean_warm_up, 1),
             main_session_percentage=round(mean_main_session, 1),
             cool_down_percentage=round(mean_cool_down, 1),
-            correlation_coefficient=round(mean_correlation, 3),
+            balance_score=round(mean_balance_score, 1),
         )
 
     def to_numeric_score(self) -> float:
-        return (self.correlation_coefficient + 1.0) * 50.0
+        return self.balance_score
 
 
 class SectionBalance(_base.Evaluator[SectionBalanceMetric]):
@@ -50,7 +69,7 @@ class SectionBalance(_base.Evaluator[SectionBalanceMetric]):
     category = _base.EvaluationCategory.STRUCTURAL_QUALITY
     description = """Evaluates time distribution across lesson plan sections.
 - Ideal: warm-up 10%, main session 80%, cool-down 10%.
-- Correlation coefficient shows alignment (1.0 = perfect).
+- Balance score shows alignment (100 = perfect, 0 = completely off).
 """
 
     def evaluate(
@@ -72,15 +91,16 @@ class SectionBalance(_base.Evaluator[SectionBalanceMetric]):
             main_session_pct = 100 * main_session_duration / total_duration
             cool_down_pct = 100 * cool_down_duration / total_duration
 
-        actual = [warm_up_pct, main_session_pct, cool_down_pct]
         ideal = [10.0, 80.0, 10.0]
-        correlation = _helpers.correlation_coefficient(actual, ideal)
+        actual = [warm_up_pct, main_session_pct, cool_down_pct]
+        total_deviation = sum(abs(a - i) for a, i in zip(actual, ideal))
+        balance_score = round(max(0.0, 100.0 - total_deviation), 1)
 
         return SectionBalanceMetric(
-            warm_up_percentage=warm_up_pct,
-            main_session_percentage=main_session_pct,
-            cool_down_percentage=cool_down_pct,
-            correlation_coefficient=correlation,
+            warm_up_percentage=round(warm_up_pct, 1),
+            main_session_percentage=round(main_session_pct, 1),
+            cool_down_percentage=round(cool_down_pct, 1),
+            balance_score=balance_score,
         )
 
 
@@ -139,7 +159,6 @@ class TransitionQuality(_base.Evaluator[TransitionQualityMetric]):
             current_sequence = all_sequences[i]
             next_sequence = all_sequences[i + 1]
 
-            # Get the starting position from the first set in each sequence.
             if not current_sequence.sets or not next_sequence.sets:
                 continue
 
@@ -184,7 +203,6 @@ class ProgressiveDifficultyMetric(_base.Metric):
     def _aggregate(
         cls, metrics: list[ProgressiveDifficultyMetric]
     ) -> ProgressiveDifficultyMetric:
-        # Calculate mean trajectory across all metrics.
         max_length = max(len(m.difficulty_trajectory) for m in metrics)
         mean_trajectory = []
 
@@ -253,16 +271,12 @@ class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
 
             difficulty_trajectory.append(avg_difficulty)
 
-        # Check if trajectory is generally progressive.
-        regression_count = 0
-        for i in range(1, len(difficulty_trajectory)):
-            if (
-                difficulty_trajectory[i]
-                < difficulty_trajectory[i - 1] - self.regression_threshold
-            ):
-                regression_count += 1
-
-        # Consider progressive if there are fewer regressions than progressions.
+        regression_count = sum(
+            1
+            for i in range(1, len(difficulty_trajectory))
+            if difficulty_trajectory[i]
+            < difficulty_trajectory[i - 1] - self.regression_threshold
+        )
         is_progressive = regression_count < len(difficulty_trajectory) / 2
 
         return ProgressiveDifficultyMetric(
@@ -290,38 +304,20 @@ class VariantOrderingCompliance(_base.Evaluator[VariantOrderingComplianceMetric]
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> VariantOrderingComplianceMetric:
-        compliant_count = 0
-        total_sequences = 0
-
-        for sequence in generated_plan.sequences:
-            if not sequence.sets:
-                continue
-
-            total_sequences += 1
-            is_compliant = True
-
-            # Check first set uses STANDARD.
+        def is_compliant(
+            sequence: _generation.GeneratedExerciseSequence,
+        ) -> bool:
             if sequence.sets[0].movement_variant != exercises.MovementVariant.STANDARD:
-                is_compliant = False
+                return False
+            return not any(
+                s.movement_variant
+                in (exercises.MovementVariant.PULSE, exercises.MovementVariant.HOLD)
+                for s in sequence.sets[:-1]
+            )
 
-            # Check PULSE/HOLD only at end.
-            for i, set_item in enumerate(sequence.sets[:-1]):
-                if set_item.movement_variant in (
-                    exercises.MovementVariant.PULSE,
-                    exercises.MovementVariant.HOLD,
-                ):
-                    is_compliant = False
-                    break
-
-            if is_compliant:
-                compliant_count += 1
-
-        if total_sequences == 0:
-            percentage = 100.0
-        else:
-            percentage = round(100 * compliant_count / total_sequences, 1)
-
-        return VariantOrderingComplianceMetric(value=percentage)
+        return VariantOrderingComplianceMetric(
+            value=_percentage_compliant(generated_plan.sequences, is_compliant)
+        )
 
 
 class EquipmentConsistencyComplianceMetric(
@@ -345,33 +341,18 @@ class EquipmentConsistencyCompliance(
         requirements: _generation.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> EquipmentConsistencyComplianceMetric:
-        compliant_count = 0
-        total_sequences = 0
-
-        for sequence in generated_plan.sequences:
-            if not sequence.sets:
-                continue
-
-            total_sequences += 1
-
-            # Get equipment from first set.
-            first_equipment = set(sequence.sets[0].equipment_variant)
-
-            # Check all sets use same equipment.
-            is_consistent = all(
-                set(set_item.equipment_variant) == first_equipment
-                for set_item in sequence.sets
+        def is_compliant(
+            sequence: _generation.GeneratedExerciseSequence,
+        ) -> bool:
+            first_equipment = frozenset(sequence.sets[0].equipment_variant)
+            return all(
+                frozenset(s.equipment_variant) == first_equipment
+                for s in sequence.sets[1:]
             )
 
-            if is_consistent:
-                compliant_count += 1
-
-        if total_sequences == 0:
-            percentage = 100.0
-        else:
-            percentage = round(100 * compliant_count / total_sequences, 1)
-
-        return EquipmentConsistencyComplianceMetric(value=percentage)
+        return EquipmentConsistencyComplianceMetric(
+            value=_percentage_compliant(generated_plan.sequences, is_compliant)
+        )
 
 
 class MuscleGroupFocusComplianceMetric(_requirements_compliance.PercentageMetric): ...
@@ -393,42 +374,22 @@ class MuscleGroupFocusCompliance(_base.Evaluator[MuscleGroupFocusComplianceMetri
     ) -> MuscleGroupFocusComplianceMetric:
         exercise_lookup = deps.build_exercise_lookup()
 
-        compliant_count = 0
-        total_sequences = 0
-
-        for sequence in generated_plan.sequences:
-            if not sequence.sets:
-                continue
-
-            total_sequences += 1
-
-            # Get muscle group from first set.
+        def is_compliant(
+            sequence: _generation.GeneratedExerciseSequence,
+        ) -> bool:
             first_exercise = exercise_lookup.get(sequence.sets[0].exercise.id)
             if first_exercise is None:
-                continue
+                return False
+            first_group = first_exercise.primary_muscle_group
+            for s in sequence.sets[1:]:
+                ex = exercise_lookup.get(s.exercise.id)
+                if ex is None or ex.primary_muscle_group != first_group:
+                    return False
+            return True
 
-            first_muscle_group = first_exercise.primary_muscle_group
-
-            # Check all sets target same muscle group.
-            is_consistent = True
-            for set_item in sequence.sets:
-                exercise = exercise_lookup.get(set_item.exercise.id)
-                if exercise is None:
-                    is_consistent = False
-                    break
-                if exercise.primary_muscle_group != first_muscle_group:
-                    is_consistent = False
-                    break
-
-            if is_consistent:
-                compliant_count += 1
-
-        if total_sequences == 0:
-            percentage = 100.0
-        else:
-            percentage = round(100 * compliant_count / total_sequences, 1)
-
-        return MuscleGroupFocusComplianceMetric(value=percentage)
+        return MuscleGroupFocusComplianceMetric(
+            value=_percentage_compliant(generated_plan.sequences, is_compliant)
+        )
 
 
 class StartingPositionConsistencyComplianceMetric(
@@ -454,39 +415,19 @@ class StartingPositionConsistencyCompliance(
     ) -> StartingPositionConsistencyComplianceMetric:
         exercise_lookup = deps.build_exercise_lookup()
 
-        compliant_count = 0
-        total_sequences = 0
-
-        for sequence in generated_plan.sequences:
-            if not sequence.sets:
-                continue
-
-            total_sequences += 1
-
-            # Get starting position from first set.
+        def is_compliant(
+            sequence: _generation.GeneratedExerciseSequence,
+        ) -> bool:
             first_exercise = exercise_lookup.get(sequence.sets[0].exercise.id)
             if first_exercise is None:
-                continue
-
+                return False
             first_position = first_exercise.starting_position
+            for s in sequence.sets[1:]:
+                ex = exercise_lookup.get(s.exercise.id)
+                if ex is None or ex.starting_position != first_position:
+                    return False
+            return True
 
-            # Check all sets use same starting position.
-            is_consistent = True
-            for set_item in sequence.sets:
-                exercise = exercise_lookup.get(set_item.exercise.id)
-                if exercise is None:
-                    is_consistent = False
-                    break
-                if exercise.starting_position != first_position:
-                    is_consistent = False
-                    break
-
-            if is_consistent:
-                compliant_count += 1
-
-        if total_sequences == 0:
-            percentage = 100.0
-        else:
-            percentage = round(100 * compliant_count / total_sequences, 1)
-
-        return StartingPositionConsistencyComplianceMetric(value=percentage)
+        return StartingPositionConsistencyComplianceMetric(
+            value=_percentage_compliant(generated_plan.sequences, is_compliant)
+        )

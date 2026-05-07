@@ -1,4 +1,12 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "full_name": "Libby",
+      "email": "libby@gmail.com",
+      "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$GF0TQttAm5ML/HBIKRl5Mw$0RlnL3majnHcWkRCLoZ7TCbHXRXp2zJcfqPjmoJt9ac"
+    }
+  ],
   "lesson_plans": [
     {
       "id": 1,

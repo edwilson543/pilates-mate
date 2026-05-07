@@ -55,7 +55,7 @@ import { useDeleteExerciseSet } from "@/hooks/mutations/useDeleteExerciseSet";
 import { useAddExerciseSet } from "@/hooks/mutations/useAddExerciseSet";
 import { useUpdateExerciseSequence } from "@/hooks/mutations/useUpdateExerciseSequence";
 import { useDeleteExerciseSequence } from "@/hooks/mutations/useDeleteExerciseSequence";
-import { ExerciseSelector } from "@/app/lesson-plans/[id]/exercise-selector";
+import { ExerciseSelector } from "@/app/(authenticated)/lesson-plans/[id]/exercise-selector";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 

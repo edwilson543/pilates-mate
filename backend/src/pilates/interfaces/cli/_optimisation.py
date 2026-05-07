@@ -225,7 +225,8 @@ async def _generate_template_variations(
     The optimizer LLM is given the current template and asked to produce
     improved versions while preserving Jinja2 syntax and template structure.
     """
-    completion_client = config.get_completion_client()
+    settings = config.Settings()
+    completion_client = config.get_completion_client(settings)
 
     meta_prompt = _build_meta_optimization_prompt(
         current_template=current_template,
@@ -313,7 +314,8 @@ async def _evaluate_template_version(version: str) -> float:
 
     Returns a single numeric score (higher is better).
     """
-    deps = config.get_evaluation_deps()
+    settings = config.Settings()
+    deps = config.get_evaluation_deps(settings)
     evaluation = await lesson_plans.evaluate_system_prompt(version=version, deps=deps)
 
     return evaluation.to_numeric_score()

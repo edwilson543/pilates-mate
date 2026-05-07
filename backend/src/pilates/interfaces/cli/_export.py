@@ -17,7 +17,8 @@ from pilates.domain import exercises
 )
 def export_exercises(*, output: str) -> None:
     """Export exercises from the database to a CSV file."""
-    uow = config.get_unit_of_work()
+    settings = config.Settings()
+    uow = config.get_unit_of_work(settings)
     exercises_list = uow.exercises.get_exercises()
 
     if not exercises_list:

@@ -1,6 +1,4 @@
-import datetime as dt
-
-from pilates.domain import lesson_plans, unit_of_work, vendors
+from pilates.domain import lesson_plans, unit_of_work, utils, vendors
 
 
 UnableToGenerateLessonPlan = lesson_plans.UnableToGenerateLessonPlan
@@ -27,7 +25,7 @@ async def generate_lesson_plan(
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name=lesson_plan.name,
             description=lesson_plan.description,
-            date=dt.datetime.now().date(),
+            date=utils.now().date(),
             warm_up=[],
             main_session=[],
             cool_down=[],

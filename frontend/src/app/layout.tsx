@@ -5,8 +5,7 @@ import "./globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/query-client";
 import { Toaster } from "@/components/ui/sonner";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/common/app-sidebar";
+import { AuthProvider } from "@/lib/auth-context";
 import "@/lib/api-config";
 
 const geistSans = Geist({
@@ -28,13 +27,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <QueryClientProvider client={queryClient}>
-          <Toaster />
-          <div className="flex h-screen">
-            <SidebarProvider>
-              <AppSidebar />
-              <main className="w-full overflow-y-auto">{children}</main>
-            </SidebarProvider>
-          </div>
+          <AuthProvider>
+            <Toaster />
+            {children}
+          </AuthProvider>
         </QueryClientProvider>
       </body>
     </html>

@@ -13,7 +13,8 @@ The project is split into three main packages:
 
 ## Architecture of the source code
 The backend follows a strict layered architecture.
-- The layering is: interfaces → config → application | data → domain
+- The layering is: interfaces → config | version → application | data → domain
+  - Other layers are trivial and can genera
 - Each layer has a separate responsibility, and can only import from the layers beneath it
 - The layering is enforced by `import-linter` (which is configured in `pyproject.toml`)
 - The objectives of the layered architecture are to:
@@ -30,16 +31,24 @@ The interfaces layer contains the entrypoints into the code.
 - Dependencies in the interfaces layer must be instantiated by calling into the config layer
 - The interfaces layer must never instantiate dependencies directly from the domain or data layers
 
-#### API routes
+#### API
+##### Routes
 API routes are implemented as FastAPI routers in `./interfaces/api/routers/`
 - All routers must be `async`
 - Request and response models for specific endpoints are defined inline within router modules
   - Named with `Request` and `Response` suffixes (e.g., `GenerateLessonPlanRequest`)
   - Defined as Pydantic models inheriting from `pydantic.BaseModel`
-- Routers interact with the config layer to obtain dependencies (e.g., `config.get_unit_of_work()`)
+- Routers hook into the config layer via FastAPI dependencies (e.g., `settings: SettingsT` - see dependencies section below)
 - Domain exceptions should be caught and converted to appropriate HTTP responses using `fastapi.HTTPException`
 
-#### API schemas
+##### Dependencies
+The API leverages FastAPI's dependency injection mechanism, implemented in `./interfaces/api/dependencies.py`
+Each dependency is implemented as:
+- A private, parameterless function
+- A type annotation, that writes the boilerplate for compatibility with FastAPI dependency
+- For example, `SettingsT = typing.Annotated[config.Settings, fastapi.Depends(_get_settings)]`
+
+##### Schemas
 The API layer uses separate schema models to decouple API contracts from domain models
 - Schema models are defined in `./interfaces/api/schemas.py`
 - Each schema provides a `from_domain()` class method to convert domain objects to API format
@@ -49,11 +58,26 @@ The API layer uses separate schema models to decouple API contracts from domain 
   - Transforming data for presentation purposes
 - Schemas are primarily used for GET endpoint responses to provide richer data structures to API consumers
 
+##### Authentication
+The API implements the OAuth2.0 authentication protocol using JWT bearer tokens.
+The authentication flow is as follows:
+- API clients (i.e. the frontend application) submit a username and password to the `/auth/token` endpoint
+- The backend verifies the username and password and issues a short-lived access token (JWT) in the response body, plus a long-lived refresh token set as an HttpOnly, SameSite=Lax cookie
+- The frontend submits the access token as a header in subsequent requests: `Authorization: Bearer ${token}`
+- When the access token expires, the client calls `/auth/token/refresh`; the browser automatically includes the refresh token cookie, and the backend issues a new access token
+- The `AUTH_COOKIE_SECURE` environment variable controls the `Secure` flag on the refresh token cookie (default `true`; set to `false` for local HTTP development)
+
+##### Lifespan
+- The FastAPI lifespan is used to load common resources once on application startup
+- For example, we instantiate the `Settings`, which reads all environment variables
+- The lifespan hook is implemented in `./src/pilates/interfaces/api/app.py`
+
 ### Config layer
 The config layer is responsible for instantiating the correct implementations of ABCs declared in the domain.
-- The config layer is implemented at `./src/pilates/config.py`
-- Each public function in `config.py` takes the form `get_xyz()`, and returns the instantiated concrete implementation
-  of an abstract base class declared in the domain.
+- The config layer is implemented at `./src/pilates/config.py`, and has two core sets of components:
+  - The `Settings` class, which reads environment variables into Python primitives, such as vendor API keys
+  - Public functions that return concrete implementations of abstract base classes defined in the domain, for
+    example, `get_unit_of_work(settings: Settings)`
 - Instantiations retrieved from the config can be used in two ways:
   - Injected into use cases defined in the application layer. For example, the `generate_lesson_plan` use case
     requires a `CompletionClient` implementation so that it can call a third-party vendor
@@ -64,7 +88,7 @@ The config layer is responsible for instantiating the correct implementations of
 
 ### Application layer
 The application layer is responsible for orchestrating domain logic.
-- The application layer is implemented at `./src/pilages/application/`
+- The application layer is implemented at `./src/pilates/application/`
 - The application consists of "use cases" which orchestrate domain logic into a particular business use case
 - For example `generate_lesson_plan.py` contains a function `generate_lesson_plan`, which orchestrates 
   pilates lesson plan modelling, persistence logic and LLM completion logic to generate a lesson plan
@@ -80,7 +104,8 @@ The data layer is responsible for persistence logic.
   - Implementations of the abstract repositories defined in the domain layer
   - Connection logic to local persistence technologies (for now, this is just a JSON file)
 - The unit of work pattern coordinates persistence operations across multiple repositories
-  - The `UnitOfWork` provides access to all repositories via attributes (e.g., `uow.exercises`, `uow.lesson_plans`)
+  - The variable `uow` is and should be used to refer to any instance of the `UnitOfWork` class
+  - The `UnitOfWork` provides access to all repositories via attributes (e.g., `uow.exercises`)
   - The `UnitOfWork` provides a `transaction()` async context manager for managing transactional boundaries
   - All persistence operations should go through the unit of work rather than instantiating repositories directly
 
@@ -97,8 +122,10 @@ The domain layer is responsible for modelling business logic.
     - For example, the `lesson_plans` domain includes a `Repository` interface for retrieving lesson plans
       from the relevant database (but abstracting the implementation details)
     - For example, the `vendors` domain includes a `CompletionClient` interface, for requesting vendor APIs
-    - Implementations of the ABC can be implemented either directly in the domain, or in the `data/` layer
-      in the case of repositories. Implementations must always be instantiated from the config layer.
+    - Implementations of the ABC should be implemented:
+      - Directly in the domain (e.g. the `AuthService` within the `users/` domain)
+      - In the Data layer, in the case of repositories (that abstract persistence)
+    - Implementations must always be instantiated from the config layer.
 - The domain layer also defines cross-cutting persistence patterns:
   - The `UnitOfWork` ABC coordinates persistence operations across repositories
   - It provides repository access via attributes and manages transactional boundaries
@@ -144,8 +171,10 @@ from testing.helpers import lesson_plans as lesson_plan_helpers
 #### Exception classes
 - For errors raised from the application and domain layer, define custom exception classes 
   rather than raising builtin or third-party exceptions
-- Exception classes should be decorated with `@attrs.frozen`
-- Metadata should be attached to the exception class as field on the `attrs` class
+- If metadata should be attached to the exception class to propagate information to calling code:
+  - Decorate the exception class with: `@attrs.frozen`
+  - Pass in the necessary attributes as instance attributes when instantiating the exception
+  - For example: `raise UserAlreadyExists(email=user.email)`
 
 
 ## Testing helpers
@@ -202,8 +231,9 @@ Tests are split into the following categories:
 - Functional tests should not cover every scenario, typically one test for each status code, for example:
   - One test for the happy path (e.g. object created successfully, 201)
   - One test for an application error (e.g. invalid creationg parameters, 400)
-- Functional tests should also be split into (setup / execution / assertion) blocks, however each
-  functional test can have multiple series of such blocks
+- Functional tests should also be split into (setup / execution / assertion) blocks
+- A single functional test can include multiple (execute, assert) blocks in series, however each test
+  should correspond to a single scenario
 
 ### Project tests
 - Project tests are miscellaneous tests that act as linting rules to enforce coding practices
@@ -251,3 +281,11 @@ The following checks are installed:
 - `make check`: Ensures code is formatted correctly and all `ruff` rules are satisfied
 - `make mypy`: Ensures code is typed correctly, using `mypy`
 - `make lint_imports`: Ensures all imports obey the project dependency graph, using `import-linter`
+
+# Deployment
+The backend is deployed very simply, by running some Docker containers on a single EC2 instance.
+- The backend application is containerised using the `./Dockerfile`
+- The containers are spun-up according to the `./deployment/docker-compose.yml` file
+- The deployment process is currently triggered manually, using `./deployment/deploy.sh`
+  - You should never execute this script - from your perspective, it is documentation
+- The backend's deployment infrastructure (AWS) is provisioned in `../terraform/`

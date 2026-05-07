@@ -1,13 +1,13 @@
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
-def test_update_exercise_sequence_to_new_values(api_client, unit_of_work):
+def test_update_exercise_sequence_to_new_values(authenticated_api_client, unit_of_work):
     sequence = lesson_plan_helpers.ExerciseSequence(
         name="Original Name", reps=1, notes="Original notes"
     )
     lesson_plan_helpers.LessonPlan.insert(unit_of_work, main_session=[sequence])
 
-    response = api_client.put(
+    response = authenticated_api_client.put(
         f"/lesson-plans/sequences/{sequence.id}",
         json={
             "name": "Updated Name",
@@ -24,8 +24,10 @@ def test_update_exercise_sequence_to_new_values(api_client, unit_of_work):
     assert updated_sequence.notes == "Updated notes"
 
 
-def test_response_not_found_when_updating_nonexistent_sequence(api_client):
-    response = api_client.put(
+def test_response_not_found_when_updating_nonexistent_sequence(
+    authenticated_api_client,
+):
+    response = authenticated_api_client.put(
         "/lesson-plans/sequences/999",
         json={
             "name": "Test Name",

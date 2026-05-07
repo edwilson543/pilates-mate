@@ -1,12 +1,12 @@
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
-def test_adds_sequence_to_section(api_client, unit_of_work):
+def test_adds_sequence_to_section(authenticated_api_client, unit_of_work):
     lesson_plan = lesson_plan_helpers.LessonPlan.insert(
         unit_of_work, warm_up=[], main_session=[], cool_down=[]
     )
 
-    response = api_client.post(
+    response = authenticated_api_client.post(
         f"/lesson-plans/{lesson_plan.id}/sequences",
         json={
             "section": "WARM_UP",
@@ -27,8 +27,10 @@ def test_adds_sequence_to_section(api_client, unit_of_work):
     assert new_sequence.sets == []
 
 
-def test_response_not_found_when_adding_sequence_to_nonexistent_plan(api_client):
-    response = api_client.post(
+def test_response_not_found_when_adding_sequence_to_nonexistent_plan(
+    authenticated_api_client,
+):
+    response = authenticated_api_client.post(
         "/lesson-plans/999/sequences",
         json={
             "section": "WARM_UP",

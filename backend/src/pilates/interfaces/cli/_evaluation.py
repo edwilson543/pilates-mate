@@ -20,7 +20,8 @@ async def evaluate_prompt(*, version: str) -> None:
     """Evaluate system prompt template across multiple test scenarios."""
     click.echo(f"Evaluating template version: {version}")
 
-    deps = config.get_evaluation_deps()
+    settings = config.Settings()
+    deps = config.get_evaluation_deps(settings)
     result = await lesson_plans.evaluate_system_prompt(version=version, deps=deps)
 
     output_dir = _get_output_dir(version)

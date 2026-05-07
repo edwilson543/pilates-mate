@@ -4,8 +4,8 @@ from . import _base
 
 
 class OpenAICompletionClient(_base.CompletionClient):
-    def __init__(self, model: str):
-        self._client = openai.AsyncClient()
+    def __init__(self, *, api_key: str, model: str):
+        self._client = openai.AsyncClient(api_key=api_key)
         self._model = model
 
     async def get_completion(
