@@ -150,7 +150,13 @@ The frontend authenticates to the backend API by obtaining an access token (whic
 this in the `Authorization` header of subsequent requests. 
 - The access token is refreshed using a separate refresh token.
 - The access token and refresh token are both stored in local storage.
-- The interface into frontend auth is implemented here: `./src/lib/auth.ts` and `./src/lib/auth-context.ts`
+
+Implementation:
+- Low-level token storage utilities are implemented in: `./src/lib/token-storage.ts` 
+- Higher-level authentication hooks/context are implemented in `./src/lib/auth-context.tsx`
+- The `api-config.ts` module uses the token storage library and to attach request interceptors that set the
+  `Authorization` header on every request
+- Components can access authentication properties using the `useAuth` hook
 
 ## Query and mutation hooks
 

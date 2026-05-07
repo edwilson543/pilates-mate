@@ -12,7 +12,7 @@ import {
   getRefreshToken,
   isTokenExpired,
   setTokens,
-} from "./auth";
+} from "./token-storage";
 
 type AuthContextValue = {
   isAuthenticated: boolean;
