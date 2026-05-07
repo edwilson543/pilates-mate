@@ -25,3 +25,8 @@ ci-be:
 .PHONY:ci-fe
 ci-fe:
 	act $(actions_args) --job=frontend
+
+# Deployment.
+.PHONY: deploy
+deploy:
+	cd backend && make deploy & cd frontend && make deploy
