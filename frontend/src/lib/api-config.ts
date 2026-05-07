@@ -1,15 +1,13 @@
 import { client } from "./apiClient/client.gen";
 import {
-  clearTokens,
+  clearAccessToken,
   getAccessToken,
-  getRefreshToken,
-  isTokenExpired,
-  setTokens,
+  setAccessToken,
 } from "./token-storage";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
-client.setConfig({ baseURL: API_BASE_URL });
+client.setConfig({ baseURL: API_BASE_URL, withCredentials: true });
 
 client.instance.interceptors.request.use((config) => {
   const token = getAccessToken();
@@ -34,26 +32,18 @@ client.instance.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    const refreshToken = getRefreshToken();
-    if (!refreshToken || isTokenExpired(refreshToken)) {
-      clearTokens();
-      window.location.href = "/login";
-      return Promise.reject(error);
-    }
-
     isRefreshing = true;
     originalRequest._retried = true;
 
     try {
       const response = await client.instance.post<{
         access_token: string;
-        refresh_token: string;
-      }>("/auth/token/refresh", { refresh_token: refreshToken });
-      setTokens(response.data.access_token, response.data.refresh_token);
+      }>("/auth/token/refresh");
+      setAccessToken(response.data.access_token);
       originalRequest.headers.Authorization = `Bearer ${response.data.access_token}`;
       return client.instance(originalRequest);
     } catch {
-      clearTokens();
+      clearAccessToken();
       window.location.href = "/login";
       return Promise.reject(error);
     } finally {

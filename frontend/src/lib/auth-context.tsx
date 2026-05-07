@@ -7,11 +7,10 @@ import {
   refreshAccessTokenAuthTokenRefreshPost,
 } from "./apiClient/sdk.gen";
 import {
-  clearTokens,
+  clearAccessToken,
   getAccessToken,
-  getRefreshToken,
   isTokenExpired,
-  setTokens,
+  setAccessToken,
 } from "./token-storage";
 
 type AuthContextValue = {
@@ -43,23 +42,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      const refreshToken = getRefreshToken();
-      if (!refreshToken || isTokenExpired(refreshToken)) {
-        clearTokens();
-        setIsAuthenticated(false);
-        setIsLoading(false);
-        return;
-      }
-
+      // Access token is expired; attempt a silent refresh using the HttpOnly cookie.
       try {
         const response = await refreshAccessTokenAuthTokenRefreshPost({
-          body: { refresh_token: refreshToken },
           throwOnError: true,
         });
-        setTokens(response.data.access_token, response.data.refresh_token);
+        setAccessToken(response.data.access_token);
         setIsAuthenticated(true);
       } catch {
-        clearTokens();
+        clearAccessToken();
         setIsAuthenticated(false);
       } finally {
         setIsLoading(false);
@@ -74,12 +65,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       body: { username: email, password },
       throwOnError: true,
     });
-    setTokens(response.data.access_token, response.data.refresh_token);
+    setAccessToken(response.data.access_token);
     setIsAuthenticated(true);
   }
 
   function logout(): void {
-    clearTokens();
+    clearAccessToken();
     setIsAuthenticated(false);
   }
 

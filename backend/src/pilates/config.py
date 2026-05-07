@@ -19,6 +19,9 @@ class Settings(pydantic_settings.BaseSettings):
     auth_jwt_algorithm: str = "HS256"
     auth_access_token_expiry_minutes: int = 30
     auth_refresh_token_expiry_minutes: int = 60 * 24 * 7  # 1 week.
+    # When `True`, the `refresh_token` cookie is only set to the server if the request was made
+    # using HTTPS - so this is set to `False` for testing, which does not use HTTPS.
+    auth_cookie_secure: bool = True
 
     # Persistence.
     json_database_file: str = ""

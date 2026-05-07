@@ -97,16 +97,6 @@ export type BodyLoginAuthTokenPost = {
 };
 
 /**
- * Body_refresh_access_token_auth_token_refresh_post
- */
-export type BodyRefreshAccessTokenAuthTokenRefreshPost = {
-  /**
-   * Refresh Token
-   */
-  refresh_token: string;
-};
-
-/**
  * CreateExerciseRequest
  */
 export type CreateExerciseRequest = {
@@ -379,10 +369,6 @@ export type TokenResponse = {
    */
   access_token: string;
   /**
-   * Refresh Token
-   */
-  refresh_token: string;
-  /**
    * Token Type
    */
   token_type: string;
@@ -521,7 +507,7 @@ export type LoginAuthTokenPostResponse =
   LoginAuthTokenPostResponses[keyof LoginAuthTokenPostResponses];
 
 export type RefreshAccessTokenAuthTokenRefreshPostData = {
-  body: BodyRefreshAccessTokenAuthTokenRefreshPost;
+  body?: never;
   path?: never;
   query?: never;
   url: "/auth/token/refresh";

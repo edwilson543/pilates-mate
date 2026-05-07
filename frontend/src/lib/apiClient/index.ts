@@ -37,7 +37,6 @@ export type {
   AddSetToSequenceRequest,
   AddSetToSequenceResponse,
   BodyLoginAuthTokenPost,
-  BodyRefreshAccessTokenAuthTokenRefreshPost,
   ClientOptions,
   CreateExerciseExercisesPostData,
   CreateExerciseExercisesPostError,

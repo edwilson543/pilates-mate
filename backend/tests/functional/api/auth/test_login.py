@@ -23,9 +23,13 @@ def test_registered_user_can_login_to_obtain_token(api_client, unit_of_work):
     assert login_response.status_code == 200
     assert login_response.json() == {
         "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMCwidG9rZW5fdHlwZSI6IkFDQ0VTUyJ9.TCHPoMIFx8oYvdozZq_RK89Et7qrbrcU1gh-lj6taic",
-        "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3NzgyODQ4MDAuMCwidG9rZW5fdHlwZSI6IlJFRlJFU0gifQ.nxHmR67xrbrzJfxT5LbA3HldNal0XAcFjhMRI1mhUyU",
         "token_type": "bearer",
     }
+    refresh_token = login_response.cookies["refresh_token"]
+    assert (
+        refresh_token
+        == "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3NzgyODQ4MDAuMCwidG9rZW5fdHlwZSI6IlJFRlJFU0gifQ.nxHmR67xrbrzJfxT5LbA3HldNal0XAcFjhMRI1mhUyU"
+    )
 
     access_token = login_response.json()["access_token"]
     api_client.set_auth_token(access_token)
@@ -70,11 +74,7 @@ def test_not_authorized_when_token_has_expired(api_client, unit_of_work):
     login_response = api_client.post("auth/token", data=payload)
 
     assert login_response.status_code == 200
-    assert login_response.json() == {
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3Nzc2ODE4MDAuMCwidG9rZW5fdHlwZSI6IkFDQ0VTUyJ9.TCHPoMIFx8oYvdozZq_RK89Et7qrbrcU1gh-lj6taic",
-        "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZEBnbWFpbC5jb20iLCJleHAiOjE3NzgyODQ4MDAuMCwidG9rZW5fdHlwZSI6IlJFRlJFU0gifQ.nxHmR67xrbrzJfxT5LbA3HldNal0XAcFjhMRI1mhUyU",
-        "token_type": "bearer",
-    }
+
     access_token = login_response.json()["access_token"]
     api_client.set_auth_token(access_token)
 

@@ -67,9 +67,10 @@ The API layer uses separate schema models to decouple API contracts from domain 
 The API implements the OAuth2.0 authentication protocol using JWT bearer tokens.
 The authentication flow is as follows:
 - API clients (i.e. the frontend application) submit a username and password to the `/auth/token` endpoint
-- The backend verifies the username and password and issues a JWT in response
-- The frontend then submits this JWT as a header in subsequent requests: `Authorization: Bearer ${token}`
-- When the token expires, the client must acquire a new token
+- The backend verifies the username and password and issues a short-lived access token (JWT) in the response body, plus a long-lived refresh token set as an HttpOnly, SameSite=Lax cookie
+- The frontend submits the access token as a header in subsequent requests: `Authorization: Bearer ${token}`
+- When the access token expires, the client calls `/auth/token/refresh`; the browser automatically includes the refresh token cookie, and the backend issues a new access token
+- The `AUTH_COOKIE_SECURE` environment variable controls the `Secure` flag on the refresh token cookie (default `true`; set to `false` for local HTTP development)
 
 ##### Lifespan
 - The FastAPI lifespan is used to load common resources once on application startup

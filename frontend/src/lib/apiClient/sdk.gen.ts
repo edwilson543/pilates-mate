@@ -104,9 +104,9 @@ export const loginAuthTokenPost = <ThrowOnError extends boolean = false>(
 export const refreshAccessTokenAuthTokenRefreshPost = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<RefreshAccessTokenAuthTokenRefreshPostData, ThrowOnError>,
+  options?: Options<RefreshAccessTokenAuthTokenRefreshPostData, ThrowOnError>,
 ) =>
-  (options.client ?? client).post<
+  (options?.client ?? client).post<
     RefreshAccessTokenAuthTokenRefreshPostResponses,
     RefreshAccessTokenAuthTokenRefreshPostErrors,
     ThrowOnError
@@ -114,10 +114,6 @@ export const refreshAccessTokenAuthTokenRefreshPost = <
     responseType: "json",
     url: "/auth/token/refresh",
     ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
   });
 
 /**

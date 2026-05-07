@@ -150,7 +150,7 @@ The frontend authenticates to the backend API by obtaining an access token (whic
 this in the `Authorization` header of subsequent requests.
 
 - The access token is refreshed using a separate refresh token.
-- The access token and refresh token are both stored in local storage.
+- The access token is stored in localStorage. The refresh token is stored as an HttpOnly cookie set by the backend and is never accessible to JavaScript.
 
 Implementation:
 

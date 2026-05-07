@@ -5,12 +5,7 @@ import { useCurrentUser } from "@/hooks/queries/useCurrentUser";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { useRouter } from "next/navigation";
 
 export default function AccountPage() {
