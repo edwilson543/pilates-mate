@@ -29,6 +29,8 @@ import type {
   GenerateLessonPlanLessonPlansPostData,
   GenerateLessonPlanLessonPlansPostErrors,
   GenerateLessonPlanLessonPlansPostResponses,
+  GetAuthenticatedUserDetailsAuthUserGetData,
+  GetAuthenticatedUserDetailsAuthUserGetResponses,
   GetExerciseExercisesExerciseIdGetData,
   GetExerciseExercisesExerciseIdGetErrors,
   GetExerciseExercisesExerciseIdGetResponses,
@@ -44,8 +46,6 @@ import type {
   LoginAuthTokenPostData,
   LoginAuthTokenPostErrors,
   LoginAuthTokenPostResponses,
-  ReadItemsAuthItemsGetData,
-  ReadItemsAuthItemsGetResponses,
   RefreshAccessTokenAuthTokenRefreshPostData,
   RefreshAccessTokenAuthTokenRefreshPostErrors,
   RefreshAccessTokenAuthTokenRefreshPostResponses,
@@ -121,19 +121,21 @@ export const refreshAccessTokenAuthTokenRefreshPost = <
   });
 
 /**
- * Read Items
+ * Get Authenticated User Details
  */
-export const readItemsAuthItemsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<ReadItemsAuthItemsGetData, ThrowOnError>,
+export const getAuthenticatedUserDetailsAuthUserGet = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetAuthenticatedUserDetailsAuthUserGetData, ThrowOnError>,
 ) =>
   (options?.client ?? client).get<
-    ReadItemsAuthItemsGetResponses,
+    GetAuthenticatedUserDetailsAuthUserGetResponses,
     unknown,
     ThrowOnError
   >({
     responseType: "json",
     security: [{ scheme: "bearer", type: "http" }],
-    url: "/auth/items",
+    url: "/auth/user",
     ...options,
   });
 

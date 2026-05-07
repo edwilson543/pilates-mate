@@ -271,20 +271,6 @@ export type HttpValidationError = {
 };
 
 /**
- * Item
- */
-export type Item = {
-  /**
-   * User Id
-   */
-  user_id: number;
-  /**
-   * Details
-   */
-  details: string;
-};
-
-/**
  * LessonPlan
  */
 export type LessonPlan = {
@@ -466,6 +452,20 @@ export type UpdateExerciseSetRequest = {
 };
 
 /**
+ * UserResponse
+ */
+export type UserResponse = {
+  /**
+   * Full Name
+   */
+  full_name: string;
+  /**
+   * Email
+   */
+  email: string;
+};
+
+/**
  * ValidationError
  */
 export type ValidationError = {
@@ -547,24 +547,22 @@ export type RefreshAccessTokenAuthTokenRefreshPostResponses = {
 export type RefreshAccessTokenAuthTokenRefreshPostResponse =
   RefreshAccessTokenAuthTokenRefreshPostResponses[keyof RefreshAccessTokenAuthTokenRefreshPostResponses];
 
-export type ReadItemsAuthItemsGetData = {
+export type GetAuthenticatedUserDetailsAuthUserGetData = {
   body?: never;
   path?: never;
   query?: never;
-  url: "/auth/items";
+  url: "/auth/user";
 };
 
-export type ReadItemsAuthItemsGetResponses = {
+export type GetAuthenticatedUserDetailsAuthUserGetResponses = {
   /**
-   * Response Read Items Auth Items Get
-   *
    * Successful Response
    */
-  200: Array<Item>;
+  200: UserResponse;
 };
 
-export type ReadItemsAuthItemsGetResponse =
-  ReadItemsAuthItemsGetResponses[keyof ReadItemsAuthItemsGetResponses];
+export type GetAuthenticatedUserDetailsAuthUserGetResponse =
+  GetAuthenticatedUserDetailsAuthUserGetResponses[keyof GetAuthenticatedUserDetailsAuthUserGetResponses];
 
 export type GetExercisesExercisesGetData = {
   body?: never;
