@@ -5,6 +5,10 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+# Ensure .jinja templates are included when the package is installed into the .venv!
+pilates = ["**/*.jinja"]
+
 [tool.setuptools.dynamic]
 version = { attr = "pilates.version.__version__" }
 
