@@ -9,7 +9,9 @@ class TestCreateGetUser:
         email = "ed@gmail.com"
         hashed_password = "some-password"
 
-        user_id = uow.users.create_user(email=email, hashed_password=hashed_password)
+        user_id = uow.users.create_user(
+            email=email, hashed_password=hashed_password, full_name="ed"
+        )
         user = uow.users.get_user(email=email)
 
         assert user.id == user_id
@@ -21,9 +23,13 @@ class TestCreateGetUser:
     ):
         email = "ed@gmail.com"
 
-        uow.users.create_user(email=email, hashed_password="some-password")
+        uow.users.create_user(
+            email=email, hashed_password="some-password", full_name="ed"
+        )
         with pytest.raises(users.UserAlreadyExists) as exc:
-            uow.users.create_user(email=email, hashed_password="some-other-password")
+            uow.users.create_user(
+                email=email, hashed_password="some-other-password", full_name="ed"
+            )
 
         assert exc.value.email == email
 

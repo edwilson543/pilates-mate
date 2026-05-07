@@ -11,12 +11,15 @@ from . import _mixins
 class JSONRepository(users.Repository, _mixins.JSONRepositoryMixin):
     database_file: pathlib.Path
 
-    def create_user(self, *, email: str, hashed_password: str) -> int:
+    def create_user(self, *, email: str, hashed_password: str, full_name: str) -> int:
         self._raise_if_user_exists(email=email)
 
         user_id = self._get_next_user_id()
         user = users.User(
-            id=user_id, full_name="", email=email, hashed_password=hashed_password
+            id=user_id,
+            full_name=full_name,
+            email=email,
+            hashed_password=hashed_password,
         )
 
         data = self._read_database()

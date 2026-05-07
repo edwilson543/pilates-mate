@@ -27,14 +27,13 @@ def test_registered_user_can_login_to_obtain_token(api_client, unit_of_work):
         "token_type": "bearer",
     }
 
-    # TODO! this is just temporary to test an authenticated route
     access_token = login_response.json()["access_token"]
     api_client.set_auth_token(access_token)
 
-    items_response = api_client.get("/auth/items")
+    user_details = api_client.get("/auth/user")
 
-    assert items_response.status_code == 200
-    assert items_response.json() == [{"user_id": user.id, "details": "ed's item"}]
+    assert user_details.status_code == 200
+    assert user_details.json() == {"email": email, "full_name": user.full_name}
 
 
 def test_not_authorized_when_registered_user_provides_invalid_password(
@@ -82,7 +81,7 @@ def test_not_authorized_when_token_has_expired(api_client, unit_of_work):
     token_expires_in = api_client.app_settings.auth_access_token_expiry_minutes
     after_token_expires = CURRENT_TIME + dt.timedelta(minutes=token_expires_in + 30)
     with time_machine.travel(after_token_expires):
-        items_response = api_client.get("/auth/items")
+        user_details = api_client.get("/auth/user")
 
-    assert items_response.status_code == 401
-    assert items_response.json() == {"detail": "Token expired."}
+    assert user_details.status_code == 401
+    assert user_details.json() == {"detail": "Token expired."}

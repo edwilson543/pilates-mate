@@ -7,10 +7,10 @@ from pilates.domain import users
 class FakeRepository(users.Repository):
     _users: list[users.User] = attrs.field(factory=list)
 
-    def create_user(self, *, email: str, hashed_password: str) -> int:
+    def create_user(self, *, email: str, hashed_password: str, full_name: str) -> int:
         user = users.User(
             id=self._next_user_id(),
-            full_name="Fake",
+            full_name=full_name,
             email=email,
             hashed_password=hashed_password,
         )

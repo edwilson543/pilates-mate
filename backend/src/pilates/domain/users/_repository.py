@@ -17,7 +17,7 @@ class UserDoesNotExist(Exception):
 
 class Repository(abc.ABC):
     @abc.abstractmethod
-    def create_user(self, *, email: str, hashed_password: str) -> int:
+    def create_user(self, *, email: str, hashed_password: str, full_name: str) -> int:
         raise NotImplementedError
 
     @abc.abstractmethod

@@ -59,22 +59,13 @@ async def refresh_access_token(
     )
 
 
-# Items.
-# TODO! delete all this once other routes are authenticated...
+class UserResponse(pydantic.BaseModel):
+    full_name: str
+    email: str
 
 
-class Item(pydantic.BaseModel):
-    user_id: int
-    details: str
-
-
-ITEMS_DB = [
-    Item(user_id=1, details="ed's item"),
-    Item(user_id=2, details="libby's item"),
-    Item(user_id=3, details="someone else's item"),
-]
-
-
-@router.get("/items")
-async def read_items(user: dependencies.UserT) -> list[Item]:
-    return [item for item in ITEMS_DB if item.user_id == user.id]
+@router.get("/user")
+async def get_authenticated_user_details(
+    user: dependencies.UserT,
+) -> UserResponse:
+    return UserResponse(full_name=user.full_name, email=user.email)

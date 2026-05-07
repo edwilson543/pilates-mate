@@ -23,7 +23,9 @@ class User(factory.Factory):
     def insert(cls, uow: unit_of_work.UnitOfWork, **kwargs: object) -> users.User:
         user = cls.create(**kwargs)
         user_id = uow.users.create_user(
-            email=user.email, hashed_password=user.hashed_password
+            email=user.email,
+            hashed_password=user.hashed_password,
+            full_name=user.full_name,
         )
         user.id = user_id
         return user
