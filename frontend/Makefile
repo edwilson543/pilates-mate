@@ -11,7 +11,7 @@ fe:
 
 .PHONY:deploy
 deploy:
-	vercel
+	vercel --prod
 
 # Static analysis.
 
