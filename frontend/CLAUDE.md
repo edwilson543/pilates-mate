@@ -144,6 +144,14 @@ The frontend uses:
 The frontend integrates with the backend's API server via the API client at `./src/lib/apiClient/`.
 To update the API client inline with changes made to the backend, see `## Making changes to the API` in `../CLAUDE.md`
 
+## Authentication
+
+The frontend authenticates to the backend API by obtaining an access token (which is a JWT), and then submitting
+this in the `Authorization` header of subsequent requests. 
+- The access token is refreshed using a separate refresh token.
+- The access token and refresh token are both stored in local storage.
+- The interface into frontend auth is implemented here: `./src/lib/auth.ts` and `./src/lib/auth-context.ts`
+
 ## Query and mutation hooks
 
 React components may not use the API client directly. Instead, components must use a hook.
