@@ -1,11 +1,6 @@
 This directory contains the backend for the Pilates lesson planning application.
 The backend is implemented in Python, and served via a FastAPI application.
 
-# Deployment
-The backend deployment configuration is implemented in `./deployment`, which includes
-the docker-compose file, the `entrypoint.sh` script and `version.sh` script.
-When relevant, please review the `./deployment/CLAUDE.md` file for more details.
-
 # Project structure
 The project is split into three main packages:
 - Source code for the application, implemented in `./src/pilates/`
@@ -286,3 +281,11 @@ The following checks are installed:
 - `make check`: Ensures code is formatted correctly and all `ruff` rules are satisfied
 - `make mypy`: Ensures code is typed correctly, using `mypy`
 - `make lint_imports`: Ensures all imports obey the project dependency graph, using `import-linter`
+
+# Deployment
+The backend is deployed very simply, by running some Docker containers on a single EC2 instance.
+- The backend application is containerised using the `./Dockerfile`
+- The containers are spun-up according to the `./deployment/docker-compose.yml` file
+- The deployment process is currently triggered manually, using `./deployment/deploy.sh`
+  - You should never execute this script - from your perspective, it is documentation
+- The backend's deployment infrastructure (AWS) is provisioned in `../terraform/`

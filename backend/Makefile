@@ -80,3 +80,7 @@ dc_up:
 .PHONY:version
 version:
 	bash ./deployment/version.sh
+
+.PHONY:deploy
+deploy: ecr_push
+	bash deployment/deploy.sh

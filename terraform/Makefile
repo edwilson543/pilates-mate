@@ -10,3 +10,11 @@ lint:
 
 
 # Deployment.
+.PHONY: plan
+plan:
+	tofu -chdir=workspaces/dev plan
+
+
+.PHONY: apply
+apply:
+	tofu -chdir=workspaces/dev apply
