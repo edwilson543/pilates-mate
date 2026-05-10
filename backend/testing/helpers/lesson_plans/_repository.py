@@ -61,13 +61,14 @@ class FakeRepository(lesson_plans.Repository):
         self,
         lesson_plan_id: int,
         *,
+        name: str,
         description: str,
         status: lesson_plans.LessonPlanStatus,
     ) -> None:
         for idx, plan in enumerate(self._lesson_plans):
             if plan.id == lesson_plan_id:
                 updated_plan = plan.model_copy(
-                    update={"description": description, "status": status}
+                    update={"name": name, "description": description, "status": status}
                 )
                 updated_plans = self._lesson_plans.copy()
                 updated_plans[idx] = updated_plan

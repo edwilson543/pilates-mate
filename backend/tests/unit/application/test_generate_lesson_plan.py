@@ -15,16 +15,14 @@ class TestGenerateLessonPlan:
     async def test_generates_and_populates_lesson_plan(self):
         uow = unit_of_work_helpers.FakeUnitOfWork()
 
-        # Create an empty plan to generate from.
         requirements = lesson_plan_helpers.LessonPlanRequirements()
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
-            name="test",
+            name="initial-name",
             date=dt.date(2026, 1, 1),
             requirements=requirements,
         )
 
-        # Create a completion client, that returns a particular generated lesson plan.
-        generated_plan = lesson_plan_helpers.GeneratedLessonPlan()
+        generated_plan = lesson_plan_helpers.GeneratedLessonPlan(name="generated-name")
         client = vendor_helpers.FakeCompletionClient(completion=generated_plan)
         for generated_exercise in generated_plan.exercises:
             exercise_helpers.Exercise.insert(
@@ -35,13 +33,14 @@ class TestGenerateLessonPlan:
             lesson_plan_id=lesson_plan_id, client=client, uow=uow
         )
 
-        result = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
+        lesson_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
 
-        assert result.status == lesson_plans.LessonPlanStatus.GENERATED
-        assert result.description == generated_plan.description
-        assert len(result.warm_up) == len(generated_plan.warm_up) == 1
-        assert len(result.main_session) == len(generated_plan.main_session) == 1
-        assert len(result.cool_down) == len(generated_plan.cool_down) == 1
-        assert result.warm_up[0].name == generated_plan.warm_up[0].name
-        assert result.main_session[0].name == generated_plan.main_session[0].name
-        assert result.cool_down[0].name == generated_plan.cool_down[0].name
+        assert lesson_plan.name == "generated-name"
+        assert lesson_plan.status == lesson_plans.LessonPlanStatus.GENERATED
+        assert lesson_plan.description == generated_plan.description
+        assert len(lesson_plan.warm_up) == len(generated_plan.warm_up) == 1
+        assert len(lesson_plan.main_session) == len(generated_plan.main_session) == 1
+        assert len(lesson_plan.cool_down) == len(generated_plan.cool_down) == 1
+        assert lesson_plan.warm_up[0].name == generated_plan.warm_up[0].name
+        assert lesson_plan.main_session[0].name == generated_plan.main_session[0].name
+        assert lesson_plan.cool_down[0].name == generated_plan.cool_down[0].name

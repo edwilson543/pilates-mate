@@ -39,6 +39,7 @@ class Repository(abc.ABC):
         self,
         lesson_plan_id: int,
         *,
+        name: str,
         description: str,
         status: _models.LessonPlanStatus,
     ) -> None:

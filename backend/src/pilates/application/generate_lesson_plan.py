@@ -116,6 +116,7 @@ async def _persist_generated_lesson_plan(
 
         uow.lesson_plans.update_lesson_plan(
             lesson_plan_id,
+            name=generated_plan.name,
             description=generated_plan.description,
             status=lesson_plans.LessonPlanStatus.GENERATED,
         )

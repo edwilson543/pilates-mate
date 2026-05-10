@@ -45,6 +45,7 @@ class JSONRepository(lesson_plans.Repository, _mixins.JSONRepositoryMixin):
         self,
         lesson_plan_id: int,
         *,
+        name: str,
         description: str,
         status: lesson_plans.LessonPlanStatus,
     ) -> None:
@@ -52,6 +53,7 @@ class JSONRepository(lesson_plans.Repository, _mixins.JSONRepositoryMixin):
 
         for plan in data["lesson_plans"]:
             if plan["id"] == lesson_plan_id:
+                plan["name"] = name
                 plan["description"] = description
                 plan["status"] = status.value
                 self._write_database(data)
