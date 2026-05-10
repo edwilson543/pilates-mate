@@ -15,14 +15,14 @@ import { usePathname } from "next/navigation";
 
 const menuItems = [
   {
-    title: "Exercises",
-    icon: Dumbbell,
-    href: "/exercises",
-  },
-  {
     title: "Lesson plans",
     icon: FileText,
     href: "/lesson-plans",
+  },
+  {
+    title: "Exercises",
+    icon: Dumbbell,
+    href: "/exercises",
   },
 ];
 
