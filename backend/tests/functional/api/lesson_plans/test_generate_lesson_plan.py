@@ -46,7 +46,7 @@ def test_generates_lesson_plan(authenticated_api_client, unit_of_work):
 
     lesson_plan = unit_of_work.lesson_plans.get_lesson_plan(lesson_plan_id)
 
-    assert lesson_plan.name.startswith("30 minute blast - ")
+    assert lesson_plan.name == fake_completion.name
     assert lesson_plan.status == lesson_plans.LessonPlanStatus.GENERATED
     assert lesson_plan.description == "An energising session"
     assert len(lesson_plan.warm_up) == 1

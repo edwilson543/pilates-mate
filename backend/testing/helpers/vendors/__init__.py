@@ -1,1 +1,1 @@
-from ._fake import FakeCompletionClient
+from ._fake import BrokenCompletionClient, FakeCompletionClient

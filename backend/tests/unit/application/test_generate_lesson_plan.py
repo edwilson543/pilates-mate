@@ -23,11 +23,11 @@ class TestGenerateLessonPlan:
         )
 
         generated_plan = lesson_plan_helpers.GeneratedLessonPlan(name="generated-name")
-        client = vendor_helpers.FakeCompletionClient(completion=generated_plan)
         for generated_exercise in generated_plan.exercises:
             exercise_helpers.Exercise.insert(
                 uow=uow, id=generated_exercise.id, name=generated_exercise.name
             )
+        client = vendor_helpers.FakeCompletionClient(completion=generated_plan)
 
         await generate_lesson_plan.generate_lesson_plan(
             lesson_plan_id=lesson_plan_id, client=client, uow=uow
@@ -44,3 +44,53 @@ class TestGenerateLessonPlan:
         assert lesson_plan.warm_up[0].name == generated_plan.warm_up[0].name
         assert lesson_plan.main_session[0].name == generated_plan.main_session[0].name
         assert lesson_plan.cool_down[0].name == generated_plan.cool_down[0].name
+
+    async def test_raises_when_lesson_plan_does_not_exist(self):
+        uow = unit_of_work_helpers.FakeUnitOfWork()
+        completion = lesson_plan_helpers.GeneratedLessonPlan()
+        client = vendor_helpers.FakeCompletionClient(completion=completion)
+
+        with pytest.raises(lesson_plans.LessonPlanDoesNotExist) as exc:
+            await generate_lesson_plan.generate_lesson_plan(
+                lesson_plan_id=123, client=client, uow=uow
+            )
+
+        assert exc.value.lesson_plan_id == 123
+
+    @pytest.mark.parametrize(
+        "status",
+        [
+            lesson_plans.LessonPlanStatus.GENERATED,
+            lesson_plans.LessonPlanStatus.ERRORED,
+        ],
+    )
+    async def test_raises_when_lesson_plan_not_pending_generation(
+        self, status: lesson_plans.LessonPlanStatus
+    ):
+        completion = lesson_plan_helpers.GeneratedLessonPlan.create()
+        client = vendor_helpers.FakeCompletionClient(completion=completion)
+
+        uow = unit_of_work_helpers.FakeUnitOfWork()
+        lesson_plan = lesson_plan_helpers.LessonPlan.insert(uow, status=status)
+
+        with pytest.raises(generate_lesson_plan.LessonPlanNotPendingGeneration) as exc:
+            await generate_lesson_plan.generate_lesson_plan(
+                lesson_plan_id=lesson_plan.id, client=client, uow=uow
+            )
+
+        assert exc.value.status is status
+
+    async def test_raises_when_completion_client_errors(self):
+        client = vendor_helpers.BrokenCompletionClient()
+        uow = unit_of_work_helpers.FakeUnitOfWork()
+        lesson_plan = lesson_plan_helpers.LessonPlan.insert(
+            uow, status=lesson_plans.LessonPlanStatus.PENDING_GENERATION
+        )
+
+        with pytest.raises(lesson_plans.UnableToGenerateLessonPlan):
+            await generate_lesson_plan.generate_lesson_plan(
+                lesson_plan_id=lesson_plan.id, client=client, uow=uow
+            )
+
+        updated_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id=lesson_plan.id)
+        assert updated_plan.status is lesson_plans.LessonPlanStatus.ERRORED

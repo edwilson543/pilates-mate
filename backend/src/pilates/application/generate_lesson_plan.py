@@ -44,9 +44,11 @@ async def generate_lesson_plan(
     except lesson_plans.UnableToGenerateLessonPlan:
         uow.lesson_plans.update_lesson_plan(
             lesson_plan_id,
+            name=lesson_plan.name,
             description="Errored during generation.",
             status=lesson_plans.LessonPlanStatus.ERRORED,
         )
+        raise
 
     await _persist_generated_lesson_plan(
         uow=uow, lesson_plan_id=lesson_plan_id, generated_plan=generated_plan

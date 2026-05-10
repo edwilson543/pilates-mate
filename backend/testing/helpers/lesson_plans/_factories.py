@@ -158,6 +158,7 @@ class LessonPlan(factory.Factory):
 
         uow.lesson_plans.update_lesson_plan(
             lesson_plan_id,
+            name=lesson_plan.name,
             description=lesson_plan.description,
             status=lesson_plan.status,
         )
