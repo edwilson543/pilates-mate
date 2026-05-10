@@ -13,7 +13,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Trash2, PlusIcon, XIcon, CheckIcon } from "lucide-react";
+import { ArrowLeft, Loader2, Trash2, PlusIcon, XIcon, CheckIcon } from "lucide-react";
 import { useDeleteLessonPlan } from "@/hooks/mutations/useDeleteLessonPlan";
 import { useAddExerciseSequence } from "@/hooks/mutations/useAddExerciseSequence";
 import {
@@ -127,6 +127,71 @@ export default function LessonPlanDetailPage({
             Back to lesson plans
           </Button>
         </div>
+      </div>
+    );
+  }
+
+  if (lessonPlan.status === "PENDING_GENERATION") {
+    return (
+      <div className="p-8">
+        <div className="flex items-center justify-between mb-4">
+          <Button variant="ghost" onClick={() => router.push("/lesson-plans")}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to lesson plans
+          </Button>
+        </div>
+        <PageHeader title={lessonPlan.name} />
+        <p className="text-sm text-muted-foreground mb-6 -mt-2">
+          {new Date(lessonPlan.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
+        <div className="flex items-center gap-3 text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          <span>Generating your lesson plan...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (lessonPlan.status === "ERRORED") {
+    return (
+      <div className="p-8">
+        <div className="flex items-center justify-between mb-4">
+          <Button variant="ghost" onClick={() => router.push("/lesson-plans")}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to lesson plans
+          </Button>
+          <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive">
+                <Trash2 className="mr-2 h-4 w-4" />
+                Delete
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete lesson plan?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete &quot;{lessonPlan.name}&quot;.
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+        <PageHeader title={lessonPlan.name} />
+        <p className="text-destructive mt-2">
+          An error occurred while generating this lesson plan.
+        </p>
       </div>
     );
   }

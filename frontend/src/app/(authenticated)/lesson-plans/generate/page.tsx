@@ -86,8 +86,8 @@ export default function GenerateLessonPlanPage() {
 
   const onSubmit = async (data: LessonPlanFormData) => {
     const result = await generateMutation.mutateAsync(data);
-    if (result?.lesson_plan?.id) {
-      router.push(`/lesson-plans/${result.lesson_plan.id}`);
+    if (result?.id) {
+      router.push(`/lesson-plans/${result.id}`);
     }
   };
 

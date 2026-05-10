@@ -18,7 +18,7 @@ export function useGenerateLessonPlan() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["lesson-plans"] });
-      toast.success("Lesson plan generated successfully");
+      toast.success("Generating lesson plan...");
     },
     onError: () => {
       toast.error("Failed to generate lesson plan");
