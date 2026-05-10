@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/exercises");
+    router.push("/lesson-plans");
   }, [router]);
 
   return null;
