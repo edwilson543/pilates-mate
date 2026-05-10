@@ -54,7 +54,7 @@ async def generate_lesson_plan_(
     settings: dependencies.SettingsT,
     uow: dependencies.UnitOfWorkT,
 ) -> GenerateLessonPlanResponse:
-    created_at = utils.now().date()
+    created_at = utils.today()
     lesson_plan_id = await create_empty_lesson_plan_with_requirements.create_empty_lesson_plan_with_requirements(
         created_at=created_at,
         requirements=request.requirements,

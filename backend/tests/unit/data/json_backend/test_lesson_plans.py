@@ -3,7 +3,7 @@ import datetime as dt
 import pytest
 
 from pilates.data.json_backend import _unit_of_work
-from pilates.domain import exercises, lesson_plans
+from pilates.domain import exercises, lesson_plans, utils
 from testing.helpers import exercises as exercise_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
@@ -33,6 +33,27 @@ class TestCreateLessonPlan:
         assert lesson_plan.warm_up == []
         assert lesson_plan.main_session == []
         assert lesson_plan.cool_down == []
+
+
+class TestUpdateLessonPlan:
+    def test_overwrites_lesson_plan_fields(self, uow: _unit_of_work.JSONUnitOfWork):
+        lesson_plan_id = uow.lesson_plans.create_lesson_plan(
+            name="initial-name",
+            date=utils.today(),
+            requirements=lesson_plan_helpers.LessonPlanRequirements.create(),
+        )
+
+        uow.lesson_plans.update_lesson_plan(
+            lesson_plan_id=lesson_plan_id,
+            name="updated-name",
+            description="updated-description",
+            status=lesson_plans.LessonPlanStatus.GENERATED,
+        )
+
+        updated_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id=lesson_plan_id)
+        assert updated_plan.name == "updated-name"
+        assert updated_plan.description == "updated-description"
+        assert updated_plan.status is lesson_plans.LessonPlanStatus.GENERATED
 
 
 class TestGetLessonPlans:
