@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/common/page-header";
 import { use, useState } from "react";
 import { useLessonPlan } from "@/hooks/queries/useLessonPlan";
 import { ExerciseSequenceCard } from "@/app/(authenticated)/lesson-plans/[id]/exercise-sequence-card";
+import { LessonPlanRequirementsTable } from "@/app/(authenticated)/lesson-plans/[id]/lesson-plan-requirements-card";
 import {
   Accordion,
   AccordionContent,
@@ -246,6 +247,19 @@ export default function LessonPlanDetailPage({
         defaultValue={["warm-up", "main", "cool-down"]}
         className="space-y-4"
       >
+        <AccordionItem value="requirements">
+          <AccordionTrigger className="text-lg font-semibold">
+            Requirements
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="pt-4">
+              <LessonPlanRequirementsTable
+                requirements={lessonPlan.requirements}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
         <AccordionItem value="warm-up">
           <AccordionTrigger className="text-lg font-semibold">
             Warm up
