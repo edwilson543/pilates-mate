@@ -86,6 +86,18 @@ class ExerciseSequence(factory.Factory):
     reps = 1
 
 
+class LessonPlanRequirements(factory.Factory):
+    class Meta:
+        model = lesson_plans.LessonPlanRequirements
+
+    duration_minutes = 30
+    target_difficulty = exercises.Difficulty.INTERMEDIATE
+    target_muscle_groups = factory.LazyFunction(lambda: [exercises.MuscleGroup.CORE])
+    example_lesson_lan_ids = factory.ListFactory()
+    user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
+    available_equipment = factory.LazyFunction(lambda: [exercises.Equipment.BALL])
+
+
 class LessonPlan(factory.Factory):
     class Meta:
         model = lesson_plans.LessonPlan
@@ -94,6 +106,8 @@ class LessonPlan(factory.Factory):
     name = factory.Sequence(lambda n: f"name-{n}")
     description = factory.Sequence(lambda n: f"description-{n}")
     date = factory.Sequence(lambda n: dt.date(2026, 1, 1) + dt.timedelta(days=n))
+    requirements = factory.SubFactory(LessonPlanRequirements)
+    status = lesson_plans.LessonPlanStatus.GENERATED
     warm_up = factory.LazyFunction(lambda: [ExerciseSequence()])
     main_session = factory.LazyFunction(lambda: [ExerciseSequence()])
     cool_down = factory.LazyFunction(lambda: [ExerciseSequence()])
@@ -109,34 +123,46 @@ class LessonPlan(factory.Factory):
 
         # Create real exercises, otherwise the referenced `exercise_id`s will be invalid.
         if create_exercises:
-            for set in lesson_plan.exercise_sets:
+            for exercise_set in lesson_plan.exercise_sets:
                 exercise = exercise_helpers.Exercise.insert(uow)
-                set.exercise_id = exercise.id
+                exercise_set.exercise_id = exercise.id
 
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name=lesson_plan.name,
-            description=lesson_plan.description,
             date=lesson_plan.date,
-            warm_up=lesson_plan.warm_up,
-            main_session=lesson_plan.main_session,
-            cool_down=lesson_plan.cool_down,
+            requirements=lesson_plan.requirements,
         )
-        lesson_plan.id = lesson_plan_id
-        # TODO! set all exercise set / exercise sequence IDs correctly.
-        # Currently they will just retain the factory-generated IDs.
-        return lesson_plan
 
+        for section, section_enum in [
+            (lesson_plan.warm_up, lesson_plans.LessonPlanSection.WARM_UP),
+            (lesson_plan.main_session, lesson_plans.LessonPlanSection.MAIN_SESSION),
+            (lesson_plan.cool_down, lesson_plans.LessonPlanSection.COOL_DOWN),
+        ]:
+            for sequence in section:
+                sequence_id = uow.lesson_plans.add_sequence_to_section(
+                    lesson_plan_id=lesson_plan_id,
+                    section=section_enum,
+                    name=sequence.name,
+                    reps=sequence.reps,
+                    notes=sequence.notes,
+                )
+                for exercise_set in sequence.sets:
+                    uow.lesson_plans.add_set_to_sequence(
+                        sequence_id=sequence_id,
+                        exercise_id=exercise_set.exercise_id,
+                        reps=exercise_set.reps,
+                        duration_seconds=exercise_set.duration_seconds,
+                        movement_variant=exercise_set.movement_variant,
+                        equipment_variant=exercise_set.equipment_variant,
+                    )
 
-class LessonPlanRequirements(factory.Factory):
-    class Meta:
-        model = lesson_plans.LessonPlanRequirements
+        uow.lesson_plans.update_lesson_plan(
+            lesson_plan_id,
+            description=lesson_plan.description,
+            status=lesson_plan.status,
+        )
 
-    duration_minutes = 30
-    target_difficulty = exercises.Difficulty.INTERMEDIATE
-    target_muscle_groups = factory.LazyFunction(lambda: [exercises.MuscleGroup.CORE])
-    example_lesson_lan_ids = factory.ListFactory()
-    user_prompt = factory.Sequence(lambda n: f"use-prompt-{n}")
-    available_equipment = factory.LazyFunction(lambda: [exercises.Equipment.BALL])
+        return uow.lesson_plans.get_lesson_plan(lesson_plan_id)
 
 
 class Evaluation(factory.Factory):

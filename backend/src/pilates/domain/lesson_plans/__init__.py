@@ -11,12 +11,18 @@ from ._generation import (
     GeneratedExerciseSequence,
     GeneratedExerciseSet,
     GeneratedLessonPlan,
-    LessonPlanRequirements,
     UnableToGenerateLessonPlan,
     generate_lesson_plan,
     get_system_prompt,
 )
-from ._models import ExerciseSequence, ExerciseSet, LessonPlan, LessonPlanSection
+from ._models import (
+    ExerciseSequence,
+    ExerciseSet,
+    LessonPlan,
+    LessonPlanRequirements,
+    LessonPlanSection,
+    LessonPlanStatus,
+)
 from ._repository import (
     LessonPlanDoesNotExist,
     Repository,

@@ -77,6 +77,8 @@ class LessonPlan(pydantic.BaseModel):
     name: str
     description: str
     date: dt.date
+    requirements: lesson_plans.LessonPlanRequirements
+    status: lesson_plans.LessonPlanStatus
     warm_up: list[ExerciseSequence]
     main_session: list[ExerciseSequence]
     cool_down: list[ExerciseSequence]
@@ -93,6 +95,8 @@ class LessonPlan(pydantic.BaseModel):
             name=obj.name,
             description=obj.description,
             date=obj.date,
+            requirements=obj.requirements,
+            status=obj.status,
             warm_up=[
                 ExerciseSequence.from_domain(obj=seq, exercises_by_id=exercises_by_id)
                 for seq in obj.warm_up

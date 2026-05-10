@@ -12,69 +12,36 @@ from testing.helpers import vendors as vendor_helpers
 
 @pytest.mark.asyncio
 class TestGenerateLessonPlan:
-    async def test_generates_and_returns_lesson_plan(self):
+    async def test_generates_and_populates_lesson_plan(self):
         uow = unit_of_work_helpers.FakeUnitOfWork()
 
-        # Create exercises that will be referenced in the generated plan
-        exercise1 = exercise_helpers.Exercise.insert(uow)
-        exercise2 = exercise_helpers.Exercise.insert(uow)
-        exercise3 = exercise_helpers.Exercise.insert(uow)
-
-        fake_completion = lesson_plans.GeneratedLessonPlan(
-            name="Morning Flow",
-            description="A refreshing morning Pilates session",
-            warm_up=[
-                lesson_plan_helpers.GeneratedExerciseSequence(
-                    n_sets=1,
-                    sets=[
-                        lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=lesson_plan_helpers.GeneratedExercise(
-                                id=exercise1.id, name=exercise1.name
-                            )
-                        )
-                    ],
-                )
-            ],
-            main_session=[
-                lesson_plan_helpers.GeneratedExerciseSequence(
-                    n_sets=1,
-                    sets=[
-                        lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=lesson_plan_helpers.GeneratedExercise(
-                                id=exercise2.id, name=exercise2.name
-                            )
-                        )
-                    ],
-                )
-            ],
-            cool_down=[
-                lesson_plan_helpers.GeneratedExerciseSequence(
-                    n_sets=1,
-                    sets=[
-                        lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=lesson_plan_helpers.GeneratedExercise(
-                                id=exercise3.id, name=exercise3.name
-                            )
-                        )
-                    ],
-                )
-            ],
-        )
-        client = vendor_helpers.FakeCompletionClient(completion=fake_completion)
-
+        # Create an empty plan to generate from.
         requirements = lesson_plan_helpers.LessonPlanRequirements()
-
-        result = await generate_lesson_plan.generate_lesson_plan(
-            requirements=requirements, client=client, uow=uow
+        lesson_plan_id = uow.lesson_plans.create_lesson_plan(
+            name="test",
+            date=dt.date(2026, 1, 1),
+            requirements=requirements,
         )
 
-        assert result.id == 1
-        assert result.name == "Morning Flow"
-        assert result.description == "A refreshing morning Pilates session"
-        assert result.date == dt.datetime.now().date()
-        assert len(result.warm_up) == 1
-        assert len(result.main_session) == 1
-        assert len(result.cool_down) == 1
-        assert result.warm_up[0].name == fake_completion.warm_up[0].name
-        assert result.main_session[0].name == fake_completion.main_session[0].name
-        assert result.cool_down[0].name == fake_completion.cool_down[0].name
+        # Create a completion client, that returns a particular generated lesson plan.
+        generated_plan = lesson_plan_helpers.GeneratedLessonPlan()
+        client = vendor_helpers.FakeCompletionClient(completion=generated_plan)
+        for generated_exercise in generated_plan.exercises:
+            exercise_helpers.Exercise.insert(
+                uow=uow, id=generated_exercise.id, name=generated_exercise.name
+            )
+
+        await generate_lesson_plan.generate_lesson_plan(
+            lesson_plan_id=lesson_plan_id, client=client, uow=uow
+        )
+
+        result = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
+
+        assert result.status == lesson_plans.LessonPlanStatus.GENERATED
+        assert result.description == generated_plan.description
+        assert len(result.warm_up) == len(generated_plan.warm_up) == 1
+        assert len(result.main_session) == len(generated_plan.main_session) == 1
+        assert len(result.cool_down) == len(generated_plan.cool_down) == 1
+        assert result.warm_up[0].name == generated_plan.warm_up[0].name
+        assert result.main_session[0].name == generated_plan.main_session[0].name
+        assert result.cool_down[0].name == generated_plan.cool_down[0].name

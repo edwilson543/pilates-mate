@@ -8,7 +8,7 @@ import attrs
 
 from pilates.domain import templates
 
-from .. import _generation
+from .. import _generation, _models
 from . import _constants, _metrics
 
 
@@ -156,7 +156,7 @@ def render_sample_system_prompt(*, version: str, deps: _metrics.EvaluationDeps) 
 def evaluate_generated_lesson_plan(
     *,
     generated_plan: _generation.GeneratedLessonPlan,
-    requirements: _generation.LessonPlanRequirements,
+    requirements: _models.LessonPlanRequirements,
     deps: _metrics.EvaluationDeps,
 ) -> GeneratedLessonPlanEvaluation:
     evaluators = [
@@ -197,7 +197,7 @@ def evaluate_generated_lesson_plan(
 
 async def _generate_and_evaluate(
     system_prompt: str,
-    requirements: _generation.LessonPlanRequirements,
+    requirements: _models.LessonPlanRequirements,
     deps: _metrics.EvaluationDeps,
 ) -> GeneratedLessonPlanEvaluation:
     generated_plan = await _generation.generate_lesson_plan(

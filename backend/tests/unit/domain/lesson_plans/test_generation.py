@@ -1,4 +1,4 @@
-from pilates.domain import exercises
+from pilates.domain import exercises, lesson_plans
 from pilates.domain.lesson_plans import _generation
 from testing.helpers import exercises as exercise_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
@@ -31,7 +31,7 @@ class TestGetSystemPrompt:
             lesson_plans=[lesson_plan]
         )
 
-        requirements = _generation.LessonPlanRequirements(
+        requirements = lesson_plans.LessonPlanRequirements(
             duration_minutes=30,
             target_difficulty=exercises.Difficulty.INTERMEDIATE,
             target_muscle_groups=[exercises.MuscleGroup.GLUTES],

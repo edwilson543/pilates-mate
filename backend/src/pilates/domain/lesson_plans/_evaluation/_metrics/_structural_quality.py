@@ -5,7 +5,7 @@ import collections.abc
 import attrs
 
 from pilates.domain import exercises
-from pilates.domain.lesson_plans import _generation
+from pilates.domain.lesson_plans import _generation, _models
 
 from . import _base, _helpers, _requirements_compliance
 
@@ -75,7 +75,7 @@ class SectionBalance(_base.Evaluator[SectionBalanceMetric]):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> SectionBalanceMetric:
         warm_up_duration = generated_plan.warm_up_duration_seconds
@@ -146,7 +146,7 @@ class TransitionQuality(_base.Evaluator[TransitionQualityMetric]):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> TransitionQualityMetric:
         exercise_lookup = deps.build_exercise_lookup()
@@ -243,7 +243,7 @@ class ProgressiveDifficulty(_base.Evaluator[ProgressiveDifficultyMetric]):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> ProgressiveDifficultyMetric:
         exercise_lookup = deps.build_exercise_lookup()
@@ -301,7 +301,7 @@ class VariantOrderingCompliance(_base.Evaluator[VariantOrderingComplianceMetric]
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> VariantOrderingComplianceMetric:
         def is_compliant(
@@ -338,7 +338,7 @@ class EquipmentConsistencyCompliance(
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> EquipmentConsistencyComplianceMetric:
         def is_compliant(
@@ -369,7 +369,7 @@ class MuscleGroupFocusCompliance(_base.Evaluator[MuscleGroupFocusComplianceMetri
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> MuscleGroupFocusComplianceMetric:
         exercise_lookup = deps.build_exercise_lookup()
@@ -410,7 +410,7 @@ class StartingPositionConsistencyCompliance(
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> StartingPositionConsistencyComplianceMetric:
         exercise_lookup = deps.build_exercise_lookup()

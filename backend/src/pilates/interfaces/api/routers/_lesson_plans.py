@@ -4,8 +4,11 @@ import fastapi
 import pydantic
 
 from pilates import config
-from pilates.application import generate_lesson_plan
-from pilates.domain import exercises, lesson_plans
+from pilates.application import (
+    create_empty_lesson_plan_with_requirements,
+    generate_lesson_plan,
+)
+from pilates.domain import exercises, lesson_plans, utils
 from pilates.interfaces.api import dependencies, schemas
 
 
@@ -41,25 +44,32 @@ class GenerateLessonPlanRequest(pydantic.BaseModel):
 
 
 class GenerateLessonPlanResponse(pydantic.BaseModel):
-    lesson_plan: schemas.LessonPlan
+    id: int
 
 
 @router.post("/", status_code=201)
 async def generate_lesson_plan_(
     request: typing.Annotated[GenerateLessonPlanRequest, fastapi.Body()],
+    background_tasks: fastapi.BackgroundTasks,
     settings: dependencies.SettingsT,
     uow: dependencies.UnitOfWorkT,
 ) -> GenerateLessonPlanResponse:
+    created_at = utils.now().date()
+    lesson_plan_id = await create_empty_lesson_plan_with_requirements.create_empty_lesson_plan_with_requirements(
+        created_at=created_at,
+        requirements=request.requirements,
+        uow=uow,
+    )
+
     client = config.get_completion_client(settings)
-    lesson_plan = await generate_lesson_plan.generate_lesson_plan(
-        requirements=request.requirements, client=client, uow=uow
+    background_tasks.add_task(
+        generate_lesson_plan.generate_lesson_plan,
+        lesson_plan_id=lesson_plan_id,
+        client=client,
+        uow=uow,
     )
-    all_exercises = uow.exercises.get_exercises()
-    exercises_by_id = {ex.id: ex for ex in all_exercises}
-    lesson_plan_schema = schemas.LessonPlan.from_domain(
-        lesson_plan, exercises_by_id=exercises_by_id
-    )
-    return GenerateLessonPlanResponse(lesson_plan=lesson_plan_schema)
+
+    return GenerateLessonPlanResponse(id=lesson_plan_id)
 
 
 @router.get("/")

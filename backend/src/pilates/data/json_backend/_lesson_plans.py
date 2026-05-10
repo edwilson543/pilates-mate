@@ -17,11 +17,8 @@ class JSONRepository(lesson_plans.Repository, _mixins.JSONRepositoryMixin):
         self,
         *,
         name: str,
-        description: str,
         date: dt.date,
-        warm_up: list[lesson_plans.ExerciseSequence],
-        main_session: list[lesson_plans.ExerciseSequence],
-        cool_down: list[lesson_plans.ExerciseSequence],
+        requirements: lesson_plans.LessonPlanRequirements,
     ) -> int:
         data = self._read_database()
 
@@ -30,17 +27,37 @@ class JSONRepository(lesson_plans.Repository, _mixins.JSONRepositoryMixin):
         new_lesson_plan = lesson_plans.LessonPlan(
             id=next_id,
             name=name,
-            description=description,
+            description="",
             date=date,
-            warm_up=warm_up,
-            main_session=main_session,
-            cool_down=cool_down,
+            requirements=requirements,
+            status=lesson_plans.LessonPlanStatus.PENDING_GENERATION,
+            warm_up=[],
+            main_session=[],
+            cool_down=[],
         )
         data["lesson_plans"].append(new_lesson_plan.model_dump(mode="json"))
 
         self._write_database(data)
 
         return next_id
+
+    def update_lesson_plan(
+        self,
+        lesson_plan_id: int,
+        *,
+        description: str,
+        status: lesson_plans.LessonPlanStatus,
+    ) -> None:
+        data = self._read_database()
+
+        for plan in data["lesson_plans"]:
+            if plan["id"] == lesson_plan_id:
+                plan["description"] = description
+                plan["status"] = status.value
+                self._write_database(data)
+                return
+
+        raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
     def get_lesson_plans(self) -> list[lesson_plans.LessonPlan]:
         data = self._read_database()

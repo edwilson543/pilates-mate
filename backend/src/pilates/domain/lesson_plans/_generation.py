@@ -9,15 +9,6 @@ class UnableToGenerateLessonPlan(Exception):
     pass
 
 
-class LessonPlanRequirements(pydantic.BaseModel):
-    duration_minutes: int
-    target_difficulty: exercises.Difficulty
-    target_muscle_groups: list[exercises.MuscleGroup]
-    example_lesson_plan_ids: list[int] = []
-    available_equipment: list[exercises.Equipment]
-    user_prompt: str
-
-
 class GeneratedExercise(pydantic.BaseModel):
     id: int
     # Name is just included since LLMs are autoregressive.
@@ -105,7 +96,7 @@ class GeneratedLessonPlan(pydantic.BaseModel):
 
 async def generate_lesson_plan(
     *,
-    requirements: LessonPlanRequirements,
+    requirements: _models.LessonPlanRequirements,
     client: vendors.CompletionClient,
     system_prompt: str,
 ) -> GeneratedLessonPlan:
@@ -120,7 +111,7 @@ async def generate_lesson_plan(
 
 
 def get_system_prompt(
-    requirements: LessonPlanRequirements,
+    requirements: _models.LessonPlanRequirements,
     lesson_plans_repo: _repository.Repository,
     exercises_repo: exercises.Repository,
     version: str = "v1",
@@ -140,7 +131,7 @@ def get_system_prompt(
 
 
 def _get_example_lesson_plans(
-    requirements: LessonPlanRequirements,
+    requirements: _models.LessonPlanRequirements,
     lesson_plans_repo: _repository.Repository,
 ) -> list[_models.LessonPlan]:
     all_lesson_plans = lesson_plans_repo.get_lesson_plans()

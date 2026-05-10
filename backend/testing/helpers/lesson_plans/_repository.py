@@ -37,26 +37,44 @@ class FakeRepository(lesson_plans.Repository):
         self,
         *,
         name: str,
-        description: str,
         date: dt.date,
-        warm_up: list[lesson_plans.ExerciseSequence],
-        main_session: list[lesson_plans.ExerciseSequence],
-        cool_down: list[lesson_plans.ExerciseSequence],
+        requirements: lesson_plans.LessonPlanRequirements,
     ) -> int:
         next_id = len(self._lesson_plans) + 1
 
         new_lesson_plan = lesson_plans.LessonPlan(
             id=next_id,
             name=name,
-            description=description,
+            description="",
             date=date,
-            warm_up=warm_up,
-            main_session=main_session,
-            cool_down=cool_down,
+            requirements=requirements,
+            status=lesson_plans.LessonPlanStatus.PENDING_GENERATION,
+            warm_up=[],
+            main_session=[],
+            cool_down=[],
         )
         self._lesson_plans.append(new_lesson_plan)
 
         return next_id
+
+    def update_lesson_plan(
+        self,
+        lesson_plan_id: int,
+        *,
+        description: str,
+        status: lesson_plans.LessonPlanStatus,
+    ) -> None:
+        for idx, plan in enumerate(self._lesson_plans):
+            if plan.id == lesson_plan_id:
+                updated_plan = plan.model_copy(
+                    update={"description": description, "status": status}
+                )
+                updated_plans = self._lesson_plans.copy()
+                updated_plans[idx] = updated_plan
+                object.__setattr__(self, "_lesson_plans", updated_plans)
+                return
+
+        raise lesson_plans.LessonPlanDoesNotExist(lesson_plan_id=lesson_plan_id)
 
     def get_lesson_plans(self) -> list[lesson_plans.LessonPlan]:
         return self._lesson_plans.copy()

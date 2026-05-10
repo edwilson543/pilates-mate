@@ -3,11 +3,20 @@ from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 def test_update_exercise_set_to_new_values(authenticated_api_client, unit_of_work):
-    exercise_set = lesson_plan_helpers.ExerciseSet(
-        reps=31, duration_seconds=30, movement_variant="HOLD"
+    lesson_plan = lesson_plan_helpers.LessonPlan.insert(
+        unit_of_work,
+        main_session=[
+            lesson_plan_helpers.ExerciseSequence(
+                sets=[
+                    lesson_plan_helpers.ExerciseSet(
+                        reps=31, duration_seconds=30, movement_variant="HOLD"
+                    )
+                ]
+            )
+        ],
     )
-    sequence = lesson_plan_helpers.ExerciseSequence(sets=[exercise_set])
-    lesson_plan_helpers.LessonPlan.insert(unit_of_work, main_session=[sequence])
+    sequence = lesson_plan.main_session[0]
+    exercise_set = sequence.sets[0]
 
     response = authenticated_api_client.put(
         f"/lesson-plans/sequences/{sequence.id}/sets/{exercise_set.id}",

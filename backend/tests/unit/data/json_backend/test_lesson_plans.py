@@ -10,13 +10,11 @@ from testing.helpers import lesson_plans as lesson_plan_helpers
 
 class TestCreateLessonPlan:
     def test_returns_lesson_plan_id(self, uow: _unit_of_work.JSONUnitOfWork):
+        requirements = lesson_plan_helpers.LessonPlanRequirements.create()
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name="Beginner Flow",
-            description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[],
-            main_session=[],
-            cool_down=[],
+            requirements=requirements,
         )
 
         assert lesson_plan_id == 1
@@ -24,13 +22,11 @@ class TestCreateLessonPlan:
     def test_creates_lesson_plan_with_empty_sections(
         self, uow: _unit_of_work.JSONUnitOfWork
     ):
+        requirements = lesson_plan_helpers.LessonPlanRequirements.create()
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name="Beginner Flow",
-            description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[],
-            main_session=[],
-            cool_down=[],
+            requirements=requirements,
         )
 
         lesson_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
@@ -415,8 +411,14 @@ class TestUpdateExerciseSequence:
 
         updated_plan = uow.lesson_plans.get_lesson_plan(lesson_plan.id)
         assert len(updated_plan.main_session[0].sets) == 2
-        assert updated_plan.main_session[0].sets[0].id == set_1.id
-        assert updated_plan.main_session[0].sets[1].id == set_2.id
+        assert (
+            updated_plan.main_session[0].sets[0].id
+            == lesson_plan.main_session[0].sets[0].id
+        )
+        assert (
+            updated_plan.main_session[0].sets[1].id
+            == lesson_plan.main_session[0].sets[1].id
+        )
 
     def test_raises_exception_when_sequence_does_not_exist(
         self, uow: _unit_of_work.JSONUnitOfWork

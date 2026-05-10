@@ -3,7 +3,7 @@ from __future__ import annotations
 import attrs
 
 from pilates.domain import exercises
-from pilates.domain.lesson_plans import _generation
+from pilates.domain.lesson_plans import _generation, _models
 
 from . import _base
 
@@ -64,7 +64,7 @@ time it is used.
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> ExerciseValidityMetric:
         exercise_bank = {
@@ -141,7 +141,7 @@ time it is used.
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> EquipmentValidityMetric:
         available_equipment_set = set(requirements.available_equipment)
@@ -221,7 +221,7 @@ class MovementVariantValidity(_base.Evaluator[MovementVariantValidityMetric]):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> MovementVariantValidityMetric:
         exercise_lookup = deps.build_exercise_lookup()
@@ -304,7 +304,7 @@ Note: empty list is always valid (no equipment).
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> EquipmentVariantValidityMetric:
         exercise_lookup = deps.build_exercise_lookup()
