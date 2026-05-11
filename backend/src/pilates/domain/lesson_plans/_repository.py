@@ -29,12 +29,20 @@ class Repository(abc.ABC):
         self,
         *,
         name: str,
-        description: str,
         date: dt.date,
-        warm_up: list[_models.ExerciseSequence],
-        main_session: list[_models.ExerciseSequence],
-        cool_down: list[_models.ExerciseSequence],
+        requirements: _models.LessonPlanRequirements,
     ) -> int:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def update_lesson_plan(
+        self,
+        lesson_plan_id: int,
+        *,
+        name: str,
+        description: str,
+        status: _models.LessonPlanStatus,
+    ) -> None:
         raise NotImplementedError
 
     @abc.abstractmethod

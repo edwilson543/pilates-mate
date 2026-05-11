@@ -24,7 +24,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLessonPlans } from "@/hooks/queries/useLessonPlans";
 import {
   Combobox,
@@ -70,6 +70,7 @@ export default function GenerateLessonPlanPage() {
   const [duration, setDuration] = useState(45);
   const [difficultyIndex, setDifficultyIndex] = useState(1);
   const comboboxAnchor = useComboboxAnchor();
+  const defaultsInitialized = useRef(false);
 
   const form = useForm<LessonPlanFormData>({
     // @ts-ignore
@@ -84,10 +85,21 @@ export default function GenerateLessonPlanPage() {
     },
   });
 
+  useEffect(() => {
+    if (lessonPlans && !defaultsInitialized.current) {
+      defaultsInitialized.current = true;
+      const recentIds = [...lessonPlans]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 3)
+        .map((plan) => plan.id);
+      form.setValue("example_lesson_plan_ids", recentIds);
+    }
+  }, [lessonPlans, form]);
+
   const onSubmit = async (data: LessonPlanFormData) => {
     const result = await generateMutation.mutateAsync(data);
-    if (result?.lesson_plan?.id) {
-      router.push(`/lesson-plans/${result.lesson_plan.id}`);
+    if (result?.id) {
+      router.push(`/lesson-plans/${result.id}`);
     }
   };
 
@@ -290,8 +302,8 @@ export default function GenerateLessonPlanPage() {
                     <FormItem>
                       <FormLabel>Example lesson plans</FormLabel>
                       <FormDescription>
-                        Select lesson plans to use as examples. The three most
-                        recent plans will be used by default.
+                        The three most recent plans are selected by default. You
+                        can add or remove plans as needed.
                       </FormDescription>
                       <FormControl>
                         <Combobox

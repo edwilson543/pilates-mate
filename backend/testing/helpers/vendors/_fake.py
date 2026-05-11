@@ -8,9 +8,6 @@ from pilates import config
 from pilates.domain import vendors
 
 
-OutputT = typing.TypeVar("OutputT", bound=pydantic.BaseModel)
-
-
 class FakeCompletionClient(vendors.CompletionClient):
     def __init__(self, completion: pydantic.BaseModel):
         self._completion = completion
@@ -24,6 +21,16 @@ class FakeCompletionClient(vendors.CompletionClient):
         self,
         system_prompt: str,
         user_prompt: str,
-        output_format: type[OutputT],
-    ) -> OutputT:
-        return typing.cast(OutputT, self._completion)
+        output_format: type[vendors.CompletionT],
+    ) -> vendors.CompletionT:
+        return typing.cast(vendors.CompletionT, self._completion)
+
+
+class BrokenCompletionClient(vendors.CompletionClient):
+    async def get_completion(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        output_format: type[vendors.CompletionT],
+    ) -> vendors.CompletionT:
+        raise vendors.UnableToGetCompletion

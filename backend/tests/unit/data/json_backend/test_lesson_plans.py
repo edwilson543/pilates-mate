@@ -3,20 +3,18 @@ import datetime as dt
 import pytest
 
 from pilates.data.json_backend import _unit_of_work
-from pilates.domain import exercises, lesson_plans
+from pilates.domain import exercises, lesson_plans, utils
 from testing.helpers import exercises as exercise_helpers
 from testing.helpers import lesson_plans as lesson_plan_helpers
 
 
 class TestCreateLessonPlan:
     def test_returns_lesson_plan_id(self, uow: _unit_of_work.JSONUnitOfWork):
+        requirements = lesson_plan_helpers.LessonPlanRequirements.create()
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name="Beginner Flow",
-            description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[],
-            main_session=[],
-            cool_down=[],
+            requirements=requirements,
         )
 
         assert lesson_plan_id == 1
@@ -24,19 +22,38 @@ class TestCreateLessonPlan:
     def test_creates_lesson_plan_with_empty_sections(
         self, uow: _unit_of_work.JSONUnitOfWork
     ):
+        requirements = lesson_plan_helpers.LessonPlanRequirements.create()
         lesson_plan_id = uow.lesson_plans.create_lesson_plan(
             name="Beginner Flow",
-            description="A gentle introduction to Pilates",
             date=dt.date(2026, 1, 15),
-            warm_up=[],
-            main_session=[],
-            cool_down=[],
+            requirements=requirements,
         )
 
         lesson_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
         assert lesson_plan.warm_up == []
         assert lesson_plan.main_session == []
         assert lesson_plan.cool_down == []
+
+
+class TestUpdateLessonPlan:
+    def test_overwrites_lesson_plan_fields(self, uow: _unit_of_work.JSONUnitOfWork):
+        lesson_plan_id = uow.lesson_plans.create_lesson_plan(
+            name="initial-name",
+            date=utils.today(),
+            requirements=lesson_plan_helpers.LessonPlanRequirements.create(),
+        )
+
+        uow.lesson_plans.update_lesson_plan(
+            lesson_plan_id=lesson_plan_id,
+            name="updated-name",
+            description="updated-description",
+            status=lesson_plans.LessonPlanStatus.GENERATED,
+        )
+
+        updated_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id=lesson_plan_id)
+        assert updated_plan.name == "updated-name"
+        assert updated_plan.description == "updated-description"
+        assert updated_plan.status is lesson_plans.LessonPlanStatus.GENERATED
 
 
 class TestGetLessonPlans:
@@ -415,8 +432,14 @@ class TestUpdateExerciseSequence:
 
         updated_plan = uow.lesson_plans.get_lesson_plan(lesson_plan.id)
         assert len(updated_plan.main_session[0].sets) == 2
-        assert updated_plan.main_session[0].sets[0].id == set_1.id
-        assert updated_plan.main_session[0].sets[1].id == set_2.id
+        assert (
+            updated_plan.main_session[0].sets[0].id
+            == lesson_plan.main_session[0].sets[0].id
+        )
+        assert (
+            updated_plan.main_session[0].sets[1].id
+            == lesson_plan.main_session[0].sets[1].id
+        )
 
     def test_raises_exception_when_sequence_does_not_exist(
         self, uow: _unit_of_work.JSONUnitOfWork

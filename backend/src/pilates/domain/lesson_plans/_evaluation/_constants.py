@@ -1,14 +1,14 @@
 from pilates.domain import exercises
 
-from .. import _generation
+from .. import _models
 
 
-def get_evaluation_requirements() -> list[_generation.LessonPlanRequirements]:
+def get_evaluation_requirements() -> list[_models.LessonPlanRequirements]:
     """
     Get the lesson plan requirements to use when evaluating generated plans.
     """
     full_body = [
-        _generation.LessonPlanRequirements(
+        _models.LessonPlanRequirements(
             duration_minutes=45,
             target_difficulty=difficulty,
             target_muscle_groups=[
@@ -27,7 +27,7 @@ def get_evaluation_requirements() -> list[_generation.LessonPlanRequirements]:
         for available_equipment in [[], [exercises.Equipment.BALL]]
     ]
     core_focus = [
-        _generation.LessonPlanRequirements(
+        _models.LessonPlanRequirements(
             duration_minutes=30,
             target_difficulty=difficulty,
             target_muscle_groups=[
@@ -45,7 +45,7 @@ def get_evaluation_requirements() -> list[_generation.LessonPlanRequirements]:
         for difficulty in exercises.Difficulty
     ]
     glutes_focus = [
-        _generation.LessonPlanRequirements(
+        _models.LessonPlanRequirements(
             duration_minutes=30,
             target_difficulty=difficulty,
             target_muscle_groups=[

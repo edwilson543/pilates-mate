@@ -15,14 +15,14 @@ import { usePathname } from "next/navigation";
 
 const menuItems = [
   {
-    title: "Exercises",
-    icon: Dumbbell,
-    href: "/exercises",
-  },
-  {
     title: "Lesson plans",
     icon: FileText,
     href: "/lesson-plans",
+  },
+  {
+    title: "Exercises",
+    icon: Dumbbell,
+    href: "/exercises",
   },
 ];
 
@@ -34,7 +34,7 @@ export function AppSidebar() {
       <SidebarContent className="pt-6">
         <SidebarGroup>
           <div className={"justify-items-center"}>
-            <h1 className={"text-xl font-light"}>My pilates mate</h1>
+            <h1 className={"text-xl font-light"}>Pilates planner</h1>
           </div>
         </SidebarGroup>
         <SidebarGroup>

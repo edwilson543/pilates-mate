@@ -12,69 +12,85 @@ from testing.helpers import vendors as vendor_helpers
 
 @pytest.mark.asyncio
 class TestGenerateLessonPlan:
-    async def test_generates_and_returns_lesson_plan(self):
+    async def test_generates_and_populates_lesson_plan(self):
         uow = unit_of_work_helpers.FakeUnitOfWork()
 
-        # Create exercises that will be referenced in the generated plan
-        exercise1 = exercise_helpers.Exercise.insert(uow)
-        exercise2 = exercise_helpers.Exercise.insert(uow)
-        exercise3 = exercise_helpers.Exercise.insert(uow)
-
-        fake_completion = lesson_plans.GeneratedLessonPlan(
-            name="Morning Flow",
-            description="A refreshing morning Pilates session",
-            warm_up=[
-                lesson_plan_helpers.GeneratedExerciseSequence(
-                    n_sets=1,
-                    sets=[
-                        lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=lesson_plan_helpers.GeneratedExercise(
-                                id=exercise1.id, name=exercise1.name
-                            )
-                        )
-                    ],
-                )
-            ],
-            main_session=[
-                lesson_plan_helpers.GeneratedExerciseSequence(
-                    n_sets=1,
-                    sets=[
-                        lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=lesson_plan_helpers.GeneratedExercise(
-                                id=exercise2.id, name=exercise2.name
-                            )
-                        )
-                    ],
-                )
-            ],
-            cool_down=[
-                lesson_plan_helpers.GeneratedExerciseSequence(
-                    n_sets=1,
-                    sets=[
-                        lesson_plan_helpers.GeneratedExerciseSet(
-                            exercise=lesson_plan_helpers.GeneratedExercise(
-                                id=exercise3.id, name=exercise3.name
-                            )
-                        )
-                    ],
-                )
-            ],
-        )
-        client = vendor_helpers.FakeCompletionClient(completion=fake_completion)
-
         requirements = lesson_plan_helpers.LessonPlanRequirements()
-
-        result = await generate_lesson_plan.generate_lesson_plan(
-            requirements=requirements, client=client, uow=uow
+        lesson_plan_id = uow.lesson_plans.create_lesson_plan(
+            name="initial-name",
+            date=dt.date(2026, 1, 1),
+            requirements=requirements,
         )
 
-        assert result.id == 1
-        assert result.name == "Morning Flow"
-        assert result.description == "A refreshing morning Pilates session"
-        assert result.date == dt.datetime.now().date()
-        assert len(result.warm_up) == 1
-        assert len(result.main_session) == 1
-        assert len(result.cool_down) == 1
-        assert result.warm_up[0].name == fake_completion.warm_up[0].name
-        assert result.main_session[0].name == fake_completion.main_session[0].name
-        assert result.cool_down[0].name == fake_completion.cool_down[0].name
+        generated_plan = lesson_plan_helpers.GeneratedLessonPlan(name="generated-name")
+        for generated_exercise in generated_plan.exercises:
+            exercise_helpers.Exercise.insert(
+                uow=uow, id=generated_exercise.id, name=generated_exercise.name
+            )
+        client = vendor_helpers.FakeCompletionClient(completion=generated_plan)
+
+        await generate_lesson_plan.generate_lesson_plan(
+            lesson_plan_id=lesson_plan_id, client=client, uow=uow
+        )
+
+        lesson_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id)
+
+        assert lesson_plan.name == "generated-name"
+        assert lesson_plan.status == lesson_plans.LessonPlanStatus.GENERATED
+        assert lesson_plan.description == generated_plan.description
+        assert len(lesson_plan.warm_up) == len(generated_plan.warm_up) == 1
+        assert len(lesson_plan.main_session) == len(generated_plan.main_session) == 1
+        assert len(lesson_plan.cool_down) == len(generated_plan.cool_down) == 1
+        assert lesson_plan.warm_up[0].name == generated_plan.warm_up[0].name
+        assert lesson_plan.main_session[0].name == generated_plan.main_session[0].name
+        assert lesson_plan.cool_down[0].name == generated_plan.cool_down[0].name
+
+    async def test_raises_when_lesson_plan_does_not_exist(self):
+        uow = unit_of_work_helpers.FakeUnitOfWork()
+        completion = lesson_plan_helpers.GeneratedLessonPlan()
+        client = vendor_helpers.FakeCompletionClient(completion=completion)
+
+        with pytest.raises(lesson_plans.LessonPlanDoesNotExist) as exc:
+            await generate_lesson_plan.generate_lesson_plan(
+                lesson_plan_id=123, client=client, uow=uow
+            )
+
+        assert exc.value.lesson_plan_id == 123
+
+    @pytest.mark.parametrize(
+        "status",
+        [
+            lesson_plans.LessonPlanStatus.GENERATED,
+            lesson_plans.LessonPlanStatus.ERRORED,
+        ],
+    )
+    async def test_raises_when_lesson_plan_not_pending_generation(
+        self, status: lesson_plans.LessonPlanStatus
+    ):
+        completion = lesson_plan_helpers.GeneratedLessonPlan.create()
+        client = vendor_helpers.FakeCompletionClient(completion=completion)
+
+        uow = unit_of_work_helpers.FakeUnitOfWork()
+        lesson_plan = lesson_plan_helpers.LessonPlan.insert(uow, status=status)
+
+        with pytest.raises(generate_lesson_plan.LessonPlanNotPendingGeneration) as exc:
+            await generate_lesson_plan.generate_lesson_plan(
+                lesson_plan_id=lesson_plan.id, client=client, uow=uow
+            )
+
+        assert exc.value.status is status
+
+    async def test_raises_when_completion_client_errors(self):
+        client = vendor_helpers.BrokenCompletionClient()
+        uow = unit_of_work_helpers.FakeUnitOfWork()
+        lesson_plan = lesson_plan_helpers.LessonPlan.insert(
+            uow, status=lesson_plans.LessonPlanStatus.PENDING_GENERATION
+        )
+
+        with pytest.raises(lesson_plans.UnableToGenerateLessonPlan):
+            await generate_lesson_plan.generate_lesson_plan(
+                lesson_plan_id=lesson_plan.id, client=client, uow=uow
+            )
+
+        updated_plan = uow.lesson_plans.get_lesson_plan(lesson_plan_id=lesson_plan.id)
+        assert updated_plan.status is lesson_plans.LessonPlanStatus.ERRORED

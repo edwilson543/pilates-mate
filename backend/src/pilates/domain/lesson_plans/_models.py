@@ -14,6 +14,21 @@ class LessonPlanSection(enum.StrEnum):
     COOL_DOWN = "COOL_DOWN"
 
 
+class LessonPlanStatus(enum.StrEnum):
+    PENDING_GENERATION = "PENDING_GENERATION"
+    GENERATED = "GENERATED"
+    ERRORED = "ERRORED"
+
+
+class LessonPlanRequirements(pydantic.BaseModel):
+    duration_minutes: int
+    target_difficulty: exercises.Difficulty
+    target_muscle_groups: list[exercises.MuscleGroup]
+    example_lesson_plan_ids: list[int] = []
+    available_equipment: list[exercises.Equipment]
+    user_prompt: str
+
+
 class ExerciseSet(pydantic.BaseModel):
     id: int
     exercise_id: int
@@ -37,6 +52,8 @@ class LessonPlan(pydantic.BaseModel):
     name: str
     description: str
     date: dt.date
+    requirements: LessonPlanRequirements
+    status: LessonPlanStatus
     warm_up: list[ExerciseSequence]
     main_session: list[ExerciseSequence]
     cool_down: list[ExerciseSequence]

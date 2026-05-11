@@ -5,7 +5,7 @@ import typing
 import attrs
 
 from pilates.domain import exercises
-from pilates.domain.lesson_plans import _generation
+from pilates.domain.lesson_plans import _generation, _models
 
 from . import _base, _helpers
 
@@ -46,7 +46,7 @@ A duration in the range 90-110% is deemed acceptable.
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> DurationComplianceMetric:
         ratio = generated_plan.duration_minutes / requirements.duration_minutes
@@ -89,7 +89,7 @@ class DifficultyScore(_base.Evaluator[DifficultyScoreMetric]):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> DifficultyScoreMetric:
         generated_score = self._get_difficulty_score_for_generated_plan(
@@ -179,7 +179,7 @@ class MuscleGroupCoverage(_base.Evaluator[MuscleGroupCoverageMetric]):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> MuscleGroupCoverageMetric:
         exercise_lookup = deps.build_exercise_lookup()
@@ -254,7 +254,7 @@ class EquipmentUtilisation(_base.Evaluator[EquipmentUtilisationMetric]):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: _base.EvaluationDeps,
     ) -> EquipmentUtilisationMetric:
         if not requirements.available_equipment:

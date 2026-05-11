@@ -4,7 +4,7 @@ import typing
 import pydantic
 
 
-OutputT = typing.TypeVar("OutputT", bound=pydantic.BaseModel)
+CompletionT = typing.TypeVar("CompletionT", bound=pydantic.BaseModel)
 
 
 class UnableToGetCompletion(Exception):
@@ -14,8 +14,8 @@ class UnableToGetCompletion(Exception):
 class CompletionClient(abc.ABC):
     @abc.abstractmethod
     async def get_completion(
-        self, system_prompt: str, user_prompt: str, output_format: type[OutputT]
-    ) -> OutputT:
+        self, system_prompt: str, user_prompt: str, output_format: type[CompletionT]
+    ) -> CompletionT:
         """
         Get a completion.
 

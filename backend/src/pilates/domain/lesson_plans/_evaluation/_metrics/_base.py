@@ -8,7 +8,7 @@ import attrs
 
 from pilates.domain import exercises, vendors
 
-from ... import _generation, _repository
+from ... import _generation, _models, _repository
 
 
 @attrs.frozen
@@ -45,6 +45,7 @@ class Metric(abc.ABC):
         raise NotImplementedError
 
     @classmethod
+    @typing.final
     def aggregate(cls, metrics: list[typing.Self]) -> typing.Self:
         """
         Aggregate multiple metrics of this type into a single metric.
@@ -91,7 +92,7 @@ class Evaluator[MetricT](abc.ABC):
     def evaluate(
         self,
         generated_plan: _generation.GeneratedLessonPlan,
-        requirements: _generation.LessonPlanRequirements,
+        requirements: _models.LessonPlanRequirements,
         deps: EvaluationDeps,
     ) -> MetricT:
         raise NotImplementedError

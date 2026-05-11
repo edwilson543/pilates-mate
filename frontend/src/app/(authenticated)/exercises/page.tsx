@@ -22,9 +22,10 @@ import {
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
+  ChevronDown,
 } from "lucide-react";
 import { useState, useMemo } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Combobox,
@@ -96,6 +97,7 @@ export default function ExercisesPage() {
     "name" | "category" | "difficulty" | "primary_muscle_group"
   >("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [isAdvancedExpanded, setIsAdvancedExpanded] = useState(false);
 
   const categoryAnchor = useComboboxAnchor();
   const difficultyAnchor = useComboboxAnchor();
@@ -207,6 +209,7 @@ export default function ExercisesPage() {
     setSelectedDifficulties([]);
     setSelectedMuscleGroups([]);
     setSelectedStartingPositions([]);
+    setIsAdvancedExpanded(false);
   };
 
   if (isLoading) {
@@ -265,22 +268,32 @@ export default function ExercisesPage() {
 
       {/* Filter Controls */}
       <Card className="mb-6">
-        <CardContent className="pt-6">
-          <div className="space-y-4">
-            {/* Search Input */}
-            <div>
-              <Label className="text-sm font-medium mb-2 block">Search</Label>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search exercises..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
+        <CardHeader className="space-y-4 pb-0 sm:flex sm:items-end sm:space-y-0 sm:space-x-4">
+          <div className="flex-1">
+            <Label className="text-sm font-medium mb-2 block">Search</Label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search exercises..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-9"
+              />
             </div>
-
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsAdvancedExpanded(!isAdvancedExpanded)}
+          >
+            Advanced
+            <ChevronDown
+              className={`h-4 w-4 ml-2 transition-transform duration-200 ${isAdvancedExpanded ? "rotate-180" : ""}`}
+            />
+          </Button>
+        </CardHeader>
+        {isAdvancedExpanded && (
+          <CardContent className="pt-0 pb-6 space-y-4">
             {/* Category Filter */}
             <div>
               <Label className="text-sm font-medium mb-2 block">Category</Label>
@@ -479,8 +492,8 @@ export default function ExercisesPage() {
                 </Button>
               </div>
             )}
-          </div>
-        </CardContent>
+          </CardContent>
+        )}
       </Card>
 
       {/* Filter Results Indicator */}

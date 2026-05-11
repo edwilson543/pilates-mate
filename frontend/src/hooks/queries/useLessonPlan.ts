@@ -11,5 +11,9 @@ export function useLessonPlan(id: number) {
       });
       return response.data!;
     },
+    refetchInterval: (query) => {
+      const status = query.state.data?.status;
+      return status === "PENDING_GENERATION" ? 2000 : false;
+    },
   });
 }

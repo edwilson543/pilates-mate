@@ -147,6 +147,7 @@ export const getExercisesExercisesGet = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/exercises/",
     ...options,
   });
@@ -165,6 +166,7 @@ export const createExerciseExercisesPost = <
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/exercises/",
     ...options,
     headers: {
@@ -187,6 +189,7 @@ export const getExerciseExercisesExerciseIdGet = <
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/exercises/{exercise_id}",
     ...options,
   });
@@ -204,6 +207,7 @@ export const updateExerciseExercisesExerciseIdPut = <
     UpdateExerciseExercisesExerciseIdPutErrors,
     ThrowOnError
   >({
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/exercises/{exercise_id}",
     ...options,
     headers: {
@@ -226,6 +230,7 @@ export const getLessonPlansLessonPlansGet = <
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/lesson-plans/",
     ...options,
   });
@@ -244,6 +249,7 @@ export const generateLessonPlanLessonPlansPost = <
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/lesson-plans/",
     ...options,
     headers: {
@@ -267,7 +273,11 @@ export const deleteLessonPlanLessonPlansLessonPlanIdDelete = <
     DeleteLessonPlanLessonPlansLessonPlanIdDeleteResponses,
     DeleteLessonPlanLessonPlansLessonPlanIdDeleteErrors,
     ThrowOnError
-  >({ url: "/lesson-plans/{lesson_plan_id}", ...options });
+  >({
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/lesson-plans/{lesson_plan_id}",
+    ...options,
+  });
 
 /**
  * Get Lesson Plan
@@ -283,6 +293,7 @@ export const getLessonPlanLessonPlansLessonPlanIdGet = <
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/lesson-plans/{lesson_plan_id}",
     ...options,
   });
@@ -304,6 +315,7 @@ export const addSetToSequenceLessonPlansSequencesSequenceIdSetsPost = <
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/lesson-plans/sequences/{sequence_id}/sets",
     ...options,
     headers: {
@@ -327,7 +339,11 @@ export const deleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDelete = <
     DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteResponses,
     DeleteExerciseSetLessonPlansSequencesSequenceIdSetsSetIdDeleteErrors,
     ThrowOnError
-  >({ url: "/lesson-plans/sequences/{sequence_id}/sets/{set_id}", ...options });
+  >({
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/lesson-plans/sequences/{sequence_id}/sets/{set_id}",
+    ...options,
+  });
 
 /**
  * Update Exercise Set
@@ -345,6 +361,7 @@ export const updateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPut = <
     UpdateExerciseSetLessonPlansSequencesSequenceIdSetsSetIdPutErrors,
     ThrowOnError
   >({
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/lesson-plans/sequences/{sequence_id}/sets/{set_id}",
     ...options,
     headers: {
@@ -370,6 +387,7 @@ export const addSequenceToSectionLessonPlansLessonPlanIdSequencesPost = <
     ThrowOnError
   >({
     responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/lesson-plans/{lesson_plan_id}/sequences",
     ...options,
     headers: {
@@ -393,7 +411,11 @@ export const deleteExerciseSequenceLessonPlansSequencesSequenceIdDelete = <
     DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteResponses,
     DeleteExerciseSequenceLessonPlansSequencesSequenceIdDeleteErrors,
     ThrowOnError
-  >({ url: "/lesson-plans/sequences/{sequence_id}", ...options });
+  >({
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/lesson-plans/sequences/{sequence_id}",
+    ...options,
+  });
 
 /**
  * Update Exercise Sequence
@@ -411,6 +433,7 @@ export const updateExerciseSequenceLessonPlansSequencesSequenceIdPut = <
     UpdateExerciseSequenceLessonPlansSequencesSequenceIdPutErrors,
     ThrowOnError
   >({
+    security: [{ scheme: "bearer", type: "http" }],
     url: "/lesson-plans/sequences/{sequence_id}",
     ...options,
     headers: {

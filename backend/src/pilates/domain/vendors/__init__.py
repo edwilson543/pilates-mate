@@ -1,2 +1,2 @@
-from ._base import CompletionClient, UnableToGetCompletion
+from ._base import CompletionClient, CompletionT, UnableToGetCompletion
 from ._openai import OpenAICompletionClient

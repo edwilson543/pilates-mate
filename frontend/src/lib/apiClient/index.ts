@@ -98,6 +98,7 @@ export type {
   LessonPlan,
   LessonPlanRequirements,
   LessonPlanSection,
+  LessonPlanStatus,
   LoginAuthTokenPostData,
   LoginAuthTokenPostError,
   LoginAuthTokenPostErrors,

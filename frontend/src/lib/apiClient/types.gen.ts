@@ -247,7 +247,10 @@ export type GenerateLessonPlanRequest = {
  * GenerateLessonPlanResponse
  */
 export type GenerateLessonPlanResponse = {
-  lesson_plan: LessonPlan;
+  /**
+   * Id
+   */
+  id: number;
 };
 
 /**
@@ -280,6 +283,8 @@ export type LessonPlan = {
    * Date
    */
   date: string;
+  requirements: LessonPlanRequirements;
+  status: LessonPlanStatus;
   /**
    * Warm Up
    */
@@ -325,6 +330,11 @@ export type LessonPlanRequirements = {
  * LessonPlanSection
  */
 export type LessonPlanSection = "WARM_UP" | "MAIN_SESSION" | "COOL_DOWN";
+
+/**
+ * LessonPlanStatus
+ */
+export type LessonPlanStatus = "PENDING_GENERATION" | "GENERATED" | "ERRORED";
 
 /**
  * MovementVariant

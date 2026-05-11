@@ -13,6 +13,15 @@
       "name": "Balanced Glutes & Core Focus (45 min)",
       "description": "45-minute class targeting glutes and core with side-lying work and plank variations. Flow: sitting prep \u2192 lying core \u2192 side lying glutes (both sides) \u2192 plank obliques \u2192 standing glutes \u2192 sitting core \u2192 lying core \u2192 cool down.",
       "date": "2026-01-24",
+      "status": "GENERATED",
+      "requirements": {
+        "duration_minutes": 45,
+        "target_difficulty": "INTERMEDIATE",
+        "target_muscle_groups": ["GLUTES", "CORE"],
+        "available_equipment": [],
+        "example_lesson_plan_ids": [],
+        "user_prompt": ""
+      },
       "warm_up": [
         {
           "id": 1,
@@ -481,6 +490,15 @@
       "name": "Full Body Flow with Lunges (45 min)",
       "description": "45-minute balanced flow alternating between standing lunges, all-fours glutes, side-lying and supine core. Flow: standing prep \u2192 lying glutes & core \u2192 side lying glutes (both sides) \u2192 all fours core & glutes (both sides) \u2192 standing lunges (both sides) \u2192 plank core \u2192 sitting core \u2192 lying core \u2192 cool down.",
       "date": "2026-01-31",
+      "status": "GENERATED",
+      "requirements": {
+        "duration_minutes": 45,
+        "target_difficulty": "INTERMEDIATE",
+        "target_muscle_groups": ["GLUTES", "CORE"],
+        "available_equipment": [],
+        "example_lesson_plan_ids": [],
+        "user_prompt": ""
+      },
       "warm_up": [
         {
           "id": 13,
@@ -1109,6 +1127,15 @@
       "name": "All-Fours & Ball Work (45 min)",
       "description": "45-minute class emphasizing all-fours glute work with ball, kneeling obliques, and supine bridges. Flow: standing prep with table top \u2192 all fours core, glutes & arms with ball \u2192 kneeling core & glutes \u2192 lying glutes & core with ball \u2192 cool down.",
       "date": "2026-02-07",
+      "status": "GENERATED",
+      "requirements": {
+        "duration_minutes": 45,
+        "target_difficulty": "INTERMEDIATE",
+        "target_muscle_groups": ["GLUTES", "CORE"],
+        "available_equipment": ["BALL"],
+        "example_lesson_plan_ids": [],
+        "user_prompt": ""
+      },
       "warm_up": [
         {
           "id": 25,
