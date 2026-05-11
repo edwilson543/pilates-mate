@@ -139,7 +139,7 @@ def _get_example_lesson_plans(
         example_lesson_plans = [
             lesson_plan
             for lesson_plan in all_lesson_plans
-            if lesson_plan in requirements.example_lesson_plan_ids
+            if lesson_plan.id in requirements.example_lesson_plan_ids
         ]
     else:
         # Fallback to using the three most recent plans.
